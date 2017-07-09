@@ -157,11 +157,7 @@ def four_root(num):
     return float(num ** 0.25)
 
 def get_config():
-#   A function that retrieves the config file
-    ficonfig = open("D:\Dropbox\Code\Python Scripts\modules\FirstInMods\First In.cfg", "r").readlines()
-	#ficonfig = open("C:\Users\sean\Dropbox\Code\Python Scripts\modules\FirstInMods\First In.cfg.surface", "r").readlines()
-    secondline = int(ficonfig[1])
-    
+    ficonfig = open("First In.cfg", "r").readlines()
     return ficonfig
 
 
@@ -215,7 +211,7 @@ def get_spectral(location):
 def get_stellarcharsv():
 # Loading the Stellar Characteristics for Class V Table         
     temp_stellarcharsv = {}
-    for line in open(FILE_PATH + "/Star Characteristics V.txt"):
+    for line in open("Star Characteristics V.txt"):
         data = line.strip().split(',')
         temp_stellarcharsv[data[0]] = dict(zip(('temperature', 'luminosity', 'mass', 'radius', 'lifespan'), data[1:]))
       
@@ -224,7 +220,7 @@ def get_stellarcharsv():
 def get_stellarcharsiii():
 # Loading the Stellar Characteristics for Class V Table         
     temp_stellarcharsiii = {}
-    for line in open(FILE_PATH + "/Star Characteristics III.txt"):
+    for line in open("Star Characteristics III.txt"):
         data = line.strip().split(',')
         temp_stellarcharsiii[data[0]] = dict(zip(('temperature', 'luminosity', 'mass', 'radius', 'lifespan'), data[1:]))
       
@@ -233,7 +229,7 @@ def get_stellarcharsiii():
 def get_orbitalzone():
 # Loading the Orbital Zones Table          
     temp_orbitalzone = {}
-    for line in open(FILE_PATH + "/Orbital Zones Table.txt"):
+    for line in open("Orbital Zones Table.txt"):
         data = line.strip().split(',')
         temp_orbitalzone[data[0]] = dict(zip(('inner_limit', 'life_zone_min', 'life_zone_max', 'snow_line', 'outer_limit'), data[1:])) 
     
@@ -242,7 +238,7 @@ def get_orbitalzone():
 def get_companion_separation():
 # Loading the Orbital Separation Table 
     temp_orbitalsep = {}
-    for line in open(FILE_PATH + "/Orbital Separation Table.txt"):
+    for line in open("Orbital Separation Table.txt"):
         data = line.strip().split(',')
         temp_orbitalsep[data[0]] = dict(zip(('separation', 'orbital_mod'), data[1:])) 
     
@@ -251,7 +247,7 @@ def get_companion_separation():
 def get_planet_density_table():
 # Loading the Planet Density Table
     temp_planet_density = {}
-    for line in open(FILE_PATH + "/Planet Density Table.txt"):
+    for line in open("Planet Density Table.txt"):
         data = line.strip().split(',')
         temp_planet_density[data[0]] = dict(zip(('inside_snow_line', 'outside_snow_line'), data[1:])) 
        
@@ -260,7 +256,7 @@ def get_planet_density_table():
 def get_world_type_table():
 # Loading the World Type Table
     temp_world_type = {}
-    for line in open(FILE_PATH + "/World Type Table.txt"):
+    for line in open("World Type Table.txt"):
         data = line.strip().split(',')
         temp_world_type[data[0]] = dict(zip(('Inner Zone', 'Life Zone', 'Middle Zone', 'Outer Zone', 'Forbidden'), data[1:])) 
        
@@ -1290,7 +1286,6 @@ SPEC_CLASS_CHANCE_K = int(configlist[11])
 MULTIPLE_STAR_CHANCE_S = int(configlist[13])
 MULTIPLE_STAR_CHANCE_B = int(configlist[14])
 DISTANT_COMPANION_CHANCE = int(configlist[16])
-FILE_PATH = str(configlist[23])
 ############################################################
 
 # Load the external tables into memory
@@ -1309,11 +1304,13 @@ COMP_SEP = get_companion_separation()
 WORLD_TYPE = {}
 WORLD_TYPE = get_world_type_table()
 
-   
+
 # Open the SQLite 3 database
 
-conn = sqlite3.connect(FILE_PATH + '/firstin.db')
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
+
+ 
 
 create_tables(c,conn)
 

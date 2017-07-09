@@ -12,7 +12,7 @@
 # Open the SQLite 3 database
 
 import sqlite3
-conn = sqlite3.connect('D:/Dropbox/Code/Python Scripts/modules/FirstInMods/firstin.db')
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
 
 sql3_select_loc = """           SELECT  location

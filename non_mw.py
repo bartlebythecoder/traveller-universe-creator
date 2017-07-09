@@ -189,7 +189,7 @@ def get_tech_level(location, starport, size, atmosphere, hydrographics, populati
 
 # MAIN PROGRAM
     
-conn = sqlite3.connect('D:/Dropbox/Code/Python Scripts/modules/FirstInMods/firstin.db')
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
 create_tb_non_mw_table()
 mw_dict = capture_mainworld_stats()

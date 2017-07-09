@@ -1,0 +1,8 @@
+Large,Hostile (SG),Hostile (SG),Hostile (SG)*,Hostile (SG)*, Lost
+Standard,Greenhouse,Ocean*,Hostile (N)*,Hostile (A)*,Lost
+Small,Desert,Desert*,Desert*,Hostile (A)*,Lost
+Very Small,Rockball,Rockball,Rockball,Icy Rockball,Lost
+Tiny,Rockball,Rockball,Rockball,Icy Rockball,Lost
+Gas Giant,Gas Giant,Gas Giant,Gas Giant,Gas Giant,Lost
+Belt,Belt,Belt,Belt,Belt,Lost
+Lost,Lost,Lost,Lost,Lost,Lost

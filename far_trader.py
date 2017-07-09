@@ -47,7 +47,7 @@ def get_exchange(starport, tech_level):
 
 # MAIN PROGRAM
     
-conn = sqlite3.connect('D:/Dropbox/Code/Python Scripts/modules/FirstInMods/firstin.db')
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
 create_tb_far_trader_table()    
 

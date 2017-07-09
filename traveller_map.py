@@ -10,7 +10,7 @@
 
 import sqlite3
 
-with open('C:/Users/sean/Dropbox/Code/Python Scripts/modules/FirstInMods/travinfile.txt', 'w') as f:
+with open('travinfile.txt', 'w') as f:
     f.write('Hex' + '\t' \
     + 'Name' + '\t' \
     + 'UWP' + '\t' \
@@ -27,12 +27,12 @@ with open('C:/Users/sean/Dropbox/Code/Python Scripts/modules/FirstInMods/travinf
     + 'W' + '\t' \
     + '\n')
 
-    
-conn = sqlite3.connect('C:/Users/sean/Dropbox/Code/Python Scripts/modules/FirstInMods/firstin3000_project.db')
+stall = input('Wait hold on.  About to open the DB')    
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
-
+stall = input('Wait hold on.  DB opened')  
 sql3_select_locorb = """        SELECT  location, 
-                                        name,
+                                        uwp,
                                         uwp,
                                         bases,
                                         remarks,
@@ -52,8 +52,9 @@ sql3_select_locorb = """        SELECT  location,
 
 c.execute(sql3_select_locorb)
 allrows = c.fetchall()
-with open('C:/Users/sean/Dropbox/Code/Python Scripts/modules/FirstInMods/travinfile.txt', 'a') as f:
-    
+stall = input('Wait hold on.  About to open the file')
+with open('travinfile.txt', 'a') as f:
+    stall = input('Wait hold on.  File opened')    
     for row in allrows:
         print(row[0], row[5], row[6])
         f.write('\t'.join(row[0:]) + '\t'+ '\n')

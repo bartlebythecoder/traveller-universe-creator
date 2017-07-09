@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 # A one time script to load constant data from the First In charts into a database
+# Not complete
 
 import sqlite3
 
@@ -33,7 +34,7 @@ def create_planet_size_tables(c,conn):
 def get_stellarcharsv():
 # Loading the Stellar Characteristics for Class V Table         
     temp_stellarcharsv = {}
-    for line in open(FILE_PATH + "/Star Characteristics V.txt"):
+    for line in open("Star Characteristics V.txt"):
         data = line.strip().split(',')
         temp_stellarcharsv[data[0]] = dict(zip(('temperature', 'luminosity', 'mass', 'radius', 'lifespan'), data[1:]))
       
@@ -42,7 +43,7 @@ def get_stellarcharsv():
 def get_stellarcharsiii():
 # Loading the Stellar Characteristics for Class V Table         
     temp_stellarcharsiii = {}
-    for line in open(FILE_PATH + "/Star Characteristics III.txt"):
+    for line in open("Star Characteristics III.txt"):
         data = line.strip().split(',')
         temp_stellarcharsiii[data[0]] = dict(zip(('temperature', 'luminosity', 'mass', 'radius', 'lifespan'), data[1:]))
       
@@ -51,7 +52,7 @@ def get_stellarcharsiii():
 def get_orbitalzone():
 # Loading the Orbital Zones Table          
     temp_orbitalzone = {}
-    for line in open(FILE_PATH + "/Orbital Zones Table.txt"):
+    for line in open("Orbital Zones Table.txt"):
         data = line.strip().split(',')
         temp_orbitalzone[data[0]] = dict(zip(('inner_limit', 'life_zone_min', 'life_zone_max', 'snow_line', 'outer_limit'), data[1:])) 
     return temp_orbitalzone
@@ -87,8 +88,7 @@ OZONE = get_orbitalzone()
 
 # Open the SQLite 3 database
 
-#conn = sqlite3.connect(FILE_PATH + '/firstin.db')
-conn = sqlite3.connect(FILE_PATH + '/firstin3000_project.db')
+conn = sqlite3.connect(firstin.db)
 c = conn.cursor()
 
 create_tables(c,conn)

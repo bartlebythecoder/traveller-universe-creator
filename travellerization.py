@@ -563,7 +563,7 @@ def get_stars(location,p_star_dict,c_star_dict,t_star_dict):
    
 # MAIN PROGRAM
     
-conn = sqlite3.connect('D:/Dropbox/Code/Python Scripts/modules/FirstInMods/firstin.db')
+conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
 create_t5_table()
 
