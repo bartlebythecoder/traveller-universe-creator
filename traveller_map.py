@@ -27,10 +27,10 @@ with open('travinfile.txt', 'w') as f:
     + 'W' + '\t' \
     + '\n')
 
-stall = input('Wait hold on.  About to open the DB')    
+ 
 conn = sqlite3.connect('firstin.db')
 c = conn.cursor()
-stall = input('Wait hold on.  DB opened')  
+
 sql3_select_locorb = """        SELECT  location, 
                                         uwp,
                                         uwp,
