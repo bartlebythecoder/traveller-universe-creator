@@ -1,0 +1,5 @@
+6,Very Close,0.05
+9,Close,0.5
+11,Moderate,2
+14,Wide,10
+15,Distant,50
