@@ -1,4 +1,4 @@
-# traveller-universe-creator
+# traveller-sector_builder_FI
 Build a SQLite database of Traveller systems using First In and T5 hybrid rules
 
 Running traveller_master.py will produce:
