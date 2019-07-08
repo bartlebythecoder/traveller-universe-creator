@@ -1,4 +1,4 @@
-def generate_mainworld_scores():
+def generate_mainworld_scores(db_name):
 #!/usr/bin/python
 
 # Mainworld Calculator
@@ -15,7 +15,7 @@ def generate_mainworld_scores():
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     
     

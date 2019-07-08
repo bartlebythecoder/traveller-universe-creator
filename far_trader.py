@@ -1,4 +1,4 @@
-def generate_far_trader_stats(seed_number):
+def generate_far_trader_stats(seed_number,db_name):
 
 # Far Trader
 # by Sean Nelson
@@ -47,7 +47,7 @@ def generate_far_trader_stats(seed_number):
     
     # MAIN PROGRAM
         
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     create_tb_far_trader_table()    
     
@@ -62,7 +62,7 @@ def generate_far_trader_stats(seed_number):
     allrows = c.fetchall()
         
     for row in allrows:
-        print (row[0])
+#        print (row[0])
         location = str(row[0])
         starport = str(row[1])
         population = int(row[2])
@@ -85,7 +85,7 @@ def generate_far_trader_stats(seed_number):
             else: tl_mod = 2
             
             uwtn = round(tl_mod + pop_mod,2)
-            print (uwtn)
+#            print (uwtn)
             
             port_dict = {   'A':(1.5,1,1,0.5,0.5,0,0,0),
                             'B':(1,1,0.5,0.5,0,0,-0.5,-1),
@@ -99,17 +99,17 @@ def generate_far_trader_stats(seed_number):
             elif mod_uwtn < 0: mod_uwtn = 0
             
             port_mod = port_dict[starport][mod_uwtn]
-            print (port_mod)
+#            print (port_mod)
             
             wtn = uwtn + port_mod
-            print (wtn)
+#            print (wtn)
             
             bpr = -100
             bpr_list = (55,85,135,220,350,560,895,1430,2290,3660,5860,9375,15000,24400,40000,60000)
             tl_lookup = tech_level
             if tl_lookup > 15: tl_lookup = 15
             bpr = bpr_list[tl_lookup]
-            print(bpr)
+#            print(bpr)
             
             bpr_trade_mod = 1
             
@@ -125,10 +125,10 @@ def generate_far_trader_stats(seed_number):
             elif 'Va' in remarks:  bpr_trade_mod = bpr_trade_mod * 0.8
             
             bpr_trade = bpr * bpr_trade_mod
-            print(bpr_trade)
+#            print(bpr_trade)
             
             gwp = round(bpr_trade * population * 10,0)
-            print(gwp)
+#            print(gwp)
             
             exchange = get_exchange(starport, tech_level)
     		

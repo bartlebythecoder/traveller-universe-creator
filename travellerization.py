@@ -1,4 +1,4 @@
-def add_traveller_stats(seed_number):
+def add_traveller_stats(seed_number,db_name):
 
 
 # Travellerization
@@ -320,7 +320,7 @@ def add_traveller_stats(seed_number):
                 + hydro_mod \
                 + pop_mod \
                 + gov_mod 
-        print ('Tech',starport,dice,starport_mod,size_mod,atmosphere_mod,hydro_mod,pop_mod,gov_mod)
+#        print ('Tech',starport,dice,starport_mod,size_mod,atmosphere_mod,hydro_mod,pop_mod,gov_mod)
         if population == 0: dice = 0
         return dice
     #    
@@ -329,9 +329,9 @@ def add_traveller_stats(seed_number):
         for i in varg:
             if i[0] in i[1]: 
                 rem_result = True
-                print ('In',i[0],i[1])
+#                print ('In',i[0],i[1])
             else: 
-                print ('Out',i[0],i[1])
+#                print ('Out',i[0],i[1])
                 return False
         return rem_result
     
@@ -367,12 +367,12 @@ def add_traveller_stats(seed_number):
                     
         atm_ic = (0,1)
         hyd_ic = (1,2,3,4,5,6,7,8,9,10)
-        print (atmosphere, hydrographics)
-        if remark_check((atmosphere,atm_ic),(hydrographics,hyd_ic)):
-                print('Found ice! <<<<<<<<<<<<<<<<<<<<<<<<<')
-                remarks_list.append('Ic')
-        else: print ('No Ice!')
-        print (remarks_list)
+#        print (atmosphere, hydrographics)
+#        if remark_check((atmosphere,atm_ic),(hydrographics,hyd_ic)):
+#                print('Found ice! <<<<<<<<<<<<<<<<<<<<<<<<<')
+#                remarks_list.append('Ic')
+#        else: print ('No Ice!')
+#        print (remarks_list)
                 
                 
         siz_oc = (10,11,12)
@@ -573,7 +573,7 @@ def add_traveller_stats(seed_number):
        
     # MAIN PROGRAM
         
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     create_t5_table()
     
@@ -584,6 +584,8 @@ def add_traveller_stats(seed_number):
     c_stars_dict = capture_secondary_stats()
     t_stars_dict = capture_tertiary_stats()
     
+    sector_population = 0
+    
     
     sql3_select_locorb = """        SELECT  *  
                                     FROM    tb_orbital_bodies 
@@ -593,11 +595,12 @@ def add_traveller_stats(seed_number):
     allrows = c.fetchall()
     
     for row in allrows:
-        print (row[0])
+#        print (row[0])
 #        system_name = 'Name'
         system_name = get_system_name(name_list)
-        print(system_name)
+#        print(system_name)
         population = get_population(row[0])
+        sector_population += 10**population
         pop_mod = get_pop_mod(row[0],population)
         belts = get_belts(row[1],p_stars_dict)
         gg = get_gg(row[1],p_stars_dict)
@@ -706,7 +709,7 @@ def add_traveller_stats(seed_number):
     
     
     
-    
-    
+    sector_population /= 1000000000000
+    print('Sector population approx.',round(sector_population,2), 'trillion sophonts.')
     conn.commit()
     conn.close()

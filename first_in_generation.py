@@ -1,4 +1,4 @@
-def generate_stars(seed_number):
+def generate_stars(makeit_list):
 
 
 # First In Generation
@@ -7,7 +7,6 @@ def generate_stars(seed_number):
 # A program to teach Sean the Python programming language
 # The goal is to generate a series of star systems for Traveller using the First In ruleset
 
-# The tables and inputs should eventually be in a config file for easy editing
 
 # Possible Improvements Pending:
 
@@ -20,7 +19,6 @@ def generate_stars(seed_number):
 #       - Other companions must handle Forbidden Zone
 #       - Orbital bodies for non-primary stars
 #   - Gas Giant details (including moons)
-#   - Offer option for config file - run from different computers
 #   - Expand moon data
 #   - Add tidal effects
 #   - World Types are straight from the table, should have variation as per the rules
@@ -29,8 +27,7 @@ def generate_stars(seed_number):
 
 #   - To Do list complete:
 #   - COMPLETE: Add Stellar Age
-#   - COMPLETE: Approriate Planet Size modifiers
-#   - COMPLETE: Add path to config file
+#   - COMPLETE: Appropriate Planet Size modifiers
 #   - COMPLETE: Validate order in orbits of secondary and tertiary 
 #       - (Tertiary are automatically set to distant orbits)
 #   - COMPLETE: Stellar data loaded in a database. 
@@ -44,7 +41,8 @@ def generate_stars(seed_number):
     import sqlite3
     import math 
     import random
-    random.seed(seed_number)
+    
+
     
     def create_tables(c,conn):
         sql_create_tb_stellar_primary = """CREATE TABLE tb_stellar_primary( 
@@ -152,11 +150,7 @@ def generate_stars(seed_number):
     def four_root(num):
         num = float(num)
         return float(num ** 0.25)
-    
-    def get_config():
-        ficonfig = open("First In.cfg", "r").readlines()
-        return ficonfig
-    
+ 
     
            
         
@@ -1270,21 +1264,36 @@ def generate_stars(seed_number):
         
     #Main Program
     
-    #   Read the config file and drop it into list "configlist"
+
     ###########################################################
-    configlist = get_config()
-    # add one to sector integer to use for-loop in main program
-    SECTORS = int(configlist[1]) + 1   #Program set for building one sector at this time.  More than one sector will just erase the previous.
-    LIKELIHOOD = int(configlist[3])
-    LUM_CLASS_CHANCE_III = int(configlist[5])
-    LUM_CLASS_CHANCE_V = int(configlist[6])
-    SPEC_CLASS_CHANCE_A = int(configlist[8])
-    SPEC_CLASS_CHANCE_F = int(configlist[9])
-    SPEC_CLASS_CHANCE_G = int(configlist[10])
-    SPEC_CLASS_CHANCE_K = int(configlist[11])
-    MULTIPLE_STAR_CHANCE_S = int(configlist[13])
-    MULTIPLE_STAR_CHANCE_B = int(configlist[14])
-    DISTANT_COMPANION_CHANCE = int(configlist[16])
+    #   Break down input variable 'makeit_list'
+#                 0   random_seed_input, 
+#                 1   sector_name_input,
+#                 2   density_input,
+#                 3   lumiii_input,
+#                 4   lumv_input,
+#                 5   spectrala_input,
+#                 6   spectralf_input,
+#                 7   spectralg_input,
+#                 8   spectralk_input,
+#                 9   solo_input,
+#                 10   binary_input,
+#                 11  distant_input
+    seed_number = makeit_list[0]
+    random.seed(seed_number)
+    
+    SECTORS = 1   #Program set for building one sector at this time.  More than one sector will just erase the previous.
+    DB_NAME = makeit_list[1] + '.db'
+    LIKELIHOOD = int(makeit_list[2])
+    LUM_CLASS_CHANCE_III = int(makeit_list[3])
+    LUM_CLASS_CHANCE_V = int(makeit_list[4])
+    SPEC_CLASS_CHANCE_A = int(makeit_list[5])
+    SPEC_CLASS_CHANCE_F = int(makeit_list[6])
+    SPEC_CLASS_CHANCE_G = int(makeit_list[7])
+    SPEC_CLASS_CHANCE_K = int(makeit_list[8])
+    MULTIPLE_STAR_CHANCE_S = int(makeit_list[9])
+    MULTIPLE_STAR_CHANCE_B = int(makeit_list[10])
+    DISTANT_COMPANION_CHANCE = int(makeit_list[11])
     ############################################################
     
     # Load the external tables into memory
@@ -1306,7 +1315,7 @@ def generate_stars(seed_number):
     
     # Open the SQLite 3 database
     
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     
      
@@ -1319,7 +1328,7 @@ def generate_stars(seed_number):
     
     
     #   Loop for each sector
-    for a in range(1,SECTORS):
+    for a in range(0,SECTORS):
         astring = str(a)
     
     #   Loop for each parsec in a subsector
@@ -1359,7 +1368,7 @@ def generate_stars(seed_number):
                     total_systems = total_systems + 1
                    
                   
-                    print(parsec + ':' + primary_stellar_dict_r["p_system_type"])
+#                    print(parsec + ':' + primary_stellar_dict_r["p_system_type"])
     
                     
                     secondary_stellar_dict_r = {}  
@@ -1385,7 +1394,7 @@ def generate_stars(seed_number):
     
                 else:
                     systempresent = False
-    print(total_systems)           
+    print(total_systems,'different systems generated.')           
     conn.commit()  
     c.close()
     conn.close()

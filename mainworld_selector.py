@@ -1,4 +1,4 @@
-def choose_mainworld():
+def choose_mainworld(db_name):
 #!/usr/bin/python
 
 # Mainworld Selector
@@ -13,7 +13,7 @@ def choose_mainworld():
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     
     sql3_select_loc = """           SELECT  location
@@ -48,7 +48,7 @@ def choose_mainworld():
                 top_locorb = row[1]
         if top_calc > -1000000:
             c.execute(sql3_insert_status,('Y',top_locorb))
-        print (n, top_locorb, top_calc)
+#        print (n, top_locorb, top_calc)
     
     conn.commit()
     conn.close()        

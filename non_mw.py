@@ -1,4 +1,4 @@
-def generate_non_mainworlds(seed_number):
+def generate_non_mainworlds(seed_number,db_name):
 
 
 # Non Main World
@@ -182,7 +182,7 @@ def generate_non_mainworlds(seed_number):
                 + hydro_mod \
                 + pop_mod \
                 + gov_mod 
-        print ('Tech',starport,dice,starport_mod,size_mod,atmosphere_mod,hydro_mod,pop_mod,gov_mod)
+#        print ('Tech',starport,dice,starport_mod,size_mod,atmosphere_mod,hydro_mod,pop_mod,gov_mod)
         if population == 0: dice = 0
         return dice
             
@@ -190,7 +190,7 @@ def generate_non_mainworlds(seed_number):
     
     # MAIN PROGRAM
         
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     create_tb_non_mw_table()
     mw_dict = capture_mainworld_stats()
@@ -204,7 +204,7 @@ def generate_non_mainworlds(seed_number):
     allrows = c.fetchall()
     
     for row in allrows:
-        print (row[0])
+#        print (row[0])
         population = get_population(row[1],mw_dict)
         spaceport = get_spaceport(row[0],population)
         atmosphere = get_atmosphere(row[15],row[17])

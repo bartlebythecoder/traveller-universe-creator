@@ -1,4 +1,4 @@
-def build_travellermap_file():
+def build_travellermap_file(db_name):
 
 
 # Traveller Map
@@ -10,8 +10,9 @@ def build_travellermap_file():
 #   Open the SQLite 3 database
 
     import sqlite3
+    trav_filename = db_name + '.txt'
     
-    with open('travinfile.txt', 'w') as f:
+    with open(trav_filename, 'w') as f:
         f.write('Hex' + '\t' \
         + 'Name' + '\t' \
         + 'UWP' + '\t' \
@@ -29,7 +30,7 @@ def build_travellermap_file():
         + '\n')
     
      
-    conn = sqlite3.connect('firstin.db')
+    conn = sqlite3.connect(db_name+'.db')
     c = conn.cursor()
     
     sql3_select_locorb = """        SELECT  location,                             
@@ -53,11 +54,12 @@ def build_travellermap_file():
     
     c.execute(sql3_select_locorb)
     allrows = c.fetchall()
-    stall = input('Wait hold on.  About to open the file')
-    with open('travinfile.txt', 'a') as f:
-        stall = input('Wait hold on.  File opened')    
+#    stall = input('Wait hold on.  About to open the file')
+
+    with open(trav_filename, 'a') as f:
+#        stall = input('Wait hold on.  File opened')    
         for row in allrows:
-            print(row[0], row[5], row[6])
+#            print(row[0], row[5], row[6])
             f.write('\t'.join(row[0:]) + '\t'+ '\n')
     
     conn.commit()
