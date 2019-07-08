@@ -11,7 +11,7 @@ from traveller_master import make_sector_master
 top = Tk()
 top.title("Traveller Sector Creator")
 top.geometry("800x400")
-
+print('Processing...')
 
 def helloCallBack():
     msg = messagebox.showinfo( "Coming Soon", "This feature has not been built yet")
