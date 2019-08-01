@@ -18,12 +18,18 @@ matplotlib.use("TkAgg")
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 from matplotlib import style
+import re
+import ntpath
+
+
 
 
 
 
 import tkinter as tk
 from tkinter import ttk
+from tkinter import filedialog
+from tkinter import *
 from matplotlib import pyplot as plt
 
 
@@ -31,27 +37,120 @@ from matplotlib import pyplot as plt
 LARGE_FONT = ("Verdana", 12)
 NORM_FONT = ("Verdana", 10)
 SMALL_FONT = ("Verdana", 8)
-style.use("ggplot")
+style.use("dark_background")
 
-f= Figure(figsize=(20,11),dpi=100)
+f= Figure(figsize=(6,7),dpi=100)
 
+def file_open():
 
+    root.filename =  filedialog.askopenfilename(title = "Select the database file",filetypes = (("db files","*.db"),("all files","*.*")))
+    conn = sqlite3.connect(root.filename)
+    c = conn.cursor()
+    df = pd.read_sql_query('''SELECT
+                           tb_stellar_primary.location,
+                           system_type,
+                           luminosity_class,
+                           spectral_type,
+                           orbits,
+                           age,
+                           belts,
+                           gg,
+                           tb_t5.system_name,
+                           tb_t5.location as tf_loc
+                           FROM tb_stellar_primary 
+                           LEFT JOIN tb_t5 on tb_t5.location = tb_stellar_primary.location''', conn)
+    df_world_uwp = pd.read_sql_query('''SELECT 
+                tb_orbital_bodies.location,
+                distance,
+                tb_orbital_bodies.zone,
+                body,
+                density,
+                gravity,
+                atmos_pressure,
+                temperature,
+                mainworld_status,
+                tb_t5.location as t5_loc,
+                tb_t5.system_name,
+                tb_t5.starport,
+                tb_t5.size,
+                tb_t5.atmosphere,
+                tb_t5.hydrographics,
+                tb_t5.population,
+                tb_t5.government,
+                tb_t5.law,
+                tb_t5.tech_level,
+                tb_t5.remarks,
+                tb_t5.ix
+                FROM tb_orbital_bodies 
+                INNER JOIN tb_t5 on tb_t5.location = tb_orbital_bodies.location 
+                WHERE mainworld_status = "Y"  ''', conn)
+    df_world_uwp['ix'] = df_world_uwp['ix'].apply(lambda x: int(re.sub('{|}', '', x)))
+    print(df_world_uwp)
+    conn.commit()  
+    c.close()
+    conn.close()
+    db_name = ntpath.basename(root.filename)
 
+    return([df,df_world_uwp,db_name])
+    
+def get_file_action():
+    global df
+    global df_world_uwp
+    global db_name
+        
+    df,df_world_uwp,db_name = file_open() 
+    f.canvas.draw_idle()
+    
+
+def validate_something(*args):
+    print('Yes validated')
+    print(*args)
+
+    
+def move_cursor(a):
+    print('Moving cursor')
+    global cursor_y 
+    cursor_y += 1
+    print(cursor_y)    
+    
+    xcoordinates,ycoordinates = get_coordinates(df)
+    a.scatter(xcoordinates[cursor_x],ycoordinates[cursor_y],c='White', s=30, marker = "*")
+    print(xcoordinates,ycoordinates)
+    print('cursor',xcoordinates[cursor_x],ycoordinates[cursor_y])
+    
+    
+    
+    f.canvas.draw_idle()
 
 def qf():
+    global root
     print("Shutting Down")
+    root.quit()
     app.destroy()
+
+
+    
 
 def not_ready():
     tk.messagebox.showinfo("Information","Not supported just yet!")
+  
 
 
-def animate(label_list,color_list,plot_list,*args):
+def mouse_x_y(event):
+    coords = (event.x, event.y)
+    print(test)
 
-    print('Made it to animate')
-    a = f.add_subplot(121)
 
+
+
+def animate(chart_title,label_list,color_list,plot_list,*args):
+    global cursor_x
+    global cursor_y 
+    global db_name
     
+    print('Made it to animate')
+    a = f.add_subplot(111)
+
 
 
 
@@ -60,27 +159,47 @@ def animate(label_list,color_list,plot_list,*args):
     a.set_yticks([])
     xcoordinates = []
     ycoordinates = []
+
+
     
     arg_num = 0
+    chart_title = db_name + '\n' + chart_title
     for arg in args:
-        print(arg)
+        try:
+            print(arg.system_name)
+        except:
+            print('Cannot find system name')
         xcoordinates,ycoordinates = get_coordinates(arg)
+
         color_choice = color_list[arg_num]
         label_choice = label_list[arg_num]
         plot_size = plot_list[arg_num]
+        
+        a.set_title(chart_title, color='white')
         a.scatter(xcoordinates,ycoordinates,c=color_choice,label=label_choice, s=plot_size)
-        arg_num += 1
-    a.legend(bbox_to_anchor=(0, 1.02, 1, .102), loc=3, ncol=2, borderaxespad=0)  
+
     
-    text_container = tk.Frame()
-    text_container.pack(side="right", fill="both", expand = False)
-    text_container.grid_rowconfigure(0, weight=1)
-    text_container.grid_columnconfigure(0, weight=1)
-    T = tk.Text(text_container, height=100, width=30)
-    T.pack()
-    T.insert(tk.END, "Just a text Widget\nin two lines\n")
-    
-    
+        name_list = arg['system_name'].tolist()
+        label_color = 'White'
+        if len(name_list) <= 10:
+            name_coords = list(zip(xcoordinates,ycoordinates))
+            row_num = 0
+            for each_item in name_coords:
+                row_name = name_list[row_num]
+                a.text(each_item[0]-2,each_item[1],row_name,fontsize = 10,color = label_color)
+                row_num += 1
+            
+
+           
+        arg_num += 1    
+
+
+
+    #a.legend(bbox_to_anchor=(0, 1.02, 1, .102), loc=3, ncol=2, borderaxespad=0)
+    a.legend(bbox_to_anchor=(1, 0, 0, 0),ncol=2)
+#    app.bind("<Down>",lambda ignore_var: move_cursor(a))
+    f.tight_layout()
+
     
     
     f.canvas.draw_idle()
@@ -98,7 +217,7 @@ def stellarmenu_action():
     stell_colors =['Green','Blue','Red']
     stell_labels = ['Solo','Binary','Trinary']
     plot_list = [65,65,65]
-    animate(stell_labels,stell_colors,plot_list ,df_solo,df_binary,df_trinary)    
+    animate('System Type',stell_labels,stell_colors,plot_list ,df_solo,df_binary,df_trinary)    
     
 def luminosity_action():
     df_lum_d = df.query('luminosity_class == "D"')
@@ -107,7 +226,7 @@ def luminosity_action():
     stell_colors =['Green','Blue','Red']
     stell_labels = ['Class V, Main Sequence','Class D, White Dwarf','Class III, Giant']
     plot_list = [65,30,100]
-    animate(stell_labels,stell_colors,plot_list,df_lum_v,df_lum_d,df_lum_iii)     
+    animate('Luminosity Class',stell_labels,stell_colors,plot_list,df_lum_v,df_lum_d,df_lum_iii)     
     
 def spectral_type_action():
     df_spectral_m = df.query('spectral_type == "M5" | spectral_type == "M0" ')
@@ -116,10 +235,10 @@ def spectral_type_action():
     df_spectral_f = df.query('spectral_type == "F5" | spectral_type == "F0" ')
     df_spectral_a = df.query('spectral_type == "A5" | spectral_type == "A0" ')
     df_spectral_w = df.query('spectral_type == "w"')
-    stell_colors =['Red','Orange','Yellow','Wheat','White','Black']
+    stell_colors =['Red','Orange','Yellow','Wheat','White','Grey']
     stell_labels = ['Type M','Type K','Type G','Type F','Type A','Type w']
     plot_list  = [65,65,65,65,65,30]
-    animate(stell_labels,stell_colors,plot_list,df_spectral_m,df_spectral_k,df_spectral_g,
+    animate('Spectral Type',stell_labels,stell_colors,plot_list,df_spectral_m,df_spectral_k,df_spectral_g,
             df_spectral_f,df_spectral_a,df_spectral_w)  
     
 def stellar_age_action():
@@ -129,7 +248,7 @@ def stellar_age_action():
     stell_colors =['Blue','Green','Red']
     stell_labels = ['Under 4 billion years','4 to 8 billion years','Over 8 billion years']
     plot_list  = [30,65,100]
-    animate(stell_labels,stell_colors,plot_list,df_spectral_age_small,
+    animate('Age in Billions of Years',stell_labels,stell_colors,plot_list,df_spectral_age_small,
             df_spectral_age_medium,df_spectral_age_large)
     
 def stellar_orbits_action():
@@ -139,17 +258,17 @@ def stellar_orbits_action():
     stell_colors =['Blue','Green','Red']
     stell_labels = ['Under 4 orbital zones','4 to 8 orbital zones','Over 8 orbital zones']
     plot_list  = [30,65,100]
-    animate(stell_labels,stell_colors,plot_list,df_spectral_orbits_small,
+    animate("Number of Orbital Zones Around Primary",stell_labels,stell_colors,plot_list,df_spectral_orbits_small,
             df_spectral_orbits_medium,df_spectral_orbits_large)
     
 def stellar_belts_action():
     df_spectral_belts_none = df.query('belts == 0')
     df_spectral_belts_one = df.query('belts == 1')
     df_spectral_belts_two_or_more = df.query('belts >= 2')
-    stell_colors =['Blue','Green','Red']
+    stell_colors =['Grey','Green','Red']
     stell_labels = ['No belts present','One belt present','More than one belt present']
     plot_list  = [30,65,100]
-    animate(stell_labels,stell_colors,plot_list,df_spectral_belts_none,
+    animate("Number of Planetary Belts",stell_labels,stell_colors,plot_list,df_spectral_belts_none,
             df_spectral_belts_one,df_spectral_belts_two_or_more)    
     
 def stellar_giants_action():
@@ -157,152 +276,297 @@ def stellar_giants_action():
     df_spectral_giants_one = df.query('gg == 1 ')
     df_spectral_giants_two_or_three = df.query('gg >= 2 & gg < 4')
     df_spectral_giants_four_or_more = df.query('gg >= 4')
-    stell_colors =['Blue','Green','Orange','Red']
-    stell_labels = ['No gas giants present','One gas giant present',
-                    'Two or three gas giants present','At least four gas giants present']
+    stell_colors =['Grey','Green','Orange','Red']
+    stell_labels = ['No GG present','1 GG present',
+                    '2 or 3 GG present','4> GG present']
     plot_list  = [30,65,65,100]
-    animate(stell_labels,stell_colors,plot_list,df_spectral_giants_none,
+    animate('Number of Gas Giants in Orbit',stell_labels,stell_colors,plot_list,df_spectral_giants_none,
             df_spectral_giants_one,df_spectral_giants_two_or_three,df_spectral_giants_four_or_more)    
     
 
 def starport_action():
-    df_starport_a = df_uwp.query('starport == "A"')
-    df_starport_b = df_uwp.query('starport == "B"')
-    df_starport_c = df_uwp.query('starport == "C"')
-    df_starport_d = df_uwp.query('starport == "D"')
-    df_starport_e = df_uwp.query('starport == "E"')
-    df_starport_x = df_uwp.query('starport == "X"')    
+    df_starport_a = df_world_uwp.query('starport == "A"')
+    df_starport_b = df_world_uwp.query('starport == "B"')
+    df_starport_c = df_world_uwp.query('starport == "C"')
+    df_starport_d = df_world_uwp.query('starport == "D"')
+    df_starport_e = df_world_uwp.query('starport == "E"')
+    df_starport_x = df_world_uwp.query('starport == "X"')    
     stell_colors =['Green','Turquoise','Blue','Salmon','Orange','Red']
     stell_labels = ['Class A','Class B','Class C','Class D','Class E','Class X']
     plot_list  = [90,65,65,65,65,30]
-    animate(stell_labels,stell_colors,plot_list,df_starport_a,df_starport_b,df_starport_c,df_starport_d,
+    animate('Mainworld Starport Class',stell_labels,stell_colors,plot_list,df_starport_a,df_starport_b,df_starport_c,df_starport_d,
             df_starport_e,df_starport_x)  
     
 def planetary_size_action():
-    df_planetary_size_small = df_uwp.query('size < 2')
-    df_planetary_size_medium = df_uwp.query('size >= 2 & size <=6')
-    df_planetary_size_large = df_uwp.query('size >6')
+    df_planetary_size_small = df_world_uwp.query('size < 2')
+    df_planetary_size_medium = df_world_uwp.query('size >= 2 & size <=6')
+    df_planetary_size_large = df_world_uwp.query('size >6')
     stell_colors =['Blue','Green','Red']
     stell_labels = ['Size 0 or 1','Size 2 to 6','Size 7 or higher']
     plot_list  = [30,65,100]
-    animate(stell_labels,stell_colors,plot_list,df_planetary_size_small,
+    animate('Mainworld Size Code',stell_labels,stell_colors,plot_list,df_planetary_size_small,
             df_planetary_size_medium,df_planetary_size_large)
     
 def planetary_atmosphere_action():
-    df_planetary_atmosphere_breathable = df_uwp.query('atmosphere == 5 |atmosphere == 6|atmosphere == 8')
-    df_planetary_atmosphere_not_breathable = df_uwp.query('(atmosphere > 0 & atmosphere < 5) |atmosphere == 7|atmosphere == 9')
-    df_planetary_atmosphere_dangerous = df_uwp.query('atmosphere >9')
-    df_planetary_atmosphere_none = df_uwp.query('atmosphere <=0')
-    df_planetary_size_large = df_uwp.query('size >6')
-    stell_colors =['Green','Blue','Red','Black']
+    df_planetary_atmosphere_breathable = df_world_uwp.query('atmosphere == 5 |atmosphere == 6|atmosphere == 8')
+    df_planetary_atmosphere_not_breathable = df_world_uwp.query('(atmosphere > 0 & atmosphere < 5) |atmosphere == 7|atmosphere == 9')
+    df_planetary_atmosphere_dangerous = df_world_uwp.query('atmosphere >9')
+    df_planetary_atmosphere_none = df_world_uwp.query('atmosphere <=0')
+    df_planetary_size_large = df_world_uwp.query('size >6')
+    stell_colors =['Green','Blue','Red','Grey']
     stell_labels = ['Breathable','Not Breathable','Dangerous','No atmosphere']
     plot_list  = [65,65,65,30]
-    animate(stell_labels,stell_colors,plot_list,df_planetary_atmosphere_breathable,
+    animate('Mainworld Atmosphere Code',stell_labels,stell_colors,plot_list,df_planetary_atmosphere_breathable,
             df_planetary_atmosphere_not_breathable,
             df_planetary_atmosphere_dangerous,
             df_planetary_atmosphere_none)
     
     
 def planetary_hydrographics_action():
-    df_planetary_hydrographics_high = df_uwp.query('hydrographics >= 8')
-    df_planetary_hydrographics_none = df_uwp.query('hydrographics <= 0')
-    df_planetary_hydrographics_low = df_uwp.query('hydrographics > 0 & hydrographics <2')
-    df_planetary_hydrographics_mid = df_uwp.query('hydrographics >= 2 & hydrographics <= 7')
+    df_planetary_hydrographics_high = df_world_uwp.query('hydrographics >= 8')
+    df_planetary_hydrographics_none = df_world_uwp.query('hydrographics <= 0')
+    df_planetary_hydrographics_low = df_world_uwp.query('hydrographics > 0 & hydrographics <2')
+    df_planetary_hydrographics_mid = df_world_uwp.query('hydrographics >= 2 & hydrographics <= 7')
     
 
 
-    stell_colors =['Black','Green','Teal','Blue']
+    stell_colors =['Grey','Green','Teal','Blue']
     stell_labels = ['No Hydro %','<20% Hydro %','20% to 80% Hydro','>80% Hydro %',]
     plot_list  = [30,65,65,65]
-    animate(stell_labels,stell_colors,plot_list,
+    animate('Mainworld Hydrographics %',stell_labels,stell_colors,plot_list,
             df_planetary_hydrographics_none,
             df_planetary_hydrographics_low, 
             df_planetary_hydrographics_mid,
             df_planetary_hydrographics_high)
     
 def planetary_population_action():
-    df_planetary_population_high = df_uwp.query('population > 7')
-    df_planetary_population_none = df_uwp.query('population <= 0')
-    df_planetary_population_mid = df_uwp.query('population > 4 & population <=7')
-    df_planetary_population_low = df_uwp.query('population <= 4 & population > 0')
+    df_planetary_population_high = df_world_uwp.query('population > 7')
+    df_planetary_population_none = df_world_uwp.query('population <= 0')
+    df_planetary_population_mid = df_world_uwp.query('population > 4 & population <=7')
+    df_planetary_population_low = df_world_uwp.query('population <= 4 & population > 0')
 
 
-    stell_colors =['Black','Green','Blue','Red']
+    stell_colors =['Grey','Green','Blue','Red']
     stell_labels = ['Population 0','Population 1 to 4','Population 5 to 7','Population 8 or higher']
     plot_list  = [30,65,65,65]
-    animate(stell_labels,stell_colors,plot_list,
+    animate('Mainworld Population Code',stell_labels,stell_colors,plot_list,
             df_planetary_population_none,
             df_planetary_population_low, 
             df_planetary_population_mid,
             df_planetary_population_high)
     
 def planetary_government_action():
-    df_planetary_government_high = df_uwp.query('government > 8')
-    df_planetary_government_none = df_uwp.query('government <= 0')
-    df_planetary_government_mid = df_uwp.query('government > 3 & government <=8')
-    df_planetary_government_low = df_uwp.query('government <= 3 & government > 0')
+    df_planetary_government_high = df_world_uwp.query('government > 8')
+    df_planetary_government_none = df_world_uwp.query('government <= 0')
+    df_planetary_government_mid = df_world_uwp.query('government > 3 & government <=8')
+    df_planetary_government_low = df_world_uwp.query('government <= 3 & government > 0')
 
 
-    stell_colors =['Black','Green','Blue','Red']
+    stell_colors =['Grey','Green','Blue','Red']
     stell_labels = ['Government 0','Government 1 to 3','Government 4 to 8','Government 9 or higher']
     plot_list  = [30,65,65,65]
-    animate(stell_labels,stell_colors,plot_list,
+    animate('Mainworld Government Code',stell_labels,stell_colors,plot_list,
             df_planetary_government_none,
             df_planetary_government_low, 
             df_planetary_government_mid,
             df_planetary_government_high)    
     
 def planetary_law_action():
-    df_planetary_law_high = df_uwp.query('law > 8')
-    df_planetary_law_none = df_uwp.query('law <= 0')
-    df_planetary_law_mid = df_uwp.query('law > 3 & law <=8')
-    df_planetary_law_low = df_uwp.query('law <= 3 & law > 0')
+    df_planetary_law_high = df_world_uwp.query('law > 8')
+    df_planetary_law_none = df_world_uwp.query('law <= 0')
+    df_planetary_law_mid = df_world_uwp.query('law > 3 & law <=8')
+    df_planetary_law_low = df_world_uwp.query('law <= 3 & law > 0')
 
 
-    stell_colors =['Black','Green','Blue','Red']
+    stell_colors =['Grey','Green','Blue','Red']
     stell_labels = ['Law Level 0','Law Level 1 to 3','Law Level 4 to 8','Law Level 9 or higher']
     plot_list  = [30,65,65,65]
-    animate(stell_labels,stell_colors,plot_list,
+    animate('Mainworld Law Level Code',stell_labels,stell_colors,plot_list,
             df_planetary_law_none,
             df_planetary_law_low, 
             df_planetary_law_mid,
             df_planetary_law_high)        
     
 def planetary_tech_action():
-    df_planetary_tech_high = df_uwp.query('tech_level > 11')
-    df_planetary_tech_none = df_uwp.query('tech_level <= 0')
-    df_planetary_tech_mid = df_uwp.query('tech_level > 6 & tech_level <=11')
-    df_planetary_tech_low = df_uwp.query('tech_level <= 6 & tech_level > 0')
+    df_planetary_tech_high = df_world_uwp.query('tech_level > 11')
+    df_planetary_tech_none = df_world_uwp.query('tech_level <= 0')
+    df_planetary_tech_mid = df_world_uwp.query('tech_level > 6 & tech_level <=11')
+    df_planetary_tech_low = df_world_uwp.query('tech_level <= 6 & tech_level > 0')
 
 
-    stell_colors =['Black','Green','Blue','Red']
+    stell_colors =['Grey','Green','Blue','Red']
     stell_labels = ['Tech Level 0','Tech Level 1 to 6','Tech Level 7 to 11','Tech Level 12 or higher']
     plot_list  = [30,65,65,65]
-    animate(stell_labels,stell_colors,plot_list,
+    animate('Mainworld Tech Level Code',stell_labels,stell_colors,plot_list,
             df_planetary_tech_none,
             df_planetary_tech_low, 
             df_planetary_tech_mid,
             df_planetary_tech_high)      
+    
+def body_action():
+    df_planet = df_world_uwp.query('body == "Planet"')
+    df_belt = df_world_uwp.query('body == "Planetoid Belt"')
+    df_gg = df_world_uwp.query('body == "Gas Giant"')
+    stell_colors =['Green','Grey','Orange']
+    stell_labels = ['Planet','Asteroid Belt','Gas Giant Moon']
+    plot_list  = [65,30,100]
+    animate('Mainworld Planetary Type',stell_labels,stell_colors,plot_list,df_planet,df_belt,df_gg)      
+    
+def distance_action():
+    df_distance_far = df_world_uwp.query('distance > 1.50')
+    df_distance_close = df_world_uwp.query('distance <= .5')
+    df_distance_medium = df_world_uwp.query('distance > .5 & distance <=1.50')
+    stell_colors =['Green','Blue','Red']
+    stell_labels = ['Med (0.5 to 1.5 AU)','Far (>1.5 AU)','Close (<0.5 AU)']
+    plot_list  = [65,65,65]
+    animate('Mainworld Distance to Primary (in AU)',stell_labels,stell_colors,plot_list,
+            df_distance_medium,
+            df_distance_far, 
+            df_distance_close)          
+    
+def zone_action():
+    df_zone_inner = df_world_uwp.query('zone == "Inner Zone"')
+    df_zone_outer = df_world_uwp.query('zone == "Outer Zone"')
+    df_zone_life = df_world_uwp.query('zone == "Life Zone"')
+    df_zone_middle = df_world_uwp.query('zone == "Middle Zone"')
+    stell_colors =['Red','Blue','Green','Grey']
+    stell_labels = ['Inner Zone','Outer Zone','Life Zone','Middle Zone']
+    plot_list  = [65,65,65,65]
+    animate('Mainworld Orbital Zone',stell_labels,stell_colors,plot_list,
+            df_zone_inner,
+            df_zone_outer, 
+            df_zone_life,
+            df_zone_middle)           
+    
+def gravity_action():
+    df_gravity_high = df_world_uwp.query('gravity > 1.25')
+    df_gravity_low = df_world_uwp.query('gravity <= .75')
+    df_gravity_medium = df_world_uwp.query('gravity > .75 & gravity <=1.25')
+    stell_colors =['Green','Red','Blue']
+    stell_labels = ['Med (0.75 to 1.25 G)','High (>1.25 G)','Low (<0.75 G)']
+    plot_list  = [65,100,30]
+    animate('Mainworld Gravity (in Gs)',stell_labels,stell_colors,plot_list,
+            df_gravity_medium,
+            df_gravity_high, 
+            df_gravity_low) 
+    
+def atmos_press_action():
+    df_ap_high = df_world_uwp.query('atmos_pressure > 1.2')
+    df_ap_low = df_world_uwp.query('atmos_pressure <= .7')
+    df_ap_medium = df_world_uwp.query('atmos_pressure > .7 & atmos_pressure <=1.2')
+    stell_colors =['Green','Red','Blue']
+    stell_labels = ['Med (0.7 to 1.2)','High (>1.2)','Low (<0.7)']
+    plot_list  = [65,100,30]
+    animate('Mainworld Atmospheric Pressure (in Earth units)',stell_labels,stell_colors,plot_list,
+            df_ap_medium,
+            df_ap_high, 
+            df_ap_low) 
+    
+   
+def temperature_action():
+    df_temp_torrid = df_world_uwp.query('temperature > 324')
+    df_temp_hot = df_world_uwp.query('temperature <= 324 & temperature > 303')
+    df_temp_normal = df_world_uwp.query('temperature <= 303 & temperature > 294')
+    df_temp_cold =  df_world_uwp.query('temperature <= 294 & temperature > 238')
+    df_temp_frigid = df_world_uwp.query('temperature <= 238')
+    stell_colors =['Red','Orange','Green','skyblue','Blue']
+    stell_labels = ['Extreme Heat (>324K)','Hot (303-324K)','Earth-Like (294-303K)','Cold (238-294K)','Extreme Cold(<238K)']
+    plot_list  = [65,65,65,65,65,65]
+    animate('Mainworld Average Temperature (Kelvin)',stell_labels,stell_colors,plot_list,
+            df_temp_torrid,
+            df_temp_hot, 
+            df_temp_normal,            
+            df_temp_cold,
+            df_temp_frigid)     
 
+
+def influence_action():
+    df_influence_high = df_world_uwp.query('ix > 3')
+    df_influence_moderate = df_world_uwp.query('ix >= 0 & ix <= 3')
+    df_influence_negative = df_world_uwp.query('ix < 0')
+    stell_colors =['Green','Blue','Red']
+    stell_labels = ['High (ix > 3)','Moderate (ix 0-3)','Negative (ix <0)']
+    plot_list  = [100,65,30]
+    animate('Mainworld Influence Score (T5 Ix)',stell_labels,stell_colors,plot_list,
+            df_influence_high,
+            df_influence_moderate, 
+            df_influence_negative) 
+
+
+def world_remarks_action():
+    df_vacc = df_world_uwp.query('remarks.str.contains("Va")')
+    df_fluid = df_world_uwp.query('remarks.str.contains("Fl")')
+    df_water = df_world_uwp.query('remarks.str.contains("Wa") or remarks.str.contains("Oc")')
+    df_desert = df_world_uwp.query('remarks.str.contains("De")')
+    df_hell = df_world_uwp.query('remarks.str.contains("He")')
+    df_garden = df_world_uwp.query('remarks.str.contains("Ga")')
+    stell_labels = ['N/A','Vacuum World','Fluid World','Water World','Desert World','Hell World','Garden World']
+    stell_colors =['Grey','Brown','Purple','Blue','Orange','Red','Green']
+    plot_list  = [30,65,65,65,65,65,65]
+    animate('World Remarks',stell_labels,stell_colors,plot_list,
+            df,
+            df_vacc,
+            df_fluid,
+            df_water,
+            df_desert,
+            df_hell,
+            df_garden)    
+    
+def special_cat():
+    df_special_earth = (df_world_uwp.query('temperature <= 303 & \
+                                           temperature > 294 &  \
+                                           atmos_pressure > .7 & \
+                                           atmos_pressure <=1.2 & \
+                                           gravity > .75 & \
+                                           gravity <=1.25 & \
+                                           (atmosphere == 6 | atmosphere ==5 | atmosphere == 8) & \
+                                           hydrographics > 0'))
+    df_special_dune = df_world_uwp.query('temperature <= 324 & \
+                                         temperature > 303 & \
+                                         atmos_pressure > .7 & \
+                                         atmos_pressure <=1.2 & \
+                                         gravity > .75 & \
+                                         gravity <=1.25 & \
+                                          (atmosphere == 6 | atmosphere ==5 | atmosphere == 8) & \
+                                         hydrographics <= 2')
+    df_special_hoth = df_world_uwp.query('temperature <= 294 & \
+                                         temperature > 238 & \
+                                         atmos_pressure > .7 & \
+                                         atmos_pressure <=1.2 & \
+                                         gravity > .75 & \
+                                         gravity <=1.25 & \
+                                          (atmosphere == 6 | atmosphere ==5 | atmosphere == 8) & \
+                                         hydrographics > 0')
+    stell_labels = ['N/A','Earth-Like','Dune-Like','Hoth-Like']
+    stell_colors =['Grey','Green','Brown','Blue']
+    plot_list  = [30,65,65,65]
+    animate('Mainworlds Similar to Sci-Fi Worlds',stell_labels,stell_colors,plot_list,
+            df,
+            df_special_earth,
+            df_special_dune,
+            df_special_hoth)      
+    
 
     
 
 class sectorvisapp(tk.Tk):
     def __init__(self, *args, **kwargs):
+
         
         tk.Tk.__init__(self, *args, **kwargs)
         tk.Tk.iconbitmap(self,"sunburst.ico")
-        tk.Tk.wm_title(self,"TUC Browser")
+        tk.Tk.wm_title(self,"TUC")
             
         
         container = tk.Frame(self)
         container.pack(side="top", fill="both", expand = True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
+
         
         menubar = tk.Menu(container)
         filemenu = tk.Menu(menubar, tearoff=0)
-        filemenu.add_command(label="Open", command=not_ready)
+        filemenu.add_command(label="Open", command=get_file_action)
         filemenu.add_separator()
         filemenu.add_command(label="Exit", command=qf)
         menubar.add_cascade(label="File",menu=filemenu)
@@ -326,17 +590,23 @@ class sectorvisapp(tk.Tk):
         uwpwmenu.add_command(label="Government", command=planetary_government_action)
         uwpwmenu.add_command(label="Law Level", command=planetary_law_action)
         uwpwmenu.add_command(label="Tech Level", command=planetary_tech_action)        
-        uwpwmenu.add_command(label="Influence", command=not_ready)        
+        uwpwmenu.add_command(label="Influence", command=influence_action)        
+        uwpwmenu.add_command(label="World Remarks", command=world_remarks_action)
+        
         menubar.add_cascade(label="UWP",menu=uwpwmenu)      
 
         planetarymenu = tk.Menu(menubar, tearoff=0)
-        planetarymenu.add_command(label="Orbit", command=not_ready)
-        planetarymenu.add_command(label="Distance", command=not_ready)
-        planetarymenu.add_command(label="Zone", command=not_ready)      
-        planetarymenu.add_command(label="Gravity", command=not_ready)
-        planetarymenu.add_command(label="Moons", command=not_ready)
-        planetarymenu.add_command(label="Temperature", command=not_ready)
-        menubar.add_cascade(label="Main World",menu=planetarymenu)                                         
+        planetarymenu.add_command(label="Mainworld Body", command=body_action)
+        planetarymenu.add_command(label="Distance", command=distance_action)
+        planetarymenu.add_command(label="Orbital Zone", command=zone_action)      
+        planetarymenu.add_command(label="Gravity", command=gravity_action)
+        planetarymenu.add_command(label="Atmos. Press.", command=atmos_press_action)
+        planetarymenu.add_command(label="Temperature", command=temperature_action)
+        menubar.add_cascade(label="Main World",menu=planetarymenu)     
+
+        specialmenu = tk.Menu(menubar, tearoff=0)
+        specialmenu.add_command(label="Sci-Fi like worlds", command=special_cat)
+        menubar.add_cascade(label="Special Worlds",menu=specialmenu)                                       
 
 
 
@@ -372,10 +642,14 @@ class StartPage(tk.Frame):
         label.pack(pady=10,padx=10)
      
        
-        button1 = ttk.Button(self, text="Sector Map",
-                            command=lambda: controller.show_frame(SectorMap))
+        button1 = ttk.Button(self, text="Load a Database",
+                            command=get_file_action)
         button1.pack()
         
+        button2 = ttk.Button(self, text="View a Sector Map",
+                             
+                            command=lambda: controller.show_frame(SectorMap))
+        button2.pack()
 
         
         button3 = ttk.Button(self, text="Exit",
@@ -398,6 +672,7 @@ def get_coordinates(thedataframe):
         y_axis = (top_y_limit-int(coord[2:4]))
         xcoordinates.append(x_axis)
         ycoordinates.append(y_axis)
+
     return(xcoordinates,ycoordinates)
         
         
@@ -406,7 +681,7 @@ def get_coordinates(thedataframe):
 class SectorMap(tk.Frame):
     def __init__(self, parent,controller):
         tk.Frame.__init__(self,parent)        
-        label = ttk.Label(self, text="System Stellar Types", font=LARGE_FONT)
+        label = ttk.Label(self, text='Sector Map', font=LARGE_FONT)
         label.pack(pady=10,padx=10)
         button1 = ttk.Button(self, text="Back to Home",
                             command=lambda: controller.show_frame(StartPage))
@@ -422,26 +697,30 @@ class SectorMap(tk.Frame):
         toolbar.update()
         canvas._tkcanvas.pack()
     
+
           
          
 
+# Global Variables
+cursor_x = 0
+cursor_y = 0        
+db_name = ''
+# df = dataframe of all primary stars
+# df_world_uwp = dataframe of all mainworlds and stats
 
-conn = sqlite3.connect('test_4.db')
-c = conn.cursor()
-df = pd.read_sql_query('''SELECT * FROM tb_stellar_primary''', conn)
-df_uwp = pd.read_sql_query('''SELECT * FROM tb_t5''', conn)
-print(df)
-conn.commit()  
-c.close()
-conn.close()
+
+    
+
+
 
 
  
-
-     
+root = Tk()
+root.withdraw()
+#df,df_world_uwp,db_name = file_open()     
         
 app = sectorvisapp()
-app.geometry("1000x800")
+app.geometry("500x850")
 #animate(df) 
 app.mainloop()
 
