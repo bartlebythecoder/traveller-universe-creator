@@ -977,10 +977,11 @@ def generate_stars(makeit_list):
         
         
         
-    def populate_planetary_orbits(location,p_star_dict,s_star_dict):
+    def populate_planetary_orbits(location,p_star_dict,s_star_dict,stellar_number):
         # location is the parsec location
         # p_star_dict = is the dictionary of the current primary star
         # s_star_dict = is the dictionary of the current secondary star (if there is one).
+        # **Update 2021 - stellar_number identifies which star the body is orbiting
         
         # This function populates the orbital bodies around the primary 
         # At the moment it ignores any secondary or tertiary stars
@@ -1183,7 +1184,7 @@ def generate_stars(makeit_list):
                     climate.append(get_climate(temperature[current_row], wtype[current_row]))
     
                     
-                    ob_db_key = (str(location) + str(current_row)) 
+                    ob_db_key = (str(location) + '-' + str(stellar_number) + '-' + str(current_row)) 
                     
                     
                     sqlcommand = '''    INSERT INTO tb_orbital_bodies (location_orbit, 
@@ -1388,7 +1389,8 @@ def generate_stars(makeit_list):
                                                                             primary_stellar_dict_r,
                                                                             comp_no)    
      
-                    primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r)
+                    stellar_number = 1  # For now assume every star is a Primary
+                    primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r,stellar_number)
                     
                     populate_db_tables(primary_stellar_dict_r)
                     

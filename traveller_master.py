@@ -24,4 +24,4 @@ def make_sector_master(makeit_list):
     generate_far_trader_stats(seed_number,db_name)
     print('Calling the journey table')
     build_journey_table(seed_number,db_name)
-
+    print('Process Complete')

@@ -76,4 +76,3 @@ def build_journey_table(seed_number,db_name):
     c.close()
     conn.close()
     
-    print('Complete')
