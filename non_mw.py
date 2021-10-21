@@ -21,7 +21,7 @@ def generate_non_mainworlds(seed_number,db_name):
         for dice_loop in range (1,no_dice_loop):
             sum_dice = sum_dice + random.randrange(1,7)
             
-        c.execute("INSERT INTO tb_fi_dice_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
                (str(location), 
                 no_dice,
                 why,
@@ -44,7 +44,7 @@ def generate_non_mainworlds(seed_number,db_name):
         sql3_select_tb_t5 = """     SELECT  location, 
                                             population,
                                             government
-                                    FROM    tb_t5 """
+                                    FROM    main_worlds """
                                     
         c.execute(sql3_select_tb_t5)
         allrows = c.fetchall()
@@ -55,8 +55,9 @@ def generate_non_mainworlds(seed_number,db_name):
         return mw_dict        
     
     def create_tb_non_mw_table():
-        sql_create_tb_non_mw_table = """CREATE TABLE    tb_non_mw( 
-                                                        location_orb TEXT PRIMARY KEY,
+        sql_create_tb_non_mw_table = """CREATE TABLE    exo_worlds( 
+                                                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                        location_orb TEXT,
                                                         location TEXT,
                                                         spaceport TEXT,
                                                         size INTEGER,
@@ -68,7 +69,7 @@ def generate_non_mainworlds(seed_number,db_name):
                                                         tech_level INTEGER,
                                                         uwp TEXT);"""
                                                         
-        c.execute('DROP TABLE IF EXISTS tb_non_mw')
+        c.execute('DROP TABLE IF EXISTS exo_word')
         c.execute(sql_create_tb_non_mw_table)  
         
     def get_population(location,mw_dict):
@@ -197,7 +198,7 @@ def generate_non_mainworlds(seed_number,db_name):
     
     
     sql3_select_locorb = """        SELECT  *  
-                                    FROM    tb_orbital_bodies 
+                                    FROM    orbital_bodies 
                                     WHERE   mainworld_status != 'Y' """
     
     c.execute(sql3_select_locorb)
@@ -205,14 +206,14 @@ def generate_non_mainworlds(seed_number,db_name):
     
     for row in allrows:
 #        print (row[0])
-        population = get_population(row[1],mw_dict)
-        spaceport = get_spaceport(row[0],population)
-        atmosphere = get_atmosphere(row[15],row[17])
-        hydrographics = get_hydrographics(row[5],row[16])
-        size = get_size(row[5],row[6])
-        government = get_government(row[0], population,mw_dict[row[1]]['government'])    
-        law_level = get_law_level(row[0], government)
-        tech_level = get_tech_level(row[0], spaceport, size, atmosphere, hydrographics, population, government)
+        population = get_population(row[2],mw_dict)
+        spaceport = get_spaceport(row[1],population)
+        atmosphere = get_atmosphere(row[16],row[18])
+        hydrographics = get_hydrographics(row[6],row[17])
+        size = get_size(row[6],row[7])
+        government = get_government(row[1], population,mw_dict[row[2]]['government'])    
+        law_level = get_law_level(row[1], government)
+        tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
         int_size = size
         uwp = (spaceport + tohex(int(size))\
                + tohex(int(atmosphere)) \
@@ -222,7 +223,7 @@ def generate_non_mainworlds(seed_number,db_name):
                + tohex(int(law_level)) \
                + '-'
                + tohex(int(tech_level)))
-        sqlcommand = '''    INSERT INTO tb_non_mw ( location_orb, 
+        sqlcommand = '''    INSERT INTO exo_worlds ( location_orb, 
                                                     location, 
                                                     spaceport, 
                                                     size,
@@ -236,8 +237,8 @@ def generate_non_mainworlds(seed_number,db_name):
                                                     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
     
                             
-        body_row =          (str(row[0]),
-                            str(row[1]),
+        body_row =          (str(row[1]),
+                            str(row[2]),
                             spaceport,
                             size,
                             atmosphere,

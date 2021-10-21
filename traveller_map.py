@@ -48,7 +48,7 @@ def build_travellermap_file(db_name):
                                             n,
                                             w
                                          
-                                    FROM    tb_t5
+                                    FROM    main_worlds
                                     """
     
     

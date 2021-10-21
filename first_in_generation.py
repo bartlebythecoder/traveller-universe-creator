@@ -45,8 +45,10 @@ def generate_stars(makeit_list):
 
     
     def create_tables(c,conn):
-        sql_create_tb_stellar_primary = """CREATE TABLE tb_stellar_primary( 
-            location TEXT PRIMARY KEY,
+        sql_create_stellar_bodies = """CREATE TABLE stellar_bodies( 
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            location TEXT,
+            companion_class TEXT,
             system_type TEXT,
             luminosity_class TEXT,
             spectral_type TEXT,
@@ -56,48 +58,20 @@ def generate_stars(makeit_list):
             bode_c REAL,
             orbits INTEGER,
             belts INTEGER,
-            gg INTEGER
-            );"""
-        c.execute('DROP TABLE IF EXISTS tb_stellar_primary')
-        c.execute(sql_create_tb_stellar_primary) 
-        
-        sql_create_tb_stellar_secondary = """CREATE TABLE tb_stellar_secondary( 
-            location TEXT PRIMARY KEY,
-            luminosity_class TEXT,
-            spectral_type TEXT,
-            age REAL,
+            gg INTEGER,
             orbit_description TEXT,
             avg_orbit REAL,
             orbital_ecc REAL,
             min_orbit REAL,
-            max_orbit REAL,
-            b_o_r REAL,
-            bode_c REAL,
-            orbits INTEGER
+            max_orbit REAL
             );"""
-        c.execute('DROP TABLE IF EXISTS tb_stellar_secondary')
-        c.execute(sql_create_tb_stellar_secondary) 
+        c.execute('DROP TABLE IF EXISTS stellar_bodies')
+        c.execute(sql_create_stellar_bodies) 
         
-        sql_create_tb_stellar_tertiary = """CREATE TABLE tb_stellar_tertiary( 
-            location TEXT PRIMARY KEY,
-            luminosity_class TEXT,
-            spectral_type TEXT,
-            age REAL,
-            orbit_description TEXT,
-            avg_orbit REAL,
-            orbital_ecc REAL,
-            min_orbit REAL,
-            max_orbit REAL,
-            b_o_r REAL,
-            bode_c REAL,
-            orbits INTEGER
-            );"""
-        c.execute('DROP TABLE IF EXISTS tb_stellar_tertiary')
-        c.execute(sql_create_tb_stellar_tertiary)    
-
-        
-        sql_create_tb_orbital_bodies = """CREATE TABLE tb_orbital_bodies( 
-            location_orbit TEXT PRIMARY KEY,
+       
+        sql_create_orbital_bodies = """CREATE TABLE orbital_bodies( 
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            location_orbit TEXT,
             location TEXT,
             orbit INTEGER,
             distance REAL,
@@ -120,18 +94,18 @@ def generate_stars(makeit_list):
             mainworld_calc FLOAT,
             mainworld_status TEXT DEFAULT 'N'
             );"""
-        c.execute('DROP TABLE IF EXISTS tb_orbital_bodies')
-        c.execute(sql_create_tb_orbital_bodies)   
+        c.execute('DROP TABLE IF EXISTS orbital_bodies')
+        c.execute(sql_create_orbital_bodies)   
         
         
-        sql_create_tb_dice_table = """CREATE TABLE tb_fi_dice_rolls( 
+        sql_create_dice_table = """CREATE TABLE die_rolls( 
             location TEXT,
             number INTEGER,
             reason TEXT,
             total INTEGER
             );"""
-        c.execute('DROP TABLE IF EXISTS tb_fi_dice_rolls')
-        c.execute(sql_create_tb_dice_table)  
+        c.execute('DROP TABLE IF EXISTS die_rolls')
+        c.execute(sql_create_dice_table)  
         
     
     def roll_dice(no_dice, why, location):
@@ -140,7 +114,7 @@ def generate_stars(makeit_list):
         for dice_loop in range (1,no_dice_loop):
             sum_dice = sum_dice + random.randrange(1,7)
             
-        c.execute("INSERT INTO tb_fi_dice_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
                (str(location), 
                 no_dice,
                 why,
@@ -589,7 +563,10 @@ def generate_stars(makeit_list):
     
             # write to the database - build the secondary stellar table
         
-            c.execute("INSERT INTO tb_stellar_secondary (location, luminosity_class, spectral_type, age, orbit_description, avg_orbit, orbital_ecc, min_orbit, max_orbit, b_o_r, bode_c, orbits) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            c.execute("INSERT INTO stellar_bodies(location, luminosity_class, spectral_type, \
+                                  age, orbit_description, avg_orbit, orbital_ecc, \
+                                  min_orbit, max_orbit, b_o_r, bode_c, orbits, companion_class) \
+                                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                                (str(location), 
                                 csd_luminosity_class,
                                 csd_spectral_type,
@@ -601,7 +578,8 @@ def generate_stars(makeit_list):
                                 csd_orbit[7],
                                 c_common_stellar_data[10],
                                 c_common_stellar_data[11],
-                                c_common_stellar_data[12]))
+                                c_common_stellar_data[12],
+                                '2'))  # '2' dictates this is the second star in the system
     
         
     #        conn.commit()                      
@@ -638,7 +616,10 @@ def generate_stars(makeit_list):
         
             # write to the database - build the tertiary stellar table
         
-            c.execute("INSERT INTO tb_stellar_tertiary (location, luminosity_class, spectral_type, age, orbit_description, avg_orbit, orbital_ecc, min_orbit, max_orbit, b_o_r, bode_c, orbits) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            c.execute("INSERT INTO stellar_bodies (location, luminosity_class, spectral_type, age, \
+                                                  orbit_description, avg_orbit, orbital_ecc, min_orbit, \
+                                                  max_orbit, b_o_r, bode_c, orbits, companion_class)  \
+                                                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                                (str(location), 
                                 csd_luminosity_class,
                                 csd_spectral_type,
@@ -650,7 +631,8 @@ def generate_stars(makeit_list):
                                 csd_orbit[7],
                                 c_common_stellar_data[10],
                                 c_common_stellar_data[11],
-                                c_common_stellar_data[12]))
+                                c_common_stellar_data[12],
+                                '3'))  # 3 indicates this is the third star in this system
         
         return companion_dict
     
@@ -1188,7 +1170,7 @@ def generate_stars(makeit_list):
                     ob_db_key = (str(location) + '-' + str(stellar_number) + '-' + str(current_row)) 
                     
                     
-                    sqlcommand = '''    INSERT INTO tb_orbital_bodies (location_orbit, 
+                    sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
                                         location, 
                                         orbit, 
                                         distance,
@@ -1250,8 +1232,9 @@ def generate_stars(makeit_list):
     
     def populate_db_tables(primary_dict):
     
-        c.execute("INSERT INTO tb_stellar_primary (location, system_type, luminosity_class, spectral_type, age, stellar_radius, \
-                  b_o_r, bode_c, orbits, gg, belts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        c.execute("INSERT INTO stellar_bodies (location, system_type, luminosity_class, \
+                  spectral_type, age, stellar_radius, \
+                  b_o_r, bode_c, orbits, gg, belts, companion_class) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                  (str(parsec), 
                     primary_stellar_dict_r["p_system_type"],
                     primary_stellar_dict_r["p_luminosity_class"],
@@ -1262,7 +1245,8 @@ def generate_stars(makeit_list):
                     primary_stellar_dict_r["p_bode_constant"],
                     primary_stellar_dict_r["p_orbits"],
                     primary_stellar_dict_r["p_gg"],
-                    primary_stellar_dict_r["p_belts"]))
+                    primary_stellar_dict_r["p_belts"],
+                    '1'))   # '1' dictates a primary star
     
     
         
@@ -1390,7 +1374,7 @@ def generate_stars(makeit_list):
                                                                             primary_stellar_dict_r,
                                                                             comp_no)    
      
-                    stellar_number = 1  # Future use to populate secondary and tertiary stars
+                    stellar_number = 1 # future use for companion orbits
                     primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r,stellar_number)
                     
                     populate_db_tables(primary_stellar_dict_r)

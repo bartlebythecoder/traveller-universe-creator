@@ -23,10 +23,10 @@ def build_journey_table(seed_number,db_name):
 
 
     
-    sql_orbital = '''SELECT location_orbit, location, distance, size from tb_orbital_bodies'''
+    sql_orbital = '''SELECT location_orbit, location, distance, size from orbital_bodies'''
     df_orbital_bodies = pd.read_sql_query(sql_orbital,conn)
 
-    sql_stellar = '''SELECT location, stellar_radius from tb_stellar_primary'''
+    sql_stellar = '''SELECT location, stellar_radius from stellar_bodies WHERE companion_class = '1' '''
     df_stellar = pd.read_sql_query(sql_stellar,conn)
 
     
