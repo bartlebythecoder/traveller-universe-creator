@@ -1,5 +1,10 @@
 # traveller-universe-creator
-v.02
+v.03
+2021-10-21 
+- Added a table with journey times to and from jump points
+- Updated location_orbit field to include which stellar mass is being orbited (primary, secondary, tertiary)
+
+Description:
 
 This program builds a traveller sector and stores the data in two forms:
 -SQLite database
