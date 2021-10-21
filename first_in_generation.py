@@ -51,6 +51,7 @@ def generate_stars(makeit_list):
             luminosity_class TEXT,
             spectral_type TEXT,
             age REAL,
+            stellar_radius REAL,
             b_o_r REAL,
             bode_c REAL,
             orbits INTEGER,
@@ -93,6 +94,7 @@ def generate_stars(makeit_list):
             );"""
         c.execute('DROP TABLE IF EXISTS tb_stellar_tertiary')
         c.execute(sql_create_tb_stellar_tertiary)    
+
         
         sql_create_tb_orbital_bodies = """CREATE TABLE tb_orbital_bodies( 
             location_orbit TEXT PRIMARY KEY,
@@ -976,10 +978,11 @@ def generate_stars(makeit_list):
         
         
         
-    def populate_planetary_orbits(location,p_star_dict,s_star_dict):
+    def populate_planetary_orbits(location,p_star_dict,s_star_dict,stellar_number):
         # location is the parsec location
         # p_star_dict = is the dictionary of the current primary star
         # s_star_dict = is the dictionary of the current secondary star (if there is one).
+        # **Update 2021 - stellar_number identifies which star the body is orbiting
         
         # This function populates the orbital bodies around the primary 
         # At the moment it ignores any secondary or tertiary stars
@@ -1182,7 +1185,7 @@ def generate_stars(makeit_list):
                     climate.append(get_climate(temperature[current_row], wtype[current_row]))
     
                     
-                    ob_db_key = (str(location) + str(current_row)) 
+                    ob_db_key = (str(location) + '-' + str(stellar_number) + '-' + str(current_row)) 
                     
                     
                     sqlcommand = '''    INSERT INTO tb_orbital_bodies (location_orbit, 
@@ -1247,12 +1250,14 @@ def generate_stars(makeit_list):
     
     def populate_db_tables(primary_dict):
     
-        c.execute("INSERT INTO tb_stellar_primary (location, system_type, luminosity_class, spectral_type, age, b_o_r, bode_c, orbits, gg, belts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        c.execute("INSERT INTO tb_stellar_primary (location, system_type, luminosity_class, spectral_type, age, stellar_radius, \
+                  b_o_r, bode_c, orbits, gg, belts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                  (str(parsec), 
                     primary_stellar_dict_r["p_system_type"],
                     primary_stellar_dict_r["p_luminosity_class"],
                     primary_stellar_dict_r["p_spectral_type"],
                     primary_stellar_dict_r["p_age"],
+                    primary_stellar_dict_r["p_radius"],
                     primary_stellar_dict_r["p_base_orbital_radius"],
                     primary_stellar_dict_r["p_bode_constant"],
                     primary_stellar_dict_r["p_orbits"],
@@ -1385,7 +1390,8 @@ def generate_stars(makeit_list):
                                                                             primary_stellar_dict_r,
                                                                             comp_no)    
      
-                    primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r)
+                    stellar_number = 1  # Future use to populate secondary and tertiary stars
+                    primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r,stellar_number)
                     
                     populate_db_tables(primary_stellar_dict_r)
                     
