@@ -94,6 +94,7 @@ def generate_stars(makeit_list):
             );"""
         c.execute('DROP TABLE IF EXISTS tb_stellar_tertiary')
         c.execute(sql_create_tb_stellar_tertiary)    
+
         
         sql_create_tb_orbital_bodies = """CREATE TABLE tb_orbital_bodies( 
             location_orbit TEXT PRIMARY KEY,
@@ -1389,7 +1390,7 @@ def generate_stars(makeit_list):
                                                                             primary_stellar_dict_r,
                                                                             comp_no)    
      
-                    stellar_number = 1  # For now assume every star is a Primary
+                    stellar_number = 1  # Future use to populate secondary and tertiary stars
                     primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, secondary_stellar_dict_r,stellar_number)
                     
                     populate_db_tables(primary_stellar_dict_r)
