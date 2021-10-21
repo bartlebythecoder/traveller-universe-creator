@@ -51,6 +51,7 @@ def generate_stars(makeit_list):
             luminosity_class TEXT,
             spectral_type TEXT,
             age REAL,
+            stellar_radius REAL,
             b_o_r REAL,
             bode_c REAL,
             orbits INTEGER,
@@ -1247,12 +1248,14 @@ def generate_stars(makeit_list):
     
     def populate_db_tables(primary_dict):
     
-        c.execute("INSERT INTO tb_stellar_primary (location, system_type, luminosity_class, spectral_type, age, b_o_r, bode_c, orbits, gg, belts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        c.execute("INSERT INTO tb_stellar_primary (location, system_type, luminosity_class, spectral_type, age, stellar_radius, \
+                  b_o_r, bode_c, orbits, gg, belts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                  (str(parsec), 
                     primary_stellar_dict_r["p_system_type"],
                     primary_stellar_dict_r["p_luminosity_class"],
                     primary_stellar_dict_r["p_spectral_type"],
                     primary_stellar_dict_r["p_age"],
+                    primary_stellar_dict_r["p_radius"],
                     primary_stellar_dict_r["p_base_orbital_radius"],
                     primary_stellar_dict_r["p_bode_constant"],
                     primary_stellar_dict_r["p_orbits"],
