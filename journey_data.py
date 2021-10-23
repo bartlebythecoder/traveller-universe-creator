@@ -18,7 +18,7 @@ def build_journey_table(seed_number,db_name):
     
     random.seed(seed_number)
     
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
 
 

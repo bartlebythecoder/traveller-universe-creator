@@ -13,11 +13,10 @@ def make_sector_master(makeit_list):
     from journey_data import build_journey_table
     
     seed_number = makeit_list[0]
-    db_name = makeit_list[1]
     
     print('v0.3 Stellar Companion Update')
-    
-    generate_stars(makeit_list)
+    db_name = 'sector_db/' + makeit_list[1] + '.db'
+    generate_stars(db_name,makeit_list)
     generate_mainworld_scores(db_name)
     choose_mainworld(db_name)
     add_traveller_stats(seed_number,db_name)

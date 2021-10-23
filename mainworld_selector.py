@@ -13,7 +13,7 @@ def choose_mainworld(db_name):
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
     sql3_select_loc = """           SELECT  location

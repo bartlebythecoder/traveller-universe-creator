@@ -15,7 +15,7 @@ def generate_mainworld_scores(db_name):
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
     

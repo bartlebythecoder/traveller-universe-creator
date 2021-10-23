@@ -1,0 +1,406 @@
+Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W	
+0103	Oizumi	A100896-F	-	Va Ph Na Pi	-	601	Im	M5 V M5 V M5 V	{+2}	(67B-2)	[BA1E]	eDB	3	
+0106	Caozhou	E300455-9	-	Va Ni	-	900	Im	A0 V G5 V	{-2}	(333+1)	[4229]	B	6	
+0109	Nanchang	CEB3101-A	-	Fl Lo	-	803	Im	K5 V	{+0}	(F01+1)	[3198]	B	8	
+0115	Kosaka	A100778-F	N	Va Na Pi	-	500	Im	G5 V M5 V w D	{+2}	(768-1)	[691F]	DB	5	
+0118	Cincinnati	A510774-9	N	Na Pi	-	603	Im	w D	{+1}	(869-1)	[8825]	DB	4	
+0119	Chesapeake	C111544-8	-	Ni	-	404	Im	w D	{-2}	(E41-1)	[6377]	B	4	
+0124	Welland	C000000-0	-	As Va Ba	-	010	Im	K0 V w D	{-2}	(700+1)	[0000]	B	2	
+0130	Lakeland	C300203-B	-	Va Lo	-	704	Im	M0 V M5 V	{+0}	(611+0)	[1228]	B	7	
+0132	Samukawa	B100999-B	-	Va Hi Na In	-	800	Im	G5 V w D	{+4}	(78A-3)	[9D6A]	fEB	4	
+0201	Long'an	E8A0200-6	-	He Lo	-	901	Im	K5 V K5 V K5 V	{-3}	(811-2)	[5154]	B	4	
+0206	Nagasu	C200000-0	S	Va Ba	-	000	Im	G0 V M5 V	{-2}	(200-1)	[0000]	B	3	
+0213	Palm Bay	C410224-7	S	Lo	-	701	Im	M0 V M5 V M5 V	{-2}	(811+4)	[1127]	B	2	
+0220	Preston	B7A27AD-A	-	Fl He	-	801	Im	M0 V M5 V	{+2}	(669+0)	[A959]	B	4	
+0224	Lin'an	C000300-B	S	As Va Lo	-	715	Im	M5 V	{+0}	(E21-3)	[3386]	B	6	
+0228	Hejiang	AAB1740-9	-	Fl He	-	000	Im	M5 V M5 V	{+1}	(76A+3)	[881C]	B	3	
+0229	Nichinan	C100234-C	-	Va Lo	-	003	Im	M5 V M5 V	{+0}	(611+1)	[125A]	B	4	
+0233	Togitsu	A100899-B	N	Va Ph Na Pi	-	700	Im	G5 V M5 V M5 V	{+2}	(B78-3)	[8A4D]	eDB	1	
+0234	Agematsu	C111454-A	-	Ni	-	911	Im	K5 V w D	{+0}	(B35+1)	[141B]	B	4	
+0237	Suzhou	C100488-B	S	Va Ni	-	113	Im	M0 V	{+0}	(A36+3)	[342A]	B	7	
+0238	Zhangde	B41077A-A	NS	Na Pi	-	401	Im	K0 V K5 V M5 V	{+3}	(569+2)	[BA55]	DB	4	
+0301	Noheji	B9B0642-C	N	He Ni	-	411	Im	K5 V M5 V K5 V	{+1}	(D54-4)	[A76A]	B	4	
+0305	Nakagawa	C5A056A-7	-	He Ni	-	410	Im	K0 V K5 V	{-2}	(C43-2)	[4383]	B	4	
+0308	Scunthorpe	B100766-9	-	Va Na Pi	-	010	Im	M0 V M5 V	{+1}	(86D+2)	[385A]	DB	2	
+0309	Tongzhou	C5D2542-8	S	Ni	-	900	Im	M0 V M5 V	{-2}	(343-2)	[537A]	B	3	
+0311	Nakagawa	C8A57A8-8	S	Fl	-	103	Im	K5 V	{-1}	(863+1)	[9679]	B	8	
+0314	Shirosato	C10037A-A	S	Va Lo	-	201	Im	M5 V M5 V	{+0}	(421-4)	[8388]	B	3	
+0315	New Haven	AAB6885-A	-	Fl Ph	-	500	Im	G5 V M5 V	{+2}	(B77+1)	[6A46]	eB	3	
+0316	Onga	E10059B-A	-	Va Ni	-	201	Im	M5 V w D	{-1}	(640+1)	[5467]	B	3	
+0317	Honbetsu	A5A1786-9	NS	Fl He	-	210	Im	M0 V w D	{+2}	(36A-2)	[9938]	B	2	
+0319	Shichikashuku	A681CFF-E	N	Hi	A	301	Im	G5 V M5 V	{+3}	(8BA+2)	[8F6F]	EB	4	
+0322	Kamikawa	C000100-A	-	As Va Lo	-	413	Im	w D	{+0}	(A01+4)	[118A]	B	4	
+0323	Lincoln	E100443-A	-	Va Ni	-	914	Im	M5 V	{-1}	(C31-1)	[535F]	B	7	
+0327	Yamada	C111652-A	-	Ni Na	-	502	Im	M0 V w D	{+0}	(655-3)	[665A]	B	3	
+0330	Tunbridge Wells	B3007AD-D	S	Va Na Pi	-	913	Im	K5 V K5 V	{+2}	(B64-4)	[993D]	DB	5	
+0334	Prince George	C41048A-8	S	Ni	-	802	Im	M5 V M5 V	{-2}	(532+2)	[12A5]	B	4	
+0335	Halesowen	B5A079B-B	-	He	-	005	Im	M5 V	{+2}	(96B+5)	[891D]	B	6	
+0401	Huai'an	B410744-A	S	Na Pi	-	100	Im	F0 V M5 V	{+2}	(A67+2)	[5925]	DB	1	
+0402	Nanyang	B5B37AB-B	-	Fl	-	615	Im	K0 V	{+2}	(C69-2)	[593E]	B	8	
+0404	Si'en	E6B5533-7	-	Fl Ni	-	100	Im	G0 V G5 V M5 V	{-3}	(542+2)	[4256]	B	3	
+0405	Laredo	D7A6101-9	-	Fl Lo	-	202	Im	K0 V M5 V	{-2}	(901-1)	[116B]	B	6	
+0406	Taiping	A8B6676-A	N	Fl Ni	-	200	Im	G0 V G5 V M5 V	{+1}	(352+0)	[573E]	B	3	
+0409	Fort Worth	D5A1257-8	-	Fl He Lo	-	901	Im	M0 V M5 V	{-3}	(711+1)	[3124]	B	4	
+0410	Ashford	B111853-D	-	Ph Na Pi	-	204	Im	w D	{+2}	(B78-5)	[7A99]	eDB	4	
+0414	Fengzhou	A5A0942-F	-	He Hi In	-	601	Im	M0 V M5 V M5 V	{+4}	(B8C+0)	[7D5F]	fEB	4	
+0418	Matsumae	B7B0653-9	N	He Ni	-	902	Im	w D	{+0}	(A53+4)	[6638]	B	4	
+0419	Wuding	A4A0767-B	N	He	-	000	Im	K5 V K5 V	{+2}	(969-2)	[A95C]	B	4	
+0421	Cape Coral	D5B4467-7	-	Fl Ni Px	-	001	Im	K0 V K5 V K5 V	{-3}	(B31+2)	[3158]	B	4	
+0422	Nan'an	E111100-6	-	Lo	-	804	Im	w D w D	{-3}	(A01+4)	[4147]	B	4	
+0424	Fremont	D30057A-9	S	Va Ni	-	404	Im	M5 V	{-2}	(D44+0)	[1398]	B	6	
+0427	St. John's	B410656-E	-	Ni Na	-	912	Im	F0 V	{+1}	(B53+1)	[577E]	B	9	
+0432	Kuizhou	E6BA000-0	-	Fl Ba	-	000	Im	M0 V M5 V	{-3}	(800-2)	[0000]	B	3	
+0435	Shiriuchi	B6B6988-B	N	Fl Hi In	-	501	Im	M0 V M5 V	{+4}	(888+2)	[AD7A]	fEB	2	
+0438	Hemel	C300000-0	-	Va Ba	-	003	Im	M5 V M5 V	{-2}	(700+0)	[0000]	B	5	
+0502	Oto	D100598-6	-	Va Ni	-	002	Im	M5 V M5 V M5 V	{-3}	(342-2)	[4284]	B	3	
+0503	Fujikawa	D400300-6	S	Va Lo	-	303	Im	w D w D w D	{-3}	(921-2)	[6142]	B	4	
+0506	Philadelphia	E200499-6	-	Va Ni	-	603	Im	M5 V M5 V	{-3}	(730-1)	[6166]	B	4	
+0508	Thornton	A300988-F	N	Va Hi Na In	-	700	Im	G0 V G5 V	{+4}	(98F+0)	[8D7D]	fEB	1	
+0509	Wichita Falls	A200852-B	N	Va Ph Na Pi	-	210	Im	G0 V G5 V	{+2}	(C7A+1)	[9A4C]	eDB	3	
+0510	Saroma	A5A0756-A	N	He	-	602	Im	M5 V M5 V	{+2}	(76B+0)	[5927]	B	4	
+0512	Thousand Oaks	C200540-7	-	Va Ni	-	600	Im	K5 V M5 V	{-2}	(440-4)	[236C]	B	4	
+0513	Guide	B5A567B-B	S	Fl Ni	-	904	Im	M5 V	{+1}	(B55+1)	[578C]	B	6	
+0516	Yongning	BDB9651-E	-	Fl Ni	-	512	Im	M5 V M5 V	{+1}	(853-2)	[674D]	B	5	
+0518	Sugito	B20077A-A	N	Va Na Pi	-	900	Im	K5 V K5 V M5 V	{+2}	(768+4)	[B98C]	DB	4	
+0519	Dengzhou	C100454-B	-	Va Ni	-	700	Im	M0 V w D M5 V	{+0}	(A34+0)	[143A]	B	3	
+0524	Provo	C8A4330-9	-	Fl Lo	-	401	Im	M0 V w D M5 V	{-1}	(A21+4)	[3276]	B	4	
+0525	Hino	C111503-9	-	Ni	-	603	Im	w D w D	{-1}	(C44-1)	[742B]	B	3	
+0528	Godo	B8B4785-9	-	Fl	-	100	Im	F0 V M5 V F5 V	{+1}	(A64+3)	[8897]	B	1	
+0531	St Albans	C6A277C-A	S	Fl He	-	002	Im	F5 V	{+1}	(66C+0)	[58AC]	B	9	
+0534	Yunyang	B111657-C	N	Ni Na	-	804	Im	F5 V	{+1}	(653-1)	[7768]	B	9	
+0538	Lintao	A000677-E	-	As Va Ni Na	-	314	Im	M5 V	{+1}	(E54-3)	[473D]	B	6	
+0606	Cleveland	A300999-E	-	Va Hi Na In	-	601	Im	M0 V M5 V M5 V	{+4}	(A8A+4)	[AD8D]	fEB	4	
+0608	Yan'an	A10079A-B	-	Va Na Pi	-	302	Im	M5 V M5 V	{+2}	(769+3)	[894C]	DB	4	
+0611	Xinghua	B100745-B	N	Va Na Pi	-	401	Im	K5 V M5 V	{+2}	(665+1)	[795B]	DB	3	
+0612	Hayama	B410664-8	-	Ni Na	-	012	Im	M0 V M5 V	{-1}	(A51-1)	[8573]	B	4	
+0613	Sutton Coldfield	C6B4525-6	-	Fl Ni	-	101	Im	M0 V M5 V	{-2}	(B40+1)	[5322]	B	4	
+0615	Shime	C100425-A	S	Va Ni	-	800	Im	K0 V K5 V	{+0}	(935+0)	[541C]	B	3	
+0616	Burton	C300633-9	S	Va Ni Na	-	620	Im	G5 V M5 V G5 V	{-1}	(753+4)	[454A]	B	4	
+0618	Sicheng	D111220-A	S	Lo	-	003	Im	w D w D	{-1}	(C11+4)	[7118]	B	3	
+0620	Sault Ste. Marie	C410461-A	-	Ni	-	000	Im	G0 V M5 V	{+0}	(B36+0)	[1436]	B	3	
+0621	Miharu	B5B2754-8	-	Fl He	-	400	Im	G5 V G5 V	{+0}	(865+0)	[77AB]	B	3	
+0625	Tongren	A6A68BD-9	-	Fl Ph	-	800	Im	M0 V M5 V	{+1}	(479-5)	[9967]	eB	3	
+0626	North Bay	E6A6142-8	-	Fl Lo	-	713	Im	K5 V	{-3}	(E01+0)	[4186]	B	8	
+0630	Ganzhou	C5B7787-9	-	Fl	-	204	Im	M0 V M5 V w D	{+0}	(A66-3)	[5765]	B	6	
+0632	Yoshitomi	A6B19EA-A	-	Fl He Hi In	-	800	Im	F0 V M5 V	{+4}	(88C-1)	[AD57]	fEB	4	
+0640	Minowa	E100222-7	-	Va Lo	-	604	Im	M5 V	{-3}	(511+1)	[2186]	B	6	
+0702	Shenghua	C300400-C	S	Va Ni	-	700	Im	A0 V G5 V	{+0}	(831-5)	[444E]	B	2	
+0705	Newcastle-under-Lyme	D6A1522-5	-	Fl He Ni	-	400	Im	K5 V w D	{-3}	(541-1)	[3221]	B	3	
+0707	Greensboro	C7B6631-6	-	Fl Ni	-	900	Im	K5 V K5 V	{-2}	(553+2)	[54A7]	B	1	
+0708	Brighton	B754A58-B	N	Hi	-	500	Im	G5 V M5 V	{+3}	(599+1)	[8D29]	EB	2	
+0711	Tengchong	C300466-A	-	Va Ni	-	203	Im	w D w D w D	{+0}	(D32-2)	[544B]	B	4	
+0720	Satosho	C100145-7	-	Va Lo	-	203	Im	K5 V	{-2}	(301+0)	[6148]	B	7	
+0723	Jurupa Valley	D5A2323-4	S	Fl He Lo	-	100	Im	M0 V M5 V M5 V	{-3}	(721+4)	[4153]	B	3	
+0725	North Charleston	A000974-F	N	As Va Hi Na In	-	210	Im	K0 V K5 V w D	{+4}	(98F-4)	[9D9F]	fEB	4	
+0726	Burbank	A100857-E	S	Va Ph Na Pi	-	805	Im	M5 V	{+2}	(E79+1)	[7A1F]	eDB	6	
+0727	Hokuryu	C5A0522-7	S	He Ni	-	113	Im	F0 V	{-2}	(340+1)	[8319]	B	9	
+0729	Hamatonbetsu	A100656-E	-	Va Ni Na	-	300	Im	G0 V G5 V	{+1}	(557+0)	[973F]	B	3	
+0731	Aya	D7A2321-3	S	Fl He Lo	-	600	Im	F0 V F5 V F5 V	{-3}	(821-1)	[1121]	B	5	
+0732	Vijayawada	E663310-6	-	Lo	-	210	Im	K0 V K5 V K5 V	{-3}	(B21-5)	[2128]	B	4	
+0734	Guangxin	A5A07AB-E	S	He	-	802	Im	K5 V M5 V K5 V	{+2}	(86B-1)	[896F]	B	5	
+0735	Ono	C200100-C	S	Va Lo	-	205	Im	M0 V	{+0}	(D01+0)	[3167]	B	8	
+0740	Batley	C6A7455-7	-	Fl Ni	-	100	Im	K5 V M5 V	{-2}	(733-1)	[2219]	B	4	
+0803	Isen	C100424-9	S	Va Ni	-	400	Im	K0 V M5 V	{-1}	(734+2)	[2388]	B	2	
+0804	Plano	C6A457C-6	S	Fl Ni	-	500	Im	K5 V w D	{-2}	(544+2)	[2368]	B	4	
+0816	Oxford	A41069A-B	S	Ni Na	-	702	Im	M5 V M5 V	{+1}	(654-1)	[873E]	B	4	
+0820	Qujing	B1009CF-F	N	Va Hi Na In	A	700	Im	M5 V M5 V M5 V	{+4}	(987+1)	[8D2F]	fEB	4	
+0823	Allentown	EBB5455-5	-	Fl Ni	-	803	Im	M5 V M5 V	{-3}	(631+1)	[2185]	B	4	
+0826	Urahoro	C6B2431-9	-	Fl He Ni	-	900	Im	K5 V M5 V	{-1}	(531+0)	[1336]	B	3	
+0828	Ji'an	ABB4645-9	S	Fl Ni	-	010	Im	M5 V M5 V	{+0}	(955-2)	[761B]	B	3	
+0832	Fujisato	C410263-9	-	Lo	-	800	Im	K0 V M5 V	{-1}	(411+2)	[6147]	B	3	
+0833	Osato	B111643-E	S	Ni Na	-	802	Im	M5 V w D	{+1}	(C56+1)	[B73F]	B	3	
+0834	Rausu	C100732-A	-	Va Na Pi	-	010	Im	K5 V K5 V	{+1}	(769-2)	[A869]	DB	2	
+0837	Wuzhou	C300789-8	-	Va Na Pi	-	704	Im	M5 V w D	{-1}	(F65-1)	[967B]	DB	6	
+0838	Kiyosato	A5A7789-E	NS	Fl	-	512	Im	M0 V w D	{+3}	(96A-3)	[4A8E]	B	4	
+0839	Kumenan	D5AA432-5	-	Fl Ni	-	802	Im	M5 V M5 V M5 V	{-3}	(931-2)	[4124]	B	4	
+0840	Gongchang	DCB0541-8	S	He Ni	-	302	Im	w D w D w D	{-3}	(542+1)	[426A]	B	4	
+0905	Shaozhou	A0007BA-B	-	As Va Na Pi	-	410	Im	G0 V G5 V	{+2}	(865-2)	[B97C]	DB	4	
+0909	Yizhou	C111430-7	-	Ni	-	201	Im	G0 V M5 V G5 V	{-2}	(A32+2)	[62AB]	B	4	
+0911	Strathcona County	D782310-3	S	Lo	-	702	Im	G5 V M5 V	{-3}	(B21-1)	[3141]	B	6	
+0921	Onjuku	C69637A-5	S	Lo	-	001	Im	G5 V M5 V	{-2}	(721+1)	[3136]	B	6	
+0925	Peoria	E5A0000-0	-	He Ba	-	010	Im	K5 V K5 V	{-3}	(600+0)	[0000]	B	3	
+0927	Chicago	A100695-B	NS	Va Ni Na	-	902	Im	M5 V M5 V	{+2}	(756-4)	[481F]	B	4	
+0931	Tobetsu	DAB2316-4	S	Fl He Lo Px	-	800	Im	G0 V G5 V G5 V	{-3}	(421-3)	[3125]	B	3	
+0932	Thiruvananthapuram	C100210-A	S	Va Lo	-	501	Im	M5 V M5 V	{+0}	(311+0)	[223A]	B	4	
+0933	Iijima	D100467-7	S	Va Ni	-	300	Im	K0 V K5 V	{-3}	(730-1)	[412A]	B	3	
+0939	Grande Prairie	D100353-A	S	Va Lo	-	302	Im	M5 V M5 V M5 V	{-1}	(821-4)	[3275]	B	4	
+0940	Iwanai	C100565-8	-	Va Ni	-	601	Im	M5 V M5 V	{-2}	(B40+0)	[5388]	B	3	
+1001	Minakami	B6747BB-8	-	Ag Pi	-	300	Im	G5 V M5 V	{+1}	(26A+5)	[B87A]	DCB	4	
+1004	Dali	A1119BE-F	-	Hi Na In	-	912	Im	K0 V w D	{+4}	(88D-4)	[BD2F]	fEB	3	
+1008	Cedar Rapids	E300152-9	-	Va Lo	-	802	Im	K0 V K5 V	{-2}	(B01-2)	[11A6]	B	5	
+1009	Fukushima	A300746-D	N	Va Na Pi	-	900	Im	K0 V K5 V w D	{+2}	(567-4)	[A95F]	DB	1	
+1011	Yusuhara	C6B4244-6	S	Fl Lo	-	500	Im	G0 V M5 V	{-2}	(411-5)	[5127]	B	2	
+1012	Billings	C1115AD-A	-	Ni	-	404	Im	w D w D w D	{+0}	(745+4)	[2539]	B	4	
+1013	Sakawa	D100410-7	S	Va Ni	-	004	Im	M5 V M5 V	{-3}	(330+2)	[4142]	B	6	
+1014	Kumatori	C410411-6	-	Ni	-	002	Im	G5 V G5 V	{-2}	(930-3)	[6233]	B	6	
+1016	Oki	E111448-7	-	Ni	-	504	Im	w D w D w D	{-3}	(530+0)	[4179]	B	4	
+1017	Hialeah	A1119AA-E	-	Hi Na In	-	802	Im	M0 V M5 V	{+4}	(98D+0)	[8D7D]	fEB	4	
+1022	Las Vegas	C200857-9	-	Va Ph Na Pi	-	003	Im	w D	{+0}	(979-4)	[7817]	eDB	4	
+1023	China	C11157C-9	S	Ni	-	403	Im	w D w D	{-1}	(E43-2)	[5417]	B	3	
+1024	Nanchang	B100888-D	-	Va Ph Na Pi	-	104	Im	M5 V	{+2}	(E7B+1)	[DA8B]	eDB	7	
+1035	Yoshida	A6A5868-D	-	Fl Ph	-	303	Im	w D	{+2}	(B7C+0)	[CA89]	eB	4	
+1037	Grimsby	B1009BB-B	-	Va Hi Na In	-	301	Im	M0 V M5 V M5 V	{+4}	(C89+2)	[DD4D]	fEB	4	
+1102	Thrissur	B410667-A	-	Ni Na	-	000	Im	G0 V M5 V	{+1}	(652+3)	[7758]	B	3	
+1103	Iide	A100855-D	NS	Va Ph Na Pi	-	504	Im	M5 V	{+3}	(F79+5)	[AB3B]	eDB	6	
+1113	Minamiaizu	E10047C-8	-	Va Ni	-	401	Im	M5 V M5 V	{-3}	(830-3)	[118D]	B	3	
+1116	Xinghua	E6B7424-7	-	Fl Ni	-	710	Im	K0 V M5 V	{-3}	(530-2)	[8123]	B	3	
+1123	Duyun	C6B4638-5	-	Fl Ni Px	-	100	Im	K0 V w D	{-2}	(752+1)	[6457]	B	4	
+1125	Kamiichi	A000654-E	-	As Va Ni Na	-	810	Im	K0 V M5 V	{+1}	(553+5)	[975B]	B	3	
+1126	Farnborough	D6B6342-6	S	Fl Lo	-	000	Im	K0 V w D	{-3}	(721+1)	[6168]	B	1	
+1127	Mihama	C8B6646-6	S	Fl Ni	-	510	Im	F0 V M5 V F5 V	{-2}	(751+1)	[5463]	B	3	
+1129	Chuzhou	D5B2410-6	S	Fl He Ni	-	901	Im	w D w D w D	{-3}	(430+0)	[619A]	B	2	
+1132	Kolkata	C5A1345-8	S	Fl He Lo	-	302	Im	M5 V M5 V M5 V	{-2}	(921+4)	[5186]	B	4	
+1134	Watarai	C7A7762-6	-	Fl	-	900	Im	M0 V M5 V M5 V	{-1}	(767+0)	[A657]	B	3	
+1139	Ewell	C5A558A-6	S	Fl Ni	-	500	Im	K5 V M5 V	{-2}	(544+1)	[8374]	B	4	
+1140	Hanyang	E687466-4	-	Ga Ni Pa	-	302	Im	M5 V M5 V	{-3}	(530+2)	[7164]	cB	4	
+1203	Aikawa	C100420-9	S	Va Ni	-	314	Im	M5 V	{-1}	(B31-4)	[837B]	B	6	
+1207	Huaide	E100246-7	-	Va Lo	-	402	Im	M0 V M5 V	{-3}	(811+1)	[4137]	B	5	
+1208	Akiota	C7B3300-9	-	Fl Lo	-	600	Im	M0 V M5 V	{-1}	(A21+3)	[523A]	B	2	
+1210	Misato	B5A5655-B	-	Fl Ni	-	600	Im	A5 V M5 V A5 V	{+1}	(856+1)	[9737]	B	4	
+1219	Luton	C5A0466-5	-	He Ni	-	905	Im	M5 V	{-2}	(532+1)	[2278]	B	7	
+1222	Salem	A4B87BB-F	-	Fl	-	300	Im	F0 V F5 V F5 V	{+2}	(569+4)	[497F]	B	2	
+1223	Assabu	C9B3401-7	-	Fl Ni	-	001	Im	M0 V w D	{-2}	(934+2)	[8236]	B	4	
+1225	Shimokawa	C5B0654-B	S	He Ni	-	700	Im	M0 V M5 V M5 V	{+0}	(A56+0)	[362C]	B	3	
+1227	Gloucester	D68A158-8	S	Wa Lo	-	000	Im	K5 V K5 V M5 V	{-3}	(501+1)	[1168]	B	2	
+1233	Tagami	C676330-5	-	Lo	-	300	Im	F5 V M5 V	{-2}	(721-3)	[1144]	B	5	
+1239	Redditch	D300545-4	-	Va Ni	-	700	Im	M0 V M5 V	{-3}	(A40-2)	[8266]	B	3	
+1301	Kamisunagawa	D100412-9	-	Va Ni	-	201	Im	M0 V M5 V	{-2}	(934+1)	[2267]	B	4	
+1303	Santa Clara	C410546-8	-	Ni	-	000	Im	M0 V M5 V M5 V	{-2}	(341-3)	[8317]	B	3	
+1305	Gosport	C111558-9	S	Ni	-	104	Im	w D w D	{-1}	(940-4)	[345E]	B	4	
+1312	Nanbu	A964775-B	N	Ag Ri	-	400	Im	G5 V w D G5 V	{+4}	(767+2)	[7B4A]	fCB	3	
+1317	Ganzhou	B3009C8-A	-	Va Hi Na In	-	310	Im	K0 V w D	{+4}	(38F+3)	[9D4C]	fEB	4	
+1324	Uryu	C410366-A	S	Lo	-	100	Im	K0 V M5 V	{+0}	(421+1)	[335B]	B	1	
+1326	Yulin	E300336-8	-	Va Lo	-	400	Im	M0 V M5 V	{-3}	(821+0)	[2163]	B	2	
+1332	Xiliang	C100100-8	-	Va Lo	-	300	Im	K0 V M5 V M5 V	{-2}	(801+1)	[213A]	B	2	
+1333	Kurate	C4A7557-B	-	Fl Ni	-	700	Im	A0 V A5 V	{+0}	(241+3)	[555B]	B	4	
+1338	Shirataka	D200300-A	-	Va Lo	-	002	Im	K5 V K5 V	{-1}	(B21+2)	[3215]	B	4	
+1340	Burlington	C5A2584-8	S	Fl He Ni	-	103	Im	w D w D	{-2}	(B42+2)	[7375]	B	4	
+1401	Tsunagi	E5B4100-9	-	Fl Lo	-	000	Im	K5 V M5 V K5 V	{-2}	(A01+3)	[514D]	B	4	
+1402	Manchester	C100442-8	-	Va Ni	-	705	Im	M0 V	{-2}	(A30+0)	[6276]	B	7	
+1412	Swansea	E8A5202-4	-	Fl Lo	-	410	Im	K0 V M5 V	{-3}	(511-1)	[1173]	B	4	
+1413	Newtownabbey	C111674-C	-	Ni Na	-	804	Im	w D	{+0}	(B55+3)	[665E]	B	4	
+1417	Yuanzhou	B8B6647-B	-	Fl Ni	-	303	Im	w D w D w D	{+1}	(C55-2)	[677C]	B	4	
+1418	Quzhou	E300200-8	-	Va Lo	-	110	Im	K5 V K5 V	{-3}	(811+2)	[2179]	B	4	
+1423	Mesa	D6B2435-3	-	Fl He Ni	-	010	Im	M5 V M5 V w D	{-3}	(730+2)	[31A3]	B	3	
+1426	Nagomi	A10097B-F	-	Va Hi Na In	-	401	Im	K5 V K5 V	{+4}	(78A-2)	[BD4E]	fEB	3	
+1432	Tanagura	B767962-B	N	Ga Hi Pr	-	502	Im	M0 V w D w D	{+3}	(C88+1)	[7C4B]	EcB	4	
+1433	Pompano	C300345-7	-	Va Lo	-	600	Im	G0 V w D	{-2}	(621-2)	[3157]	B	3	
+1437	Asansol	X6B7110-2	-	Fl Lo	R	100	Im	G0 V w D M5 V	{-3}	(701-5)	[5146]	B	3	
+1438	Xinmen	D697478-2	-	Ni Pa	-	014	Im	G5 V	{-3}	(A30-3)	[1113]	cB	8	
+1440	Erimo	BAB4644-C	-	Fl Ni	-	412	Im	G0 V	{+1}	(B54+3)	[371D]	B	8	
+1503	Moroyama	E100000-0	-	Va Ba	-	013	Im	G0 V	{-3}	(300+1)	[0000]	B	9	
+1510	Yuasa	C200569-A	S	Va Ni	-	004	Im	M5 V	{+0}	(A41+2)	[654F]	B	6	
+1513	Changsha	B200655-E	N	Va Ni Na	-	901	Im	M5 V M5 V M5 V	{+1}	(855-2)	[672D]	B	4	
+1515	Wuchang	A686997-A	N	Ga Hi Pr	-	400	Im	G5 V G5 V	{+3}	(A87-2)	[9C37]	EcB	4	
+1518	Qingzhou	C100536-9	-	Va Ni	-	600	Im	M0 V M5 V	{-1}	(B40-4)	[541C]	B	3	
+1530	Clarington	B300751-D	S	Va Na Pi	-	100	Im	K5 V K5 V M5 V	{+2}	(66C-3)	[293E]	DB	3	
+1534	Omaha	C6B3443-9	S	Fl Ni	-	500	Im	G0 V G5 V	{-1}	(335+0)	[437B]	B	3	
+1535	Loughborough	C000486-A	S	As Va Ni	-	510	Im	K0 V K5 V	{+0}	(836+3)	[4457]	B	5	
+1601	Moncton	A5A379C-A	-	Fl	-	712	Im	M5 V M5 V	{+2}	(567+0)	[6949]	B	5	
+1604	Duyun	A000620-D	-	As Va Ni Na	-	912	Im	M5 V M5 V	{+1}	(755-3)	[774F]	B	4	
+1607	Onan	B5A0798-8	-	He	-	801	Im	K0 V K5 V M5 V	{+0}	(868-1)	[3766]	B	4	
+1609	Tachiarai	A2007AB-B	-	Va Na Pi	-	202	Im	K0 V K5 V	{+2}	(A6C-1)	[8969]	DB	7	
+1613	Walton-on-Thames	B7A569C-B	N	Fl Ni	-	503	Im	M0 V	{+1}	(A54-2)	[8749]	B	7	
+1615	Rishirifuji	B5A066A-B	N	He Ni	-	511	Im	K5 V M5 V	{+1}	(654-1)	[874A]	B	5	
+1618	Denver	A300862-D	N	Va Ph Na Pi	-	402	Im	M5 V M5 V M5 V	{+2}	(B78-1)	[6A2D]	eDB	3	
+1620	Mihama	A100654-C	-	Va Ni Na	-	301	Im	M0 V w D	{+1}	(857+2)	[877F]	B	4	
+1621	Taonan	C100244-B	S	Va Lo	-	011	Im	M5 V M5 V	{+0}	(711+2)	[222C]	B	3	
+1624	Itakura	C100416-B	-	Va Ni	-	500	Im	G5 V G5 V	{+0}	(B32+0)	[144A]	B	2	
+1626	Waterbury	C100559-A	S	Va Ni	-	100	Im	M0 V M5 V	{+0}	(A43-3)	[756C]	B	3	
+1630	Tsunan	C300446-9	S	Va Ni	-	504	Im	K5 V	{-1}	(D33-3)	[938E]	B	8	
+1634	Yunnan	A111EAB-F	-	Hi Na In	-	311	Im	K0 V K5 V	{+4}	(9D7-2)	[DF7F]	fEB	4	
+1638	Nanaimo	C964201-7	S	Lo	-	900	Im	K5 V M5 V	{-2}	(811-2)	[1176]	B	4	
+1639	Kaiyo	B64867B-B	-	Ni Ag	-	703	Im	K5 V K5 V M5 V	{+2}	(855+1)	[287D]	CB	5	
+1640	Dewsbury	B1008BC-D	-	Va Ph Na Pi	-	201	Im	M5 V M5 V	{+2}	(97C-3)	[6A2D]	eDB	3	
+1701	Shakotan	C000210-A	-	As Va Lo	-	013	Im	K5 V	{+0}	(C11-4)	[1259]	B	7	
+1710	Fredericton	A300665-F	-	Va Ni Na	-	603	Im	M5 V M5 V	{+1}	(853+3)	[577F]	B	4	
+1718	Pingyang	D000230-5	S	As Va Lo	-	112	Im	K5 V	{-3}	(A11-1)	[1191]	B	7	
+1719	Runing	D100433-9	S	Va Ni	-	601	Im	M0 V M5 V	{-2}	(633-2)	[125A]	B	4	
+1720	Port Adelaide	C200403-7	-	Va Ni	-	911	Im	M5 V M5 V	{-2}	(933-4)	[2298]	B	3	
+1721	Beijiang	C100363-C	S	Va Lo	-	001	Im	M0 V M5 V	{+0}	(421-3)	[1359]	B	4	
+1722	Shiranuka	C10058A-A	S	Va Ni	-	900	Im	G0 V G5 V G5 V	{+0}	(942+3)	[655D]	B	1	
+1723	Shunde	C100546-9	-	Va Ni	-	001	Im	M0 V M5 V	{-1}	(544-1)	[1458]	B	4	
+1725	Anan	A3008AB-C	-	Va Ph Na Pi	-	403	Im	w D w D w D	{+2}	(A7A+4)	[8A2F]	eDB	4	
+1727	Bedford	C200569-7	-	Va Ni	-	410	Im	G5 V M5 V G5 V	{-2}	(840+1)	[6343]	B	4	
+1736	Brownsville	E5A0220-6	-	He Lo	-	700	Im	K0 V M5 V w D	{-3}	(C11-1)	[1191]	B	4	
+1739	Jianning	E100246-5	-	Va Lo	-	900	Im	M0 V M5 V M5 V	{-3}	(611+1)	[6142]	B	3	
+1804	Hasami	E100300-6	-	Va Lo	-	800	Im	K0 V M5 V	{-3}	(B21+0)	[4158]	B	1	
+1806	Gresham	C000200-B	S	As Va Lo	-	310	Im	M0 V M5 V	{+0}	(711+2)	[1238]	B	3	
+1808	Halifax	A30087A-C	-	Va Ph Na Pi	-	710	Im	G5 V G5 V M5 V	{+2}	(877-3)	[8A5D]	eDB	4	
+1809	Jiading	C4B146A-8	-	Fl He Ni	-	602	Im	M0 V M5 V	{-2}	(834+2)	[6259]	B	5	
+1812	Long'an	X100100-3	-	Va Lo	R	803	Im	M5 V M5 V	{-3}	(601+1)	[1185]	B	4	
+1816	Guilin	C676214-8	-	Lo	-	200	Im	K5 V K5 V M5 V	{-2}	(611+1)	[2124]	B	4	
+1819	Yongchang	C5A1631-8	-	Fl He Ni	-	110	Im	G5 V M5 V	{-2}	(750-5)	[741B]	B	4	
+1821	Yoshino	A20098B-D	N	Va Hi Na In	-	300	Im	M0 V M5 V	{+4}	(58C+4)	[7D6C]	fEB	2	
+1824	Hokuei	B300857-D	S	Va Ph Na Pi	-	101	Im	M0 V M5 V	{+2}	(57C-3)	[6A8B]	eDB	4	
+1834	Pearland	B6A16AB-7	-	Fl He Ni	-	410	Im	K0 V K5 V	{-1}	(850+1)	[4538]	B	4	
+1835	Halifax	E9A3334-8	-	Fl Lo	-	704	Im	G0 V	{-3}	(C21+0)	[215A]	B	9	
+1837	Tai'an	A100786-D	N	Va Na Pi	-	801	Im	M0 V M5 V M5 V	{+2}	(A69-3)	[693F]	DB	2	
+1838	Kimobetsu	C100365-8	-	Va Lo	-	404	Im	M5 V M5 V	{-2}	(C21+1)	[2119]	B	6	
+1901	Santa Maria	C768275-4	S	Lo	-	613	Im	G5 V	{-2}	(A11-3)	[2152]	B	8	
+1903	Takasu	C5A389B-9	-	Fl Ph	-	200	Im	M0 V w D	{+0}	(A77+4)	[8855]	eB	3	
+1915	Blackpool	C5A0789-A	-	He	-	114	Im	M0 V	{+1}	(B65+0)	[686A]	B	8	
+1916	Yakumo	C20069A-6	S	Va Ni Na	-	602	Im	M5 V M5 V	{-2}	(752-1)	[6445]	B	4	
+1917	Sherbrooke	A78587A-A	-	Ga Ph Pa Ri	-	200	Im	G0 V G5 V G5 V	{+3}	(779+4)	[7B2E]	eCcB	4	
+1920	Rankoshi	B5A576A-7	-	Fl	-	701	Im	M0 V M5 V	{+0}	(462-4)	[3787]	B	4	
+1924	Antioch	B5A0788-C	-	He	-	303	Im	F5 V	{+2}	(96D-2)	[897D]	B	9	
+1931	Sinan	C200401-C	S	Va Ni	-	205	Im	M0 V	{+0}	(E34+0)	[546A]	B	8	
+1932	Shibetsu	A111999-C	-	Hi Na In	-	604	Im	M0 V	{+4}	(D8B+0)	[BD6A]	fEB	8	
+1934	Yuza	E989220-3	-	Lo	-	800	Im	K0 V K5 V	{-3}	(911+2)	[1161]	B	3	
+1939	Red Deer	C6B559C-5	-	Fl Ni	-	804	Im	M5 V	{-2}	(941+3)	[3328]	B	6	
+2001	Togo	C5A0584-8	-	He Ni	-	501	Im	M0 V M5 V	{-2}	(943+2)	[A315]	B	3	
+2012	Oi	A111988-C	-	Hi Na In	-	104	Im	M5 V M5 V	{+4}	(F8C-4)	[8D6A]	fEB	4	
+2014	Omu	DCB0275-5	-	He Lo	-	303	Im	w D w D w D	{-3}	(411+4)	[1131]	B	4	
+2015	Daming	C300200-C	S	Va Lo	-	600	Im	M0 V M5 V M5 V	{+0}	(A11-2)	[6269]	B	3	
+2017	Yamatsuri	C100520-B	S	Va Ni	-	100	Im	G5 V G5 V	{+0}	(943+2)	[359B]	B	4	
+2020	Misato	E4A0232-4	-	He Lo	-	700	Im	G0 V M5 V	{-3}	(611+2)	[1183]	B	4	
+2022	Nashville	C5A0357-6	S	He Lo	-	700	Im	F5 V K5 V F5 V	{-2}	(821+4)	[4176]	B	4	
+2031	Weymouth	C300867-7	S	Va Ph Na Pi	-	201	Im	M5 V M5 V	{-1}	(973-5)	[774A]	eDB	3	
+2039	Anaheim	C300410-7	S	Va Ni	-	103	Im	w D w D	{-2}	(733+1)	[6297]	B	4	
+2104	Rugby	D111000-0	-	Ba	-	003	Im	M5 V M5 V	{-3}	(400+3)	[0000]	B	4	
+2110	Ningbo	C111537-C	S	Ni	-	203	Im	w D w D	{+0}	(B41-3)	[656C]	B	3	
+2117	Fontana	B4107A8-C	N	Na Pi	-	310	Im	K0 V K5 V	{+2}	(864-2)	[696A]	DB	4	
+2119	Kawagoe	A1007A7-D	-	Va Na Pi	-	602	Im	M5 V M5 V	{+2}	(A6B+0)	[691C]	DB	4	
+2121	Tainan	B66A622-8	N	Wa Ni Ri	-	800	Im	M0 V w D	{+0}	(555-1)	[9696]	CB	2	
+2125	Yunnan	C4B3537-8	S	Fl Ni Px	-	701	Im	M0 V M5 V	{-2}	(C40+2)	[2357]	B	3	
+2127	Cary	B5A0757-D	S	He	-	304	Im	M0 V	{+2}	(B69-3)	[797C]	B	7	
+2131	Mifune	A300889-E	N	Va Ph Na Pi	-	900	Im	G5 V G5 V	{+2}	(57D+3)	[AA2E]	eDB	4	
+2140	Nishiwaga	B200645-8	S	Va Ni Na	-	106	Im	M0 V	{-1}	(F55+1)	[7554]	B	8	
+2204	Glasgow	A400CEE-F	-	Va Hi Na In	A	200	Im	w D w D	{+4}	(6BD-1)	[EF2F]	fEB	3	
+2206	De'an	C7A5257-6	-	Fl Lo	-	110	Im	K0 V M5 V	{-2}	(811+5)	[3166]	B	3	
+2209	North Vancouver	C100358-D	-	Va Lo	-	212	Im	M5 V M5 V	{+0}	(E21-2)	[335C]	B	4	
+2219	Wuding	C100564-A	-	Va Ni	-	711	Im	M5 V M5 V M5 V	{+0}	(D46-2)	[455E]	B	3	
+2222	Nakadomari	C5A1562-6	-	Fl He Ni	-	100	Im	F0 V K5 V	{-2}	(840-5)	[732A]	B	3	
+2226	Yoshika	C111345-C	S	Lo	-	104	Im	w D w D w D	{+0}	(E21+0)	[236B]	B	4	
+2227	Olathe	C300547-6	-	Va Ni	-	104	Im	M5 V	{-2}	(743+1)	[43A2]	B	7	
+2229	Kihoku	A7A4645-9	-	Fl Ni	-	704	Im	M0 V	{+0}	(953+4)	[7639]	B	7	
+2233	Si'en	CAB4547-6	-	Fl Ni Px	-	903	Im	G0 V	{-2}	(944+0)	[5312]	B	8	
+2236	Rialto	C5A0697-5	-	He Ni	-	301	Im	G0 V M5 V	{-2}	(A51-5)	[4447]	B	4	
+2308	Mihama	B5B68AB-C	-	Fl Ph	-	500	Im	F5 V M5 V	{+2}	(57A-2)	[4A49]	eB	2	
+2309	Shimoichi	D100212-6	-	Va Lo	-	001	Im	M5 V M5 V	{-3}	(911+2)	[1176]	B	4	
+2310	Northampton	E7B448A-5	-	Fl Ni	-	903	Im	w D w D	{-3}	(932+1)	[5117]	B	4	
+2313	Dexing	CEB4467-9	-	Fl Ni Px	-	202	Im	w D w D	{-1}	(B33-3)	[135A]	B	3	
+2316	Santa Rosa	A6A28DE-A	-	Fl He Ph	A	913	Im	K5 V M5 V K5 V	{+2}	(C78-1)	[8A3E]	eB	6	
+2318	Yan'an	C300530-9	S	Va Ni	-	203	Im	M5 V M5 V M5 V	{-1}	(C42-1)	[546A]	B	5	
+2319	Stockton-on-Tees	E971320-7	-	He Lo	-	500	Im	G0 V w D	{-3}	(521+1)	[512C]	B	4	
+2327	Yanzhou	C7B0200-B	S	He Lo	-	610	Im	G5 V w D	{+0}	(511-4)	[3268]	B	4	
+2329	Qingyang	B300756-E	S	Va Na Pi	-	103	Im	M0 V M5 V M5 V	{+2}	(B68+1)	[595B]	DB	6	
+2334	Pingliang	C100515-C	S	Va Ni	-	102	Im	M0 V M5 V	{+0}	(941+1)	[1558]	B	4	
+2337	Kettering	A6D69BD-E	-	Hi	-	900	Im	G5 V M5 V	{+3}	(789-2)	[9C3C]	EB	4	
+2338	Guide	C7B5522-7	-	Fl Ni	-	311	Im	M0 V M5 V	{-2}	(344-2)	[2368]	B	4	
+2340	Jinan	B100687-D	-	Va Ni Na	-	601	Im	M5 V M5 V	{+1}	(C53+2)	[671C]	B	3	
+2404	Oakville	C8B7556-A	S	Fl Ni	-	000	Im	K0 V M5 V	{+0}	(744-1)	[A57A]	B	3	
+2406	Taragi	E300238-7	-	Va Lo	-	903	Im	K5 V	{-3}	(511+4)	[3124]	B	8	
+2407	Essendon	C100688-8	S	Va Ni Na	-	802	Im	M5 V M5 V	{-2}	(953+2)	[4446]	B	4	
+2409	Shaoxing	B41069A-9	S	Ni Na	-	300	Im	K0 V M5 V K5 V	{+0}	(751-4)	[3699]	B	3	
+2412	Yichang	B00087C-D	-	As Va Ph Na Pi	-	610	Im	G5 V G5 V	{+2}	(979+2)	[AA6F]	eDB	3	
+2413	Ujitawara	C670774-8	S	De He Pi	-	602	Im	G5 V M5 V G5 V	{-1}	(763+5)	[562C]	DB	6	
+2423	Pingle	D200300-8	S	Va Lo	-	212	Im	M5 V M5 V	{-3}	(A21-2)	[119A]	B	4	
+2425	Okuizumo	C5A5344-9	-	Fl Lo	-	400	Im	G5 V M5 V G5 V	{-1}	(821+1)	[3236]	B	1	
+2427	Mansfield	A100846-D	S	Va Ph Na Pi	-	300	Im	K5 V M5 V	{+2}	(975+4)	[4A5D]	eDB	2	
+2430	Chizu	D6B8562-6	-	Fl Ni	-	411	Im	M5 V M5 V M5 V	{-3}	(A43+1)	[525A]	B	3	
+2431	Kawasaki	C7B9548-6	-	Fl Ni	-	500	Im	F0 V F5 V F5 V	{-2}	(842+4)	[6358]	B	2	
+2432	Kadogawa	B5A1888-C	N	Fl He Ph	-	400	Im	K0 V w D	{+2}	(87B+0)	[8A4E]	eB	3	
+2437	Ojika	A10099A-D	-	Va Hi Na In	-	603	Im	M0 V M5 V	{+4}	(C86+0)	[CD3A]	fEB	6	
+2438	Nuneaton	A3009A8-F	N	Va Hi Na In	-	003	Im	w D	{+4}	(88A+0)	[DD6F]	fEB	4	
+2503	Pomona	C5A7579-7	S	Fl Ni	-	300	Im	F5 V F5 V	{-2}	(A44-3)	[7367]	B	1	
+2505	Nakatonbetsu	C410323-8	-	Lo	-	703	Im	M5 V M5 V M5 V	{-2}	(B21-3)	[6163]	B	6	
+2506	Tomioka	D4A0200-5	S	He Lo	-	914	Im	M5 V M5 V	{-3}	(511-1)	[11A9]	B	6	
+2507	Guangxi	C200445-7	-	Va Ni	-	402	Im	M0 V M5 V M5 V	{-2}	(830+3)	[4253]	B	4	
+2508	Reihoku	BBB3664-C	N	Fl Ni	-	002	Im	M5 V M5 V w D	{+1}	(755-3)	[478F]	B	4	
+2509	Medicine Hat	E111445-A	-	Ni	-	004	Im	w D w D w D	{-1}	(F30+0)	[838B]	B	4	
+2510	Aisho	C5B2400-6	-	Fl He Ni	-	700	Im	F5 V w D	{-2}	(730+0)	[1235]	B	3	
+2513	Garden Grove	B100744-C	-	Va Na Pi	-	000	Im	M5 V M5 V M5 V	{+2}	(36C+1)	[997D]	DB	2	
+2523	Victorville	E5B1224-4	-	Fl He Lo	-	400	Im	G5 V M5 V	{-3}	(611+3)	[4164]	B	3	
+2531	Mishima	E7A558D-6	-	Fl Ni	-	600	Im	K5 V w D	{-3}	(940-1)	[22A3]	B	4	
+2532	Futaba	D000200-9	S	As Va Lo	-	710	Im	F0 V F5 V	{-2}	(611-4)	[214A]	B	5	
+2536	Taizhou	E5A0210-7	-	He Lo	-	100	Im	K0 V w D M5 V	{-3}	(A11+0)	[4159]	B	4	
+2602	Motobu	B5B3674-C	-	Fl Ni	-	802	Im	M5 V M5 V M5 V	{+1}	(557+2)	[479C]	B	4	
+2604	Taiki	C100510-8	-	Va Ni	-	002	Im	M5 V M5 V M5 V	{-2}	(A40-1)	[8358]	B	4	
+2605	Jinhua	C300102-8	-	Va Lo	-	401	Im	M0 V M5 V M5 V	{-2}	(901+0)	[1158]	B	4	
+2607	Obuse	C111433-9	-	Ni	-	304	Im	w D w D w D	{-1}	(E32+1)	[138B]	B	4	
+2608	Okagaki	C410755-7	S	Na Pi	-	811	Im	G0 V M5 V	{-1}	(A68+1)	[5617]	DB	6	
+2610	Abira	B111DEF-F	S	Hi Na In	A	704	Im	w D w D	{+4}	(7C9-1)	[DF4F]	fEB	4	
+2612	Hirogawa	D100200-7	-	Va Lo	-	502	Im	M0 V M5 V w D	{-3}	(B11+2)	[6147]	B	3	
+2617	Gonohe	B2007AD-B	N	Va Na Pi	-	402	Im	K5 V K5 V	{+2}	(A69+0)	[59AD]	DB	5	
+2619	Toyako	B8B6998-9	-	Fl Hi In	-	210	Im	F0 V F5 V w D	{+3}	(B8C+1)	[6C66]	EB	3	
+2620	Anqing	A1007A5-B	N	Va Na Pi	-	802	Im	w D w D w D	{+2}	(469-5)	[893C]	DB	3	
+2625	Rotherham	C111521-7	-	Ni	-	604	Im	M5 V M5 V	{-2}	(741+4)	[5347]	B	4	
+2628	Carlton	C300627-6	-	Va Ni Na	-	500	Im	M0 V w D M5 V	{-2}	(754+4)	[5423]	B	1	
+2631	Richardson	A6B2669-9	-	Fl He Ni Px	-	202	Im	M5 V M5 V	{+0}	(856+1)	[56A7]	B	3	
+2637	Nanning	D8A5449-4	-	Fl Ni Px	-	702	Im	w D w D w D	{-3}	(430-2)	[3146]	B	3	
+2704	Yamamoto	A6AA7CC-F	N	Fl	-	002	Im	M5 V M5 V	{+2}	(B6D+3)	[892D]	B	4	
+2705	Miyashiro	B10079E-A	-	Va Na Pi	-	600	Im	K5 V M5 V	{+2}	(86B+2)	[9929]	DB	3	
+2708	Santa Ana	X300301-6	-	Va Lo	R	201	Im	K0 V M5 V	{-3}	(821+0)	[2157]	B	4	
+2710	Yamakita	D300200-8	S	Va Lo	-	002	Im	M5 V M5 V w D	{-3}	(711+1)	[1157]	B	4	
+2712	Grand Prairie	A9B668B-9	N	Fl Ni	-	511	Im	M5 V M5 V	{+0}	(853-1)	[964D]	B	4	
+2713	Komono	C7B7440-5	S	Fl Ni	-	911	Im	M0 V M5 V	{-2}	(332-2)	[4215]	B	4	
+2714	Itano	C66A230-9	-	Wa Lo	-	900	Im	K0 V M5 V	{-1}	(711-3)	[116D]	B	4	
+2716	Rishiri	C100367-C	S	Va Lo	-	600	Im	M0 V M5 V M5 V	{+0}	(921-3)	[239D]	B	3	
+2717	Tone	E300101-6	-	Va Lo	-	201	Im	M5 V w D	{-3}	(701-3)	[3146]	B	3	
+2718	Clinton	D5A526A-3	S	Fl Lo	-	600	Im	K0 V K5 V	{-3}	(511+5)	[6191]	B	4	
+2722	Toyoura	C111423-B	S	Ni	-	504	Im	w D	{+0}	(734+5)	[343F]	B	4	
+2723	Nagatoro	B7B3776-9	-	Fl	-	604	Im	F0 V	{+1}	(86C+0)	[582D]	B	9	
+2728	Kaisei	C8DA566-9	S	Ni	-	713	Im	G5 V	{-1}	(F43+0)	[243A]	B	8	
+2730	San Diego	C000557-A	-	As Va Ni	-	612	Im	w D w D	{+0}	(D43+2)	[156C]	B	3	
+2735	Nanyang	C6A3442-8	S	Fl Ni	-	700	Im	G0 V G5 V	{-2}	(934+0)	[3294]	B	6	
+2738	Nakatane	B5B0676-9	-	He Ni	-	200	Im	K5 V K5 V	{+0}	(855+0)	[3654]	B	2	
+2803	Toyoyama	C7A8444-A	S	Fl Ni	-	110	Im	K5 V M5 V M5 V	{+0}	(A35+0)	[1438]	B	3	
+2805	Austin	C200455-A	-	Va Ni	-	301	Im	M0 V M5 V	{+0}	(336+2)	[449B]	B	4	
+2809	Hashikami	A300967-F	-	Va Hi Na In	-	800	Im	G5 V M5 V	{+4}	(C8D-3)	[9D6F]	fEB	5	
+2810	Meiwa	A5A19BB-C	N	Fl He Hi In	-	711	Im	M0 V M5 V	{+4}	(A8A+1)	[8D3C]	fEB	4	
+2813	Shichinohe	B684886-9	S	Ph Pa Ri	-	104	Im	K0 V	{+2}	(D79+3)	[7A76]	eCcB	8	
+2815	Shinano	B6A8634-B	S	Fl Ni	-	201	Im	K0 V K5 V K5 V	{+1}	(754+0)	[773C]	B	6	
+2817	Coquitlam	C6A4443-8	S	Fl Ni	-	000	Im	K0 V M5 V	{-2}	(A30+4)	[421B]	B	2	
+2824	Kamishihoro	D300385-5	-	Va Lo	-	100	Im	G0 V M5 V	{-3}	(821+0)	[4198]	B	6	
+2825	Clovis	C561556-5	S	Ni Pr	-	614	Im	G5 V	{-2}	(B40-4)	[432A]	cB	8	
+2831	Daigo	C576442-4	S	Ni Pa	-	210	Im	G0 V M5 V	{-2}	(C30-2)	[5247]	cB	4	
+2833	Craigavon	C6B26A9-A	S	Fl He Ni Px	-	300	Im	F5 V w D F5 V	{+0}	(854-4)	[968B]	B	2	
+2906	Norfolk	C986568-6	-	Ni Ag Pr	-	900	Im	F0 V w D	{-1}	(742+3)	[9479]	CcB	4	
+2908	Reno	C100575-C	S	Va Ni	-	801	Im	K0 V K5 V	{+0}	(845+3)	[153D]	B	4	
+2909	Harrogate	C300557-7	S	Va Ni	-	301	Im	F5 V F5 V F5 V	{-2}	(540+3)	[7339]	B	4	
+2911	Otaki	C000489-B	S	As Va Ni	-	610	Im	K5 V w D	{+0}	(633-1)	[242E]	B	3	
+2915	Jiaxing	B100776-A	NS	Va Na Pi	-	502	Im	M5 V M5 V	{+3}	(86F+0)	[CA86]	DB	4	
+2918	Oji	C000441-A	-	As Va Ni	-	712	Im	M5 V M5 V	{+0}	(D32-1)	[5418]	B	4	
+2919	Amarillo	D6A5576-7	S	Fl Ni Px	-	811	Im	M0 V M5 V M5 V	{-3}	(443-5)	[2257]	B	4	
+2920	Mobile	A30067A-C	-	Va Ni Na	-	301	Im	M0 V M5 V	{+1}	(A52+0)	[376B]	B	4	
+2936	Pingliang	C6B146A-7	S	Fl He Ni	-	900	Im	K5 V M5 V w D	{-2}	(632+0)	[7289]	B	2	
+2940	Pippu	E100000-0	-	Va Ba	-	004	Im	M0 V	{-3}	(700+4)	[0000]	B	7	
+3001	Hayakawa	C5A5476-6	S	Fl Ni Px	-	300	Im	G0 V G5 V	{-2}	(733-2)	[7261]	B	4	
+3003	Sannohe	CAB3353-8	S	Fl Lo	-	501	Im	M5 V M5 V	{-2}	(921+1)	[3137]	B	4	
+3004	Mashiko	C4A0425-8	S	He Ni	-	206	Im	M0 V	{-2}	(932+1)	[122A]	B	8	
+3007	Aizubange	B100ECD-F	-	Va Hi Na In	-	402	Im	M0 V M5 V	{+4}	(BDF+3)	[DF5F]	fEB	5	
+3012	Taiyuan	D765430-7	S	Ga Ni Pa	-	901	Im	K0 V K5 V M5 V	{-3}	(C30+0)	[6137]	cB	3	
+3017	Dading	B4A1724-A	S	Fl He	-	200	Im	K5 V w D	{+2}	(467-3)	[6959]	B	4	
+3019	Fremantle	A684867-D	NS	Ph Pa Ri	-	500	Im	G5 V M5 V w D	{+4}	(97C+2)	[BC5C]	feCcB	4	
+3020	Shikaoi	C300201-A	-	Va Lo	-	900	Im	M0 V M5 V	{+0}	(511+2)	[128B]	B	3	
+3021	Oirase	C000212-A	S	As Va Lo	-	314	Im	M5 V M5 V M5 V	{+0}	(911-2)	[2266]	B	6	
+3025	Miyake	C300562-7	S	Va Ni	-	701	Im	M5 V M5 V M5 V	{-2}	(642-3)	[732A]	B	3	
+3026	Cambridge	C8A2000-0	-	Fl He Ba	-	022	Im	F0 V	{-2}	(800+0)	[0000]	B	9	
+3040	Derby	A963697-D	N	Ni Ri	-	000	Im	G0 V w D	{+2}	(A54+5)	[7899]	CB	5	
+3101	Elizabeth	D200320-5	S	Va Lo	-	204	Im	M0 V	{-3}	(921-2)	[4158]	B	7	
+3103	Esashi	D000300-9	S	As Va Lo	-	310	Im	G0 V G5 V	{-2}	(A21+1)	[2157]	B	4	
+3105	Yokohama	E5A0100-9	-	He Lo	-	810	Im	G5 V G5 V	{-2}	(B01-1)	[113D]	B	4	
+3108	Toyo	A5A087B-E	-	He Ph	-	802	Im	K0 V w D	{+2}	(777+0)	[5A1B]	eB	6	
+3110	Garland	C9A3352-B	-	Fl Lo	-	900	Im	M0 V M5 V M5 V	{+0}	(621+4)	[335C]	B	3	
+3111	Colorado Springs	C111467-C	S	Ni	-	703	Im	w D w D w D	{+0}	(D34+5)	[248F]	B	3	
+3116	Urausu	D000120-8	-	As Va Lo	-	214	Im	M0 V	{-3}	(A01-3)	[1168]	B	7	
+3122	Pingle	E300220-6	-	Va Lo	-	502	Im	w D w D	{-3}	(811-2)	[1178]	B	3	
+3124	Richmond	C8A5568-5	S	Fl Ni Px	-	803	Im	M0 V M5 V	{-2}	(A44-1)	[6375]	B	6	
+3126	Yanzhou	D200647-6	S	Va Ni Na	-	410	Im	G5 V G5 V M5 V	{-3}	(551-2)	[7356]	B	4	
+3128	Linjiang	D200000-0	S	Va Ba	-	002	Im	w D w D w D	{-3}	(200-1)	[0000]	B	3	
+3132	Filton	D100321-5	S	Va Lo	-	801	Im	K5 V M5 V	{-3}	(521+0)	[1155]	B	4	
+3133	Zhaoqing	C410520-9	S	Ni	-	701	Im	G0 V G5 V	{-1}	(B45-2)	[445A]	B	5	
+3134	Bihoro	D000000-0	S	As Va Ba	-	012	Im	M0 V M5 V	{-3}	(600+0)	[0000]	B	4	
+3138	Blue Bay	C410300-A	-	Lo	-	412	Im	M0 V w D	{+0}	(C21-1)	[234F]	B	5	
+3201	Oma	EAB4344-7	-	Fl Lo	-	610	Im	A0 V w D	{-3}	(421+2)	[1179]	B	2	
+3206	Huining	B4A0653-E	-	He Ni	-	011	Im	G5 V G5 V	{+1}	(957+3)	[972A]	B	6	
+3213	Irving	B000853-C	-	As Va Ph Na Pi	-	310	Im	K5 V K5 V	{+2}	(A7E+2)	[6A7D]	eDB	4	
+3214	Takahama	B10066A-C	N	Va Ni Na	-	703	Im	M5 V M5 V	{+1}	(652-2)	[774F]	B	5	
+3219	Kibichuo	B8B2854-C	-	Fl He Ph	-	700	Im	A0 V A5 V	{+2}	(875+1)	[6A5D]	eB	4	
+3221	Kamikawa	BDB4959-C	N	Fl Hi In	-	001	Im	M5 V M5 V	{+4}	(687-1)	[7D4F]	fEB	4	
+3224	Des Moines	CCB2598-6	S	Fl He Ni Px	-	113	Im	M0 V	{-2}	(843-1)	[8365]	B	7	
+3225	Wellingborough	C100136-9	S	Va Lo	-	720	Im	G0 V G5 V G5 V	{-1}	(B01+0)	[211B]	B	4	
+3233	Stockton	A5A3652-A	NS	Fl Ni	-	604	Im	M0 V	{+2}	(D56+1)	[A8AC]	B	7	
+3238	Kisosaki	A100674-D	N	Va Ni Na	-	600	Im	K5 V M5 V w D	{+1}	(756+0)	[773B]	B	2	
+3239	Crawley	C100257-8	-	Va Lo	-	003	Im	M5 V M5 V M5 V	{-2}	(A11-1)	[51A5]	B	5	

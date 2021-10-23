@@ -574,7 +574,7 @@ def add_traveller_stats(seed_number,db_name):
        
     # MAIN PROGRAM
         
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     create_t5_table()
     

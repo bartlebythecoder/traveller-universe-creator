@@ -164,7 +164,7 @@ sector_name.insert(0,'test_sector')
 
 random_seed = Entry(top, width = 5)
 random_seed.grid(row = 15, column = 1, columnspan=1,sticky=W)
-random_seed.insert(0,'66') 
+random_seed.insert(0,'33') 
 
 
 build_button = Button(top, text="Build the Sector", command = makeit, relief = RAISED)

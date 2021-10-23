@@ -48,7 +48,7 @@ def generate_far_trader_stats(seed_number,db_name):
     
     # MAIN PROGRAM
         
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     create_tb_far_trader_table()    
     

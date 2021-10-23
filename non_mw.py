@@ -191,7 +191,7 @@ def generate_non_mainworlds(seed_number,db_name):
     
     # MAIN PROGRAM
         
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     create_tb_non_mw_table()
     mw_dict = capture_mainworld_stats()
