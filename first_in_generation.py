@@ -51,24 +51,24 @@ def generate_stars(db_name,makeit_list):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             location TEXT,
             companion_class TEXT,
-            system_type TEXT,
             luminosity_class TEXT,
             spectral_type TEXT,
             age REAL,
-            stellar_radius REAL,
-            b_o_r REAL,
-            bode_c REAL,
+            radius REAL,
             orbits INTEGER,
             belts INTEGER,
             gg INTEGER,
             orbit_description TEXT,
-            avg_orbit REAL,
+            orbital_average REAL,
             orbital_ecc REAL,
             min_orbit REAL,
-            max_orbit REAL
+            max_orbit REAL,
+            companions INTEGER
             );"""
         c.execute('DROP TABLE IF EXISTS stellar_bodies')
         c.execute(sql_create_stellar_bodies) 
+        
+        
         
        
         sql_create_orbital_bodies = """CREATE TABLE orbital_bodies( 
@@ -133,14 +133,14 @@ def generate_stars(db_name,makeit_list):
            
         
     def get_multiple_stars(location):
-    #   A function that returns the # of stars in the system
+    #   A function that returns the # of companions of the primary (not including sub-companions)
         mult_roll = roll_dice(3,'# of stars',location)
         if mult_roll <= MULTIPLE_STAR_CHANCE_S:
-            rolled_multiple = "Solo"
+            rolled_multiple = 0
         elif mult_roll <= MULTIPLE_STAR_CHANCE_B:
-            rolled_multiple = "Binary"
+            rolled_multiple = 1
         else:
-            rolled_multiple = "Trinary"
+            rolled_multiple = 2
         return rolled_multiple
         
     def get_luminosity_class(location):
@@ -252,125 +252,13 @@ def generate_stars(db_name,makeit_list):
         od_list.append(D + B * 999999999)
     
         return od_list
-    
-    def generate_common_stellar_data(spec,lumc,location):
-    # Generate common stellar stats for any type of star
-    # Return the details as a list (common list)
-    
-        if lumc == 'V':
-            stellar_temp = CHARSV[spec]["temperature"]
-            stellar_luminosity = CHARSV[spec]["luminosity"]
-            stellar_mass = CHARSV[spec]["mass"]
-            stellar_radius = CHARSV[spec]["radius"]
-            temp_stellar_lifespan = CHARSV[spec]["lifespan"]
-            # for main sequence(V) planets this number is maximum age.  We need to assign an age for this particular star
-            adjust_age = roll_dice(2, 'stellar age',location)
-            if adjust_age > float(temp_stellar_lifespan):
-                adjust_age = temp_stellar_lifespan
-            stellar_lifespan = str(adjust_age)
-            
-            orbital_inner_limit = OZONE[spec]["inner_limit"]
-            orbital_lz_min = OZONE[spec]["life_zone_min"]
-            orbital_lz_max = OZONE[spec]["life_zone_max"]
-            orbital_snow_line = OZONE[spec]["snow_line"]
-            orbital_outer_limit = OZONE[spec]["outer_limit"]
-        elif lumc == 'III':
-            stellar_temp = CHARSIII[spec]["temperature"]
-            stellar_luminosity = CHARSIII[spec]["luminosity"]
-            stellar_mass = CHARSIII[spec]["mass"]
-            stellar_radius = CHARSIII[spec]["radius"]
-            stellar_lifespan = CHARSIII[spec]["lifespan"]        
-            orbital_inner_limit = -1
-            orbital_lz_min = -1
-            orbital_lz_max = -1
-            orbital_snow_line = -1
-            orbital_outer_limit = -1                    
-        else:
-            stellar_temp = 0
-            stellar_luminosity = 0.001
-            stellar_mass = 0.14 + (roll_dice(3, 'wD Mass', location) * 0.04)
-            stellar_radius = 0.00003
-            stellar_lifespan = 0
-            orbital_inner_limit = 0.1
-            orbital_lz_min = 0.15
-            orbital_lz_max = 0.15
-            orbital_snow_line = 0.19
-            orbital_outer_limit = 2  
-    
-    #calculate the orbits
-        base_orbital_radius_int = (roll_dice(1,'base orbital radius',location) + 1)
-        base_orbital_radius = float(base_orbital_radius_int/2)
-        base_orbital_radius = float(base_orbital_radius) * float(orbital_inner_limit)
-        bode_roll = roll_dice(1,'bode constant roll',location)
-        if bode_roll < 3:
-            bode_constant = 0.3
-        elif bode_roll < 5:
-            bode_constant = 0.35
-        else:
-            bode_constant = 0.4
-    
-        orbits_distance_list = list()
-        orbits_distance_list = populate_orbit_distance(base_orbital_radius, bode_constant)
-            
-        orbits = -1
-        loop_a = 0
-    
-        if base_orbital_radius > 0:
-            while (float(orbits_distance_list[loop_a]) < float(orbital_outer_limit)):
-                loop_a = loop_a + 1
-        orbits = loop_a - 1 #above while will go one too far, needs to be corrected
-            
-    
-        common_list = list()
-        common_list =  (stellar_temp,
-                        stellar_luminosity,
-                        stellar_mass,
-                        stellar_radius,
-                        stellar_lifespan,
-                        orbital_inner_limit,
-                        orbital_lz_min,
-                        orbital_lz_max,
-                        orbital_snow_line,
-                        orbital_outer_limit,
-                        round(base_orbital_radius,4),
-                        bode_constant,
-                        orbits)     
-        
-        return common_list
-    
-        
-    def populate_primary_dict(location, psd_spectral_type,psd_luminosity_class,psd_multiple_star_status):
-    # Populate the primary stellar dictionary stats 
-        
-        p_common_stellar_data = list()
-        p_common_stellar_data = generate_common_stellar_data(psd_spectral_type,psd_luminosity_class,location)
-        
-        psd_stellar_dict = {"system_type"         : psd_multiple_star_status,
-                            "luminosity_class"    : psd_luminosity_class,
-                            "spectral_type"       : psd_spectral_type,
-                            "temperature"         : p_common_stellar_data[0],
-                            "luminosity"          : p_common_stellar_data[1],
-                            "mass"                : p_common_stellar_data[2],
-                            "radius"              : p_common_stellar_data[3],
-                            "age"                 : p_common_stellar_data[4],
-                            "inner_limit"         : p_common_stellar_data[5],
-                            "lz_min"              : p_common_stellar_data[6],
-                            "lz_max"              : p_common_stellar_data[7],
-                            "snow_line"           : p_common_stellar_data[8],
-                            "outer_limit"         : p_common_stellar_data[9],
-                            "base_orbital_radius" : p_common_stellar_data[10],
-                            "bode_constant"       : p_common_stellar_data[11],
-                            "orbits"              : p_common_stellar_data[12],
-                            "belts"            : 0,
-                            "gg"               : 0}                          
-    
-                            
-        return psd_stellar_dict
-    
+
+
     def find_csd_spectral_type(third_roll,prime_spec_type):
     # Use the spectral type of the primary to find the spectral type of the companion
+    # Only used when companion has the same luminosity class as the primary
     
-        if third_roll < 5:
+        if third_roll <=3:
             spec_diff = 0
         elif third_roll == 4:
             spec_diff = 1
@@ -384,9 +272,11 @@ def generate_stars(db_name,makeit_list):
         spec_number = spec_number + spec_diff
         if spec_number > 4:
             spec_number = 4
-        companion_spec = (spec_list[spec_number] + '5')
+        companion_spec = (spec_list[spec_number] + '5')  # Assume 5 subtype
         return companion_spec
-    
+
+ 
+
     def get_orbit_ecc(o_separation, location):
         ecc_list = list()
         ecc_list = [0.05,0.1,0.2,0.3,0.4,0.4,0.5,0.5,0.5,0.6,0.6,0.7,0.7,0.8,0.9,0.95]
@@ -412,20 +302,14 @@ def generate_stars(db_name,makeit_list):
         return orbit_ecc
     
         
-    def get_companion_orbit(n,c_sep,location,sub_companion):
+    def get_companion_orbit(location,n,sub_companion):
+        
         
     #   n represents which number star this is in the system
-    #   c_sep is the companion separation dictionary
     #   sub_companion is a boolean indicating if this body is a subcompanion of another companion
     
-    #   First In asks for any star beyond the second to have a plus 6.  
-    #   Or suggests just arbitrarily picking an orbit that works
-    #   Recent astronomy suggests most third stars are distant - so we will just do that.
-    #   Adding 13 to the role will ensure that
     
-    #   2021:  If this entity is a subcompanion (sub_companion = True) then the orbit should be -6
-    
-        if (n > 2) and (sub_companion == False):
+        if (n > 1) and (sub_companion == False):
             die_mod = 13
         elif sub_companion == True:
             die_mod = -6
@@ -445,158 +329,267 @@ def generate_stars(db_name,makeit_list):
             sep_roll_lu = "15"
             
         sep_dict = {}
-        sep_dict = c_sep
+        sep_dict = COMP_SEP
         
         # Below is the separation description from the Orbital Separation Table
         sep_desc = sep_dict[sep_roll_lu]['separation']                      
         # Below is the radius multiplier from the Orbital Separation Table
         sep_rad_mod = round(float(sep_dict[sep_roll_lu]['orbital_mod']),4)  
         
-        sep_rad_roll = roll_dice(2, 'separation radius multiplier',location)
-        sep_rad_final = float(sep_rad_mod + sep_rad_roll)
+        sep_rad_roll = roll_dice(2, 'companion orbital_average',location)
+        orbital_average = float(sep_rad_mod + sep_rad_roll)
         
           
         #check to see if the companion is Distant and has its own companion.  For now mark with an asterisk in Separation description
-        own_companion = False  # assume no companion of its own
+        own_companion = 0  # assume no companion of its own
         if sep_desc == "Distant":
             check_distant = roll_dice(3, 'distant companion check',location)
             if check_distant >= DISTANT_COMPANION_CHANCE:
                 sep_desc = "Distant*"
-                own_companion = True
+                own_companion = 1 #flag the presence of a companion, which will result in a new stellar body
     
        
         orbital_ecc = float(get_orbit_ecc(sep_desc,location))
         
-        min_orbit = (1 - orbital_ecc) * sep_rad_final
-        max_orbit = (1.00 + orbital_ecc) * sep_rad_final
+        min_orbit = (1.00 - orbital_ecc) * orbital_average 
+        max_orbit = (1.00 + orbital_ecc) * orbital_average 
        
-        
-        
-        sep_list = list()
-        sep_list = (sep_roll,
-                    sep_desc,
-                    sep_rad_mod,
-                    sep_rad_roll,
-                    sep_rad_final,
-                    orbital_ecc,
-                    round(min_orbit,2),
-                    round(max_orbit),
-                    own_companion)
+        comp_orbit_dict = {
+                    'sep_desc': sep_desc,
+                    'orbital_average': orbital_average,
+                    'orbital_ecc': orbital_ecc,
+                    'min_orbit': round(min_orbit,2),
+                    'max_orbit': round(max_orbit,2),
+                    'companions': own_companion}
                     
         
                     
-        return sep_list
-        
-    def populate_companion_dict(location, primary_dict,companion,sub_companion):
-    # Populate the companion stellar dictionary stats
-    # companion = the star's number in the system in relation to the primary (2 = secondary, 3 = tertiary)
-    # sub_companion = True or False to indicate if this entity is a subcompanion 
-    
-    
-        star_no = companion
-        star_no_str = str(companion)
-        csd_orbit = list()
-        csd_orbit = get_companion_orbit(star_no,COMP_SEP,location,sub_companion)
-     
-        sec_lum_roll_a = roll_dice(1, 'comp lum class #1',location)
-        sec_lum_roll_b = roll_dice(1, 'comp lum class #2',location)
-        csd_spec_roll = roll_dice(1, 'comp spec roll',location)
-        
-        if primary_dict["luminosity_class"] == "D":
-            csd_luminosity_class = "D"
-            csd_spectral_type = "w"
-        elif primary_dict["luminosity_class"] == "V":
-            if sec_lum_roll_a < 5:
-                csd_luminosity_class = "V"
-                csd_spectral_type = find_csd_spectral_type(csd_spec_roll,primary_dict["spectral_type"])
+        return comp_orbit_dict
+
+    def populate_stellar_dict(location,companion_no,stellar_dict,primary_companions,sub_companion):
+    # Generate data for new stellar body - place into dictionary
+    # location is hex location in sector
+    # companion_no (0 if primary, 1 if the first star orbiting the primary etc)
+    # stellar_dict is data of the primary if this star is a companion
+    # companion_no identifies which primary companion this is (e.g. 0 is primary, 1 is first to orbit primary)
+
+        if companion_no > 0:
+           
+
+            lum_class_list=['I','III','V']
+           
+
+            if stellar_dict["luminosity_class"] == 'D':
+                luminosity_class = 'D'
+                spec = 'w'
             else:
-                if sec_lum_roll_b < 5:
-                    csd_luminosity_class = "V"
-                    csd_spectral_type = "M5"
+                sec_lum_roll_a = roll_dice(1, 'comp lum class #1',location)
+                if sec_lum_roll_a <= 4:
+                    luminosity_class = stellar_dict["luminosity_class"]
+                    csd_spec_roll = roll_dice(1, 'comp spec roll',location)
+                    spec = find_csd_spectral_type(csd_spec_roll,stellar_dict["spectral_type"])
                 else:
-                    csd_luminosity_class = "D"
-                    csd_spectral_type = "w"
-        elif primary_dict["luminosity_class"] == "III":
-            if sec_lum_roll_a < 5:
-                csd_luminosity_class = "III"
-                csd_spectral_type = find_csd_spectral_type(csd_spec_roll,primary_dict["spectral_type"])
-            elif sec_lum_roll_a == 5:
-                csd_luminosity_class = "V"
-                csd_spectral_type = find_csd_spectral_type(csd_spec_roll,primary_dict["spectral_type"])
-            else:
-                if sec_lum_roll_b < 5:
-                    csd_luminosity_class = "V"
-                    csd_spectral_type = "M5"
-                else:
-                    csd_luminosity_class = "D"
-                    csd_spectral_type = "w"
-        
-        else:
-            csd_luminosity_class = "X"
-            csd_spectral_type = "X"
+                    lum_class_index = lum_class_list.index(stellar_dict["luminosity_class"])
+                    if sec_lum_roll_a == 5:
+                        lum_class_index += 1
+                    else:
+                        lum_class_index += 2
+                        
+                    if lum_class_index < 3:
+                        luminosity_class = lum_class_list[lum_class_index]
+                    else:
+                        sec_lum_roll_b = roll_dice(1, 'comp lum class #2',location)
+                        if sec_lum_roll_b <= 4:
+                            luminosity_class = 'V'
+                            
+                        else:
+                            luminosity_class = 'D'
+                    
+                    if luminosity_class == 'D':
+                        spec = 'w'
+                    elif luminosity_class in lum_class_list:
+                        csd_spec_roll = roll_dice(1, 'comp spec roll',location)
+                        spec = find_csd_spectral_type(csd_spec_roll,stellar_dict["spectral_type"])
+                    else:
+                        luminosity_class = 'X'
+                        spec = 'X'
+
+            
+
+
          
-        
+        else:
     
-        c_common_stellar_data = list()
-        c_common_stellar_data = generate_common_stellar_data(csd_spectral_type,csd_luminosity_class,location)
+            luminosity_class = get_luminosity_class(location)
+
+            if luminosity_class == "D":
+                    spec = "w"
+            else:
+                    spec = get_spectral(location)
     
-       
+        if luminosity_class == 'V':
+            stellar_temp = CHARSV[spec]["temperature"]
+            stellar_luminosity = CHARSV[spec]["luminosity"]
+            stellar_mass = CHARSV[spec]["mass"]
+            stellar_radius = CHARSV[spec]["radius"]
+            temp_stellar_lifespan = CHARSV[spec]["lifespan"]
+            # for main sequence(V) planets this number is maximum age.  
+            # We need to assign an age for this particular star
+            adjust_age = roll_dice(2, 'stellar age',location)
+            if adjust_age > float(temp_stellar_lifespan):
+                adjust_age = temp_stellar_lifespan
+            stellar_lifespan = str(adjust_age)
+            
+
+        elif luminosity_class == 'III':
+            stellar_temp = CHARSIII[spec]["temperature"]
+            stellar_luminosity = CHARSIII[spec]["luminosity"]
+            stellar_mass = CHARSIII[spec]["mass"]
+            stellar_radius = CHARSIII[spec]["radius"]
+            stellar_lifespan = CHARSIII[spec]["lifespan"]    
         
-        
-        companion_dict = {}    
-        companion_dict = {  "orbit_desc"          : csd_orbit[1],
-                            "lum_roll_a"          : sec_lum_roll_a,
-                            "lum_roll_b"          : sec_lum_roll_b,
-                            "spec_roll"           : csd_spec_roll,
-                            "luminosity_class"    : csd_luminosity_class,
-                            "spectral_type"       : csd_spectral_type,
-                            "sep_roll"            : csd_orbit[0],
-                            "rad_mod"             : csd_orbit[2],
-                            "sep_rad_roll"          : csd_orbit[3],
-                            "sep_rad_final"         : csd_orbit[4],
-                            "orbital_ecc"         : csd_orbit[5],
-                            "min_orbit"           : csd_orbit[6],
-                            "max_orbit"           : csd_orbit[7],                            
-                            "temperature"         : c_common_stellar_data[0],
-                            "luminosity"          : c_common_stellar_data[1],
-                            "mass"                : c_common_stellar_data[2],
-                            "radius"              : c_common_stellar_data[3],
-                            "age"                 : c_common_stellar_data[4],
-                            "inner_limit"         : c_common_stellar_data[5],
-                            "lz_min"              : c_common_stellar_data[6],
-                            "lz_max"              : c_common_stellar_data[7],
-                            "snow_line"           : c_common_stellar_data[8],
-                            "outer_limit"         : c_common_stellar_data[9],
-                            "base_orbital_radius" : c_common_stellar_data[10],
-                            "bode_constant"       : c_common_stellar_data[11],
-                            "orbits"              : c_common_stellar_data[12],
-                            "own_companion"         : csd_orbit[8]}   
-        
+                 
+        else:
+            stellar_temp = 0
+            stellar_luminosity = 0.001
+            stellar_mass = 0.14 + (roll_dice(3, 'wD Mass', location) * 0.04)
+            stellar_radius = 0.00003
+            stellar_lifespan = 0
+
+
+        # companion info
         
 
-        # write to the database - add the companion to the stellar bodies table
-    
-        c.execute("INSERT INTO stellar_bodies(location, luminosity_class, spectral_type, \
-                              age, orbit_description, avg_orbit, orbital_ecc, \
-                              min_orbit, max_orbit, b_o_r, bode_c, orbits, companion_class) \
-                              VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                           (str(location), 
-                            csd_luminosity_class,
-                            csd_spectral_type,
-                            c_common_stellar_data[4],
-                            csd_orbit[1],
-                            csd_orbit[4],
-                            csd_orbit[5],
-                            csd_orbit[6],
-                            csd_orbit[7],
-                            c_common_stellar_data[10],
-                            c_common_stellar_data[11],
-                            c_common_stellar_data[12],
-                            star_no_str)) 
+        if companion_no == 0:
+            comp_orbit_dict = {
+                    'sep_desc': 'Primary',
+                    'orbital_average' : 0,
+                    'orbital_ecc': 'NA',
+                    'min_orbit': 0,
+                    'max_orbit': 0,
+                    'companions': primary_companions}
+        else:
+            comp_orbit_dict = get_companion_orbit(location,companion_no,sub_companion)
 
- 
+
+        if sub_companion == True: 
+            companion_no += 0.1
+            
+            
+        # if this stellar body is a companion, overwrite the calculated age with the primary
+        if companion_no > 0:
+            stellar_lifespan = stellar_dict['age']
+
+
+        stellar_dict = {"location"            : location,
+                        "companion_class"     : companion_no,
+                        "luminosity_class"    : luminosity_class,
+                        "spectral_type"       : spec,
+                        "temperature"         : stellar_temp,
+                        "luminosity"          : stellar_luminosity,
+                        "mass"                : stellar_mass,
+                        "radius"              : stellar_radius,
+                        "age"                 : stellar_lifespan,
+                        "inner_limit"         : -1,
+                        "lz_min"              : -1,
+                        "lz_max"              : -1,
+                        "snow_line"           : -1,
+                        "outer_limit"         : -1,
+                        "base_orbital_radius" : -1,
+                        "bode_constant"       : -1,
+                        "orbits"              : -1,
+                        "belts"               : -1,
+                        "gg"                  : -1,
+                        "orbit_description"   : comp_orbit_dict['sep_desc'],
+                        "orbital_average"     : comp_orbit_dict['orbital_average'],
+                        "orbital_ecc"         : comp_orbit_dict['orbital_ecc'],
+                        "min_orbit"           : comp_orbit_dict['min_orbit'],
+                        "max_orbit"           : comp_orbit_dict['max_orbit'],
+                        "companions"          : comp_orbit_dict['companions']}
+    
+                            
+        return stellar_dict
+
+
+    def populate_stellar_orbit_info(location, stellar_dict_list):
+            
+        #receive a list of dictionaries of stellar bodies in a system and add orbit info
+        #if companions are very close, temporarily combine their mass and luminosity for orbit purposes
+        #in such cases the orbit info goes to the primary and the companion's orbit info is 0
         
-        return companion_dict
+        return_list = []
+        
+        for ix_star, star_dict in enumerate(stellar_dict_list):
+
+            if star_dict['companions'] == 0:
+                stellar_mass = float(star_dict['mass'])
+                stellar_luminosity = float(star_dict['luminosity'])
+            
+            elif star_dict['orbit_description'] != 'Very Close':
+                companion_orbit = stellar_dict_list[ix_star+1]['orbit_description']
+                if companion_orbit == 'Very Close':
+                    stellar_mass = float(star_dict['mass']) + \
+                    float(stellar_dict_list[ix_star+1]['mass']) 
+                    stellar_luminosity = float(star_dict['luminosity']) + \
+                    float(stellar_dict_list[ix_star+1]['luminosity'])
+                else:
+                    stellar_mass = float(star_dict['mass'])
+                    stellar_luminosity = float(star_dict['luminosity'])
+            else:
+                stellar_mass = 0
+                stellar_luminosity = 0
+                    
+        
+            r1 = 0.2 * stellar_mass   # using First In detailed gen rules 
+            r2 = 0.0088 * (stellar_luminosity * 0.5)
+            
+            if r1 > r2: orbital_inner_limit = r1 
+            else: orbital_inner_limit = r2
+            
+            orbital_lz_min = 0.95 * (stellar_luminosity * 0.5)
+            orbital_lz_max = 1.3 * (stellar_luminosity * 0.5)
+            orbital_snow_line = 1.3 * (stellar_luminosity * 0.5)
+            orbital_outer_limit = 40 * stellar_mass    
+                    
+            base_orbital_radius_int = (roll_dice(1,'base orbital radius',location) + 1)
+            base_orbital_radius = float(base_orbital_radius_int/2)
+            base_orbital_radius = float(base_orbital_radius) * float(orbital_inner_limit)
+            bode_roll = roll_dice(1,'bode constant roll',location)
+            if bode_roll < 3:
+                bode_constant = 0.3
+            elif bode_roll < 5:
+                bode_constant = 0.35
+            else:
+                bode_constant = 0.4
+        
+            orbits_distance_list = list()
+            orbits_distance_list = populate_orbit_distance(base_orbital_radius, bode_constant)
+                
+            orbits = -1
+            loop_a = 0
+        
+            if base_orbital_radius > 0:
+                while (float(orbits_distance_list[loop_a]) < float(orbital_outer_limit)):
+                    loop_a = loop_a + 1
+
+            orbits = loop_a - 1 #above while will go one too far, needs to be corrected
+    
+    
+            star_dict["inner_limit"] = orbital_inner_limit
+            star_dict["lz_min"] = orbital_lz_min
+            star_dict["lz_max"] = orbital_lz_max
+            star_dict["snow_line"] = orbital_snow_line
+            star_dict["outer_limit"] = orbital_outer_limit
+            star_dict["base_orbital_radius"] = base_orbital_radius
+            star_dict["bode_constant"] = bode_constant
+            star_dict["orbits"] = orbits
+
+            return_list.append(star_dict)
+            
+        return return_list
+
+
+
     
     def get_size(r,z,s,location):
     # returns the planetary size
@@ -1191,33 +1184,42 @@ def generate_stars(db_name,makeit_list):
             
         return p_star_dict
     
-    
-    def populate_db_tables(primary_dict):
-    
-        c.execute("INSERT INTO stellar_bodies (location, system_type, luminosity_class, \
-                  spectral_type, age, stellar_radius, \
-                  b_o_r, bode_c, orbits, gg, belts, companion_class) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                 (str(parsec), 
-                    primary_stellar_dict_r["system_type"],
-                    primary_stellar_dict_r["luminosity_class"],
-                    primary_stellar_dict_r["spectral_type"],
-                    primary_stellar_dict_r["age"],
-                    primary_stellar_dict_r["radius"],
-                    primary_stellar_dict_r["base_orbital_radius"],
-                    primary_stellar_dict_r["bode_constant"],
-                    primary_stellar_dict_r["orbits"],
-                    primary_stellar_dict_r["gg"],
-                    primary_stellar_dict_r["belts"],
-                    '1'))   # '1' dictates a primary star
-    
-    
-        
-        
-    #Main Program
-    
 
-    ###########################################################
-    #   Break down input variable 'makeit_list'
+    def populate_stellar_tables(stellar_list):
+        
+        for star in stellar_list:
+            
+            c.execute("INSERT INTO stellar_bodies (location, companion_class, luminosity_class, \
+                  spectral_type, age, radius, orbits, belts, gg, orbit_description, orbital_average, \
+                  orbital_ecc, min_orbit, max_orbit, companions) \
+                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(
+                  star["location"],
+                  star["companion_class"],
+                  star["luminosity_class"],
+                  star["spectral_type"],
+                  star["age"],
+                  star["radius"],
+                  star["orbits"],
+                  star["belts"],
+                  star["gg"],
+                  star["orbit_description"],
+                  star["orbital_average"],
+                  star["orbital_ecc"],
+                  star["min_orbit"],
+                  star["max_orbit"],
+                  star["companions"]))
+                  
+
+
+                     
+    
+  
+    
+        
+        
+#Main Program
+###########################################################
+#   Break down input variable 'makeit_list'
 #                 0   random_seed_input, 
 #                 1   sector_name_input,
 #                 2   density_input,
@@ -1230,6 +1232,8 @@ def generate_stars(db_name,makeit_list):
 #                 9   solo_input,
 #                 10   binary_input,
 #                 11  distant_input
+
+
 
     seed_number = makeit_list[0]
     random.seed(seed_number)
@@ -1277,6 +1281,8 @@ def generate_stars(db_name,makeit_list):
     
     
     total_systems = 0
+    total_stars = 0
+    total_planets = 0
     
     
     #   Loop for each sector
@@ -1303,76 +1309,48 @@ def generate_stars(db_name,makeit_list):
     ###################################################################################
                 if rollgen >= LIKELIHOOD:  
                     systempresent = True
-                    multiple_star_status = get_multiple_stars(parsec)
-                    luminosity_class = get_luminosity_class(parsec)
-                    if luminosity_class == "D":
-                         spectral_type = "w"
-                    else:
-                        spectral_type = get_spectral(parsec)
-    
-                  
-                    primary_stellar_dict_r = {}  
-                    primary_stellar_dict_r = populate_primary_dict( parsec, 
-                                                                    spectral_type,
-                                                                    luminosity_class,
-                                                                    multiple_star_status)
+                    total_systems += 1
+                    stellar_dict_list = []
+                    stellar_dict = {}
                     
-                    total_systems = total_systems + 1
+                    primary_companions = get_multiple_stars(parsec)# companions of the primary
+ #                   print('Location:',parsec)
+                    for pc in range (0,primary_companions+1):  # one loop for each non subcompanion star
+ #                       print('Star',pc)
+                        total_stars += 1
+                        if pc == 0: 
+                            stellar_dict = populate_stellar_dict(parsec,pc,0,primary_companions,False)
+                            stellar_dict_list.append(stellar_dict)
+                        else: 
+                            stellar_dict = populate_stellar_dict(parsec,pc,stellar_dict_list[0],primary_companions,False)
+                            stellar_dict_list.append(stellar_dict)
+                                                          
+                            if stellar_dict['companions'] > 0:
+                                stellar_dict = populate_stellar_dict(parsec,pc,stellar_dict,primary_companions,True)
+                                stellar_dict_list.append(stellar_dict)
+                    
+                    stellar_dict_list = populate_stellar_orbit_info(parsec,stellar_dict_list)
+                    
+                    populate_stellar_tables(stellar_dict_list)
+
+
+                    
                    
                   
-#                    print(parsec + ':' + primary_stellar_dict_r["p_system_type"])
+
     
                     
-                    secondary_stellar_dict_r = {}  
-
-                    tertiary_stellar_dict_r = {}  # one row in the stellar dictionary for tertiaries
-
-                    if primary_stellar_dict_r["system_type"] != "Solo":
-                        comp_no = 2 # this is the second star in the system
-                        sub_companion = False # this body orbits the primary
-                        secondary_stellar_dict_r = populate_companion_dict( parsec, 
-                                                                            primary_stellar_dict_r,
-                                                                            comp_no,
-                                                                            sub_companion)
-                        if secondary_stellar_dict_r['own_companion'] == True:
-                            comp_no = 2.1
-                            sub_companion = True # this body orbits the secondary
-                            companion_dict = populate_companion_dict(   parsec, 
-                                                                        secondary_stellar_dict_r,
-                                                                        comp_no,
-                                                                        sub_companion)
 
                     
-
-
-                    if primary_stellar_dict_r["system_type"] == "Trinary":
-                        comp_no = 3 # this is the third star in the system
-                        sub_companion = False # this body orbits the primary
-                        tertiary_stellar_dict_r = populate_companion_dict(  parsec,
-                                                                            primary_stellar_dict_r,
-                                                                            comp_no,
-                                                                            sub_companion)
-                        if tertiary_stellar_dict_r['own_companion'] == True:
-                            comp_no = 3.1
-                            sub_companion = True # this body orbits the secondary
-                            companion_dict = populate_companion_dict( parsec, 
-                                                                            tertiary_stellar_dict_r,
-                                                                            comp_no,
-                                                                            sub_companion)
-                  
-     
-                    stellar_number = 1 # future use for companion orbits
-                    primary_stellar_dict_r = populate_planetary_orbits(parsec,primary_stellar_dict_r, 
-                                                                       secondary_stellar_dict_r,stellar_number)
-                    
-                    populate_db_tables(primary_stellar_dict_r)
                     
     ####################################################################################
                     
     
                 else:
                     systempresent = False
-    print(total_systems,'different systems generated.')           
+    print(total_systems,'different systems generated.')   
+    print(total_stars,'different stars generated.') 
+    print(total_planets,'different planets generated.')         
     conn.commit()  
     c.close()
     conn.close()
