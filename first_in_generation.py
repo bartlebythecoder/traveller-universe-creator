@@ -54,13 +54,23 @@ def generate_stars(db_name,makeit_list):
             luminosity_class TEXT,
             spectral_type TEXT,
             age REAL,
+            temperature REAL,
+            luminosity REAL,
+            mass REAL,
             radius REAL,
+            inner_limit REAL,
+            life_zone_min REAL,
+            life_zone_max REAL,
+            snow_line REAL,
+            outer_limit REAL,
+            base_orbital_radius REAL,
+            bode_constant REAL,
             orbits INTEGER,
             belts INTEGER,
             gg INTEGER,
-            orbit_description TEXT,
-            orbital_average REAL,
-            orbital_ecc REAL,
+            s_orbit_description TEXT,
+            s_orbital_average REAL,
+            s_orbital_ecc REAL,
             min_orbit REAL,
             max_orbit REAL,
             companions INTEGER
@@ -521,7 +531,7 @@ def generate_stars(db_name,makeit_list):
         
         for ix_star, star_dict in enumerate(stellar_dict_list):
 
-            if star_dict['companions'] == 0:
+            if star_dict['companions'] == 0 and star_dict['orbit_description'] != 'Very Close':
                 stellar_mass = float(star_dict['mass'])
                 stellar_luminosity = float(star_dict['luminosity'])
             
@@ -535,10 +545,12 @@ def generate_stars(db_name,makeit_list):
                 else:
                     stellar_mass = float(star_dict['mass'])
                     stellar_luminosity = float(star_dict['luminosity'])
-            else:
+            elif star_dict['orbit_description'] == 'Very Close':
                 stellar_mass = 0
                 stellar_luminosity = 0
-                    
+            else:
+                stellar_mass = -1
+                stellar_luminosity = -1                   
         
             r1 = 0.2 * stellar_mass   # using First In detailed gen rules 
             r2 = 0.0088 * (stellar_luminosity * 0.5)
@@ -1189,16 +1201,33 @@ def generate_stars(db_name,makeit_list):
         
         for star in stellar_list:
             
-            c.execute("INSERT INTO stellar_bodies (location, companion_class, luminosity_class, \
-                  spectral_type, age, radius, orbits, belts, gg, orbit_description, orbital_average, \
-                  orbital_ecc, min_orbit, max_orbit, companions) \
-                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(
+            c.execute("INSERT INTO stellar_bodies (location, companion_class, luminosity_class,\
+                  spectral_type, age, temperature, luminosity, mass, radius, inner_limit, \
+                  life_zone_min, life_zone_max, snow_line, outer_limit, base_orbital_radius, \
+                  bode_constant, orbits, belts, gg, s_orbit_description, s_orbital_average, \
+                  s_orbital_ecc, min_orbit, max_orbit, companions) \
+                  VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, \
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(
                   star["location"],
                   star["companion_class"],
                   star["luminosity_class"],
                   star["spectral_type"],
                   star["age"],
+                  
+                  star["temperature"],
+                  star["luminosity"],
+                  star["mass"],
                   star["radius"],
+                  star["inner_limit"],
+                  star["lz_min"],
+                  star["lz_max"],
+                  star["snow_line"],
+                  star["outer_limit"],
+                  star["base_orbital_radius"],
+                  star["bode_constant"],
+                  
+                  
+                  
                   star["orbits"],
                   star["belts"],
                   star["gg"],
@@ -1211,7 +1240,7 @@ def generate_stars(db_name,makeit_list):
                   
 
 
-                     
+                
     
   
     
