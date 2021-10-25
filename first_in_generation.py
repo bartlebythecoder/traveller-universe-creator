@@ -531,11 +531,15 @@ def generate_stars(db_name,makeit_list):
         
         for ix_star, star_dict in enumerate(stellar_dict_list):
 
-            if star_dict['companions'] == 0 and star_dict['orbit_description'] != 'Very Close':
+            
+            if star_dict['orbit_description'] == 'Very Close':
+                stellar_mass = 0
+                stellar_luminosity = 0
+            elif star_dict['companions'] == 0:
                 stellar_mass = float(star_dict['mass'])
                 stellar_luminosity = float(star_dict['luminosity'])
             
-            elif star_dict['orbit_description'] != 'Very Close':
+            else: 
                 companion_orbit = stellar_dict_list[ix_star+1]['orbit_description']
                 if companion_orbit == 'Very Close':
                     stellar_mass = float(star_dict['mass']) + \
@@ -545,12 +549,7 @@ def generate_stars(db_name,makeit_list):
                 else:
                     stellar_mass = float(star_dict['mass'])
                     stellar_luminosity = float(star_dict['luminosity'])
-            elif star_dict['orbit_description'] == 'Very Close':
-                stellar_mass = 0
-                stellar_luminosity = 0
-            else:
-                stellar_mass = -1
-                stellar_luminosity = -1                   
+               
         
             r1 = 0.2 * stellar_mass   # using First In detailed gen rules 
             r2 = 0.0088 * (stellar_luminosity * 0.5)
