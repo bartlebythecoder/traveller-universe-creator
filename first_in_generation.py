@@ -11,11 +11,9 @@ def generate_stars(db_name,makeit_list):
 # Possible Improvements Pending:
 
 #   Things skipped that need to be added:
-#   - Distant companions are only notified by adding a * to the Distant value.  
-#       -Need a separate file with details?
+#   - Add detailed creaion rules to vary spectral classes beyond 0 and 5
 #   - Planetoid modifiers (when near a Gas Giant) were not included.
 #   - Not building planetary bodies in binary and trinary systems
-#       - Very close companions should have details combined
 #       - Other companions must handle Forbidden Zone
 #       - Orbital bodies for non-primary stars
 #   - Gas Giant details (including moons)
@@ -27,6 +25,8 @@ def generate_stars(db_name,makeit_list):
 
 #   - To Do list complete:
 
+#   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
+#   - COMPLETE 2021 10 25: Distant stellar bodies added
 #   - COMPLETE: Add Stellar Age
 #   - COMPLETE: Appropriate Planet Size modifiers
 #   - COMPLETE: Validate order in orbits of secondary and tertiary 
@@ -73,6 +73,8 @@ def generate_stars(db_name,makeit_list):
             s_orbital_ecc REAL,
             min_orbit REAL,
             max_orbit REAL,
+            inner_forbidden REAL,
+            outer_forbidden REAL,
             companions INTEGER
             );"""
         c.execute('DROP TABLE IF EXISTS stellar_bodies')
@@ -320,7 +322,7 @@ def generate_stars(db_name,makeit_list):
     
     
         if (n > 1) and (sub_companion == False):
-            die_mod = 13
+            die_mod = 6  # First In says +6, but that means the third could be closer than the second
         elif sub_companion == True:
             die_mod = -6
         else:
@@ -363,6 +365,9 @@ def generate_stars(db_name,makeit_list):
         
         min_orbit = (1.00 - orbital_ecc) * orbital_average 
         max_orbit = (1.00 + orbital_ecc) * orbital_average 
+        
+        inner_forbidden = min_orbit/3
+        outer_forbidden = max_orbit*3
        
         comp_orbit_dict = {
                     'sep_desc': sep_desc,
@@ -370,6 +375,8 @@ def generate_stars(db_name,makeit_list):
                     'orbital_ecc': orbital_ecc,
                     'min_orbit': round(min_orbit,2),
                     'max_orbit': round(max_orbit,2),
+                    'inner_forbidden' : round(inner_forbidden,2),
+                    'outer_forbidden' : round(outer_forbidden,2),
                     'companions': own_companion}
                     
         
@@ -379,9 +386,9 @@ def generate_stars(db_name,makeit_list):
     def populate_stellar_dict(location,companion_no,stellar_dict,primary_companions,sub_companion):
     # Generate data for new stellar body - place into dictionary
     # location is hex location in sector
-    # companion_no (0 if primary, 1 if the first star orbiting the primary etc)
     # stellar_dict is data of the primary if this star is a companion
     # companion_no identifies which primary companion this is (e.g. 0 is primary, 1 is first to orbit primary)
+    # sub_companion is a boolean indicating if the body is a subcompanion
 
         if companion_no > 0:
            
@@ -477,6 +484,8 @@ def generate_stars(db_name,makeit_list):
                     'orbital_ecc': 'NA',
                     'min_orbit': 0,
                     'max_orbit': 0,
+                    'inner_forbidden': 0,
+                    'outer_forbidden': 0,
                     'companions': primary_companions}
         else:
             comp_orbit_dict = get_companion_orbit(location,companion_no,sub_companion)
@@ -515,6 +524,8 @@ def generate_stars(db_name,makeit_list):
                         "orbital_ecc"         : comp_orbit_dict['orbital_ecc'],
                         "min_orbit"           : comp_orbit_dict['min_orbit'],
                         "max_orbit"           : comp_orbit_dict['max_orbit'],
+                        "inner_forbidden"     : comp_orbit_dict['inner_forbidden'],
+                        "outer_forbidden"     : comp_orbit_dict['outer_forbidden'],
                         "companions"          : comp_orbit_dict['companions']}
     
                             
@@ -552,15 +563,16 @@ def generate_stars(db_name,makeit_list):
                
         
             r1 = 0.2 * stellar_mass   # using First In detailed gen rules 
-            r2 = 0.0088 * (stellar_luminosity * 0.5)
+            r2 = 0.0088 * (stellar_luminosity ** 0.5)
             
             if r1 > r2: orbital_inner_limit = r1 
             else: orbital_inner_limit = r2
             
-            orbital_lz_min = 0.95 * (stellar_luminosity * 0.5)
-            orbital_lz_max = 1.3 * (stellar_luminosity * 0.5)
-            orbital_snow_line = 1.3 * (stellar_luminosity * 0.5)
+            orbital_lz_min = 0.95 * (stellar_luminosity ** 0.5)
+            orbital_lz_max = 1.3 * (stellar_luminosity ** 0.5)
+            orbital_snow_line = 5 * (stellar_luminosity ** 0.5)
             orbital_outer_limit = 40 * stellar_mass    
+            if orbital_outer_limit < 10: orbital_outer_limit = 10
                     
             base_orbital_radius_int = (roll_dice(1,'base orbital radius',location) + 1)
             base_orbital_radius = float(base_orbital_radius_int/2)
@@ -586,13 +598,13 @@ def generate_stars(db_name,makeit_list):
             orbits = loop_a - 1 #above while will go one too far, needs to be corrected
     
     
-            star_dict["inner_limit"] = orbital_inner_limit
-            star_dict["lz_min"] = orbital_lz_min
-            star_dict["lz_max"] = orbital_lz_max
-            star_dict["snow_line"] = orbital_snow_line
-            star_dict["outer_limit"] = orbital_outer_limit
-            star_dict["base_orbital_radius"] = base_orbital_radius
-            star_dict["bode_constant"] = bode_constant
+            star_dict["inner_limit"] = round(orbital_inner_limit,3)
+            star_dict["lz_min"] = round(orbital_lz_min,3)
+            star_dict["lz_max"] = round(orbital_lz_max,3)
+            star_dict["snow_line"] = round(orbital_snow_line,3)
+            star_dict["outer_limit"] = round(orbital_outer_limit,3)
+            star_dict["base_orbital_radius"] = round(base_orbital_radius,3)
+            star_dict["bode_constant"] = round(bode_constant,3)
             star_dict["orbits"] = orbits
 
             return_list.append(star_dict)
@@ -926,29 +938,15 @@ def generate_stars(db_name,makeit_list):
         
         
         
-    def populate_planetary_orbits(location,p_star_dict,s_star_dict,stellar_number):
+    def populate_planetary_orbits(location,p_star_dict,stellar_number):
         # location is the parsec location
         # p_star_dict = is the dictionary of the current primary star
         # s_star_dict = is the dictionary of the current secondary star (if there is one).
         # **Update 2021 - stellar_number identifies which star the body is orbiting
         
-        # This function populates the orbital bodies around the primary 
-        # At the moment it ignores any secondary or tertiary stars
-        
-        # Account for the fact there might not be a companion description.
-        description = s_star_dict.get("orbit_desc",None) 
-        primary_rows = 0
-        
-        # This checks if there is a companion, if so remove the orbital bodies.
+
         primary_rows = p_star_dict["orbits"]
-        if description != None:
-            p_star_dict["orbits"] = primary_rows
-            forbidden_inner = s_star_dict['min_orbit'] * 0.3
-            forbidden_outer = s_star_dict['max_orbit'] * 3
-            
-        else:
-            forbidden_inner = 0
-            forbidden_outer = 0
+
       
         zones = list()
         zone_objects = list()
@@ -1204,15 +1202,14 @@ def generate_stars(db_name,makeit_list):
                   spectral_type, age, temperature, luminosity, mass, radius, inner_limit, \
                   life_zone_min, life_zone_max, snow_line, outer_limit, base_orbital_radius, \
                   bode_constant, orbits, belts, gg, s_orbit_description, s_orbital_average, \
-                  s_orbital_ecc, min_orbit, max_orbit, companions) \
+                  s_orbital_ecc, min_orbit, max_orbit, inner_forbidden, outer_forbidden, companions) \
                   VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, \
-                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(
+                         ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",(
                   star["location"],
                   star["companion_class"],
                   star["luminosity_class"],
                   star["spectral_type"],
                   star["age"],
-                  
                   star["temperature"],
                   star["luminosity"],
                   star["mass"],
@@ -1224,9 +1221,6 @@ def generate_stars(db_name,makeit_list):
                   star["outer_limit"],
                   star["base_orbital_radius"],
                   star["bode_constant"],
-                  
-                  
-                  
                   star["orbits"],
                   star["belts"],
                   star["gg"],
@@ -1235,6 +1229,8 @@ def generate_stars(db_name,makeit_list):
                   star["orbital_ecc"],
                   star["min_orbit"],
                   star["max_orbit"],
+                  star["inner_forbidden"],
+                  star["outer_forbidden"],                  
                   star["companions"]))
                   
 
