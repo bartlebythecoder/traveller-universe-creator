@@ -4,18 +4,14 @@ def generate_stars(db_name,makeit_list):
 # First In Generation
 # by Sean Nelson
 
-# A program to teach Sean the Python programming language
 # The goal is to generate a series of star systems for Traveller using the First In ruleset
 
 
 # Possible Improvements Pending:
 
 #   Things skipped that need to be added:
-#   - Add detailed creaion rules to vary spectral classes beyond 0 and 5
+#   - Add detailed creation rules to vary spectral classes beyond 0 and 5
 #   - Planetoid modifiers (when near a Gas Giant) were not included.
-#   - Not building planetary bodies in binary and trinary systems
-#       - Other companions must handle Forbidden Zone
-#       - Orbital bodies for non-primary stars
 #   - Gas Giant details (including density, moons)
 #   - Expand moon data
 #   - Add tidal effects
@@ -25,6 +21,8 @@ def generate_stars(db_name,makeit_list):
 
 #   - To Do list complete:
 
+#   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
+#   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
 #   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
 #   - COMPLETE 2021 10 25: Distant stellar bodies added
 #   - COMPLETE: Add Stellar Age
@@ -247,6 +245,7 @@ def generate_stars(db_name,makeit_list):
     def populate_orbit_distance(D,B):
     # Uses a list and Bodes law to return the orbital distances
         od_list = list()
+        od_list.append(0) # First items a 0, handles 0 indexing later
         od_list.append(D)
         od_list.append(D + B)
         od_list.append(D + B * 2)
@@ -624,11 +623,11 @@ def generate_stars(db_name,makeit_list):
     
         if r == 1:
             size_roll = size_roll - 4
-        elif z[r] != "Outer Zone":
+        elif z != "Outer Zone":
             size_roll = size_roll - 2
-        elif z[r-1] != "Outer Zone":
+        elif z != "Outer Zone":
             size_roll = size_roll + 6
-        elif z[r-2] != "Outer Zone":
+        elif z != "Outer Zone":
             size_roll = size_roll + 4
         
         if s == "M0":
@@ -956,242 +955,251 @@ def generate_stars(db_name,makeit_list):
                 distance_list = star['distance_list']
                 for planet_no in range(1,orbits+1):
                     dice_location = str(location) + str(planet_no)
-                    
-
-                    
+                                        
                     current_distance = round(distance_list[planet_no],4)
-                    if star['inner_forbidden'] < current_distance < star['outer_forbidden']:
-                        zones = "Forbidden"
-                        zone_objects = "Lost"
-                        size = 0
-                        density = 0                    
-                        mass = 0
-                        gravity = 0
-                        moons = 0
-                        orbit_adjust -= 1
-                        
-                    elif current_distance < float(star["inner_limit"]):
-                        zones= "Beyond Inner"
-                        zone_objects = "Vapour"
-                        size = 0
-                        density = 0     
-                        mass = 0
-                        gravity = 0
-                        moons = 0
-                        orbit_adjust -= 1
-                        
-                    elif current_distance < float(star["lz_min"]):
-                        zones = "Inner Zone"
-                        gg_check = roll_dice(3,'GG check',dice_location)
-                        if gg_check <= 3:
-                            zone_objects = "Gas Giant"
-                            size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                            density= 1
-                            no_gg += 1
-                        else:
-                            planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
-                            if planetoid_roll <= 6:
-                                zone_objects = "Planetoid Belt"
-                                size = 0
-                                density = 0
-                                no_belts += 1
+                    forbidden_orbit = False  # flag for companion forbidden orbit
+
+                    # If the current star has a companion, we need to load the companion's forbidden zone
+                    
+                    if star['companions'] > 0:
+                        comp_inner_forbidden = dict_list[star_no+1]['inner_forbidden']
+                        comp_outer_forbidden = dict_list[star_no+1]['outer_forbidden']
+                        if comp_inner_forbidden < current_distance < comp_outer_forbidden:
+                            zones = "Forbidden"
+                            zone_objects = "Lost"
+                            size = 0
+                            density = 0                    
+                            mass = 0
+                            gravity = 0
+                            moons = 0
+                            orbit_adjust -= 1        
+                            forbidden_orbit = True
+                    # We know build the planet using details from its current star
+                    # This may or may not include a forbidden zone of its own if it is a companion
+                    
+                    if forbidden_orbit == False:
+                    
+                        if star['inner_forbidden'] < current_distance < star['outer_forbidden']:
+                            zones = "Forbidden"
+                            zone_objects = "Lost"
+                            size = 0
+                            density = 0                    
+                            mass = 0
+                            gravity = 0
+                            moons = 0
+                            orbit_adjust -= 1
+                            
+                        elif current_distance < float(star["inner_limit"]):
+                            zones= "Beyond Inner"
+                            zone_objects = "Vapour"
+                            size = 0
+                            density = 0     
+                            mass = 0
+                            gravity = 0
+                            moons = 0
+                            orbit_adjust -= 1
+                            
+                        elif current_distance < float(star["lz_min"]):
+                            zones = "Inner Zone"
+                            gg_check = roll_dice(3,'GG check',dice_location)
+                            if gg_check <= 3:
+                                zone_objects = "Gas Giant"
+                                size = get_gg_size(planet_no,zones,star["spectral_type"],location)
+                                density= 1
+                                no_gg += 1
                             else:
-                                zone_objects = "Planet"
-                                size = get_size(planet_no,zones,star["spectral_type"],location)
-                                density = get_planet_density(star, zones, size,location)
-                                
-                    elif current_distance < float(star["lz_max"]):
-                        zones = "Life Zone"
-                        gg_check = roll_dice(3,'GG check',dice_location)
-                        if gg_check <= 4:
-                            zone_objects = "Gas Giant"
-                            size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                            density = 1
-                            no_gg += 1
-                        else:
-                            planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
-                            if planetoid_roll <= 6:
-                                zone_objects = "Planetoid Belt"
-                                size = 0
-                                density = 0
-                                no_belts += 1
+                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                if planetoid_roll <= 6:
+                                    zone_objects = "Planetoid Belt"
+                                    size = 0
+                                    density = 0
+                                    no_belts += 1
+                                else:
+                                    zone_objects = "Planet"
+                                    size = get_size(planet_no,zones,star["spectral_type"],location)
+                                    density = get_planet_density(star, zones, size,location)
+                                    
+                        elif current_distance < float(star["lz_max"]):
+                            zones = "Life Zone"
+                            gg_check = roll_dice(3,'GG check',dice_location)
+                            if gg_check <= 4:
+                                zone_objects = "Gas Giant"
+                                size = get_gg_size(planet_no,zones,star["spectral_type"],location)
+                                density = 1
+                                no_gg += 1
                             else:
-                                zone_objects = "Planet"
-                                size = get_size(planet_no,zones,star["spectral_type"],location)
-                                density = get_planet_density(star, zones[planet_no], size,location)
-
-                                
-                    elif current_distance < float(star["snow_line"]):
-                        zones = "Middle Zone"
-                        gg_check = roll_dice(3,'GG check',dice_location)
-                        if gg_check <= 7:
-                            zone_objects="Gas Giant"
-                            size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                            density = 1
-                            no_gg += 1
-                        else:
-                            planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
-                            if planetoid_roll <= 6:
-                                zone_objects = "Planetoid Belt"
-                                size = 0
-                                density = 0
-                                no_belts += 1
+                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                if planetoid_roll <= 6:
+                                    zone_objects = "Planetoid Belt"
+                                    size = 0
+                                    density = 0
+                                    no_belts += 1
+                                else:
+                                    zone_objects = "Planet"
+                                    size = get_size(planet_no,zones,star["spectral_type"],location)
+                                    density = get_planet_density(star, zones[planet_no], size,location)
+    
+                                    
+                        elif current_distance < float(star["snow_line"]):
+                            zones = "Middle Zone"
+                            gg_check = roll_dice(3,'GG check',dice_location)
+                            if gg_check <= 7:
+                                zone_objects="Gas Giant"
+                                size = get_gg_size(planet_no,zones,star["spectral_type"],location)
+                                density = 1
+                                no_gg += 1
                             else:
-                                zone_objects = "Planet"
-                                size = get_size(planet_no,zones,star["spectral_type"],location)
-                                lookup_density = get_planet_density(star, zones[planet_no], size,location)
-                                density = lookup_density
-                                
-
-
-
+                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                if planetoid_roll <= 6:
+                                    zone_objects = "Planetoid Belt"
+                                    size = 0
+                                    density = 0
+                                    no_belts += 1
+                                else:
+                                    zone_objects = "Planet"
+                                    size = get_size(planet_no,zones,star["spectral_type"],location)
+                                    lookup_density = get_planet_density(star, zones[planet_no], size,location)
+                                    density = lookup_density
+                                    
+                                    
+                        elif current_distance >= float(star["snow_line"]):
                         
-                    else:
-                        zones = "Test"
-                        zone_objects = "Test"
-                        size = -99
-                        density = -99
-                        mass = -99
-                        gravity = -99
-                        moons = -99
-
-                        
-                        
-                    mass = 0
-                    year =360
-                    day = 24
-                    density = -99
-                    mass = -99
-                    gravity = -99
-                    moons = -99
-                    size_class = 0
-                    wtype = 'Test'
-                    atmos_press = 0
-                    hydro_pct = 0
-                    atmos_comp = 0
-                    temperature = 0
-                    climate = "Test"
-                        
-
-
-                                 
-
-
-                                
-            #         else:
-            #             zones.append("Outer Zone")
-        
-            #             if gg_check <= 14:
-            #                 zone_objects.append("Gas Giant")
-            #                 size_int = get_gg_size(planet_no,zones,star["spectral_type"],location)
-            #                 size.append(size_int)
-            #                 density.append(1)
-            #                 no_gg += 1
-            #             else:
-            #                 if planetoid_roll <= 6:
-            #                     zone_objects.append("Planetoid Belt")
-            #                     size.append(0)
-            #                     density.append(0)
-            #                     no_belts += 1
-            #                 else:
-            #                     zone_objects.append("Planet") 
-            #                     size_int = get_size(planet_no,zones,star["spectral_type"],location)
-            #                     size.append(size_int)       
-            #                     lookup_density = get_planet_density(star, zones[planet_no], size_int,location)
-            #                     density.append(lookup_density)                        
+                            zones = "Outer Zone"
+                            gg_check = roll_dice(3,'GG check',dice_location)
+                            if gg_check <= 14:
+                                zone_objects = "Gas Giant"
+                                size = get_gg_size(planet_no,zones,star["spectral_type"],location)
+                                density = 1
+                                no_gg += 1
+                            else:
+                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                if planetoid_roll <= 6:
+                                    zone_objects = "Planetoid Belt"
+                                    size = 0
+                                    density = 0
+                                    no_belts += 1
+                                else:
+                                    zone_objects = "Planet"
+                                    size = get_size(planet_no,zones,star["spectral_type"],location)
+                                    density = get_planet_density(star, zones, size,location)
+    
+    
+    
+                            
+                        else:
+                            zones = "Test"
+                            zone_objects = "Test"
+                            size = -99
+                            density = -99
+                            mass = -99
+                            gravity = -99
+                            moons = -99
+    
+    
+                            year =360
+                            day = 24
+                           
+                            size_class = 0
+                            wtype = 'Test'
+                            atmos_press = 0
+                            hydro_pct = 0
+                            atmos_comp = 0
+                            temperature = 0
+                            climate = "Test"
+                            
                 
-            #         if zones[planet_no] != 'Forbidden':
-            #             calc_mass = round((density[planet_no] * (size[planet_no]**3)) / 2750 ,2)
-            #             mass.append(calc_mass)
+                    if zones != 'Forbidden':
+                        mass = round((density * (size**3)) / 2750 ,2)
+
                         
-            #             if size[planet_no] == 0:
-            #                 calc_gravity = 0
-            #             else:
-            #                 calc_gravity = round((62.9 * calc_mass) / (size[planet_no] ** 2),2)
+                        if size == 0:
+                            gravity = 0
+                        else:
+                            gravity = round((62.9 * mass) / (size ** 2),2)
                         
-            #             gravity.append(calc_gravity)
+
         
-            #             moons.append(get_moons(zone_objects[planet_no],current_distance,location))
-            #             year.append(get_year(star["mass"],current_distance))
-            #             day.append(get_day(size[planet_no],location))
-            #             size_class.append(get_world_size_class(mass[planet_no],size[planet_no],zone_objects[planet_no]))
-            #             wtype.append(get_world_type(size_class[planet_no], zones[planet_no]))
-            #             atmos_press.append(get_atmos_pressure(size_class[planet_no], wtype[planet_no],location))
+                        moons = get_moons(zone_objects,current_distance,location)
+                        year = get_year(star["mass"],current_distance)
+                        day = get_day(size,location)
+                        size_class = get_world_size_class(mass,size,zone_objects)
+                        wtype = get_world_type(size_class, zones)
+                        atmos_press = get_atmos_pressure(size_class, wtype,location)
                         
-            #             hydro_pct.append(get_hydro_pct( size_class[planet_no], 
-            #                                             wtype[planet_no],
-            #                                             atmos_press[planet_no],
-            #                                             zones[planet_no],
-            #                                             star["spectral_type"],
-            #                                             current_distance,
-            #                                             star["snow_line"],
-            #                                             location))
+                        hydro_pct = get_hydro_pct( size_class, 
+                                                        wtype,
+                                                        atmos_press,
+                                                        zones,
+                                                        star["spectral_type"],
+                                                        current_distance,
+                                                        star["snow_line"],
+                                                        location)
                                                         
-            #             atmos_comp.append(get_atmos_comp(wtype[planet_no],location))
-            #             temperature.append(get_temperature( wtype[planet_no], 
-            #                                                 hydro_pct[planet_no], 
-            #                                                 atmos_press[planet_no],
-            #                                                 gravity[planet_no],
-            #                                                 star["luminosity"],
-            #                                                 current_distance,
-            #                                                 location))
+                        atmos_comp = get_atmos_comp(wtype,location)
+                        temperature = get_temperature(wtype, 
+                                                            hydro_pct, 
+                                                            atmos_press,
+                                                            gravity,
+                                                            star["luminosity"],
+                                                            current_distance,
+                                                            location)
         
-            #             climate.append(get_climate(temperature[planet_no], wtype[planet_no]))
+                        climate = get_climate(temperature, wtype)
     
 
-
-                    ob_db_key = (str(location) + '-' + str(star['companion_class']) + '-' + str(planet_no)) 
-                    print(ob_db_key)
-
-
-
-                    
-                    
-                    sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
-                                        location, 
-                                        orbit, 
-                                        distance,
-                                        zone, 
-                                        body, 
-                                        size, 
-                                        density,
-                                        mass,
-                                        gravity,
-                                        moons,
-                                        year,
-                                        day,
-                                        size_class,
-                                        wtype,
-                                        atmos_pressure,
-                                        hydrographics,
-                                        atmos_composition,
-                                        temperature,
-                                        climate) 
-                                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
-                                        
-                    body_row =          (str(ob_db_key),
-                                        str(location),
-                                        planet_no,
-                                        current_distance,
-                                        zones,
-                                        zone_objects,
-                                        size,
-                                        density,
-                                        mass,
-                                        gravity,
-                                        moons,
-                                        year,
-                                        day,
-                                        size_class,
-                                        wtype,
-                                        atmos_press,
-                                        hydro_pct,
-                                        atmos_comp,
-                                        temperature,
-                                        climate)
-                                        
-                    
-                    c.execute(sqlcommand, body_row)           
+    
+                        ob_db_key = (str(location) + '-' + str(star['companion_class']) + '-' + str(planet_no)) 
+                        print(ob_db_key)
+    
+    
+    
+                        
+                        
+                        sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
+                                            location, 
+                                            orbit, 
+                                            distance,
+                                            zone, 
+                                            body, 
+                                            size, 
+                                            density,
+                                            mass,
+                                            gravity,
+                                            moons,
+                                            year,
+                                            day,
+                                            size_class,
+                                            wtype,
+                                            atmos_pressure,
+                                            hydrographics,
+                                            atmos_composition,
+                                            temperature,
+                                            climate) 
+                                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                                            
+                        body_row =          (str(ob_db_key),
+                                            str(location),
+                                            planet_no,
+                                            current_distance,
+                                            zones,
+                                            zone_objects,
+                                            size,
+                                            density,
+                                            mass,
+                                            gravity,
+                                            moons,
+                                            year,
+                                            day,
+                                            size_class,
+                                            wtype,
+                                            atmos_press,
+                                            hydro_pct,
+                                            atmos_comp,
+                                            temperature,
+                                            climate)
+                                            
+                        
+                        c.execute(sqlcommand, body_row)           
 
             else:
                 no_gg = 0

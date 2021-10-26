@@ -18,7 +18,7 @@ def choose_mainworld(db_name):
     
     sql3_select_loc = """           SELECT  location
                                     FROM    stellar_bodies
-                                    WHERE   orbits > 0 AND companion_class = '1' """
+                                    WHERE   orbits > 0 AND companion_class = '0' """
                             
     sql3_select_locorb = """        SELECT  location,
                                             location_orbit,
