@@ -31,7 +31,7 @@ def add_traveller_stats(seed_number,db_name):
                                             belts,
                                             gg,
                                             orbits
-                                    FROM    stellar_bodies WHERE companion_class = '1' """
+                                    FROM    stellar_bodies WHERE companion_class = '0' """
                                     
         c.execute(sql3_select_p_stars)
         allrows = c.fetchall()
@@ -49,7 +49,7 @@ def add_traveller_stats(seed_number,db_name):
         sql3_select_c_stars = """  SELECT   location, 
                                             luminosity_class, 
                                             spectral_type
-                                    FROM    stellar_bodies WHERE companion_class = '2'  """
+                                    FROM    stellar_bodies WHERE companion_class = '1'  """
                                     
         c.execute(sql3_select_c_stars)
         allrows = c.fetchall()
@@ -64,7 +64,7 @@ def add_traveller_stats(seed_number,db_name):
         sql3_select_t_stars = """  SELECT   location, 
                                             luminosity_class, 
                                             spectral_type
-                                    FROM    stellar_bodies WHERE companion_class = '3' """
+                                    FROM    stellar_bodies WHERE companion_class = '2' """
                                     
         c.execute(sql3_select_t_stars)
         allrows = c.fetchall()

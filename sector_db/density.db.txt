@@ -1,0 +1,74 @@
+Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W	
+0103	Oizumi	A000896-F	-	As Va Ph Na Pi	-	600	Im	M5 V M5 V	{+2}	(57B-2)	[BA1E]	eDB	5	
+0113	Caozhou	E000455-A	-	As Va Ni	-	901	Im	F0 V F5 V	{-1}	(434+1)	[432A]	B	8	
+0120	Nanchang	CD00101-A	-	Va Lo	-	800	Im	M0 V w D	{+0}	(C01+1)	[3198]	B	6	
+0204	Kosaka	A000778-F	N	As Va Na Pi	-	500	Im	M5 V M5 V	{+2}	(768-1)	[691F]	DB	5	
+0240	Cincinnati	AD00774-9	N	Va Na Pi	-	600	Im	M0 V M5 V	{+1}	(569-1)	[8825]	DB	6	
+0333	Chesapeake	CD00544-6	-	Va Ni	-	400	Im	w D w D	{-2}	(A41-1)	[6375]	B	7	
+0340	Welland	CD00000-0	-	Va Ba	-	000	Im	K5 V K5 V	{-2}	(700+1)	[0000]	B	7	
+0405	Lakeland	CD00203-A	-	Va Lo	-	700	Im	M0 V M5 V M5 V	{+0}	(211+0)	[1227]	B	6	
+0432	Samukawa	BD00999-9	-	Va Hi Na In	-	830	Im	G5 V G5 V	{+3}	(A89-3)	[9C68]	EB	7	
+0440	Long'an	ED00200-6	-	Va Lo	-	900	Im	M0 V M5 V	{-3}	(811-2)	[5154]	B	6	
+0511	Nagasu	CD00000-0	S	Va Ba	-	010	Im	G0 V M5 V	{-2}	(200-1)	[0000]	B	7	
+0524	Palm Bay	CD00224-6	S	Va Lo	-	701	Im	M0 V M5 V	{-2}	(811+4)	[1126]	B	6	
+0526	Preston	B0007AD-C	-	As Va Na Pi	-	800	Im	w D w D	{+2}	(569+0)	[A95B]	DB	6	
+0533	Lin'an	CD00300-9	S	Va Lo	-	700	Im	M5 V M5 V	{-1}	(821-3)	[3284]	B	5	
+0707	Hejiang	A000740-B	-	As Va Na Pi	-	000	Im	w D w D	{+2}	(76B+3)	[891E]	DB	6	
+0712	Nichinan	CD00234-A	-	Va Lo	-	000	Im	K5 V M5 V	{+0}	(311+1)	[1258]	B	6	
+0805	Togitsu	AD00899-9	N	Va Ph Na Pi	-	712	Im	K0 V w D	{+1}	(E77-3)	[894B]	eDB	7	
+0833	Agematsu	C000454-A	-	As Va Ni	-	900	Im	F5 V F5 V	{+0}	(935+1)	[141B]	B	8	
+0909	Suzhou	CD00488-9	S	Va Ni	-	100	Im	F0 V F5 V	{-1}	(635+3)	[3328]	B	8	
+0922	Zhangde	BD0077A-9	NS	Va Na Pi	-	402	Im	G5 V G5 V	{+2}	(668+2)	[B954]	DB	7	
+1102	Noheji	BD00642-C	N	Va Ni Na	-	402	Im	K5 V w D	{+1}	(D54-4)	[A76A]	B	7	
+1112	Nakagawa	CD0056A-7	-	Va Ni	-	411	Im	K5 V M5 V	{-2}	(C43-2)	[4383]	B	7	
+1124	Scunthorpe	B000766-9	-	As Va Na Pi	-	000	Im	w D w D	{+1}	(76D+2)	[385A]	DB	6	
+1137	Tongzhou	CD00542-8	S	Va Ni	-	900	Im	M5 V M5 V	{-2}	(343-2)	[537A]	B	6	
+1219	Nakagawa	CD007A8-8	S	Va Na Pi	-	100	Im	w D w D	{-1}	(563+1)	[9679]	DB	6	
+1501	Shirosato	CD0037A-8	S	Va Lo	-	200	Im	M0 V M5 V	{-2}	(321-4)	[8186]	B	6	
+1514	New Haven	AD00885-A	-	Va Ph Na Pi	-	510	Im	M0 V M5 V	{+2}	(C77+1)	[6A46]	eDB	6	
+1525	Onga	ED0059B-8	-	Va Ni	-	200	Im	w D w D	{-3}	(540+1)	[5265]	B	6	
+1540	Honbetsu	AD00786-9	NS	Va Na Pi	-	210	Im	K5 V M5 V	{+2}	(36A-2)	[9938]	DB	7	
+1602	Shichikashuku	AD00CFF-F	N	Va Hi Na In	A	301	Im	K0 V M5 V	{+4}	(8BB+2)	[8F6F]	fEB	7	
+1607	Kamikawa	CD00100-8	-	Va Lo	-	410	Im	G5 V M5 V	{-2}	(701+4)	[1188]	B	7	
+1727	Lincoln	ED00443-8	-	Va Ni	-	921	Im	K0 V M5 V	{-3}	(A30-1)	[515D]	B	7	
+1737	Yamada	CD00652-8	-	Va Ni Na	-	502	Im	K0 V K5 V	{-2}	(653-3)	[6458]	B	7	
+1807	Tunbridge Wells	BD007AD-C	S	Va Na Pi	-	901	Im	M5 V M5 V	{+2}	(864-4)	[993C]	DB	6	
+1830	Prince George	CD0048A-7	S	Va Ni	-	802	Im	M0 V M5 V	{-2}	(332+2)	[12A4]	B	7	
+1933	Halesowen	B00079B-D	-	As Va Na Pi	-	010	Im	M5 V w D	{+2}	(56B+5)	[891F]	DB	5	
+2007	Huai'an	B000744-B	S	As Va Na Pi	-	100	Im	M5 V M5 V	{+2}	(A67+2)	[5926]	DB	5	
+2010	Nanyang	B0007AB-D	-	As Va Na Pi	-	600	Im	M5 V M5 V	{+2}	(669-2)	[593F]	DB	5	
+2102	Si'en	E000533-9	-	As Va Ni	-	100	Im	M0 V w D	{-2}	(543+2)	[4358]	B	6	
+2125	Laredo	D000101-B	-	As Va Lo	-	200	Im	M5 V M5 V	{-1}	(701-1)	[116D]	B	5	
+2127	Taiping	AD00676-A	N	Va Ni Na	-	201	Im	K5 V M5 V	{+1}	(452+0)	[573E]	B	7	
+2133	Fort Worth	DD00257-8	-	Va Lo	-	900	Im	G5 V K5 V	{-3}	(611+1)	[3124]	B	7	
+2210	Ashford	B000853-D	-	As Va Ph Na Pi	-	200	Im	M0 V M5 V	{+2}	(778-5)	[7A99]	eDB	6	
+2303	Fengzhou	AD00942-F	-	Va Hi Na In	-	600	Im	G5 V G5 V	{+4}	(A8C+0)	[7D5F]	fEB	7	
+2304	Matsumae	BD00653-9	N	Va Ni Na	-	900	Im	w D w D	{+0}	(853+4)	[6638]	B	7	
+2311	Wuding	AD00767-A	N	Va Na Pi	-	000	Im	K5 V w D	{+2}	(969-2)	[A95B]	DB	7	
+2317	Cape Coral	DD00467-7	-	Va Ni	-	000	Im	G5 V M5 V	{-3}	(B31+2)	[3158]	B	7	
+2332	Nan'an	ED00100-4	-	Va Lo	-	801	Im	K0 V M5 V	{-3}	(A01+4)	[4145]	B	7	
+2338	Fremont	D00057A-A	S	As Va Ni	-	400	Im	M5 V M5 V	{-1}	(945+0)	[1499]	B	5	
+2404	St. John's	BD00656-D	-	Va Ni Na	-	901	Im	K0 V M5 V	{+1}	(953+1)	[577D]	B	7	
+2413	Kuizhou	ED00000-0	-	Va Ba	-	010	Im	G0 V G5 V	{-3}	(800-2)	[0000]	B	7	
+2430	Shiriuchi	B000988-D	N	As Va Hi Na In	-	500	Im	w D w D	{+4}	(788+2)	[AD7C]	fEB	7	
+2527	Hemel	CD00000-0	-	Va Ba	-	010	Im	F5 V w D	{-2}	(700+0)	[0000]	B	8	
+2601	Oto	DD00598-4	-	Va Ni	-	001	Im	M0 V M5 V	{-3}	(342-2)	[4282]	B	6	
+2634	Fujikawa	DD00300-5	S	Va Lo	-	300	Im	M5 V M5 V	{-3}	(921-2)	[6141]	B	5	
+2637	Philadelphia	ED00499-5	-	Va Ni	-	602	Im	K5 V M5 V	{-3}	(730-1)	[6165]	B	7	
+2638	Thornton	AD00988-F	N	Va Hi Na In	-	700	Im	M0 V M5 V	{+4}	(98F+0)	[8D7C]	fEB	7	
+2706	Wichita Falls	AD00852-A	N	Va Ph Na Pi	-	200	Im	M0 V M5 V	{+2}	(B7A+1)	[9A4B]	eDB	6	
+2720	Saroma	A000756-C	N	As Va Na Pi	-	600	Im	M5 V M5 V	{+2}	(56B+0)	[5929]	DB	6	
+2723	Thousand Oaks	CD00540-6	-	Va Ni	-	600	Im	M0 V M5 V	{-2}	(440-4)	[236B]	B	6	
+2732	Guide	BD0067B-B	S	Va Ni Na	-	900	Im	M0 V M5 V	{+1}	(755+1)	[578C]	B	6	
+2815	Yongning	BD00651-D	-	Va Ni Na	-	502	Im	G5 V w D	{+1}	(753-2)	[674C]	B	7	
+2829	Sugito	B00077A-B	N	As Va Na Pi	-	901	Im	A5 V A5 V	{+2}	(868+4)	[B98D]	DB	8	
+2830	Dengzhou	CD00454-9	-	Va Ni	-	710	Im	M5 V M5 V	{-1}	(B33+0)	[1338]	B	6	
+2831	Provo	C000330-B	-	As Va Lo	-	400	Im	w D w D	{+0}	(921+4)	[3378]	B	7	
+2924	Hino	CD00503-7	-	Va Ni	-	600	Im	w D w D	{-2}	(943-1)	[7329]	B	7	
+2940	Godo	BD00785-9	-	Va Na Pi	-	111	Im	A5 V A5 V	{+1}	(C64+3)	[8897]	DB	8	
+3001	St Albans	CD0077C-A	S	Va Na Pi	-	000	Im	M0 V M5 V	{+1}	(46C+0)	[58AC]	DB	6	
+3022	Yunyang	BD00657-A	N	Va Ni Na	-	800	Im	K5 V M5 V	{+1}	(253-1)	[7766]	B	7	
+3026	Lintao	AD00677-C	-	Va Ni Na	-	300	Im	M0 V M5 V	{+1}	(954-3)	[473B]	B	6	
+3040	Cleveland	A000999-F	-	As Va Hi Na In	-	600	Im	M5 V M5 V	{+4}	(98A+4)	[AD8E]	fEB	5	
+3104	Yan'an	AD0079A-9	-	Va Na Pi	-	310	Im	K0 V M5 V	{+1}	(668+3)	[884A]	DB	7	
+3211	Xinghua	BD00745-9	N	Va Na Pi	-	400	Im	M5 V M5 V	{+1}	(564+1)	[7859]	DB	6	
