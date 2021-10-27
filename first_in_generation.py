@@ -10,25 +10,27 @@ def generate_stars(db_name,makeit_list):
 # Possible Improvements Pending:
 
 #   Things skipped that need to be added:
-#   - Add detailed creation rules to vary spectral classes beyond 0 and 5
-#   - Planetoid modifiers (when near a Gas Giant) were not included.
-#   - Gas Giant details (including density, moons)
-#   - Expand moon data
-#   - Add tidal effects
-#   - World Types are straight from the table, should have variation as per the rules
+#   - Step Two - Pg 53 - Add detailed creation rules to vary spectral classes beyond 0 and 5
+#   - Step Three   - Look at how to handle tertiary stars closer in orbits than secondary - do we care?  Maybe not.
+#   - Step Eight - Planetoid Belt modifiers (when near a Gas Giant or Forbidden zone) are not yet included
+#   - Step Nine - planet size needs to account for first planet outside snow line
+#   - Step Nine - Add optional step to vary diameters slightly
+#   - Step Ten - Expand moon data - currently simplified
+#   - Step Eleven - Add tidal effects and axial tilts columns and impact on rotational period
+#   - Step Twelve - World Types are straight from the table, should have variation as per the rules
+
 
 
 
 #   - To Do list complete:
 
+#   - COMPLETE 2021 10 27: Density added for GG
 #   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
 #   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
 #   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
 #   - COMPLETE 2021 10 25: Distant stellar bodies added
 #   - COMPLETE: Add Stellar Age
 #   - COMPLETE: Appropriate Planet Size modifiers
-#   - COMPLETE: Validate order in orbits of secondary and tertiary 
-#       - (Tertiary are automatically set to distant orbits)
 #   - COMPLETE: Stellar data loaded in a database. 
 #   - COMPLETE: White Dwarf details and orbital bodies
 #   - COMPLETE: Rolls are added to a table with relevant data
@@ -79,8 +81,6 @@ def generate_stars(db_name,makeit_list):
         c.execute(sql_create_stellar_bodies) 
         
         
-        
-       
         sql_create_orbital_bodies = """CREATE TABLE orbital_bodies( 
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             location_orbit TEXT,
@@ -605,6 +605,8 @@ def generate_stars(db_name,makeit_list):
             star_dict["bode_constant"] = round(bode_constant,3)
             star_dict["orbits"] = orbits
             star_dict["distance_list"] = orbits_distance_list
+            
+            if location == '2439': print('orbits',orbits)
 
             return_list.append(star_dict)
             
@@ -616,17 +618,15 @@ def generate_stars(db_name,makeit_list):
     def get_size(r,z,s,location):
     # returns the planetary size
     # r = orbit number 
-    # z = zone type - full list
+    # z = zone type 
     # s = spectral type
     
         size_roll = roll_dice(2, 'size roll',location)
     
         if r == 1:
             size_roll = size_roll - 4
-        elif z != "Outer Zone":
+        elif z == "Inner Zone":
             size_roll = size_roll - 2
-        elif z != "Outer Zone":
-            size_roll = size_roll + 6
         elif z != "Outer Zone":
             size_roll = size_roll + 4
         
@@ -645,6 +645,16 @@ def generate_stars(db_name,makeit_list):
         gg_size_int = gg_size_int * 5
         if gg_size_int < 25: gg_size_int = 25
         return gg_size_int
+    
+    
+    def get_gg_density(gg_size):
+        gg_density = 0.0
+        if gg_size < 40: gg_density = 1.4
+        elif gg_size < 60: gg_density = 1.0
+        elif gg_size < 80: gg_density = 0.7
+        elif gg_size < 85: gg_density = 1.0
+        else: gg_density = 1.4
+        return gg_density    
             
     def get_planet_density(p_star_dict,zone,planet_size,location):
         density_float = 0
@@ -756,7 +766,6 @@ def generate_stars(db_name,makeit_list):
     
     def get_world_type(size_class, zone):    
         world_type_var = "Something Crazy"
-        print('size_class',size_class, 'zone',zone)
         world_type_var = WORLD_TYPE[size_class][zone]
         return world_type_var
         
@@ -936,7 +945,71 @@ def generate_stars(db_name,makeit_list):
         return c_climate
     
         
+    def populate_orbital_body_table(ob_db_key,
+                                        location,
+                                        planet_no,
+                                        current_distance,
+                                        zones,
+                                        zone_objects,
+                                        size,
+                                        density,
+                                        mass,
+                                        gravity,
+                                        moons,
+                                        year,
+                                        day,
+                                        size_class,
+                                        wtype,
+                                        atmos_press,
+                                        hydro_pct,
+                                        atmos_comp,
+                                        temperature,
+                                        climate):
+        sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
+                    location, 
+                    orbit, 
+                    distance,
+                    zone, 
+                    body, 
+                    size, 
+                    density,
+                    mass,
+                    gravity,
+                    moons,
+                    year,
+                    day,
+                    size_class,
+                    wtype,
+                    atmos_pressure,
+                    hydrographics,
+                    atmos_composition,
+                    temperature,
+                    climate) 
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                                            
+        body_row =          (str(ob_db_key),
+                            str(location),
+                            planet_no,
+                            current_distance,
+                            zones,
+                            zone_objects,
+                            size,
+                            density,
+                            mass,
+                            gravity,
+                            moons,
+                            year,
+                            day,
+                            size_class,
+                            wtype,
+                            atmos_press,
+                            hydro_pct,
+                            atmos_comp,
+                            temperature,
+                            climate)
+                            
         
+        c.execute(sqlcommand, body_row)  
         
     def populate_planets(location,dict_list):
         # location is the parsec location
@@ -944,10 +1017,12 @@ def generate_stars(db_name,makeit_list):
         # dict list is a list of dictionaries for stars in the location
 
         new_star_list = []
-        orbit_adjust = 0
+        
+
         
         for star_no, star in enumerate(dict_list):
-          
+            forbidden_planet = False
+            orbit_adjust = 0
             no_gg = 0
             no_belts = 0
             orbits = int(star['orbits'])
@@ -957,7 +1032,7 @@ def generate_stars(db_name,makeit_list):
                     dice_location = str(location) + str(planet_no)
                                         
                     current_distance = round(distance_list[planet_no],4)
-                    forbidden_orbit = False  # flag for companion forbidden orbit
+
 
                     # If the current star has a companion, we need to load the companion's forbidden zone
                     
@@ -973,23 +1048,14 @@ def generate_stars(db_name,makeit_list):
                             gravity = 0
                             moons = 0
                             orbit_adjust -= 1        
-                            forbidden_orbit = True
-                    # We know build the planet using details from its current star
-                    # This may or may not include a forbidden zone of its own if it is a companion
-                    
-                    if forbidden_orbit == False:
-                    
-                        if star['inner_forbidden'] < current_distance < star['outer_forbidden']:
-                            zones = "Forbidden"
-                            zone_objects = "Lost"
-                            size = 0
-                            density = 0                    
-                            mass = 0
-                            gravity = 0
-                            moons = 0
-                            orbit_adjust -= 1
-                            
-                        elif current_distance < float(star["inner_limit"]):
+                            forbidden_planet = True
+                            print(location, star_no, planet_no, 'companion forbidden', current_distance)
+
+                    # We now build the planet using details from its current star
+
+
+                    if forbidden_planet == False:    
+                        if current_distance < float(star["inner_limit"]):
                             zones= "Beyond Inner"
                             zone_objects = "Vapour"
                             size = 0
@@ -998,6 +1064,7 @@ def generate_stars(db_name,makeit_list):
                             gravity = 0
                             moons = 0
                             orbit_adjust -= 1
+                            print(location, star_no, planet_no, 'Beyond Inner', current_distance)
                             
                         elif current_distance < float(star["lz_min"]):
                             zones = "Inner Zone"
@@ -1005,7 +1072,7 @@ def generate_stars(db_name,makeit_list):
                             if gg_check <= 3:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                                density= 1
+                                density= get_gg_density(size)
                                 no_gg += 1
                             else:
                                 planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
@@ -1025,7 +1092,7 @@ def generate_stars(db_name,makeit_list):
                             if gg_check <= 4:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                                density = 1
+                                density= get_gg_density(size)
                                 no_gg += 1
                             else:
                                 planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
@@ -1046,7 +1113,7 @@ def generate_stars(db_name,makeit_list):
                             if gg_check <= 7:
                                 zone_objects="Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                                density = 1
+                                density= get_gg_density(size)
                                 no_gg += 1
                             else:
                                 planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
@@ -1069,7 +1136,7 @@ def generate_stars(db_name,makeit_list):
                             if gg_check <= 14:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
-                                density = 1
+                                density= get_gg_density(size)
                                 no_gg += 1
                             else:
                                 planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
@@ -1107,9 +1174,11 @@ def generate_stars(db_name,makeit_list):
                             temperature = 0
                             climate = "Test"
                             
-                
-                    if zones != 'Forbidden':
+                    
+
+    
                         mass = round((density * (size**3)) / 2750 ,2)
+
 
                         
                         if size == 0:
@@ -1149,36 +1218,13 @@ def generate_stars(db_name,makeit_list):
 
     
                         ob_db_key = (str(location) + '-' + str(star['companion_class']) + '-' + str(planet_no)) 
-                        print(ob_db_key)
+#                        print(ob_db_key)
     
     
     
                         
-                        
-                        sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
-                                            location, 
-                                            orbit, 
-                                            distance,
-                                            zone, 
-                                            body, 
-                                            size, 
-                                            density,
-                                            mass,
-                                            gravity,
-                                            moons,
-                                            year,
-                                            day,
-                                            size_class,
-                                            wtype,
-                                            atmos_pressure,
-                                            hydrographics,
-                                            atmos_composition,
-                                            temperature,
-                                            climate) 
-                                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
-                                            
-                        body_row =          (str(ob_db_key),
-                                            str(location),
+                        populate_orbital_body_table(ob_db_key,
+                                            location,
                                             planet_no,
                                             current_distance,
                                             zones,
@@ -1197,9 +1243,7 @@ def generate_stars(db_name,makeit_list):
                                             atmos_comp,
                                             temperature,
                                             climate)
-                                            
-                        
-                        c.execute(sqlcommand, body_row)           
+         
 
             else:
                 no_gg = 0
@@ -1375,6 +1419,9 @@ def generate_stars(db_name,makeit_list):
                     stellar_dict_list = populate_stellar_orbit_info(parsec,stellar_dict_list)
                     
                     stellar_dict_list = populate_planets(parsec, stellar_dict_list)
+                    
+                    for s in stellar_dict_list:
+                        total_planets += s['orbits']
                         
                     
                     populate_stellar_tables(stellar_dict_list)
