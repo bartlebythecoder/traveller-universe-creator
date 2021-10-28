@@ -11,12 +11,12 @@ v.05
  Possible Improvements Pending:
 
    - Rewrite Stellar creation rules using  Architect of Worlds
-   - Creat worlds using Architect of Worlds
+   - Create worlds using Architect of Worlds
    - Expand moon data 
    - Build a GUI for browsing data
    - Export data to a PDF for publishing
 
-   - To Do list complete:
+To Do list complete:
 
    - COMPLETE 2021 10 28: Moons created using Architect of Worlds
    - COMPLETE 2021 10 27: Density added for GG
@@ -38,12 +38,11 @@ This program builds a traveller sector and stores the data in two forms:
 -SQLite database
 -Text file for import into the TravellerMap website
 
-2)  WINDOWS - Python environment:  You can grab all of the source py files and associated flat files and run the TUC_menu.py from your python environment
 
 FAQ:
 Q:  What does the program do?
 
-After setting the parameters you want, it produces a traveller sector and provides the information in two separate files. 
+A:  After setting the parameters you want, it produces a traveller sector and provides the information in two separate files. 
 The first file is a txt file that matches the T5 format for the TravellerMap website.  The information can be cut and pasted and placed directly into that site's custom map option.
 
 The second file is a database file (using SQLite DB) that houses information for every star and planet in the sector.  It includes UWPs for mainworld and non-mainworlds.
