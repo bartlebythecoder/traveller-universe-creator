@@ -18,15 +18,15 @@ def build_journey_table(seed_number,db_name):
     
     random.seed(seed_number)
     
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
 
 
     
-    sql_orbital = '''SELECT location_orbit, location, distance, size from tb_orbital_bodies'''
+    sql_orbital = '''SELECT location_orbit, location, distance, size from orbital_bodies'''
     df_orbital_bodies = pd.read_sql_query(sql_orbital,conn)
 
-    sql_stellar = '''SELECT location, stellar_radius from tb_stellar_primary'''
+    sql_stellar = '''SELECT location, radius as stellar_radius from stellar_bodies '''
     df_stellar = pd.read_sql_query(sql_stellar,conn)
 
     
@@ -60,8 +60,7 @@ def build_journey_table(seed_number,db_name):
     df_journey['jump_point_km'] = np.where(stellar_mask_km > planet_mask_end,
                                            stellar_mask_km - planet_km,
                                            planet_mask_end - planet_km)
-    d_a_1g = df_journey['jump_point_km']*1000/9.8
-    d_a_2g = df_journey['jump_point_km']*1000/(9.8*2)
+
 
     for x in range(1,8):
         d_a = df_journey['jump_point_km']*1000/(9.8 * x)

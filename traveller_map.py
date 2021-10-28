@@ -30,7 +30,7 @@ def build_travellermap_file(db_name):
         + '\n')
     
      
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
     sql3_select_locorb = """        SELECT  location,                             
@@ -48,7 +48,7 @@ def build_travellermap_file(db_name):
                                             n,
                                             w
                                          
-                                    FROM    tb_t5
+                                    FROM    main_worlds
                                     """
     
     

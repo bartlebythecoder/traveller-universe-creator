@@ -13,20 +13,20 @@ def choose_mainworld(db_name):
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
     sql3_select_loc = """           SELECT  location
-                                    FROM    tb_stellar_primary 
+                                    FROM    stellar_bodies
                                     WHERE   orbits > 0 """
                             
     sql3_select_locorb = """        SELECT  location,
                                             location_orbit,
                                             mainworld_calc  
-                                    FROM    tb_orbital_bodies
+                                    FROM    orbital_bodies
                                     WHERE   location = ? """             
                             
-    sql3_insert_status = """        UPDATE    tb_orbital_bodies
+    sql3_insert_status = """        UPDATE    orbital_bodies
                                     SET       mainworld_status = ? 
                                     WHERE     location_orbit = ? """
                                     

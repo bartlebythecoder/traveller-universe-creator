@@ -15,7 +15,7 @@ def generate_mainworld_scores(db_name):
 # Open the SQLite 3 database
 
     import sqlite3
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
     
@@ -32,10 +32,10 @@ def generate_mainworld_scores(db_name):
                                 distance,
                                 temperature,
                                 zone
-                        FROM    tb_orbital_bodies """
+                        FROM    orbital_bodies """
     
     
-    sql3_insert_calc = """  UPDATE    tb_orbital_bodies
+    sql3_insert_calc = """  UPDATE    orbital_bodies
                             SET       mainworld_calc = ? 
                             WHERE     location_orbit = ?"""
                             

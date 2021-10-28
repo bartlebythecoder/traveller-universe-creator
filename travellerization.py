@@ -31,7 +31,7 @@ def add_traveller_stats(seed_number,db_name):
                                             belts,
                                             gg,
                                             orbits
-                                    FROM    tb_stellar_primary """
+                                    FROM    stellar_bodies WHERE companion_class = '0' """
                                     
         c.execute(sql3_select_p_stars)
         allrows = c.fetchall()
@@ -49,7 +49,7 @@ def add_traveller_stats(seed_number,db_name):
         sql3_select_c_stars = """  SELECT   location, 
                                             luminosity_class, 
                                             spectral_type
-                                    FROM    tb_stellar_secondary """
+                                    FROM    stellar_bodies WHERE companion_class = '1'  """
                                     
         c.execute(sql3_select_c_stars)
         allrows = c.fetchall()
@@ -64,7 +64,7 @@ def add_traveller_stats(seed_number,db_name):
         sql3_select_t_stars = """  SELECT   location, 
                                             luminosity_class, 
                                             spectral_type
-                                    FROM    tb_stellar_tertiary """
+                                    FROM    stellar_bodies WHERE companion_class = '2' """
                                     
         c.execute(sql3_select_t_stars)
         allrows = c.fetchall()
@@ -83,7 +83,7 @@ def add_traveller_stats(seed_number,db_name):
         for dice_loop in range (1,no_dice_loop):
             sum_dice = sum_dice + random.randrange(1,7)
             
-        c.execute("INSERT INTO tb_fi_dice_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
                (str(location), 
                 no_dice,
                 why,
@@ -102,8 +102,9 @@ def add_traveller_stats(seed_number,db_name):
         # return tohex(rest) + digits[int(x)]
     
     def create_t5_table():
-        sql_create_tb_t5_table = """CREATE TABLE    tb_t5( 
-                                                    location_orb TEXT PRIMARY KEY,
+        sql_create_tb_t5_table = """CREATE TABLE    main_worlds( 
+                                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    location_orb TEXT,
                                                     location TEXT,
                                                     system_name TEXT,
                                                     starport TEXT,
@@ -129,7 +130,7 @@ def add_traveller_stats(seed_number,db_name):
                                                     
                                                     
                                                     );"""
-        c.execute('DROP TABLE IF EXISTS tb_t5')
+        c.execute('DROP TABLE IF EXISTS main_worlds')
         c.execute(sql_create_tb_t5_table)  
         
         
@@ -573,7 +574,7 @@ def add_traveller_stats(seed_number,db_name):
        
     # MAIN PROGRAM
         
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     create_t5_table()
     
@@ -587,8 +588,9 @@ def add_traveller_stats(seed_number,db_name):
     sector_population = 0
     
     
-    sql3_select_locorb = """        SELECT  *  
-                                    FROM    tb_orbital_bodies 
+    sql3_select_locorb = """        SELECT  location_orbit, location, atmos_pressure,atmos_composition, \
+                                            body, hydrographics, size
+                                    FROM    orbital_bodies 
                                     WHERE   mainworld_status = 'Y' """
     
     c.execute(sql3_select_locorb)
@@ -609,10 +611,9 @@ def add_traveller_stats(seed_number,db_name):
         starport = get_starport(row[0], population)
         bases = get_bases(row[0],starport)
     
-        
-        atmosphere = get_atmosphere(row[15],row[17])
-        hydrographics = get_hydrographics(row[5],row[16])
-        size = get_size(row[5],row[6])
+        atmosphere = get_atmosphere(row[2],row[3])
+        hydrographics = get_hydrographics(row[4],row[5])
+        size = get_size(row[4],row[6])
         government = get_government(row[0], population)    
         law_level = get_law_level(row[0], government)
         tech_level = get_tech_level(row[0], starport, size, atmosphere, hydrographics, population, government)
@@ -635,9 +636,9 @@ def add_traveller_stats(seed_number,db_name):
         else:
             str_ix = ('{' + str(ix) + '}')
             
-        ex = get_ex(ix, tech_level, population, remarks, belts, gg, row[0])
+        ex = get_ex(ix, tech_level, population, remarks, belts, gg, row[1])
         
-        cx = get_cx(population, ix, tech_level, row[0])
+        cx = get_cx(population, ix, tech_level, row[1])
         
         zone = get_zone(starport, population, government, law_level)
         allegiance = 'Im'
@@ -649,7 +650,7 @@ def add_traveller_stats(seed_number,db_name):
     
         
     
-        sqlcommand = '''    INSERT INTO tb_t5 ( location_orb, 
+        sqlcommand = '''    INSERT INTO main_worlds ( location_orb, 
                                                 location, 
                                                 system_name,
                                                 starport, 

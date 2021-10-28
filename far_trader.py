@@ -17,7 +17,7 @@ def generate_far_trader_stats(seed_number,db_name):
         for dice_loop in range (1,no_dice_loop):
             sum_dice = sum_dice + random.randrange(1,7)
             
-        c.execute("INSERT INTO tb_fi_dice_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
                (str(location), 
                 no_dice,
                 why,
@@ -28,14 +28,15 @@ def generate_far_trader_stats(seed_number,db_name):
     
        
     def create_tb_far_trader_table():
-        sql_create_tb_far_trader_table = """CREATE TABLE    tb_far_trader( 
-                                                            location TEXT PRIMARY KEY,
+        sql_create_tb_far_trader_table = """CREATE TABLE    far_trader( 
+                                                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                            location TEXT,
                                                             wtn INTEGER,
                                                             gwp INTEGER,
                                                             exchange)
                                                             ;"""
                                                         
-        c.execute('DROP TABLE IF EXISTS tb_far_trader')
+        c.execute('DROP TABLE IF EXISTS far_trader')
         c.execute(sql_create_tb_far_trader_table)  
         
     def get_exchange(starport, tech_level):
@@ -47,7 +48,7 @@ def generate_far_trader_stats(seed_number,db_name):
     
     # MAIN PROGRAM
         
-    conn = sqlite3.connect(db_name+'.db')
+    conn = sqlite3.connect(db_name)
     c = conn.cursor()
     create_tb_far_trader_table()    
     
@@ -56,7 +57,7 @@ def generate_far_trader_stats(seed_number,db_name):
                                         population,
                                         tech_level,
                                         remarks
-                                FROM    tb_t5 """
+                                FROM    main_worlds """
                                     
     c.execute(sql3_select_tb_t5)
     allrows = c.fetchall()
@@ -137,7 +138,7 @@ def generate_far_trader_stats(seed_number,db_name):
             gwp = 0
             exchange = 0
             
-        sqlcommand = '''    INSERT INTO tb_far_trader ( location,
+        sqlcommand = '''    INSERT INTO far_trader ( location,
                                                             wtn,
                                                             gwp,
                                                             exchange)                                        
