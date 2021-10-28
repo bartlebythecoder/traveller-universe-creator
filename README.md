@@ -1,35 +1,35 @@
-# traveller-universe-creator
+ traveller-universe-creator
 v.05
 2021-10-28
 
-# Sector Generation
-# by Sean Nelson
+ Sector Generation
+ by Sean Nelson
 
-# The goal is to generate a sector of Traveller star systems
+ The goal is to generate a sector of Traveller star systems
 
 
-# Possible Improvements Pending:
+ Possible Improvements Pending:
 
-#   - Rewrite Stellar creation rules using  Architect of Worlds
-#   - Creat worlds using Architect of Worlds
-#   - Expand moon data 
-#   - Build a GUI for browsing data
-#   - Export data to a PDF for publishing
+   - Rewrite Stellar creation rules using  Architect of Worlds
+   - Creat worlds using Architect of Worlds
+   - Expand moon data 
+   - Build a GUI for browsing data
+   - Export data to a PDF for publishing
 
-#   - To Do list complete:
+   - To Do list complete:
 
-#   - COMPLETE 2021 10 28: Moons created using Architect of Worlds
-#   - COMPLETE 2021 10 27: Density added for GG
-#   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
-#   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
-#   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
-#   - COMPLETE 2021 10 25: Distant stellar bodies added
-#   - COMPLETE: Add Stellar Age
-#   - COMPLETE: Appropriate Planet Size modifiers
-#   - COMPLETE: Stellar data loaded in a database. 
-#   - COMPLETE: White Dwarf details and orbital bodies
-#   - COMPLETE: Rolls are added to a table with relevant data
-#   - FIXED: Minimum 25 size for GG    
+   - COMPLETE 2021 10 28: Moons created using Architect of Worlds
+   - COMPLETE 2021 10 27: Density added for GG
+   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
+   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
+   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
+   - COMPLETE 2021 10 25: Distant stellar bodies added
+   - COMPLETE: Add Stellar Age
+   - COMPLETE: Appropriate Planet Size modifiers
+   - COMPLETE: Stellar data loaded in a database. 
+   - COMPLETE: White Dwarf details and orbital bodies
+   - COMPLETE: Rolls are added to a table with relevant data
+   - FIXED: Minimum 25 size for GG    
 
 
 Description:
