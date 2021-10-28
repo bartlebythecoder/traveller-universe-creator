@@ -45,32 +45,7 @@ def makeit():
     print(makeit_list)
     make_sector_master(makeit_list)
 
-def create_menus():    
-    # create a toplevel menu
-    menubar = Menu(top)
 
-    # create a pulldown menu, and add it to the menu bar
-    filemenu = Menu(menubar, tearoff=0)
-    filemenu.add_command(label="New", command=helloCallBack)
-    filemenu.add_command(label="Save", command=helloCallBack)
-    filemenu.add_separator()
-    filemenu.add_command(label="Exit", command=top.destroy)
-    menubar.add_cascade(label="File", menu=filemenu)
-
-    # create more pulldown menus
-    dbmenu = Menu(menubar, tearoff=0)
-    dbmenu.add_command(label="Build a New Dataset", command=helloCallBack)
-    dbmenu.add_command(label="Browse a Dataset", command=helloCallBack)
-    dbmenu.add_command(label="Analyze a Dataset", command=helloCallBack)
-    menubar.add_cascade(label="Dataset", menu=dbmenu)
-
-    helpmenu = Menu(menubar, tearoff=0)
-    helpmenu.add_command(label="About", command=helloCallBack)
-    menubar.add_cascade(label="Help", menu=helpmenu)
-       
-
-    # display the menu
-    top.config(menu=menubar)
     
 
     

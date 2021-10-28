@@ -197,7 +197,8 @@ def generate_non_mainworlds(seed_number,db_name):
     mw_dict = capture_mainworld_stats()
     
     
-    sql3_select_locorb = """        SELECT  *  
+    sql3_select_locorb = """        SELECT  location_orbit,location,atmos_pressure,atmos_composition, 
+                                            body, hydrographics, size 
                                     FROM    orbital_bodies 
                                     WHERE   mainworld_status != 'Y' """
     
@@ -206,15 +207,15 @@ def generate_non_mainworlds(seed_number,db_name):
     
     for row in allrows:
 #        print (row[0])
-        population = get_population(row[2],mw_dict)
-        spaceport = get_spaceport(row[1],population)
-        atmosphere = get_atmosphere(row[16],row[18])
-        hydrographics = get_hydrographics(row[6],row[17])
-        size = get_size(row[6],row[7])
-        government = get_government(row[1], population,mw_dict[row[2]]['government'])    
+        population = get_population(row[1],mw_dict)
+        spaceport = get_spaceport(row[0],population)
+        atmosphere = get_atmosphere(row[2],row[3])
+        hydrographics = get_hydrographics(row[4],row[5])
+        size = get_size(row[4],row[6])
+        government = get_government(row[1], population,mw_dict[row[1]]['government'])    
         law_level = get_law_level(row[1], government)
         tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
-        int_size = size
+
         uwp = (spaceport + tohex(int(size))\
                + tohex(int(atmosphere)) \
                + tohex(int(hydrographics)) \
@@ -237,8 +238,8 @@ def generate_non_mainworlds(seed_number,db_name):
                                                     VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
     
                             
-        body_row =          (str(row[1]),
-                            str(row[2]),
+        body_row =          (str(row[0]),
+                            str(row[1]),
                             spaceport,
                             size,
                             atmosphere,

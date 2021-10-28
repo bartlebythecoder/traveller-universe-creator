@@ -1,29 +1,25 @@
 def generate_stars(db_name,makeit_list):
 
 
-# First In Generation
+# Sector Generation
 # by Sean Nelson
 
-# The goal is to generate a series of star systems for Traveller using the First In ruleset
+# The goal is to generate a sector of Traveller star systems
 
 
 # Possible Improvements Pending:
 
-#   Things skipped that need to be added:
-#   - Step Two - Pg 53 - Add detailed creation rules to vary spectral classes beyond 0 and 5
-#   - Step Three   - Look at how to handle tertiary stars closer in orbits than secondary - do we care?  Maybe not.
-#   - Step Eight - Planetoid Belt modifiers (when near a Gas Giant or Forbidden zone) are not yet included
-#   - Step Nine - planet size needs to account for first planet outside snow line
-#   - Step Nine - Add optional step to vary diameters slightly
-#   - Step Ten - Expand moon data - currently simplified
-#   - Step Eleven - Add tidal effects and axial tilts columns and impact on rotational period
-#   - Step Twelve - World Types are straight from the table, should have variation as per the rules
+#   - Rewrite Stellar creation rules using  Architect of Worlds
+#   - Creat worlds using Architect of Worlds
+#   - Expand moon data 
+#
 
 
 
 
 #   - To Do list complete:
 
+#   - COMPLETE 2021 10 28: Moons created using Architect of Worlds
 #   - COMPLETE 2021 10 27: Density added for GG
 #   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
 #   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
@@ -93,7 +89,10 @@ def generate_stars(db_name,makeit_list):
             density REAL,
             mass REAL,
             gravity REAL,
-            moons INTEGER,
+            hill_radius REAL,
+            natural_moons INTEGER,
+            impact_moons INTEGER,
+            impact_chance INTEGER,
             year REAL,
             day INTEGER,
             size_class TEXT,
@@ -135,9 +134,10 @@ def generate_stars(db_name,makeit_list):
         return sum_dice   
     
        
-    def four_root(num):
+    def integer_root(expo,num):
         num = float(num)
-        return float(num ** 0.25)
+        root_expo = 1/expo
+        return float(num ** root_expo)
  
     
            
@@ -320,7 +320,7 @@ def generate_stars(db_name,makeit_list):
     
     
         if (n > 1) and (sub_companion == False):
-            die_mod = 6  # First In says +6, but that means the third could be closer than the second
+            die_mod = 13  # First In says +6, but that means the third could be closer than the second
         elif sub_companion == True:
             die_mod = -6
         else:
@@ -606,8 +606,6 @@ def generate_stars(db_name,makeit_list):
             star_dict["orbits"] = orbits
             star_dict["distance_list"] = orbits_distance_list
             
-            if location == '2439': print('orbits',orbits)
-
             return_list.append(star_dict)
             
         return return_list
@@ -687,23 +685,57 @@ def generate_stars(db_name,makeit_list):
     
            
         return density_final
+    
+    def get_hill_radius(distance,mass_planet,mass_star):
+        # from Architect of Worlds
+        # used to create moons
+        # distance = min distance from planet to star
+        
+        part_one = (2.17 * 10**6) * distance
+        temp = float(mass_planet)/float(mass_star)
+        part_two = integer_root(3,temp)
+        hill_radius = round(part_one * part_two,2)
+        return hill_radius
+    
+    def get_major_natural_satellites(hill_radius, current_distance):
+        # from Architect of Worlds
+        # used to calculate large satellites forming naturally via accretion
+        part_one = (2 * 10 ** -15)
+        part_two = (hill_radius**2) / integer_root(2,current_distance)
+        moons = part_one * part_two
+        moons = int(moons)
+        if moons >8:  moons =8
+        return moons
+    
+    def get_major_impact_satellites(hill_radius, radius, location):
+        # from Architect of Worlds
+        # used to calculate large satellites forming from impact
+        chance = round(hill_radius/radius,0)
+        moon = 0
+        if chance > 300:
+            moon_check = roll_dice(1,'impact satellite chance',location)
+            if moon_check >= 5:
+                moon = 1
+            else: 
+                moon = 0
+        return [chance,moon]
             
-    def get_moons(body, distance, location):
-        # provide the orbital body and its distance and return the number of moons
+    # def get_moons(body, distance, location):
+    #     # provide the orbital body and its distance and return the number of moons
         
-        moon_no = 0
+    #     moon_no = 0
         
-        if body == "Planet":
-            moon_no = roll_dice(1, 'planet moon', location)
-            moon_no = moon_no - 4
-            if moon_no < 1:
-                moon_no = 0
-        elif body == "Gas Giant":
-            moon_no = roll_dice(4, 'GG moon', location)
-        else:
-            moon_no = 0
+    #     if body == "Planet":
+    #         moon_no = roll_dice(1, 'planet moon', location)
+    #         moon_no = moon_no - 4
+    #         if moon_no < 1:
+    #             moon_no = 0
+    #     elif body == "Gas Giant":
+    #         moon_no = roll_dice(4, 'GG moon', location)
+    #     else:
+    #         moon_no = 0
         
-        return moon_no   
+    #     return moon_no   
     
     def get_year(mass, distance):
         # return the planetary year in earth years (orbital period)
@@ -914,7 +946,7 @@ def generate_stars(db_name,makeit_list):
         
     def get_blackbody(luminosity, orbit_distance):
         c_blackbody = -1
-        c_blackbody = (278 * (four_root(luminosity)) / (math.sqrt(orbit_distance)))
+        c_blackbody = (278 * (integer_root(4,luminosity)) / (math.sqrt(orbit_distance)))
         return c_blackbody
         
     def get_temperature(world_type, hydro, atmos_pressure, gravity, luminosity, orbit_distance,location):
@@ -923,7 +955,7 @@ def generate_stars(db_name,makeit_list):
         blackbody = get_blackbody(luminosity, orbit_distance)
         c_temperature = -1
     
-        c_temperature = blackbody * (four_root(1 - albedo)) * (1 + greenhouse)
+        c_temperature = blackbody * (integer_root(4,1 - albedo)) * (1 + greenhouse)
         
         return round(c_temperature,2)
         
@@ -955,7 +987,10 @@ def generate_stars(db_name,makeit_list):
                                         density,
                                         mass,
                                         gravity,
-                                        moons,
+                                        hill_radius,
+                                        natural_moons,
+                                        impact_moons,
+                                        impact_chance,
                                         year,
                                         day,
                                         size_class,
@@ -975,7 +1010,10 @@ def generate_stars(db_name,makeit_list):
                     density,
                     mass,
                     gravity,
-                    moons,
+                    hill_radius,
+                    natural_moons,
+                    impact_moons,
+                    impact_chance,
                     year,
                     day,
                     size_class,
@@ -985,7 +1023,7 @@ def generate_stars(db_name,makeit_list):
                     atmos_composition,
                     temperature,
                     climate) 
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
                                             
         body_row =          (str(ob_db_key),
                             str(location),
@@ -997,7 +1035,10 @@ def generate_stars(db_name,makeit_list):
                             density,
                             mass,
                             gravity,
-                            moons,
+                            hill_radius,
+                            natural_moons,
+                            impact_moons,
+                            impact_chance,
                             year,
                             day,
                             size_class,
@@ -1104,7 +1145,7 @@ def generate_stars(db_name,makeit_list):
                                 else:
                                     zone_objects = "Planet"
                                     size = get_size(planet_no,zones,star["spectral_type"],location)
-                                    density = get_planet_density(star, zones[planet_no], size,location)
+                                    density = get_planet_density(star, zones, size,location)
     
                                     
                         elif current_distance < float(star["snow_line"]):
@@ -1183,12 +1224,24 @@ def generate_stars(db_name,makeit_list):
                         
                         if size == 0:
                             gravity = 0
+                            hill_radius = 0
+                            natural_moons = 0
+                            impact_chance = 0
+                            impact_moons = 0
                         else:
                             gravity = round((62.9 * mass) / (size ** 2),2)
                         
-
-        
-                        moons = get_moons(zone_objects,current_distance,location)
+                            hill_radius = get_hill_radius(mass,current_distance,star["mass"])
+                            
+                            radius = size/2 * 1609.3
+                            natural_moons = get_major_natural_satellites(hill_radius, current_distance )
+                            if size < 25:
+                                impact_chance, impact_moons = get_major_impact_satellites(hill_radius, radius, location)
+                            else:
+                                impact_chance = 0
+                                impact_moons = 0
+                        
+#                        moons = get_moons(zone_objects,current_distance,location)
                         year = get_year(star["mass"],current_distance)
                         day = get_day(size,location)
                         size_class = get_world_size_class(mass,size,zone_objects)
@@ -1233,7 +1286,10 @@ def generate_stars(db_name,makeit_list):
                                             density,
                                             mass,
                                             gravity,
-                                            moons,
+                                            hill_radius,
+                                            natural_moons,
+                                            impact_moons,
+                                            impact_chance,
                                             year,
                                             day,
                                             size_class,

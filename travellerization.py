@@ -588,7 +588,8 @@ def add_traveller_stats(seed_number,db_name):
     sector_population = 0
     
     
-    sql3_select_locorb = """        SELECT  *  
+    sql3_select_locorb = """        SELECT  location_orbit, location, atmos_pressure,atmos_composition, \
+                                            body, hydrographics, size
                                     FROM    orbital_bodies 
                                     WHERE   mainworld_status = 'Y' """
     
@@ -600,23 +601,22 @@ def add_traveller_stats(seed_number,db_name):
 #        system_name = 'Name'
         system_name = get_system_name(name_list)
 #        print(system_name)
-        population = get_population(row[1])
+        population = get_population(row[0])
         sector_population += 10**population
-        pop_mod = get_pop_mod(row[1],population)
-        belts = get_belts(row[2],p_stars_dict)
-        gg = get_gg(row[2],p_stars_dict)
-        w = get_worlds(row[2],p_stars_dict)
+        pop_mod = get_pop_mod(row[0],population)
+        belts = get_belts(row[1],p_stars_dict)
+        gg = get_gg(row[1],p_stars_dict)
+        w = get_worlds(row[1],p_stars_dict)
         pbg = str(str(pop_mod) + str(belts) + str(gg))
-        starport = get_starport(row[1], population)
-        bases = get_bases(row[1],starport)
+        starport = get_starport(row[0], population)
+        bases = get_bases(row[0],starport)
     
-        
-        atmosphere = get_atmosphere(row[16],row[18])
-        hydrographics = get_hydrographics(row[6],row[17])
-        size = get_size(row[6],row[7])
-        government = get_government(row[1], population)    
-        law_level = get_law_level(row[1], government)
-        tech_level = get_tech_level(row[1], starport, size, atmosphere, hydrographics, population, government)
+        atmosphere = get_atmosphere(row[2],row[3])
+        hydrographics = get_hydrographics(row[4],row[5])
+        size = get_size(row[4],row[6])
+        government = get_government(row[0], population)    
+        law_level = get_law_level(row[0], government)
+        tech_level = get_tech_level(row[0], starport, size, atmosphere, hydrographics, population, government)
         remarks = get_remarks(starport, size, atmosphere, hydrographics, population, government)
         str_remarks = ' '.join(remarks)
         
@@ -644,7 +644,7 @@ def add_traveller_stats(seed_number,db_name):
         allegiance = 'Im'
         n_list = get_noble(remarks, ix)
         n = ''.join(n_list)
-        stars = get_stars(row[2],p_stars_dict,c_stars_dict, t_stars_dict)
+        stars = get_stars(row[1],p_stars_dict,c_stars_dict, t_stars_dict)
         
     
     
@@ -676,8 +676,8 @@ def add_traveller_stats(seed_number,db_name):
                                                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
                                                 ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
                             
-        body_row =          (str(row[1]),
-                            str(row[2]),
+        body_row =          (str(row[0]),
+                            str(row[1]),
                             system_name,
                             starport,
                             size,

@@ -60,8 +60,7 @@ def build_journey_table(seed_number,db_name):
     df_journey['jump_point_km'] = np.where(stellar_mask_km > planet_mask_end,
                                            stellar_mask_km - planet_km,
                                            planet_mask_end - planet_km)
-    d_a_1g = df_journey['jump_point_km']*1000/9.8
-    d_a_2g = df_journey['jump_point_km']*1000/(9.8*2)
+
 
     for x in range(1,8):
         d_a = df_journey['jump_point_km']*1000/(9.8 * x)
