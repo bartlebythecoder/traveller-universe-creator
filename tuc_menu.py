@@ -1,9 +1,4 @@
 #!/usr/bin/python
-"""
-Created on Sun Jul  7 15:28:06 2019
-
-@author: sean
-"""
 
 from tkinter import *
 from traveller_master import make_sector_master
