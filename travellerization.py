@@ -22,6 +22,8 @@ def add_traveller_stats(seed_number,db_name):
     
     import sqlite3
     import random
+    import traceback
+    import sys
     random.seed(seed_number)
     
     def capture_primary_stats():
@@ -587,18 +589,34 @@ def add_traveller_stats(seed_number,db_name):
     
     sector_population = 0
     
+    try:
     
-    sql3_select_locorb = """        SELECT  location_orbit, location, atmos_pressure,atmos_composition, \
-                                            body, hydrographics, size
-                                    FROM    orbital_bodies 
-                                    WHERE   mainworld_status = 'Y' """
+        sql3_select_locorb = """        SELECT  m.location_orbit, 
+                                                m.location, 
+                                                o.atmos_pressure,
+                                                o.atmos_composition, 
+                                                o.body, 
+                                                o.hydrographics, 
+                                                o.size
+                                        FROM main_world_eval m
+                                        LEFT JOIN orbital_bodies o
+                                        ON m.location_orbit = o.location_orbit
+                                        WHERE   m.mainworld_status = 'Y' """
+
+        c.execute(sql3_select_locorb)
+        allrows = c.fetchall()
     
-    c.execute(sql3_select_locorb)
-    allrows = c.fetchall()
+    
+    except:
+        print('Houston - travellerization reading problem')
+        print('SQLite traceback: ')
+        exc_type, exc_value, exc_tb = sys.exc_info()
+        print(traceback.format_exception(exc_type, exc_value, exc_tb))
+
     
     for row in allrows:
 #        print (row[0])
-#        system_name = 'Name'
+
         system_name = get_system_name(name_list)
 #        print(system_name)
         population = get_population(row[0])

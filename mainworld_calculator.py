@@ -15,6 +15,9 @@ def generate_mainworld_scores(db_name):
 # Open the SQLite 3 database
 
     import sqlite3
+    import pandas as pd
+    import numpy as np
+    
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
     
@@ -23,7 +26,6 @@ def generate_mainworld_scores(db_name):
     
     sql3_select = """ SELECT    location_orbit,
                                 location, 
-                                orbit, 
                                 gravity, 
                                 hydrographics,
                                 wtype,
@@ -33,41 +35,67 @@ def generate_mainworld_scores(db_name):
                                 temperature,
                                 zone
                         FROM    orbital_bodies """
+                        
+ #   print('trying to load into DF')                    
+    try:
+        df = pd.read_sql_query(sql3_select,conn)
+#        print('df load clearly worked')
+    except:
+        print('Problem - df failed')
     
     
-    sql3_insert_calc = """  UPDATE    orbital_bodies
-                            SET       mainworld_calc = ? 
-                            WHERE     location_orbit = ?"""
-                            
-    c.execute(sql3_select)
-    allrows = c.fetchall()
-    for row in allrows:
-    #    print('Row ->', row)
-        mainworld_calc = 0
-        if row[5] == 'Gas Giant': mainworld_calc -= 500
-        elif row[5] == 'Belt': mainworld_calc -= 100
-        if row[3] < 0.5: mainworld_calc += 10
-        elif row[3] < 2: mainworld_calc += 100
-        if row[4] > 0: mainworld_calc += 500
-        if row[5][0] == 'O':  mainworld_calc += 2000
-        elif row[5][0] == 'B': mainworld_calc += 100
-        if row[6] == 'Standard':  
-            mainworld_calc += 5000
-            print('Found a standard atmosphere planet',row[0])
-        if row[7] == 'Earth-normal': 
-            mainworld_calc += 5000
-            print('Found an earth_normal planet', row[0])
-        if 238 < row[9] < 325:  mainworld_calc += 1000
-        if row[9] == 'Life Zone': mainworld_calc += 5000
-            
-    
-        mainworld_calc += row[8]
-    
-        c.execute(sql3_insert_calc,(mainworld_calc,row[0]))
-    #    print (mainworld_calc)
+  #  print(df.describe())
     
     
-        
-        
+
+
+    col         = 'wtype'
+    conditions  = [ df[col][0] == 'O', df[col][0] == 'H', df[col] == 'Gas Giant', df[col] == 'Belt']
+    choices     = [ 1000, -1000, -1000000, -500]
+    df["wtype_mod"] = np.select(conditions, choices, default=0)
+    
+
+
+    col         = 'gravity'
+    conditions  = [ df[col] > 2, (df[col] <= 2) & (df[col]>= 0.5), df[col] <= 0.5 ]
+    choices     = [ 100, 1000,-1000 ]
+    df["grav_mod"] = np.select(conditions, choices, default=0)
+    
+ 
+    col         = 'atmos_composition'
+    conditions  = [ df[col] == 'Standard', df[col]=='Tainted',df[col]=='Corrosive']
+    choices     = [ 1000, 500,-1000 ]
+    df["atmos_mod"] = np.select(conditions, choices, default=0)    
+
+    col         = 'temperature'
+    conditions  = [ (df[col] <= 283) & (df[col]>238),
+                    (df[col] > 283) & (df[col] < 309),
+                    (df[col] >= 309) & (df[col] >= 324)]
+    choices     = [ 3000, 5000,3000 ]
+    df["temp_mod"] = np.select(conditions, choices, default=-1000)    
+    df["temp_mod"] = df["temp_mod"] - ((df["temperature"] - 273) ** 2)
+    
+ #   print('after update')
+ #   print(df.describe())
+    df['mainworld_calc'] = df["wtype_mod"] +  df["grav_mod"] + df["atmos_mod"] + df["temp_mod"]
+    df['mainworld_status'] = 'N'
+    
+    df_mainworld_eval = df[['location',
+                            'location_orbit',
+                            'wtype_mod',
+                            'grav_mod',
+                            'atmos_mod',
+                            'temp_mod',
+                            'mainworld_calc',
+                            'mainworld_status']]
+    
+#    print(df.head())
+
+    try:
+        df_mainworld_eval.to_sql('main_world_eval', conn, if_exists='replace')
+    except:
+        print('Could not write back to sql')
+    
+       
     conn.commit()
     conn.close()

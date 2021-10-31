@@ -102,9 +102,7 @@ def generate_stars(db_name,makeit_list):
             hydrographics INTEGER,
             atmos_composition TEXT,
             temperature INTEGER,
-            climate TEXT,
-            mainworld_calc FLOAT,
-            mainworld_status TEXT DEFAULT 'N'
+            climate TEXT
             );"""
         c.execute('DROP TABLE IF EXISTS orbital_bodies')
         c.execute(sql_create_orbital_bodies)   
@@ -1695,8 +1693,9 @@ def generate_stars(db_name,makeit_list):
     
     c.execute(sql_body_count)
     allrows = c.fetchall()
+
     for row_count, row in enumerate(allrows):
-        if row_count <= 3:
+        if row_count <= 4:
             print(row[1],row[0]+'s created')
         else:
             print('Total orbital bodies created: ',row[1])
