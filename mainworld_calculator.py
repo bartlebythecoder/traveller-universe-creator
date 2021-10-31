@@ -51,10 +51,15 @@ def generate_mainworld_scores(db_name):
         if row[4] > 0: mainworld_calc += 500
         if row[5][0] == 'O':  mainworld_calc += 2000
         elif row[5][0] == 'B': mainworld_calc += 100
-        if row[6] == 'Standard':  mainworld_calc += 5000
-        if row[7] == 'Earth-normal': mainworld_calc += 5000
+        if row[6] == 'Standard':  
+            mainworld_calc += 5000
+            print('Found a standard atmosphere planet',row[0])
+        if row[7] == 'Earth-normal': 
+            mainworld_calc += 5000
+            print('Found an earth_normal planet', row[0])
         if 238 < row[9] < 325:  mainworld_calc += 1000
-        if row[9] == 'Life Zone': mainworld_calc += 10000
+        if row[9] == 'Life Zone': mainworld_calc += 5000
+            
     
         mainworld_calc += row[8]
     

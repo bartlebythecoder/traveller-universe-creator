@@ -77,14 +77,21 @@ def generate_non_mainworlds(seed_number,db_name):
     
         if dice > mw_dict[location]['population']:
             dice = mw_dict[location]['population'] - 1
+        
+        if dice < 0: dice = 0
         return dice    
             
     def get_spaceport(location,population):
-        dice = roll_dice(1,'Spaceport',location) - population
-        if dice >= 4: spaceport = 'F'
-        elif dice == 3: spaceport = 'G'
-        elif 1 <= dice <=2 : spaceport = 'H'
-        else: spaceport = 'Y'
+        
+        if population == 0:
+            spaceport = 'Y'
+        else:
+            dice = roll_dice(1,'Spaceport',location) - population
+            if dice >= 4: spaceport = 'F'
+            elif dice == 3: spaceport = 'G'
+            elif 1 <= dice <=2 : spaceport = 'H'
+            else: spaceport = 'Y'
+        
         
         return spaceport
         

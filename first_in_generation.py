@@ -720,22 +720,6 @@ def generate_stars(db_name,makeit_list):
                 moon = 0
         return [chance,moon]
             
-    # def get_moons(body, distance, location):
-    #     # provide the orbital body and its distance and return the number of moons
-        
-    #     moon_no = 0
-        
-    #     if body == "Planet":
-    #         moon_no = roll_dice(1, 'planet moon', location)
-    #         moon_no = moon_no - 4
-    #         if moon_no < 1:
-    #             moon_no = 0
-    #     elif body == "Gas Giant":
-    #         moon_no = roll_dice(4, 'GG moon', location)
-    #     else:
-    #         moon_no = 0
-        
-    #     return moon_no   
     
     def get_year(mass, distance):
         # return the planetary year in earth years (orbital period)
@@ -1070,7 +1054,7 @@ def generate_stars(db_name,makeit_list):
             if orbits > 0:
                 distance_list = star['distance_list']
                 for planet_no in range(1,orbits+1):
-                    dice_location = str(location) + str(planet_no)
+                    ob_db_key = (str(location) + '-' + str(star['companion_class']) + '-' + str(planet_no)) 
                                         
                     current_distance = round(distance_list[planet_no],4)
 
@@ -1090,7 +1074,7 @@ def generate_stars(db_name,makeit_list):
                             moons = 0
                             orbit_adjust -= 1        
                             forbidden_planet = True
-                            print(location, star_no, planet_no, 'companion forbidden', current_distance)
+  #                          print(location, star_no, planet_no, 'companion forbidden', current_distance)
 
                     # We now build the planet using details from its current star
 
@@ -1109,14 +1093,14 @@ def generate_stars(db_name,makeit_list):
                             
                         elif current_distance < float(star["lz_min"]):
                             zones = "Inner Zone"
-                            gg_check = roll_dice(3,'GG check',dice_location)
+                            gg_check = roll_dice(3,'GG check',ob_db_key)
                             if gg_check <= 3:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1129,14 +1113,14 @@ def generate_stars(db_name,makeit_list):
                                     
                         elif current_distance < float(star["lz_max"]):
                             zones = "Life Zone"
-                            gg_check = roll_dice(3,'GG check',dice_location)
+                            gg_check = roll_dice(3,'GG check',ob_db_key)
                             if gg_check <= 4:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1150,14 +1134,14 @@ def generate_stars(db_name,makeit_list):
                                     
                         elif current_distance < float(star["snow_line"]):
                             zones = "Middle Zone"
-                            gg_check = roll_dice(3,'GG check',dice_location)
+                            gg_check = roll_dice(3,'GG check',ob_db_key)
                             if gg_check <= 7:
                                 zone_objects="Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1173,14 +1157,14 @@ def generate_stars(db_name,makeit_list):
                         elif current_distance >= float(star["snow_line"]):
                         
                             zones = "Outer Zone"
-                            gg_check = roll_dice(3,'GG check',dice_location)
+                            gg_check = roll_dice(3,'GG check',ob_db_key)
                             if gg_check <= 14:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',dice_location)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1241,7 +1225,7 @@ def generate_stars(db_name,makeit_list):
                                 impact_chance = 0
                                 impact_moons = 0
                         
-#                        moons = get_moons(zone_objects,current_distance,location)
+
                         year = get_year(star["mass"],current_distance)
                         day = get_day(size,location)
                         size_class = get_world_size_class(mass,size,zone_objects)
@@ -1270,7 +1254,7 @@ def generate_stars(db_name,makeit_list):
     
 
     
-                        ob_db_key = (str(location) + '-' + str(star['companion_class']) + '-' + str(planet_no)) 
+                        
 #                        print(ob_db_key)
     
     
@@ -1299,7 +1283,111 @@ def generate_stars(db_name,makeit_list):
                                             atmos_comp,
                                             temperature,
                                             climate)
-         
+
+            
+            
+                       
+                        if natural_moons > 0:
+                            for m in range(1, natural_moons+1):
+                                
+                                moon_key = str(ob_db_key) + '-n' + str(m) # Note 'n' for natural accretion moon
+
+                                moon_orbital_radius_roll = roll_dice(1,'moon_radius', moon_key)
+                                
+                                moon_orbital_radius_km = ((moon_orbital_radius_roll + 2) * (1.8 * m)) * radius
+                                moon_orbital_radius = round(moon_orbital_radius_km / 149597870.700,3)  # convert to AU
+                                zone_objects =  "Natural Moon"
+
+                                mass_roll = roll_dice(3,'moon mass roll',moon_key)
+
+                                part_one = mass_roll * mass
+                            
+                                try:
+                                    part_two = part_one / natural_moons
+
+                                except:
+                                    part_two = 0
+                                    print(moon_key,natural_moons)
+                                    
+                                part_three = (10**-4 ) * part_two    
+                                moon_mass = round(part_three,4)
+
+                                
+                                density_roll = roll_dice(3, 'moon density roll', moon_key)
+                                moon_density = round((integer_root(5,moon_mass)) + ((density_roll - 10)/100),2)
+                                
+                                if moon_density == 0:
+                                    moon_size = 0
+                                    print('Zero density moon!',moon_key)
+                                else:
+                                    moon_size = round((6370 * (integer_root(3,(moon_mass/moon_density)))) * 2 / 1609.3,0)
+                                
+                                moon_gravity = round(integer_root(3,(moon_mass*(moon_density**2))),2)
+                                
+                                hill_radius = 'TBD'
+                                moon_natural_moons = 0
+                                moon_impact_moons = 0
+                                moon_impact_chance = 0
+                                
+                                moon_year = get_year(mass,moon_orbital_radius)
+                                moon_day = get_day(moon_size,moon_key)
+                                
+                                if moon_size == 0: moon_body = 'Planetoid Belt'
+                                else: moon_body = 'Planet'
+                                
+                                moon_size_class = get_world_size_class(moon_mass,moon_size,moon_body)
+                                moon_wtype = get_world_type(moon_size_class, zones)
+                                moon_atmos_press = get_atmos_pressure(moon_size_class, moon_wtype,moon_key)
+                                
+                                moon_hydro_pct = get_hydro_pct( moon_size_class, 
+                                                                moon_wtype,
+                                                                moon_atmos_press,
+                                                                zones,
+                                                                star["spectral_type"],
+                                                                current_distance,
+                                                                star["snow_line"],
+                                                                moon_key)
+                                                                
+                                moon_atmos_comp = get_atmos_comp(moon_wtype,moon_key)
+                                moon_temperature = get_temperature(moon_wtype, 
+                                                                    moon_hydro_pct, 
+                                                                    moon_atmos_press,
+                                                                    moon_gravity,
+                                                                    star["luminosity"],
+                                                                    current_distance,
+                                                                    moon_key)
+                
+                                moon_climate = get_climate(moon_temperature, moon_wtype)
+                                
+                                populate_orbital_body_table(
+                                        moon_key,
+                                        location,
+                                        m,
+                                        moon_orbital_radius,
+                                        zones,
+                                        zone_objects,
+                                        moon_size,
+                                        moon_density,
+                                        moon_mass,
+                                        moon_gravity,
+                                        hill_radius,
+                                        moon_natural_moons,
+                                        moon_impact_moons,
+                                        moon_impact_chance,
+                                        moon_year,
+                                        moon_day,
+                                        moon_size_class,
+                                        moon_wtype,
+                                        moon_atmos_press,
+                                        moon_hydro_pct,
+                                        moon_atmos_comp,
+                                        moon_temperature,
+                                        moon_climate)
+
+            
+            
+            
+            
 
             else:
                 no_gg = 0
@@ -1421,11 +1509,7 @@ def generate_stars(db_name,makeit_list):
     
     create_tables(c,conn)
     
-    
-    
-    total_systems = 0
-    total_stars = 0
-    total_planets = 0
+
     
     
     #   Loop for each sector
@@ -1452,7 +1536,6 @@ def generate_stars(db_name,makeit_list):
     ###################################################################################
                 if rollgen >= LIKELIHOOD:  
                     systempresent = True
-                    total_systems += 1
                     stellar_dict_list = []
                     stellar_dict = {}
                     
@@ -1460,7 +1543,6 @@ def generate_stars(db_name,makeit_list):
  #                   print('Location:',parsec)
                     for pc in range (0,primary_companions+1):  # one loop for each non subcompanion star
  #                       print('Star',pc)
-                        total_stars += 1
                         if pc == 0: 
                             stellar_dict = populate_stellar_dict(parsec,pc,0,primary_companions,False)
                             stellar_dict_list.append(stellar_dict)
@@ -1476,16 +1558,30 @@ def generate_stars(db_name,makeit_list):
                     
                     stellar_dict_list = populate_planets(parsec, stellar_dict_list)
                     
-                    for s in stellar_dict_list:
-                        total_planets += s['orbits']
+
                         
                     
                     populate_stellar_tables(stellar_dict_list)
 
 
-                    
-                   
-                  
+    sql_primary_count = '''SELECT COUNT(*) from stellar_bodies WHERE companion_class = 0'''
+    sql_stellar_count = '''SELECT COUNT(*) from stellar_bodies '''
+    sql_body_count = '''SELECT body, COUNT(body) as count from orbital_bodies GROUP BY body
+                        UNION ALL
+                        SELECT 'SUM' body, COUNT(body) from orbital_bodies'''
+
+    c.execute(sql_primary_count)
+    allrows = c.fetchall()
+    print(str(allrows[0][0]),' stellar systems created.' )
+    
+    c.execute(sql_stellar_count)
+    allrows = c.fetchall()
+    print(str(allrows[0][0]),' total stars created.' )
+    
+    c.execute(sql_body_count)
+    allrows = c.fetchall()
+    for row in allrows:
+        print(row[0],row[1])
 
     
                     
@@ -1495,11 +1591,8 @@ def generate_stars(db_name,makeit_list):
     ####################################################################################
                     
     
-                else:
-                    systempresent = False
-    print(total_systems,'different systems generated.')   
-    print(total_stars,'different stars generated.') 
-    print(total_planets,'different planets generated.')         
+
+   
     conn.commit()  
     c.close()
     conn.close()
