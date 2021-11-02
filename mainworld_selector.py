@@ -12,7 +12,7 @@ def choose_mainworld(db_name):
 
 
     import sqlite3
-    
+    import PySimpleGUI as sg
         
     import traceback
     import sys
@@ -25,7 +25,7 @@ def choose_mainworld(db_name):
     
     sql3_select_loc = """           SELECT  location
                                     FROM    stellar_bodies
-                                    WHERE   orbits > 0 """
+                                    WHERE   orbits > 0 AND companion_class = 0"""
                             
     sql3_select_locorb = """        SELECT  location,
                                             location_orbit,
@@ -38,13 +38,20 @@ def choose_mainworld(db_name):
                                     WHERE     location_orbit = ? """
                                     
     loc_list = list()
+    
+    
     c.execute(sql3_select_loc)
     allrows = c.fetchall()
     for row in allrows:
     
         loc_list.append(row[0])
     
-    for n in loc_list:
+    loc_len = len(loc_list)
+    for j,n in enumerate(loc_list):
+
+        sg.one_line_progress_meter('Universe Generation Underway', j+1, loc_len, 'System Count')
+
+
         c.execute(sql3_select_locorb,(n,))
         allrows = c.fetchall()
         top_calc = -1000000

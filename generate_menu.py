@@ -23,22 +23,22 @@ sg.theme('DarkBlue')   # Add a touch of color
 left_layout = [
     [sg.Text("PARAMETERS")],
     [sg.Text('System Density')],
-    [sg.Text('File Name')],
+    [sg.Text('Sector Name')],
     [sg.Text('Random Seed')]
 ]
 
 middle_layout =  [
 
     [sg.Text("OPTIONS")],
-    [sg.InputText(size=(4,1))],
-    [sg.InputText(size=(10,1))],
-    [sg.InputText(size=(4,1))],
+    [sg.InputText(size=(4,1),key=('-DENSITY-'))],
+    [sg.InputText(size=(10,1),key=('-NAME-'))],
+    [sg.InputText(size=(4,1),key=('-SEED-'))]
 ]
 
 right_layout = [
     [sg.Text("NOTES")],
     [sg.Text("1d6 >= # results in a system present")],
-    [sg.Text("Db and txt files will be created in /Sector")],
+    [sg.Text("Db and txt files will be created in /sector_db")],
     [sg.Text("Using the same seed with the same density will produce the same sector")]
     
 ]
@@ -68,10 +68,10 @@ while True:
     if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
         break
     try:
-        print('You entered ', values[2], values[3], values[4])
-        density_input = values[2]
-        sector_name_input = values[3]
-        random_seed_input = values[4]
+        print('You entered ', values['-DENSITY-'], values['-NAME-'], values['-SEED-'])
+        density_input = values['-DENSITY-']
+        sector_name_input = values['-NAME-']
+        random_seed_input = values['-SEED-']
         lumiii_input = 3
         lumv_input = 14
         spectrala_input = 4

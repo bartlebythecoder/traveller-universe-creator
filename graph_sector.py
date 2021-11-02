@@ -47,7 +47,7 @@ def file_open():
     conn = sqlite3.connect(root.filename)
     c = conn.cursor()
     df = pd.read_sql_query('''SELECT
-                           tb_stellar_primary.location,
+                           stellar_bodies.location,
                            system_type,
                            luminosity_class,
                            spectral_type,
@@ -57,12 +57,12 @@ def file_open():
                            gg,
                            tb_t5.system_name,
                            tb_t5.location as tf_loc
-                           FROM tb_stellar_primary 
-                           LEFT JOIN tb_t5 on tb_t5.location = tb_stellar_primary.location''', conn)
+                           FROM stellar_bodies
+                           LEFT JOIN main_worlds on main_worlds.location = stellar_bodies.location''', conn)
     df_world_uwp = pd.read_sql_query('''SELECT 
-                tb_orbital_bodies.location,
+                orbital_bodies.location,
                 distance,
-                tb_orbital_bodies.zone,
+                orbital_bodies.zone,
                 body,
                 density,
                 gravity,
@@ -82,7 +82,7 @@ def file_open():
                 tb_t5.remarks,
                 tb_t5.ix
                 FROM tb_orbital_bodies 
-                INNER JOIN tb_t5 on tb_t5.location = tb_orbital_bodies.location 
+                INNER JOIN mainworld tb_t5 on mainworld.location = orbital_bodies.location 
                 WHERE mainworld_status = "Y"  ''', conn)
     df_world_uwp['ix'] = df_world_uwp['ix'].apply(lambda x: int(re.sub('{|}', '', x)))
     print(df_world_uwp)

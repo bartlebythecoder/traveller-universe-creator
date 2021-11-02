@@ -44,7 +44,7 @@ Langley
 Saanich
 Terrebonne
 Milton
-St. John's
+St. John'S
 Thunder Bay
 Waterloo
 Delta
@@ -226,7 +226,7 @@ Worcester
 Tempe
 Cape Coral
 Brownsville
-McKinney
+Mckinney
 Providence
 Fort Lauderdale
 Newport
@@ -272,7 +272,7 @@ Killeen
 Bellevue
 Mesquite
 Syracuse
-McAllen
+Mcallen
 Pasadena
 Orange
 Fullerton
@@ -444,7 +444,7 @@ Cheltenham
 Chester
 Chesterfield
 Christchurch
-Clacton-on-Sea
+Clacton-On-Sea
 Colchester
 Corby
 Coventry
@@ -520,8 +520,8 @@ Margate
 Middlesbrough
 Milton Keynes
 Neath
-Newcastle-under-Lyme
-Newcastle upon Tyne
+Newcastle-Under-Lyme
+Newcastle Upon Tyne
 Newport
 Newtownabbey
 Northampton
@@ -552,14 +552,14 @@ Salford
 Scarborough
 Scunthorpe
 Sheffield
-Shoreham-by-Sea
+Shoreham-By-Sea
 Shrewsbury
 Sittingbourne
 Slough
 Smethwick
 Solihull
 Southampton
-Southend-on-Sea
+Southend-On-Sea
 Southport
 South Shields
 Stafford
@@ -567,8 +567,8 @@ St Albans
 Stevenage
 St Helens
 Stockport
-Stockton-on-Tees
-Stoke-on-Trent
+Stockton-On-Tees
+Stoke-On-Trent
 Stourbridge
 Sunderland
 Sutton Coldfield
@@ -582,7 +582,7 @@ Tynemouth
 Wakefield
 Wallasey
 Walsall
-Walton-on-Thames
+Walton-On-Thames
 Warrington
 Washington
 Watford
@@ -1142,7 +1142,7 @@ Taishi
 Kamigori
 Sayo
 Kami
-Shin'onsen
+Shin'Onsen
 Heguri
 Sango
 Ikaruga
@@ -1422,7 +1422,7 @@ Jingzhao
 Xianping
 Fengxiang
 Pingliang
-Yan'an
+Yan'An
 Qingyang
 Lintao
 Xingqing
@@ -1444,7 +1444,7 @@ Runing
 Guide
 Gaoyao
 Anlu
-De'an
+De'An
 Ningxia
 Hanyang
 Pingle
@@ -1453,7 +1453,7 @@ Jiading
 Tongchuan
 Shaoqing
 Huaide
-Jingzhao?Xi'an
+Jingzhao?Xi'An
 Fengxiang
 Gongchang
 Pingliang
@@ -1464,7 +1464,7 @@ Suzhou
 Songjiang
 Changzhou
 Zhenjiang
-Huai'an
+Huai'An
 Yangzhou
 Fengyang
 Luzhou
@@ -1480,8 +1480,8 @@ Zhending
 Shunde
 Guangping
 Daming
-Xi'an
-Yan'an
+Xi'An
+Yan'An
 Hanzhong
 Pingliang
 Fengxiang
@@ -1490,7 +1490,7 @@ Taiyuan
 Datong
 Fengzhou
 Pingyang
-Lu'an
+Lu'An
 Jinan
 Yanzhou
 Qingzhou
@@ -1518,13 +1518,13 @@ Ningbo
 Nanchang
 Yuanzhou
 Ganzhou
-Ji'an
+Ji'An
 Jiujiang
 Jianchang
 Guangxin
 Raozhou
 Ruizhou
-Nan'an
+Nan'An
 Nankang
 Fuzhou
 Linjiang
@@ -1541,7 +1541,7 @@ Changde
 Xiangyang
 Chenzhou
 Changsha
-De'an
+De'An
 Baoqing
 Liping
 Chengdu
@@ -1553,7 +1553,7 @@ Xuzhou
 Zhenxiang
 Baoning
 Mahu
-Long'an
+Long'An
 Guangzhou
 Shaozhou
 Huizhou
@@ -1571,10 +1571,10 @@ Xunzhou
 Liuzhou
 Qingyuan
 Nanning
-Si'en
+Si'En
 Taiping
 Siming
-Zhen'an
+Zhen'An
 Fuzhou
 Yanping
 Jianning
@@ -1602,11 +1602,11 @@ Wuding
 Menghua
 Menggen
 Mengding
-Yao'an
+Yao'An
 Lijiang
-Lin'an
+Lin'An
 Pingmian
-Meng'ai
+Meng'Ai
 Menglong
 Muduo
 Mulai
@@ -1618,7 +1618,7 @@ Shiqian
 Zhenyuan
 Tongren
 Duyun
-Pu'an
+Pu'An
 Puding
 Pingyue
 Liping
@@ -1627,7 +1627,7 @@ Beijiang
 Liangjiang
 Sanjiang
 Jianping
-Xin'an
+Xin'An
 Jianchang
 Fenghua
 Qinghua
@@ -1653,7 +1653,7 @@ Hanyang
 Xuanhua
 Jinan
 Dongchang
-Tai'an
+Tai'An
 Wuding
 Dengzhou
 Laizhou
@@ -1672,7 +1672,7 @@ Nanyang
 Runing
 Taiyuan
 Fenzhou
-Lu'an
+Lu'An
 Zezhou
 Puzhou
 Pingyang
@@ -1687,12 +1687,12 @@ Xining
 Liangzhou
 Ganzhou
 Gongchang
-Xi'an
+Xi'An
 Tongzhou
 Fengxiang
 Hanzhong
-Xing'an
-Yan'an
+Xing'An
+Yan'An
 Yulin
 Dihua
 Yili
@@ -1703,7 +1703,7 @@ Shafeng
 Zhenxi
 Jiangning
 Yangzhou
-Huai'an
+Huai'An
 Changzhou
 Zhenjiang
 Suzhou
@@ -1727,9 +1727,9 @@ Raozhou
 Guangxin
 Jiujiang
 Nankang
-Ji'an
+Ji'An
 Ganzhou
-Nan'an
+Nan'An
 Fuzhou
 Funing
 Yanping
@@ -1767,16 +1767,16 @@ Pingle
 Wuzhou
 Liuzhou
 Qingyuan
-Si'en
+Si'En
 Xunzhou
 Nanning
 Sicheng
-Zhen'an
+Zhen'An
 Taiping
 Wuchang
 Hanyang
 Huangzhou
-De'an
+De'An
 Anlu
 Jiayang
 Yunyang
@@ -1793,7 +1793,7 @@ Chenzhou
 Yuanzhou
 Yongshun
 Chengdu
-Long'an
+Long'An
 Chongqing
 Suiding
 Kuizhou
@@ -1803,7 +1803,7 @@ Ningyuan
 Yazhou
 Jiading
 Kangding
-Ba'an
+Ba'An
 Dengke
 Xuzhou
 Yunnan
@@ -1815,10 +1815,10 @@ Shunning
 Qujing
 Dongchuan
 Zhaotong
-Lin'an
+Lin'An
 Guangnan
 Kaihua
-Pu'er
+Pu'Er
 Guiyang
 Anshun
 Zunyi
@@ -1846,8 +1846,8 @@ Shuangcheng
 Binzhou
 Wuchang
 Yanji
-Ning'an
-Dong'an
+Ning'An
+Dong'An
 Yilan
 Linjiang
 Mishan
@@ -1891,7 +1891,7 @@ Ogilvie
 Missa
 Latinovits
 Lambertini
-IRSOL
+Irsol
 Ercolepoli
 Fleischer
 Esquibel
@@ -1995,7 +1995,7 @@ Beira
 Sax
 Ginkogino
 Page
-Xi'an
+Xi'An
 Wells
 Cole
 Ahau
@@ -2018,7 +2018,7 @@ Freud
 Cevolani
 Maxhell
 Nonie
-McDanell
+Mcdanell
 Kalatajean
 Asahi
 Primolevi
@@ -2176,7 +2176,7 @@ Smetana
 Tselina
 Rezvanian
 Weber
-van den Heuvel
+Van Den Heuvel
 Armisticia
 Tongariyama
 Alekperov
@@ -2254,14 +2254,14 @@ Denduluri
 Tyle
 Penthe
 Nikola
-McKeegan
+Mckeegan
 Scott
 Kagoshima
 Iglika
 Giorgini
 Klaasen
 Colanduno
-de Zeeuw
+De Zeeuw
 Lepage
 Jobse
 Anyuta
@@ -2288,7 +2288,7 @@ Ricco
 Dolero
 Hallerstein
 Kurtwahl
-von Steuben
+Von Steuben
 Rozov
 Evgenya
 Higgs
@@ -2512,16 +2512,16 @@ Budejicky
 Albifrons
 Sinton
 Ashleyamini
-Arii-SooHoo
+Arii-Soohoo
 Irv
 Torquilla
 Gretskij
 Stepanov
-van Albada
+Van Albada
 Schickler
 Frechet
 Summa
-MacKenzie
+Mackenzie
 Dembowska
 Van Rompaey
 Lehigh
@@ -2579,14 +2579,14 @@ Alexescu
 Kaufmann
 Mertona
 Wuheng
-von Zeipel
+Von Zeipel
 Wasyuzan
 Damiaan
 Onizuka
 Amalia
 Sundaresh
 Bechstein
-McGill
+Mcgill
 Saga
 Iredale
 Shirasaki
@@ -2975,11 +2975,11 @@ Jonquet
 Kurosaki
 Valen
 Agamemnon
-DeVeny
+Deveny
 Brunini
 Potter
 Purgstall
-McGraw-Hill
+Mcgraw-Hill
 Pajdusakova
 Africa
 Anchises
@@ -3033,7 +3033,7 @@ Gechenzhang
 Pujiquan
 Protea
 Apollonia
-MacPherson
+Macpherson
 Peaker
 Geflorsch
 Migo
@@ -3097,7 +3097,7 @@ Kawasaki
 Paronelli
 Uganda
 Lynne
-McKenna
+Mckenna
 Racine
 Denzen
 Genovali
@@ -3115,7 +3115,7 @@ Kesun
 Minodamato
 Sutton
 Aramis
-LINEAR
+Linear
 Havana
 Aude
 Suleika
@@ -3159,14 +3159,14 @@ Meissner
 Brucekoehn
 Segorbe
 Pontecorvo
-McAlpine
+Mcalpine
 Cherson
 Bexa
 Huygens
 Cullers
 Abramenko
 Herran
-CERN
+Cern
 Rafes
 Arsinoe
 Thiago
@@ -3249,8 +3249,8 @@ Isaev
 Holeungho
 Shubhrosaha
 Ashleyess
-NASA
-HASI
+Nasa
+Hasi
 Novgorod
 Veniamina
 Kanroku
@@ -3362,7 +3362,7 @@ Cialucy
 Sheehan
 Pitman
 Zephyr
-McDowell
+Mcdowell
 Biryukov
 Rameau
 Napier
@@ -3504,7 +3504,7 @@ Nagai
 Coester
 Ysaye
 Shireto
-McSween
+Mcsween
 Hunsruck
 Karachentsov
 Rip
@@ -3519,7 +3519,7 @@ Hesburgh
 Ishtar
 Munkanber
 Bobshelton
-balsusarr
+Balsusarr
 Ahrens
 Metzger
 Estonia
@@ -3606,7 +3606,7 @@ Monterosa
 Carpenter
 Gumilyov
 Kalten
-San martin
+San Martin
 Paolofrisi
 Erfordia
 Harleyzhang
@@ -3627,7 +3627,7 @@ Brocken
 Sessai
 Bobone
 Weihai
-Grigor'ev
+Grigor'Ev
 Berko
 Bogdanovich
 Mrinalini
@@ -3651,7 +3651,7 @@ Yuan
 Izhdubar
 Maynard
 Kiriko
-de Valory
+De Valory
 Rykhlova
 Blanc
 Vltava
@@ -3673,7 +3673,7 @@ Kobzar
 Rostropovich
 Jakubisin
 Landgraf
-McMath
+Mcmath
 Baumeia
 Leverrier
 Krugly
@@ -3849,7 +3849,7 @@ Hammergren
 Ohshima
 Mourao
 Oujianquan
-McKay
+Mckay
 Pises
 Seelos
 Iapyx
@@ -3891,7 +3891,7 @@ Lise
 Buratti
 Masoncole
 Fabini
-ganges
+Ganges
 Brunico
 Anitra
 Segal
@@ -3935,7 +3935,7 @@ Chimaera
 Torahiko
 Frimout
 Berrevoets
-van Ostaijen
+Van Ostaijen
 Shao
 Khweis
 Caussols
@@ -4007,7 +4007,7 @@ Asuka
 Aeschylus
 Barbagallo
 Kiess
-van Leverink
+Van Leverink
 Burkam
 Walinskia
 Bonata
@@ -4130,7 +4130,7 @@ Asimov
 Ishajain
 Chimikeppuko
 Guardamano
-McCommon
+Mccommon
 Loveday
 Fransaris
 Koichisato
@@ -4271,12 +4271,12 @@ Robinson
 Batten
 Requiem
 Spencer
-APL
+Apl
 Vesnina
 Shirao
 Goncharov
 Luciano
-Bal'mont
+Bal'Mont
 Lia
 Perrenot
 Allegra
@@ -4294,7 +4294,7 @@ Thygesen
 Briggs
 Agapenor
 Jessie
-McNair
+Mcnair
 Python
 Johney
 Couturier
@@ -4373,7 +4373,7 @@ Sobers
 Claudio
 Anacreon
 Kerry
-McGetchin
+Mcgetchin
 Krat
 Derzhavin
 Ingres
@@ -4398,7 +4398,7 @@ Kira
 Baghdad
 Korsakov
 Polepeddi
-van der Kruit
+Van Der Kruit
 Piaf
 Veran
 Hyakutake
@@ -4588,9 +4588,9 @@ Tugendhat
 Remil
 Pieroangela
 Birgit
-van Woerden
+Van Woerden
 Donati
-MANIAC
+Maniac
 Izabel
 Tahilramani
 Hrozny
@@ -4682,7 +4682,7 @@ Suminao
 Velikij
 Heddal
 Shimoyama
-LONEOS
+Loneos
 Magnitskij
 Namibia
 Maurits
@@ -4698,7 +4698,7 @@ Karatsu
 Aetolia
 Burgi
 Soomana
-von Suttner
+Von Suttner
 Calandrelli
 Solidarity
 Frasercain
@@ -4735,7 +4735,7 @@ Decaro
 Brooks
 Barbieri
 Savanna
-van Swinden
+Van Swinden
 Asplinda
 Sandro
 Wuyeesun
@@ -4811,7 +4811,7 @@ Kiryu
 Nichol
 Podobed
 Abetti
-renaisance
+Renaisance
 Bathseba
 Oenanthe
 Clerambault
@@ -4878,7 +4878,7 @@ Malovany
 Nittler
 Vovisibor
 Ontjes
-McCartney
+Mccartney
 Angola
 Meslier
 Bonhoeffer
@@ -4940,7 +4940,7 @@ Elysia
 Kiek
 Kamen
 Rambhia
-Astaf'ev
+Astaf'Ev
 Mishchenko
 Erika
 Heimdal
@@ -5047,7 +5047,7 @@ Ingwelde
 Towen
 Semenkovich
 Shigehisa
-JAXA
+Jaxa
 Caupolican
 Berenyi
 Berlioz
@@ -5308,7 +5308,7 @@ Tanais
 Admetos
 Kranjc
 Beograd
-McDonnell
+Mcdonnell
 Lyyli
 Antinous
 Lugh
@@ -5318,7 +5318,7 @@ Ampere
 Maki
 Stana
 Hautot
-d'Orient
+D'Orient
 Dugan
 Kupka
 Arimahiroshi
@@ -5410,7 +5410,7 @@ Lanzia
 Pinet
 Pollock
 Sunflower
-ITA
+Ita
 Franzkaiser
 Flora
 Mjolnir
@@ -5471,7 +5471,7 @@ Soushiyou
 Ursa
 Hippokoon
 Arctica
-MacChnoic
+Macchnoic
 Paranal
 Offenbach
 Knuth
@@ -5511,7 +5511,7 @@ Karge
 Loos
 Fraunhofer
 Catalonia
-DeVorkin
+Devorkin
 Prigogine
 Isakovskij
 Pariser
@@ -5525,7 +5525,7 @@ Medvedev
 Sanchez
 Srnin
 Topeka
-McClintock
+Mcclintock
 Nealwadhwa
 Michta
 Gross
@@ -5546,9 +5546,9 @@ Perek
 Batrakov
 Ryoma
 Pepping
-von Lude
+Von Lude
 Ostwald
-KIAM
+Kiam
 O'Meara
 Gardel
 Lofgren
@@ -5671,7 +5671,7 @@ Rinaketty
 Vogelsberg
 Bertholda
 Trenco
-von Laue
+Von Laue
 Kuban
 Vonderheydt
 Durance
@@ -5681,7 +5681,7 @@ Mayakovsky
 Kimamos
 Wasson
 Krakow
-ANS
+Ans
 Mongmanwai
 Chiarini
 Peano
@@ -5768,7 +5768,7 @@ Gutbezahl
 Kabukuri
 Geichenko
 Sherlock
-ASP
+Asp
 Nelakanti
 Mirabeau
 Wiener
@@ -5805,7 +5805,7 @@ Sormano
 Drunina
 Quine
 Castafiore
-von Helfta
+Von Helfta
 Avery
 Niheihajime
 Olympiad
@@ -5994,7 +5994,7 @@ Fichtelberg
 Piotrovsky
 Bowman
 Erda
-EMP
+Emp
 Marimo
 Chappe
 Boyer
@@ -6111,7 +6111,7 @@ Stroncone
 Podjavo
 Stverak
 Rowling
-CrAO
+Crao
 Maximiliana
 Memnon
 Cassiano
@@ -6168,7 +6168,7 @@ Voegtli
 Heitifer
 Rhada
 Dominik
-NAOJ
+Naoj
 Shikano
 Clausewitz
 Carlova
@@ -6195,7 +6195,7 @@ Sulamitis
 Hurvinek
 Egleston
 Cambier
-van Genderen
+Van Genderen
 Giada
 Valpertile
 Kryszczynska
@@ -6282,7 +6282,7 @@ Kasuga
 Selene
 Oberammergau
 Fulchignoni
-van Gent
+Van Gent
 Hamp
 Hieronymus
 Sikoruk
@@ -6308,7 +6308,7 @@ Lemeshev
 Samitchell
 Hoshikawa
 Oileus
-van Eyck
+Van Eyck
 Sikorsky
 Prieur
 Beltrami
@@ -6339,7 +6339,7 @@ Lagerlof
 Kobis
 Svenders
 Shapiro
-van den Bos
+Van Den Bos
 Chinaro
 Eulenspiegel
 Schoenberg
@@ -6567,7 +6567,7 @@ Isiguroyuki
 Joyce
 Doppelmayr
 Jeremias
-McGivney
+Mcgivney
 Cloud
 Libitina
 Lohja
@@ -6608,7 +6608,7 @@ Khariton
 Kiuchi
 Morstadt
 Morabito
-McCarter
+Mccarter
 Dluzhnev
 Signe
 Takumi
@@ -6788,7 +6788,7 @@ Wafak
 Yasuda
 Theotes
 Alimov
-Hokule'a
+Hokule'A
 Wilhelm
 Tolerantia
 Chepurova
@@ -6918,7 +6918,7 @@ Rimskij
 Katcagen
 Pokryshkin
 Maire
-MacGillivray
+Macgillivray
 Hezimmermann
 Ogasawara
 Laupheim
@@ -6954,7 +6954,7 @@ Dillon
 Lubosluka
 Parihar
 Shirakami
-de Shalit
+De Shalit
 Milstein
 Mont
 Chanmatchun
@@ -7109,7 +7109,7 @@ Cerci
 Ciambetti
 Tamakasuga
 Minin
-Kol'tsovo
+Kol'Tsovo
 Horton
 Kuotzuhao
 Lizma
@@ -7177,7 +7177,7 @@ Rodionta
 Lipovetsky
 Harada
 Grange
-de Vico
+De Vico
 Schnee
 Samaan
 Slettebak
@@ -7196,7 +7196,7 @@ Aretta
 Aignan
 Gielgud
 Bernert
-MOTESS
+Motess
 Boudewijnbuch
 Katharina
 Tacchini
@@ -7414,7 +7414,7 @@ Kuan Yin
 Delbarrio
 Okuda
 Scheithauer
-McGarvey
+Mcgarvey
 Antikleia
 Aventini
 Elgar
@@ -7528,7 +7528,7 @@ Teleki
 Amadora
 Awaji
 Shinsubin
-van der Weyden
+Van Der Weyden
 Kagawa
 Ceadams
 Khama
@@ -7803,7 +7803,7 @@ Brosche
 Rokoske
 Malautra
 Talia
-Hoshi-no-mura
+Hoshi-No-Mura
 Kanchi
 Tithonus
 Borodin
@@ -7858,7 +7858,7 @@ Sidemore
 Edebono
 Braude
 Sakai
-Hoshi-no-ie
+Hoshi-No-Ie
 Nesterov
 Pulido
 Rubik
@@ -8002,7 +8002,7 @@ Philagoria
 Querquedula
 Mustel
 Kiyomoto
-DuBridge
+Dubridge
 Irene
 Upupa
 Inoueta
@@ -8063,7 +8063,7 @@ Sonet
 Piszkesteto
 Gibbs
 Berounka
-MacRobert
+Macrobert
 Oshijyo
 Miwablock
 Rayleigh
@@ -8077,7 +8077,7 @@ Utting
 Barmen
 Davasobel
 Adams
-ENIAC
+Eniac
 Hodler
 Aksnes
 Godel
@@ -8136,7 +8136,7 @@ Choemuseon
 Ester
 Asgard
 Anza
-MacLean
+Maclean
 Ulula
 Amychyao
 Altenburg
@@ -8229,7 +8229,7 @@ Annis
 Nadherna
 Needham
 Sigeki
-McClure
+Mcclure
 Ohkuma
 Serger
 Sollerman
@@ -8273,7 +8273,7 @@ Purcell
 Miyajima
 Golay
 Hoyo
-FAIR
+Fair
 Gorgasali
 Achaemenides
 Moskovitz
@@ -8297,7 +8297,7 @@ Bohrmann
 Molster
 Elis
 Koikeda
-GNU
+Gnu
 Gothlandia
 Katrina
 Ianchan
@@ -8335,7 +8335,7 @@ Rabelais
 Warren
 Dabu
 Llano
-von Flue
+Von Flue
 Selinur
 Viget
 Tresini
@@ -8381,7 +8381,7 @@ Phemios
 Take
 Alfreda
 Mauricio
-DuQuesne
+Duquesne
 Rozgaj
 Glatfelter
 Levant
@@ -8402,7 +8402,7 @@ Bobkoff
 Malhotra
 Comrie
 Ian
-McLaughlin
+Mclaughlin
 Franz
 Ahlqvist
 Naeve
@@ -8497,7 +8497,7 @@ Ostersund
 Keet
 Antonia
 Air
-McCloskey
+Mccloskey
 Wheeler
 Thucydides
 Harunasan
@@ -8540,7 +8540,7 @@ Hagar
 Bakharev
 Tugela
 Bethellen
-van der Pol
+Van Der Pol
 Arlint
 Boda
 Stebrehmer
@@ -8617,18 +8617,18 @@ Vilho
 Harch
 Elais
 Ishidatakaki
-McQuarrie
+Mcquarrie
 Schmadel
 Pajka
 Mizrahi
 Korolenko
-von Neumann
+Von Neumann
 Lawrence
 Adele
 Darksky
 Yrsa
 Emerson
-DiNovis
+Dinovis
 Tewksbury
 Bavaria
 Rozmberk
@@ -8644,7 +8644,7 @@ Liloketai
 Sybil
 Simpkins
 Kumeta
-McGlothlin
+Mcglothlin
 Cambroziak
 Iphigenia
 Pagnol
@@ -8699,7 +8699,7 @@ Lausanna
 Andree
 Weisell
 Legendre
-McMillan
+Mcmillan
 Marcia
 Payne
 Tonucci
@@ -8707,7 +8707,7 @@ Mochizuki
 Koldewey
 Susa
 Carolhersh
-Tensho-kan
+Tensho-Kan
 Schweke
 Lova
 Krautter
@@ -8866,7 +8866,7 @@ Kris
 Kravtsov
 Kaztaniguchi
 Thurstone
-karajan
+Karajan
 Fomalhaut
 Mokshagundam
 Delportia
@@ -8892,7 +8892,7 @@ Donatello
 La Serena
 Krymradio
 Postrema
-palain
+Palain
 Mitsuko
 Budovicium
 Persephone
@@ -8918,7 +8918,7 @@ Chierchia
 Albertwu
 Xanadu
 Siegena
-McHone
+Mchone
 Feeny
 Mukaitadashi
 Thebault
@@ -8959,7 +8959,7 @@ Kanagawa
 Pourkaviani
 Brouwer
 Dahl
-MIT
+Mit
 Geoffrey
 Heinlein
 Tyche
@@ -9025,7 +9025,7 @@ Racquetball
 Oberpfalz
 Pinakibose
 Fricke
-McVittie
+Mcvittie
 Apatheia
 Kaverin
 Aldrin
@@ -9047,7 +9047,7 @@ Surkov
 Tapping
 Vosges
 Koncek
-shinji
+Shinji
 Livesey
 Righini
 Megkurohara
@@ -9086,7 +9086,7 @@ Stiavnica
 Utkin
 Sorada
 Strittmatter
-van der Brugge
+Van Der Brugge
 Wild
 Suhanli
 Delp
@@ -9102,7 +9102,7 @@ Hitchcock
 Nibutani
 Moletai
 Moriyama
-LPL
+Lpl
 Eucryphia
 Dangrania
 Gifford
@@ -9140,9 +9140,9 @@ Penza
 Bradman
 Uccio
 Erb
-McAliley
+Mcaliley
 Tsarevsky
-TARDIS
+Tardis
 Behaim
 Langley
 Zanin
@@ -9365,7 +9365,6 @@ Hodios
 Lamarck
 Soroban
 Plovdiv
-TTina
 Brazos Bend
 Alois
 Wacker
@@ -9481,7 +9480,7 @@ Lupton
 Rascana
 Kintaikyo
 Hamburga
-NEAT
+Neat
 Gunhild
 Ransome
 Terebizh
@@ -9500,7 +9499,7 @@ Marsh
 Xanthe
 Lauten
 Burian
-van Schooten
+Van Schooten
 Guiraudon
 Aubriet
 Suhhosoo
@@ -9529,7 +9528,7 @@ Amandalu
 Kamimachi
 Korsunia
 Toulouse
-van Zee
+Van Zee
 Van Flandern
 Wuzhengyi
 Gangkeda
@@ -9583,7 +9582,7 @@ Egorov
 Limdarren
 Cruijff
 Abukumagawa
-MPIA
+Mpia
 Klinkenberg
 Chubko
 Bobross
@@ -9626,7 +9625,7 @@ Sanaraoof
 Alu
 Angelica
 Hastrup
-ESA
+Esa
 Hidesan
 Arnaudleroy
 Spessart
@@ -9717,7 +9716,7 @@ Kosmodem
 Lafer
 Easterwood
 Golovanov
-nevermore
+Nevermore
 Torun
 Duncan
 Paclements
@@ -9739,7 +9738,7 @@ Sabadell
 Binford
 Guangdong
 Ylppo
-McDermid
+Mcdermid
 Sellers
 Landoni
 Franck
@@ -9819,7 +9818,7 @@ Bakulev
 Autonoma
 Northcott
 Lindsay
-McCuskey
+Mccuskey
 Morogues
 Payton
 Simfero
@@ -9890,7 +9889,7 @@ Refugium
 Kourovka
 Aci
 Anadiego
-MacGregor
+Macgregor
 Fesenkov
 Maiztegui
 Fagus
@@ -9900,7 +9899,7 @@ Celemorrow
 Nysa
 Zhonghua
 Attenborough
-McIntosh
+Mcintosh
 Lubos
 Albeniz
 Adry
@@ -9978,7 +9977,7 @@ Shulnazaria
 Illapa
 Ekholm
 Siauliai
-LaVelle
+Lavelle
 Quintilla
 Schwab
 Standish
@@ -10041,7 +10040,7 @@ Kulikovskij
 Berzelius
 Manabe
 Branham
-Mitake-mura
+Mitake-Mura
 Anokhin
 Mossbauer
 Neyman
@@ -10273,7 +10272,7 @@ Notskas
 Gringauz
 Arpola
 Rentaro
-McEwen
+Mcewen
 Desiderata
 Roddy
 Ogawa
@@ -10439,7 +10438,7 @@ Liubirena
 Moseley
 Thernoe
 Voronikhin
-McCarty
+Mccarty
 Grimmett
 Osip
 Bodensee
@@ -10645,7 +10644,7 @@ Taoyuan
 Paton
 Albitskij
 Bethemmons
-d'Arturo
+D'Arturo
 Makino
 Vidphananu
 Olmos
@@ -10674,7 +10673,7 @@ Verbaand
 Atanasoff
 Bernheim
 Nemunas
-McCoy
+Mccoy
 Litke
 Kodaira
 Garywessen
@@ -10693,7 +10692,7 @@ Garber
 Abdel-Samad
 Sannaimura
 Bornmann
-McGraw
+Mcgraw
 Hedin
 Purgath
 Bernero
@@ -10722,7 +10721,7 @@ Ludek
 Reshetnev
 Osiris
 Melena
-de Jager
+De Jager
 Thakur
 Nui
 Hancock
@@ -10884,7 +10883,7 @@ Apache Point
 Siran
 Catcheller
 Numa
-McGlasson
+Mcglasson
 Dwornik
 Bisikalo
 Mulhacen
@@ -11016,7 +11015,7 @@ Fedchenko
 Guetter
 Cruithne
 Chiron
-higashi
+Higashi
 Patsy
 Brandonshih
 Frydek
@@ -11076,7 +11075,7 @@ Walkure
 Ehdita
 Proust
 Nouda
-IRAS
+Iras
 Iskorosten
 Tsuneyoshi
 Jane
@@ -11577,7 +11576,7 @@ Hespera
 Peckova
 Rock
 Strohm
-matapan
+Matapan
 Kitty
 Sabrina
 Giorgilli
@@ -11676,7 +11675,7 @@ Divari
 Kondamuri
 Makarov
 Tanabe
-McAuliffe
+Mcauliffe
 Tairov
 Nizhnij
 Anga
@@ -11811,7 +11810,7 @@ Ishidagoro
 Schaifers
 Honda
 Shigema
-van Schurman
+Van Schurman
 Smaklosa
 Akiyoshidai
 Tata
@@ -11873,7 +11872,7 @@ Cook
 Schilowa
 Duongtuyenvu
 Wu
-MacGregor
+Macgregor
 Sevastopol
 Kalchas
 Hajos
@@ -11972,7 +11971,7 @@ Steel
 Varuna
 Cesky
 Kopff
-NANTEN
+Nanten
 Abkhazia
 Armenia
 Eminescu
@@ -12003,7 +12002,7 @@ Black
 Yeshuhua
 Somerville
 Manosque
-IAU
+Iau
 Escalante
 Kalbaugh
 Hurwitz
@@ -12050,7 +12049,7 @@ Tarry
 Meileawertz
 Anhalt
 Gregoire
-Nikol'skij
+Nikol'Skij
 Dmytria
 Ostergarn
 Rydberg
@@ -12059,9 +12058,9 @@ Anan
 Vilnius
 Delemont
 Louisburg
-McFadden
+Mcfadden
 Kulikov
-GOI
+Goi
 Philosophia
 Semphyra
 Crommelin
@@ -12118,7 +12117,7 @@ Shinsaku
 Liverdun
 Carole
 Uemura
-de Lesseps
+De Lesseps
 Eugster
 Velenia
 Fedorshpig
@@ -12244,7 +12243,7 @@ Tankanran
 Clasien
 Genelucas
 Detre
-NOT
+Not
 Holmberg
 Laplace
 Nijisseiki
@@ -12256,7 +12255,7 @@ Hoburgsgubben
 Takakura
 Mali
 Parmley
-du Chatelet
+Du Chatelet
 Natta
 Deadoklestic
 Foo
@@ -12267,7 +12266,7 @@ Descamisada
 Gispen
 Potsdam
 Gadsden
-McCauley
+Mccauley
 Kurokawa
 Zibeline
 Annagerman
@@ -12477,7 +12476,7 @@ Prilepina
 Steinbach
 Poelchau
 Fogelquist
-TirNaNog
+Tirnanog
 Aiweiwei
 Takuya
 Bruchsalia
@@ -12485,7 +12484,7 @@ Babote
 Hifleischer
 Aarseth
 Togashi
-McGee
+Mcgee
 Hillary
 Chebotarev
 Geyang
@@ -12538,7 +12537,7 @@ Herero
 Furia
 Murray
 Cisneros
-Gor'kavyj
+Gor'Kavyj
 Araki
 Cape Fearrock
 Wangler
@@ -12663,7 +12662,7 @@ Nomentum
 Sofievka
 Shosan
 Bogorodskij
-van Riebeeck
+Van Riebeeck
 Sidonia
 Vedernikov
 Shiman
@@ -12699,7 +12698,7 @@ Kana
 Izanami
 Humfernandez
 Lorre
-Emel'yanov
+Emel'Yanov
 Tautenburg
 Cezanne
 Whitehorne
@@ -12756,9 +12755,9 @@ Kobuchi
 Kahrstedt
 Fredrick
 Kriegh
-van de Hulst
+Van De Hulst
 Condruses
-McCleese
+Mccleese
 Huruhata
 Meucci
 Kuragano
@@ -12904,7 +12903,7 @@ Dante
 Shadfan
 Dornburg
 Qiaochu
-McNally
+Mcnally
 Bickerton
 Aesculapia
 Polesny
@@ -12912,7 +12911,7 @@ Brainard
 Gertrudolf
 Benkhaldoun
 Reess
-McBride
+Mcbride
 Sturm
 Eudorus
 Watanabe
@@ -12971,7 +12970,7 @@ Munsterman
 Zanda
 Natasha
 Tymothycoons
-de Hevesy
+De Hevesy
 Dostoevsky
 Aarongolden
 Halley
@@ -12987,7 +12986,7 @@ Chenchikwan
 Pivatte
 Esambaev
 Bruce Helin
-Evgalvasil'ev
+Evgalvasil'Ev
 Kemeisha
 Ingalls
 Oishi
@@ -13057,14 +13056,14 @@ Boltzmann
 August
 Kuncham
 Legia
-KLENOT
+Klenot
 Aviscardi
 Hersilia
 Kawane
 Nobuhisa
 Baudelaire
 Tsvetaev
-van Sprang
+Van Sprang
 Dianecaplain
 Universitas
 Cellinekim
@@ -13074,7 +13073,7 @@ Konke
 Blaha
 Yauza
 Titurel
-McCarron
+Mccarron
 Thorenia
 Sipiera
 Jabberwock
@@ -13143,7 +13142,7 @@ Nevezice
 Rausudake
 Vieira
 Buneiou
-von Wurden
+Von Wurden
 Mayo
 Barrylasker
 Basilevsky
@@ -13158,7 +13157,7 @@ Ponsen
 Bertrandou
 Gravesande
 Allodd
-GAISH
+Gaish
 Nobel
 Joe
 Majden
@@ -13203,7 +13202,7 @@ Rutha
 Clinch
 Federicotosi
 Palomides
-MacCready
+Maccready
 Morike
 Macuch
 Miselli
@@ -13229,14 +13228,14 @@ Gutierrez
 Ellensburg
 Claudius
 Beppeforti
-Dikan'ka
+Dikan'Ka
 Nakagawa
 Babadzhanov
 Gramme
 Ruriko
 Kumamori
 Aneas
-McConnell
+Mcconnell
 Temple
 Sinden
 Velimir
@@ -13280,7 +13279,7 @@ Kansas
 Jung
 Galinskij
 Vogelweide
-van Dishoeck
+Van Dishoeck
 Hypatia
 Golden
 Kunming
@@ -13309,7 +13308,7 @@ Nepryadva
 Dion
 Bluepeter
 Morgenstern
-von Liebig
+Von Liebig
 Holasovice
 Grun
 Winnecke
@@ -13447,14 +13446,14 @@ Nagamori
 Deming
 Maslovets
 Concordia
-van Houten
+Van Houten
 Albellus
 Thomsen
 Sedov
 Donnison
 Leani
 Peterbluhm
-McCrosky
+Mccrosky
 Lancet
 Byatt
 Daguerre
@@ -13503,7 +13502,7 @@ Magritte
 Erewhon
 Bussolini
 Berkeley
-CCD
+Ccd
 Seraphina
 Cecilie
 Samarkand
@@ -13581,7 +13580,6 @@ Negrelli
 Nathues
 Elko
 Hashimoto
-Pocahontas
 Bambini
 Hyogo
 Glebov
@@ -13645,7 +13643,7 @@ Iwaizumi
 Niyodogawa
 Evenkia
 Holdridge
-McKennon
+Mckennon
 Hammonia
 Simonenko
 Kyoto
@@ -13723,7 +13721,7 @@ Kandatai
 Street
 Imran
 Menchu
-Kap'bos
+Kap'Bos
 Icarus
 Ethiopia
 Alandreev
@@ -13803,8 +13801,8 @@ Starchik
 Citfifty
 Brabantia
 Sirona
-AAVSO
-baughman
+Aavso
+Baughman
 Sherwood
 Fallada
 Klintefelt
@@ -13826,7 +13824,7 @@ Queyras
 Tanega
 Huskvarna
 Volodshev
-van Woerkom
+Van Woerkom
 Shoko
 Marlene
 Gmelin
@@ -13851,7 +13849,7 @@ Londontario
 Fern
 Tokita
 Wlodekof
-MACEK
+Macek
 Zoser
 Kohoutek
 Brentano
@@ -13862,7 +13860,7 @@ Lake
 Arabis
 Krikalev
 Myhom
-List'ev
+List'Ev
 Semirot
 Yasutani
 Echnaton
@@ -13918,7 +13916,7 @@ Hakuhou
 Hanamiyama
 Lion
 Caitlin
-McCall
+Mccall
 Siheng
 Scotti
 Mokotoyama
@@ -13956,7 +13954,7 @@ Klostermann
 Savitskij
 Tweedledee
 Tongjili
-DeMeo
+Demeo
 Changjiangcun
 Carrasco
 Solovaya
@@ -13977,7 +13975,7 @@ Alleven
 Romanenko
 Geramtina
 Pafuri
-McElroy
+Mcelroy
 Estelle
 Hamuy
 Gulkis
@@ -13996,7 +13994,7 @@ Eugenia
 Moran
 Yahagi
 Bulgakov
-GONG
+Gong
 Illyria
 Woolamurra
 Kamoun
@@ -14067,7 +14065,7 @@ Joanoro
 Oreshek
 Hokutosei
 Cellino
-von Wrangel
+Von Wrangel
 Kuber
 Saurodonati
 Mobberley
@@ -14083,7 +14081,7 @@ Cyane
 Plantin
 Ellyett
 Pluis
-ARRL
+Arrl
 Tsuruta
 Matsue
 Typhon
@@ -14133,7 +14131,7 @@ Gurnikovskaya
 Lacadiera
 Eger
 Stuart
-TRIUMF
+Triumf
 Schulhof
 Simpson
 Dean
@@ -14156,7 +14154,7 @@ Gardon
 Masterby
 Manulis
 Desngai
-hain
+Hain
 Lai
 Stolte
 Aigoual
@@ -14165,7 +14163,7 @@ Orpheus
 Blythe
 Premt
 Templehe
-Van den Eijnde
+Van Den Eijnde
 Chernova
 Ogawamachi
 Arabia
@@ -14263,7 +14261,7 @@ Trelleborg
 Kankel
 Pollath
 Scheffler
-AMOS
+Amos
 Brunner
 Boreas
 Bermarmi
@@ -14346,7 +14344,7 @@ Wykrota
 Robinhood
 Konrad
 Genoveva
-van Herk
+Van Herk
 Broksas
 Naruhirata
 Brown
@@ -14452,12 +14450,12 @@ Vaintrob
 Kirschvink
 Amnestia
 Guchaohao
-BAM
+Bam
 Sampo
 Bonini
 Gergana
 Bunichi
-McGlynn
+Mcglynn
 Suchan
 Braille
 Liuxiao
@@ -14488,7 +14486,7 @@ Benguella
 Mychajliw
 Gnadig
 Bustos
-McDonalda
+Mcdonalda
 Nhannguyen
 Dalem
 Marchetti
@@ -14518,7 +14516,7 @@ Diluca
 Palermiti
 Mimosa
 Shiroko
-Queen's
+Queen'S
 Prabakaran
 Guinevere
 Bolzano
@@ -14595,7 +14593,7 @@ Ariadne
 Edbryce
 Chuckjones
 Bouley
-McCann
+Mccann
 Pugovkin
 Tenguko
 Ranev
@@ -14826,7 +14824,7 @@ Manticore
 Nohavica
 Crantor
 Gaffey
-McCarthy
+Mccarthy
 Okina
 Clematis
 Buddy
@@ -14880,7 +14878,7 @@ Regidufour
 Marash
 Kegler
 Aehlita
-van den Bergh
+Van Den Bergh
 Klimesh
 Hamra
 Tyson
@@ -14959,7 +14957,7 @@ Juter
 Berezov
 Vangelis
 Hope
-McDonald
+Mcdonald
 Tagaharue
 Zidek
 Niekdekort
@@ -14975,7 +14973,7 @@ Marchuk
 Balin
 Rusth
 Kelly
-DiMaggio
+Dimaggio
 Marjaleena
 Mizugaki
 Heyuan
@@ -14995,7 +14993,7 @@ Breda
 Wadhwa
 Poincare
 Atthis
-DeLaeter
+Delaeter
 Miyazawa
 Svanetia
 Nusamaibashi
@@ -15010,7 +15008,7 @@ Gilgamesh
 Lagarini
 Oort
 Shichang
-de Saussure
+De Saussure
 Niknesterov
 Analucia
 Silentium
@@ -15201,7 +15199,7 @@ Althaea
 Vanvincken
 Amy
 Longenecker
-van de Velde
+Van De Velde
 Hughes
 Blazhko
 Polko
@@ -15229,7 +15227,7 @@ Chern
 Dovgyj
 Bortle
 Darnell
-van de Kamp
+Van De Kamp
 Lozere
 Ambrosia
 Scholl
@@ -15285,7 +15283,7 @@ Lunn
 Nathan
 Mamoru
 Lindner
-van Altena
+Van Altena
 Camelot
 Galilea
 Lacrimosa
@@ -15296,7 +15294,7 @@ Schinkel
 Kuprin
 Asteraude
 Valdaj
-McGaha
+Mcgaha
 Hrabal
 Sibylla
 Sirataka
@@ -15327,7 +15325,7 @@ Alphane
 Massey
 Cibronen
 Calgary
-van Rhijn
+Van Rhijn
 Lada
 Takine
 Shenchu
@@ -15354,7 +15352,7 @@ Oiunskij
 Ladegast
 Mariangela
 Walhalla
-Pal'chikov
+Pal'Chikov
 Velantia
 Jaytee
 Boriszaitsev
@@ -15372,7 +15370,7 @@ Paquet
 Marci
 Juubichi
 Sameer
-McKellar
+Mckellar
 Ur
 Stahl
 Chujkovia
@@ -15402,8 +15400,8 @@ Mydon
 Ritina
 Rollandia
 Medusa
-McLindon
-McArthur
+Mclindon
+Mcarthur
 Panoramix
 Foresta
 Macon
@@ -15465,7 +15463,7 @@ Ancus
 Taize
 Annschnell
 Miviscardi
-olfe
+Olfe
 Tokio
 Rawson
 Perona
@@ -15477,7 +15475,7 @@ Hypnos
 Verkin
 Michael
 Meech
-von Matt
+Von Matt
 Ermolova
 Gromov
 Chemin
@@ -15493,7 +15491,7 @@ Salimbeni
 Las Casas
 Puttachi
 Tripuraneni
-McIntyre
+Mcintyre
 Eileen
 Hirokun
 Raab
@@ -15585,7 +15583,7 @@ Mizser
 Roy
 Thunberg
 Alferov
-Sel'vinskij
+Sel'Vinskij
 Fanny
 Nengshun
 Rogeria
@@ -15596,7 +15594,7 @@ Doi
 Bartels
 Annika
 Grieve
-CERGA
+Cerga
 Abai
 Seiichi
 Leipzig
@@ -15648,7 +15646,7 @@ Chodas
 Kingsford
 Brassens
 Etienne
-van der Waals
+Van Der Waals
 Cioffi
 Triathlon
 Keisaku
@@ -15710,7 +15708,7 @@ Ara
 Gabzdyl
 Briekugler
 Harish
-McNaught
+Mcnaught
 Lahti
 Encrenaz
 Baupeter
@@ -15837,7 +15835,7 @@ Huntress
 Pietsch
 Hobart
 Braunerova
-von Kues
+Von Kues
 Lemonnier
 Myslbek
 Knofel
@@ -16089,7 +16087,7 @@ Nunes
 Santoka
 Petrarca
 Babadzhanyan
-de Villegas
+De Villegas
 Dansealey
 Klemperer
 Clube
@@ -16123,7 +16121,7 @@ Lewit
 Spock
 Kunzak
 Canterbury
-McAdams
+Mcadams
 Salvo
 Decabrina
 Oldman
@@ -16322,7 +16320,7 @@ Caecilia
 Ajiki
 Ivarsson
 Takeda
-van der Laan
+Van Der Laan
 Megangross
 Lahulla
 Lebovits
@@ -16332,7 +16330,7 @@ Balzac
 Pygmalion
 Oken
 Sacajawea
-McAllister
+Mcallister
 Pilachowski
 Rudra
 Lusus
@@ -16384,7 +16382,7 @@ Marrucino
 Okada
 Orma
 Darbydyar
-McCord
+Mccord
 Hoder
 Moulding
 Yukio
@@ -16487,7 +16485,7 @@ Ehrsson
 Latimer
 Joetaylor
 Ennomos
-McCormick
+Mccormick
 Skadiang
 Holden
 Geographos
@@ -16567,7 +16565,7 @@ Hubert
 Ewen
 Lew
 Shcherban
-van Gogh
+Van Gogh
 Jubilatrix
 Ploor
 Wehinger
@@ -16697,7 +16695,7 @@ Conrada
 Dolomiten
 Periphas
 Enriques
-Yan'an
+Yan'An
 Dali
 Merpa
 Miepgies
@@ -16770,7 +16768,7 @@ Dyan
 Shinsen
 Gerdlehmann
 Drake
-van der Hucht
+Van Der Hucht
 Connolly
 Ismene
 Brenda
@@ -16860,10 +16858,10 @@ Athos
 Atifis
 Altec
 Axanar
-BaKu
+Baku
 Babel
-balancar
-balosnee
+Balancar
+Balosnee
 Banaea
 Barisa
 Barkon
@@ -17052,7 +17050,7 @@ Pradans
 Pluctar
 Pulchrion
 Praxica
-paxaris
+Paxaris
 Procans
 Pluxor
 Pythria
@@ -17072,7 +17070,7 @@ Quudzo
 Rachiles
 Rachrax
 Rakala
-ramalion
+Ramalion
 Regulans
 Rekgar
 Reinar
@@ -17160,7 +17158,7 @@ Tarpinter
 Taptrix
 Tantus
 Tantius
-tanix
+Tanix
 Taptar
 Texulon
 Tamoran
@@ -17296,28 +17294,3 @@ Yonalt
 Yonius
 Yompron
 Yoprian
-Zaxor
-Zanzar
-Zanzaris
-Zenizlad
-Zoptrix
-Zapriox
-Zudrin
-Zubuzrad
-Zubuzdar
-Zentor
-Zeonis
-Zerinax
-Zoptor
-Zeqrinax
-Zolzec
-Zokron
-Zoltrax
-Zenizdar
-Zenirad
-Zugripor
-Zoprocar
-Zynchex
-Zylpran
-Zycron
-Zygizrad
