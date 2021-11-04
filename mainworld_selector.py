@@ -25,7 +25,7 @@ def choose_mainworld(db_name):
     
     sql3_select_loc = """           SELECT  location
                                     FROM    stellar_bodies
-                                    WHERE   orbits > 0 AND companion_class = 0"""
+                                    WHERE   orbits > 0"""
                             
     sql3_select_locorb = """        SELECT  location,
                                             location_orbit,
@@ -42,10 +42,13 @@ def choose_mainworld(db_name):
     
     c.execute(sql3_select_loc)
     allrows = c.fetchall()
+    print("Collected list into set")
     for row in allrows:
     
         loc_list.append(row[0])
-    
+        
+    loc_list = set(loc_list)
+    print("Collected list into set")
     loc_len = len(loc_list)
     for j,n in enumerate(loc_list):
 
@@ -78,3 +81,4 @@ def choose_mainworld(db_name):
     
 
     conn.close()        
+    

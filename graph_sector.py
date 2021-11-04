@@ -48,15 +48,14 @@ def file_open():
     c = conn.cursor()
     df = pd.read_sql_query('''SELECT
                            stellar_bodies.location,
-                           system_type,
                            luminosity_class,
                            spectral_type,
                            orbits,
                            age,
                            belts,
                            gg,
-                           tb_t5.system_name,
-                           tb_t5.location as tf_loc
+                           main_worlds.system_name,
+                           main_worlds.location as tf_loc
                            FROM stellar_bodies
                            LEFT JOIN main_worlds on main_worlds.location = stellar_bodies.location''', conn)
     df_world_uwp = pd.read_sql_query('''SELECT 
@@ -68,24 +67,24 @@ def file_open():
                 gravity,
                 atmos_pressure,
                 temperature,
-                mainworld_status,
-                tb_t5.location as t5_loc,
-                tb_t5.system_name,
-                tb_t5.starport,
-                tb_t5.size,
-                tb_t5.atmosphere,
-                tb_t5.hydrographics,
-                tb_t5.population,
-                tb_t5.government,
-                tb_t5.law,
-                tb_t5.tech_level,
-                tb_t5.remarks,
-                tb_t5.ix
-                FROM tb_orbital_bodies 
-                INNER JOIN mainworld tb_t5 on mainworld.location = orbital_bodies.location 
-                WHERE mainworld_status = "Y"  ''', conn)
+                main_worlds.location,
+                main_worlds.system_name,
+                main_worlds.starport,
+                main_worlds.size,
+                main_worlds.atmosphere,
+                main_worlds.hydrographics,
+                main_worlds.population,
+                main_worlds.government,
+                main_worlds.law,
+                main_worlds.tech_level,
+                main_worlds.remarks,
+                main_worlds.ix
+                FROM main_worlds
+                LEFT JOIN orbital_bodies
+                ON main_worlds.location_orb = orbital_bodies.location_orbit''', conn)
+                
     df_world_uwp['ix'] = df_world_uwp['ix'].apply(lambda x: int(re.sub('{|}', '', x)))
-    print(df_world_uwp)
+    print("Confirming df load",df_world_uwp)
     conn.commit()  
     c.close()
     conn.close()
@@ -149,6 +148,8 @@ def animate(chart_title,label_list,color_list,plot_list,*args):
     global db_name
     
     print('Made it to animate')
+    
+    print(args['location'])
     a = f.add_subplot(111)
 
 
@@ -572,7 +573,6 @@ class sectorvisapp(tk.Tk):
         menubar.add_cascade(label="File",menu=filemenu)
         
         stellarmenu = tk.Menu(menubar, tearoff=0)
-        stellarmenu.add_command(label="System Type", command = stellarmenu_action)
         stellarmenu.add_command(label="Luminosity Class", command=luminosity_action)
         stellarmenu.add_command(label="Spectral Type", command=spectral_type_action)      
         stellarmenu.add_command(label="Age", command=stellar_age_action)
@@ -662,7 +662,10 @@ class StartPage(tk.Frame):
 def get_coordinates(thedataframe):
     xcoordinates = []
     ycoordinates = []
-    for coord in thedataframe.location:
+    coord_list = list(thedataframe['location'])
+    
+    for coord in coord_list:
+        print('coord',coord)
         x_axis = int(coord[0:2])
     
         mod = x_axis % 2

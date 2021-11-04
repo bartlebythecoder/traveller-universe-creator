@@ -63,42 +63,51 @@ layout = [
 # Create the Window
 window = sg.Window("""Bartleby's Sector Builder""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
-while True:
-    event, values = window.read()
-    if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
-        break
-    try:
-        print('You entered ', values['-DENSITY-'], values['-NAME-'], values['-SEED-'])
-        density_input = values['-DENSITY-']
-        sector_name_input = values['-NAME-']
-        random_seed_input = values['-SEED-']
-        lumiii_input = 3
-        lumv_input = 14
-        spectrala_input = 4
-        spectralf_input = 6
-        spectralg_input = 8
-        spectralk_input = 10
-        solo_input = 13
-        binary_input = 17
-        distant_input = 11
-        makeit_list = [ random_seed_input, 
-                    sector_name_input,
-                    density_input,
-                    lumiii_input,
-                    lumv_input,
-                    spectrala_input,
-                    spectralf_input,
-                    spectralg_input,
-                    spectralk_input,
-                    solo_input,
-                    binary_input,
-                    distant_input]
-        makeit(makeit_list)
-        break
+
+event, values = window.read()
+# if event == sg.WIN_CLOSED or event == 'Cancel': # if user closes window or clicks cancel
+#     break
+try:
+    print('You entered ', values['-DENSITY-'], values['-NAME-'], values['-SEED-'])
+    density_input = values['-DENSITY-']
+    sector_name_input = values['-NAME-']
+    random_seed_input = values['-SEED-']
+    lumiii_input = 3
+    lumv_input = 14
+    spectrala_input = 4
+    spectralf_input = 6
+    spectralg_input = 8
+    spectralk_input = 10
+    solo_input = 13
+    binary_input = 17
+    distant_input = 11
     
+
+    
+    makeit_list = [random_seed_input, 
+                sector_name_input,
+                density_input,
+                lumiii_input,
+                lumv_input,
+                spectrala_input,
+                spectralf_input,
+                spectralg_input,
+                spectralk_input,
+                solo_input,
+                binary_input,
+                distant_input]
+
+    try:
+        makeit(makeit_list)
     except:
-        print(values)
-        break
+        print(makeit_list,' failed')
+
+except:
+    print('Operation did not succeed.')
+    print(values)
+    
+
+
 
     
 

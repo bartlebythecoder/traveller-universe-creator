@@ -203,21 +203,23 @@ def generate_non_mainworlds(seed_number,db_name):
     create_tb_non_mw_table()
     mw_dict = capture_mainworld_stats()
     
-    
-    sql3_select_locorb = """        SELECT  m.location_orbit,
-                                            m.location,
-                                            o.atmos_pressure,
-                                            o.atmos_composition, 
-                                            o.body, 
-                                            o.hydrographics, 
-                                            o.size 
-                                    FROM    main_world_eval m
-                                    LEFT JOIN orbital_bodies o
-                                    ON o.location_orbit = m.location_orbit
-                                    WHERE   mainworld_status != 'Y' """
-    
-    c.execute(sql3_select_locorb)
-    allrows = c.fetchall()
+    try:
+        sql3_select_locorb = """        SELECT  m.location_orbit,
+                                                m.location,
+                                                o.atmos_pressure,
+                                                o.atmos_composition, 
+                                                o.body, 
+                                                o.hydrographics, 
+                                                o.size 
+                                        FROM    main_world_eval m
+                                        LEFT JOIN orbital_bodies o
+                                        ON o.location_orbit = m.location_orbit
+                                        WHERE   mainworld_status != 'Y' """
+        
+        c.execute(sql3_select_locorb)
+        allrows = c.fetchall()
+    except: 
+        print('problem with the select')
     
     for row in allrows:
 #        print (row[0])

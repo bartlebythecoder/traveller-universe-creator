@@ -4,33 +4,6 @@ def generate_stars(db_name,makeit_list):
 # Sector Generation
 # by Sean Nelson
 
-# The goal is to generate a sector of Traveller star systems
-
-
-# Possible Improvements Pending:
-
-#   - Rewrite Stellar creation rules using  Architect of Worlds
-#   - Creat worlds using Architect of Worlds
-#   - Expand moon data 
-#
-
-
-
-
-#   - To Do list complete:
-
-#   - COMPLETE 2021 10 28: Moons created using Architect of Worlds
-#   - COMPLETE 2021 10 27: Density added for GG
-#   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
-#   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
-#   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
-#   - COMPLETE 2021 10 25: Distant stellar bodies added
-#   - COMPLETE: Add Stellar Age
-#   - COMPLETE: Appropriate Planet Size modifiers
-#   - COMPLETE: Stellar data loaded in a database. 
-#   - COMPLETE: White Dwarf details and orbital bodies
-#   - COMPLETE: Rolls are added to a table with relevant data
-#   - FIXED: Minimum 25 size for GG    
 
 
     import csv
@@ -98,7 +71,7 @@ def generate_stars(db_name,makeit_list):
             day INTEGER,
             size_class TEXT,
             wtype TEXT,
-            atmos_pressure FLOAT,
+            atmos_pressure REAL,
             hydrographics INTEGER,
             atmos_composition TEXT,
             temperature INTEGER,
@@ -1248,7 +1221,7 @@ def generate_stars(db_name,makeit_list):
                         day = get_day(size,location)
                         size_class = get_world_size_class(mass,size,zone_objects)
                         wtype = get_world_type(size_class, zones)
-                        atmos_press = get_atmos_pressure(size_class, wtype,location)
+                        atmos_press = round(get_atmos_pressure(size_class, wtype,location),2)
                         
                         hydro_pct = get_hydro_pct( size_class, 
                                                         wtype,
