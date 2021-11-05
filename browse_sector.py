@@ -13,6 +13,16 @@ from PIL import Image, ImageTk
 import os
 import io
 
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.ticker import NullFormatter  # useful for `logit` scale
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import PySimpleGUI as sg
+
+
+matplotlib.use('TkAgg')
+
 
 sg.theme('DarkBlue')  
 
@@ -35,13 +45,90 @@ def get_img_data(f, maxsize=(1200, 850), first=False):
 # ------------------------------------------------------------------------------
 
 
-
 def clear_images():
     for li in list_images:
         window[li[0]].hide_row()
 
 def add_image(image_var):
         window[image_var].unhide_row()
+        
+        
+def draw_figure(canvas, figure):
+    figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
+    figure_canvas_agg.draw()
+    figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
+    return figure_canvas_agg
+
+def delete_figure_agg(figure_agg):
+    figure_agg.get_tk_widget().forget()
+    plt.close('all')
+
+
+
+
+
+# ------------------------------- MATPLOTLIB CODE HERE -------------------------------
+
+# fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
+# t = np.arange(0, 3, .01)
+# fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
+######################################################################################
+f= Figure(figsize=(3,5),dpi=100)
+
+a = f.add_subplot(111)
+
+a.clear()
+a.set_xticks([])
+a.set_yticks([])
+xcoordinates = []
+ycoordinates = []
+
+
+
+def get_coordinates(thedataframe):
+    xcoordinates = []
+    ycoordinates = []
+    
+
+    coord_list = list(thedataframe['location'])
+
+
+    for coord in coord_list:
+
+        x_axis = int(coord[0:2])
+    
+        mod = x_axis % 2
+        if mod > 0:
+            top_y_limit = 41
+        else: top_y_limit = 40.5
+        y_axis = (top_y_limit-int(coord[2:4]))
+        xcoordinates.append(x_axis)
+        ycoordinates.append(y_axis)
+
+    return(xcoordinates,ycoordinates)
+        
+
+
+
+def animate(chart_title,color_choice,plot_size,*args):
+   
+    a.clear()
+    a.set_xticks([])
+    a.set_yticks([])
+    
+    for arg_num, arg in enumerate(args):
+        
+        color_choice = color_choice[arg_num]
+        xcoordinates,ycoordinates = get_coordinates(arg)
+        a.set_title(chart_title, color='white')
+        a.scatter(xcoordinates,ycoordinates,c=color_choice,s=plot_size)
+
+    f.tight_layout()
+    f.canvas.draw_idle()
+
+# ------------------------------- END OF MATPLOTLIB CODE -------------------------------
+
+
 
 
 folder = 'images/'
@@ -66,7 +153,7 @@ option_list = []
 
 
 # Load up columns from example database
-db_name = 'sector_db/example.db'
+db_name = 'sector_db/example-66.db'
 conn = sqlite3.connect(db_name)
 c = conn.cursor()
 
@@ -79,7 +166,7 @@ m_labels_len = len(m_labels)
 
 detail_sql_query = '''SELECT m.location, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons as moons, j.distance as orbital_distance, j.jump_point_km as jump_destination_km, j.planet_stellar_masked as stellar_mask,
+o.impact_moons as moons, j.distance as orbital_distance, j.jump_point_Mm as jump_point_distance, j.planet_stellar_masked as stellar_mask,
 j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
 FROM main_worlds m
 LEFT JOIN orbital_bodies o
@@ -137,6 +224,13 @@ column_four += [[sg.Text("Economic Categories",pad=(5,(15,2)))],
                 [sg.HSeparator()],]
 column_five += [[sg.Text("Main World Details",pad=(5,(15,2)))], 
                       [sg.HSeparator()],]        
+
+column_six = [[sg.Canvas(key='-CANVAS-')],
+              [sg.Button('Sector'),sg.Button('Subsector'),sg.Button('System')]
+              ]
+              
+
+
 for e in e_labels:
     column_four += [sg.Text(e+':',enable_events = True,key=(e),pad=(0,0))],
     column_five += [sg.Text('|',enable_events = True,key=(e+'i'),pad=(0,0))],
@@ -198,9 +292,16 @@ layout = [
           sg.FileBrowse(file_types=(("Database Files","*.db"),),
                                                enable_events=True,
                                                initial_folder=("sector_db")),
+          sg.VSeparator(),
+          sg.Button('Stellar'),
+          sg.Button('Full System'),
+          sg.VSeparator(),
+          sg.VSeparator(),
           sg.Button('Exit'),
     ],
-
+    [sg.HSeparator(), 
+     ],
+    
     [
      
      sg.Column(column_one),
@@ -211,6 +312,8 @@ layout = [
      sg.VSeparator(), 
      sg.Column(column_four),
      sg.Column(column_five),     
+     sg.VSeparator(), 
+     sg.Column(column_six),   
      ],
     
 ]
@@ -218,8 +321,13 @@ layout = [
 # Create the Window
 window = sg.Window("""Bartleby's Sector Builder""", layout,size=(1200,700))
 # Event Loop to process "events" and get the "values" of the inputs
+
+
+fig_canvas_agg = None
+
 while True:
     event, values = window.read()
+    
     if event == sg.WIN_CLOSED or event == 'Exit': # if user closes window or clicks cancel
         break
     
@@ -238,7 +346,7 @@ while True:
             print('made it out of df')
 
             df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
-            df_details['jump_destination_km'] = round(df_details['jump_destination_km'],1)# otherwise crazy decimals added
+            df_details['jump_point_distance'] = round(df_details['jump_point_distance'],1)# otherwise crazy decimals added
             
 
 
@@ -250,6 +358,10 @@ while True:
             df['loc_name'] = df['location'] + '-' + df['system_name']
             option_list = list(df['loc_name'])
             window['-LOCATIONS-'].update(option_list)
+            
+            if fig_canvas_agg:
+            # ** IMPORTANT ** Clean up previous drawing before drawing again
+                delete_figure_agg(fig_canvas_agg)
         except:
             print('sql fail')
             
@@ -290,9 +402,9 @@ while True:
                 
 
 
-
-           
+              
             clear_images()
+            
 
             if list(detail_info['gravity'])[0] > 1.50:
                 add_image('heavy')
@@ -330,8 +442,30 @@ while True:
             
             if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
                 
+            if fig_canvas_agg:
+                # ** IMPORTANT ** Clean up previous drawing before drawing again
+                delete_figure_agg(fig_canvas_agg)
 
-                
+
+
+
+            # add the plot to the window
+            
+            if fig_canvas_agg:
+            # ** IMPORTANT ** Clean up previous drawing before drawing again
+                delete_figure_agg(fig_canvas_agg)            
+
+            stell_colors =['Grey','Blue']
+            plot_list  = [30]
+
+            
+            animate(location_orb_name,stell_colors,plot_list,df,loc_info)    
+
+
+
+
+
+            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
                 
 
         except:

@@ -1,6 +1,6 @@
  traveller-universe-creator
-v.06
-2021-10-31
+v.062 - added sector map to browser
+2021-11-04
 
  Sector Generation
  by Sean Nelson
@@ -9,7 +9,9 @@ v.06
 
  Possible Improvements Pending (likely in this order):
 
-   - Build a GUI for browsing data
+   - Add stellar and system data to Browser
+   - Add subsector/journey maps to Browser
+   - Fix Journey distant times, incorporate journey times for planets on companions
    - Rework/audit/validate the Traveller stat creation for mainworlds, nonmainworlds, moons
    - Rewrite Stellar creation rules using  Architect of Worlds
    - Create worlds using Architect of Worlds
@@ -17,7 +19,7 @@ v.06
 
 To Do list complete:
 
-
+   - UNDERWAY 2021 11 04 v.061: New Gui Interfaces:  generate_menu and browse_sector
    - COMPLETE 2021 10 31 v.06: Moons details added to orbital_body table
    - COMPLETE 2021 10 28: Moons created using Architect of Worlds
    - COMPLETE 2021 10 27: Density added for GG

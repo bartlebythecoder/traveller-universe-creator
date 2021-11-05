@@ -43,7 +43,8 @@ f= Figure(figsize=(6,7),dpi=100)
 
 def file_open():
 
-    root.filename =  filedialog.askopenfilename(title = "Select the database file",filetypes = (("db files","*.db"),("all files","*.*")))
+    root.filename =  filedialog.askopenfilename(title = "Select the database file",
+                     filetypes = (("db files","*.db"),("all files","*.*")))
     conn = sqlite3.connect(root.filename)
     c = conn.cursor()
     df = pd.read_sql_query('''SELECT
@@ -67,7 +68,7 @@ def file_open():
                 gravity,
                 atmos_pressure,
                 temperature,
-                main_worlds.location,
+                main_worlds.location as mw_loc,
                 main_worlds.system_name,
                 main_worlds.starport,
                 main_worlds.size,
@@ -147,9 +148,8 @@ def animate(chart_title,label_list,color_list,plot_list,*args):
     global cursor_y 
     global db_name
     
-    print('Made it to animate')
+  
     
-    print(args['location'])
     a = f.add_subplot(111)
 
 
@@ -163,13 +163,16 @@ def animate(chart_title,label_list,color_list,plot_list,*args):
 
 
     
-    arg_num = 0
+
     chart_title = db_name + '\n' + chart_title
-    for arg in args:
+    
+    for arg_num, arg in enumerate(args):
+        
         try:
             print(arg.system_name)
         except:
             print('Cannot find system name')
+  
         xcoordinates,ycoordinates = get_coordinates(arg)
 
         color_choice = color_list[arg_num]
@@ -192,8 +195,7 @@ def animate(chart_title,label_list,color_list,plot_list,*args):
             
 
            
-        arg_num += 1    
-
+   
 
 
     #a.legend(bbox_to_anchor=(0, 1.02, 1, .102), loc=3, ncol=2, borderaxespad=0)
@@ -662,10 +664,13 @@ class StartPage(tk.Frame):
 def get_coordinates(thedataframe):
     xcoordinates = []
     ycoordinates = []
-    coord_list = list(thedataframe['location'])
     
+
+    coord_list = list(thedataframe['location'])
+
+
     for coord in coord_list:
-        print('coord',coord)
+
         x_axis = int(coord[0:2])
     
         mod = x_axis % 2

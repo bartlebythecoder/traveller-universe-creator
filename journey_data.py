@@ -57,13 +57,14 @@ def build_journey_table(seed_number,db_name):
     choices     = [ "total", 'partial', 'none' ]
     df_journey['planet_stellar_masked'] = np.select(conditions, choices, default=np.nan) 
 
-    df_journey['jump_point_km'] = np.where(stellar_mask_km > planet_mask_end,
+    df_journey['jump_point_Mm'] = np.where(stellar_mask_km > planet_mask_end,
                                            stellar_mask_km - planet_km,
                                            planet_mask_end - planet_km)
+    df_journey['jump_point_Mm'] = df_journey['jump_point_Mm']/1000000
 
 
     for x in range(1,8):
-        d_a = df_journey['jump_point_km']*1000/(9.8 * x)
+        d_a = df_journey['jump_point_Mm']*1000000/(9.8 * x)
         sqrt_d_a = d_a**0.5
         ix_hrs = 'hrs_' + str(x) + 'g'
         df_journey[ix_hrs] = round(sqrt_d_a*2/3600,1)
