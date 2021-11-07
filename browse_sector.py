@@ -73,7 +73,8 @@ def delete_figure_agg(figure_agg):
 # t = np.arange(0, 3, .01)
 # fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
 ######################################################################################
-f= Figure(figsize=(3,5),dpi=100)
+f= Figure(figsize=(4,5),dpi=100)
+
 style.use("dark_background")
 a = f.add_subplot(111)
 
@@ -115,16 +116,34 @@ def animate(chart_title,color_choice,plot_size,*args):
     a.clear()
     a.set_xticks([])
     a.set_yticks([])
+    xcoordinates = []
+    ycoordinates = []
     
     for arg_num, arg in enumerate(args):
         
-        color_choice = color_choice[arg_num]
+        color_choice_s = color_choice[arg_num]
+
         xcoordinates,ycoordinates = get_coordinates(arg)
         a.set_title(chart_title, color='white')
-        a.scatter(xcoordinates,ycoordinates,c=color_choice,s=plot_size)
+        a.scatter(xcoordinates,ycoordinates,c=color_choice_s,s=plot_size)
+        
+        
+        name_list = arg['location'].tolist()
+        label_color = 'White'
+        if len(name_list) <= 50:
+            name_coords = list(zip(xcoordinates,ycoordinates))
+            row_num = 0
+            for each_item in name_coords:
+                row_name = name_list[row_num]
+                a.text(each_item[0]-2,each_item[1],row_name,fontsize = 10,color = label_color)
+                row_num += 1
 
-    f.tight_layout()
+    f.tight_layout()    
     f.canvas.draw_idle()
+    
+
+   
+    
 
 # ------------------------------- END OF MATPLOTLIB CODE -------------------------------
 
@@ -164,7 +183,7 @@ m_labels = []
 m_labels = list(df_main.columns)
 m_labels_len = len(m_labels)
 
-detail_sql_query = '''SELECT m.location, o.body, o.wtype as type, o.day, o.year,
+detail_sql_query = '''SELECT m.system_name, m.location, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
 o.impact_moons as moons, 
 j.stellar_distance as stellar_distance, 
@@ -229,7 +248,8 @@ column_five += [[sg.Text("Main World Details",pad=(5,(15,2)))],
                       [sg.HSeparator()],]        
 
 column_six = [[sg.Canvas(key='-CANVAS-')],
-              [sg.Button('Sector'),sg.Button('Subsector'),sg.Button('System')]
+              [sg.Button('Sector',key=('-SECTOR-')),sg.Button('Earth-like',key=('-EARTH-')),
+               sg.Button('Subsector'),sg.Button('System')]
               ]
               
 
@@ -297,8 +317,8 @@ layout = [
                                                enable_events=True,
                                                initial_folder=("sector_db")),
           sg.VSeparator(),
-          sg.Button('Stellar'),
-          sg.Button('Full System'),
+          sg.Button('Stellar',key=('-STELLAR-')),
+          sg.Button('Full System', key=('-SYSTEM-')),
           sg.VSeparator(),
           sg.VSeparator(),
           sg.Button('Exit'),
@@ -360,6 +380,7 @@ while True:
 
             
             df['loc_name'] = df['location'] + '-' + df['system_name']
+            df_details['loc_name'] = df_details['location'] + '-' + df_details['system_name']
             option_list = list(df['loc_name'])
             window['-LOCATIONS-'].update(option_list)
             
@@ -462,7 +483,7 @@ while True:
             # ** IMPORTANT ** Clean up previous drawing before drawing again
                 delete_figure_agg(fig_canvas_agg)            
 
-            stell_colors =['Grey','Blue']
+            stell_colors =['dimgray','Blue']
             plot_list  = [30]
 
             
@@ -478,12 +499,74 @@ while True:
         except:
             print('Did not catch location')
         
-    # elif event == '-STELLAR-':
-    #     sg.popup('Coming soon')    
+    elif event == '-STELLAR-':
+        try:
+            print('pressed STELLAR')
+            sg.popup('Coming Soon!')    
+        except:
+            print('Failed Stellar button')
+            
+    elif event == '-SYSTEM-':
+        try:
+            print('pressed SYSTEM')
+            sg.popup('Coming Soon!')    
+        except:
+            print('Failed System button')
 
 
-  
-    
+
+    elif event == '-EARTH-':
+        try:
+            
+            if fig_canvas_agg:
+            # ** IMPORTANT ** Clean up previous drawing before drawing again
+                delete_figure_agg(fig_canvas_agg)    
+            
+            
+            
+            print('pressed Earth-like')
+            df_special_earth = (df_details.query('type == "Ocean*"'))
+
+            stell_colors =['dimgray','Green']
+            plot_list  = [30,65]
+            
+            print('Calling Earth Animate')
+            animate('Earth-like worlds',stell_colors,plot_list,df,df_special_earth)
+        
+        
+            # add the plot to the window
+            
+        
+
+
+        
+            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
+        
+        
+        
+        
+        except:
+            print('Failed Earth button')
+
+    elif event == '-SECTOR-':
+        try:  
+
+            # add the plot to the window
+            
+            if fig_canvas_agg:
+            # ** IMPORTANT ** Clean up previous drawing before drawing again
+                delete_figure_agg(fig_canvas_agg)            
+
+            stell_colors =['dimgray','Blue']
+            plot_list  = [30]
+
+            
+            animate(location_orb_name,stell_colors,plot_list,df,loc_info)    
+
+            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f) 
+            
+        except:
+            print('Failed Sector button')
 
 
 

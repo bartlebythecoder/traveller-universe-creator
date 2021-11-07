@@ -61,7 +61,7 @@ def file_open():
                            LEFT JOIN main_worlds on main_worlds.location = stellar_bodies.location''', conn)
     df_world_uwp = pd.read_sql_query('''SELECT 
                 orbital_bodies.location,
-                distance,
+                stellar_distance as distance,
                 orbital_bodies.zone,
                 body,
                 density,
