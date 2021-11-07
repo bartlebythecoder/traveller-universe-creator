@@ -111,7 +111,7 @@ def get_coordinates(thedataframe):
 
 
 
-def animate(chart_title,color_choice,plot_size,*args):
+def animate(chart_title,color_choice,plot_size,label_choice,*args):
    
     a.clear()
     a.set_xticks([])
@@ -127,8 +127,10 @@ def animate(chart_title,color_choice,plot_size,*args):
         a.set_title(chart_title, color='white')
         a.scatter(xcoordinates,ycoordinates,c=color_choice_s,s=plot_size)
         
-        
-        name_list = arg['location'].tolist()
+        if label_choice == "num":
+            name_list = arg['location'].tolist()
+        else:
+            name_list = arg['system_name'].tolist()
         label_color = 'White'
         if len(name_list) <= 50:
             name_coords = list(zip(xcoordinates,ycoordinates))
@@ -143,7 +145,31 @@ def animate(chart_title,color_choice,plot_size,*args):
     
 
    
-    
+def draw_map():
+    print('Map is selected')
+    if values['-NUM-'] is True:
+        print('Numbers were chosen')
+        label_choice = 'num'
+    else:
+        print('Names were chosen')
+        label_choice = 'name'
+        
+        
+        
+    if values['-FULL-'] is True:
+        print('Full Sector was chosen')
+        stell_colors =['dimgray','Blue']
+        plot_list  = [30]
+        animate(location_orb_name,stell_colors,plot_list,label_choice,df,loc_info)   
+        
+    else:
+        print('Earth Like Planets was chosen')
+        df_special_earth = (df_details.query('type == "Ocean*"'))
+        stell_colors =['dimgray','Green']
+        plot_list  = [30,65]
+        animate('Earth-like worlds',stell_colors,plot_list,label_choice,df,df_special_earth)
+
+
 
 # ------------------------------- END OF MATPLOTLIB CODE -------------------------------
 
@@ -245,20 +271,40 @@ for d in d_labels:
 column_four += [[sg.Text("Economic Categories",pad=(5,(15,2)))], 
                 [sg.HSeparator()],]
 column_five += [[sg.Text("Main World Details",pad=(5,(15,2)))], 
-                      [sg.HSeparator()],]        
-
-column_six = [[sg.Canvas(key='-CANVAS-')],
-              [sg.Button('Sector',key=('-SECTOR-')),sg.Button('Earth-like',key=('-EARTH-')),
-               sg.Button('Subsector'),sg.Button('System')]
-              ]
-              
-
+                      [sg.HSeparator()],]                
 
 for e in e_labels:
     column_four += [sg.Text(e+':',enable_events = True,key=(e),pad=(0,0))],
     column_five += [sg.Text('|',enable_events = True,key=(e+'i'),pad=(0,0))],
+
+
+
+map_options = [
+[sg.Radio('Show Selected','-DISPLAY-',key=('-FULL-'),default=True,pad=(0,0))],
+[sg.Radio('Find Earth Like','-DISPLAY-',key=('-EARTH-'),pad=(0,0))],
+]
     
- 
+label_options = [
+[sg.Radio('Num','-OVERLAY-',key=('-NUM-'),default=True,pad=(0,0))],
+[sg.Radio('Name','-OVERLAY-',key=('-NAME-'),pad=(0,0))],
+]
+      
+    
+
+    
+
+    
+column_six = [[sg.Canvas(key='-CANVAS-')],
+             [sg.Column(map_options),
+              sg.Column(label_options),
+              sg.Button('Map',key=('-MAP-'))], 
+              ]
+
+
+#              [sg.Radio('Sector',key=('-SECTOR-')),sg.Button('Earth-like',key=('-EARTH-')),
+#               sg.Button('Subsector'),sg.Button('System'),
+
+
 list_images = [['mask','Completely Stellar Masked'],
                ['ocean','Earth-like World'],
                ['exotic','Exotic Atmosphire'],
@@ -363,6 +409,7 @@ while True:
             conn = sqlite3.connect(db_name)
             c = conn.cursor()
             df = pd.read_sql_query(main_sql_query,conn)
+            df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
             
 
             
@@ -469,31 +516,28 @@ while True:
             if int(gwp) >= 1000000: add_image('wealthy')
             
             if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+            
+           
+            try:  
                 
-            if fig_canvas_agg:
+                
+                
+                if fig_canvas_agg:
                 # ** IMPORTANT ** Clean up previous drawing before drawing again
-                delete_figure_agg(fig_canvas_agg)
+                    delete_figure_agg(fig_canvas_agg)            
+    
+                
+                print('Map is selected')
+                draw_map()
+                    
+                    
+                fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
+    
+                
+            except:
+                print('Failed Map button')
+                    
 
-
-
-
-            # add the plot to the window
-            
-            if fig_canvas_agg:
-            # ** IMPORTANT ** Clean up previous drawing before drawing again
-                delete_figure_agg(fig_canvas_agg)            
-
-            stell_colors =['dimgray','Blue']
-            plot_list  = [30]
-
-            
-            animate(location_orb_name,stell_colors,plot_list,df,loc_info)    
-
-
-
-
-
-            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
                 
 
         except:
@@ -502,7 +546,16 @@ while True:
     elif event == '-STELLAR-':
         try:
             print('pressed STELLAR')
-            sg.popup('Coming Soon!')    
+            
+            star_list=[]
+            df_star = df_stellar.loc[df_stellar['location'] == location]     
+            for s in range(0,df_star.shape[0]):
+                row = ''
+                row=df_star.iloc[s]
+                star_list.append(row)
+                
+                
+            sg.popup_scrolled(star_list,size=(30,30))    
         except:
             print('Failed Stellar button')
             
@@ -567,6 +620,22 @@ while True:
             
         except:
             print('Failed Sector button')
+            
+    elif event == '-MAP-':
+        try:  
+            if fig_canvas_agg:
+                # ** IMPORTANT ** Clean up previous drawing before drawing again
+                    delete_figure_agg(fig_canvas_agg)            
+            
+                
+            draw_map()
+            
+            
+            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
+            
+           
+        except:
+            print('Failed draw_map()')
 
 
 
