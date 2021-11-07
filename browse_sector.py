@@ -83,6 +83,8 @@ a.set_xticks([])
 a.set_yticks([])
 xcoordinates = []
 ycoordinates = []
+location = '-99'
+detail_flag = 'main_world'  # flag used to mark whether the details should be main world or exo worlds.
 
 
 
@@ -236,6 +238,31 @@ e_labels.remove('location')
 e_labels.remove('id')
 e_labels_len = len(e_labels)
 
+exo_sql_query = '''SELECT * FROM orbital_bodies'''
+df_exo = pd.read_sql_query(exo_sql_query,conn)
+
+exo_detail_sql_query = '''SELECT m.system_name, e.location, o.body, o.wtype as type, o.day, o.year,
+o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+o.impact_moons as moons, 
+j.stellar_distance as stellar_distance, 
+j.jump_point_Mm as jump_point_distance, 
+j.planet_stellar_masked as stellar_mask,
+j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
+FROM exo_worlds e
+LEFT JOIN orbital_bodies o
+ON e.location_orb = o.location_orbit
+LEFT JOIN journey_data j
+ON j.location_orbit = e.location_orb
+LEFT JOIN main_worlds
+ON e.location_orb = m.location_orb
+LEFT JOIN main_world_eval v
+ON e.location_orb = v.location_orbit
+'''
+
+df_exo_details = pd.read_sql_query(detail_sql_query,conn)
+
+
+
 
 
 conn.commit()  
@@ -364,6 +391,7 @@ layout = [
                                                initial_folder=("sector_db")),
           sg.VSeparator(),
           sg.Button('Stellar',key=('-STELLAR-')),
+          sg.Button('Main World',key=('-MAIN-')),
           sg.Button('Full System', key=('-SYSTEM-')),
           sg.VSeparator(),
           sg.VSeparator(),
@@ -442,6 +470,11 @@ while True:
         conn.commit()  
         c.close()
         conn.close()  
+
+
+    if event == '-MAIN-':
+        detail_flag = 'main_world'
+        window['-LOCATIONS-'].update(option_list)
         
         
     elif event == '-LOCATIONS-':
@@ -450,72 +483,77 @@ while True:
             location = values['-LOCATIONS-'][0][0:4]
             
             
-            loc_info = df.loc[df['location'] == location]
-            detail_info = df_details[df_details['location'] == location]
-            economic_info = df_economic[df_economic['location'] == location]
-
+            if detail_flag == 'main_world':
             
-
-            for m in m_labels:
-                m_value = list(loc_info[m])
-                m_value = m_value[0]
-                window[m+'i'].update(m_value)
-
-
-            for d in d_labels:
-                d_value = list(detail_info[d])
-                d_value = d_value[0]
-                window[d+'i'].update(d_value)
+                loc_info = df.loc[df['location'] == location]
+                detail_info = df_details[df_details['location'] == location]
+                economic_info = df_economic[df_economic['location'] == location]
+    
                 
-            for e in e_labels:
-                e_value = list(economic_info[e])
-                e_value = e_value[0]
-                window[e+'i'].update(e_value)
+    
+                for m in m_labels:
+                    m_value = list(loc_info[m])
+                    m_value = m_value[0]
+                    window[m+'i'].update(m_value)
+    
+    
+                for d in d_labels:
+                    d_value = list(detail_info[d])
+                    d_value = d_value[0]
+                    window[d+'i'].update(d_value)
+                    
+                for e in e_labels:
+                    e_value = list(economic_info[e])
+                    e_value = e_value[0]
+                    window[e+'i'].update(e_value)
+                    
+    
+    
+                  
+                clear_images()
                 
-
-
-              
-            clear_images()
-            
-
-            if list(detail_info['gravity'])[0] > 1.50:
-                add_image('heavy')
-            elif list(detail_info['gravity'])[0] < 0.50:
-                add_image('light')    
+    
+                if list(detail_info['gravity'])[0] > 1.50:
+                    add_image('heavy')
+                elif list(detail_info['gravity'])[0] < 0.50:
+                    add_image('light')    
+                    
+                if list(detail_info['type'])[0] == "Ocean*":
+                    add_image('ocean')
+                if list(detail_info['atmos_composition'])[0][0] == "E":
+                    add_image('exotic')
+                elif list(detail_info['atmos_composition'])[0][0] == "C":
+                    add_image('corrosive')
+                if list(detail_info['temperature'])[0] > 324:
+                    add_image('hot')
+                if list(detail_info['temperature'])[0] < 239:
+                    add_image('cold')
+                if list(detail_info['body'])[0] == 'Impact Moon' or \
+                list(detail_info['body'])[0] == 'Natural Moon':
+                    add_image('moon')
                 
-            if list(detail_info['type'])[0] == "Ocean*":
-                add_image('ocean')
-            if list(detail_info['atmos_composition'])[0][0] == "E":
-                add_image('exotic')
-            elif list(detail_info['atmos_composition'])[0][0] == "C":
-                add_image('corrosive')
-            if list(detail_info['temperature'])[0] > 324:
-                add_image('hot')
-            if list(detail_info['temperature'])[0] < 239:
-                add_image('cold')
-            if list(detail_info['body'])[0] == 'Impact Moon' or \
-            list(detail_info['body'])[0] == 'Natural Moon':
-                add_image('moon')
-            
-            importance = list(loc_info['ix'])[0]
-            for i in ['{','}']: importance = importance.strip(i)
-            importance = int(importance)
-            if importance >= 4: add_image('important')
+                importance = list(loc_info['ix'])[0]
+                for i in ['{','}']: importance = importance.strip(i)
+                importance = int(importance)
+                if importance >= 4: add_image('important')
+                    
+                bases = list(loc_info['bases'])[0]
+                if 'N' in bases or 'B' in bases:
+                    add_image('naval')
+                if 'S' in bases or 'B' in bases:
+                    add_image('scout')
+                for rem in remarks_list:
+                    if rem[0] in list(loc_info['remarks'])[0]: add_image(rem[1])
+                    
+                gwp = list(economic_info['gwp'])[0]
+                gwp_string = "{:,}".format(gwp)
+    
+                if int(gwp) >= 1000000: add_image('wealthy')
                 
-            bases = list(loc_info['bases'])[0]
-            if 'N' in bases or 'B' in bases:
-                add_image('naval')
-            if 'S' in bases or 'B' in bases:
-                add_image('scout')
-            for rem in remarks_list:
-                if rem[0] in list(loc_info['remarks'])[0]: add_image(rem[1])
+                if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
                 
-            gwp = list(economic_info['gwp'])[0]
-            gwp_string = "{:,}".format(gwp)
-
-            if int(gwp) >= 1000000: add_image('wealthy')
-            
-            if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+            else:
+                print('Not ready or exos')
             
            
             try:  
@@ -562,65 +600,33 @@ while True:
     elif event == '-SYSTEM-':
         try:
             print('pressed SYSTEM')
-            sg.popup('Coming Soon!')    
+            detail_flag = 'exo_world'
+
+            exo_location_orb_name = values['-LOCATIONS-'][0]
+            exo_location = values['-LOCATIONS-'][0][0:4]
+            
+            
+
+            
+            exo_loc_info = df_exo.loc[df_exo['location'] == location]
+            exo_detail_info = df_details[df_details['location'] == location]
+            economic_info = df_economic[df_economic['location'] == location]
+    
+
+
+
+
+
+            exo_list = list(exo_loc_info['location_orbit'])
+            window['-LOCATIONS-'].update(exo_list)               
+                
+
+
         except:
-            print('Failed System button')
+            print('Failed System button.  Location was:',location)
 
 
-
-    elif event == '-EARTH-':
-        try:
-            
-            if fig_canvas_agg:
-            # ** IMPORTANT ** Clean up previous drawing before drawing again
-                delete_figure_agg(fig_canvas_agg)    
-            
-            
-            
-            print('pressed Earth-like')
-            df_special_earth = (df_details.query('type == "Ocean*"'))
-
-            stell_colors =['dimgray','Green']
-            plot_list  = [30,65]
-            
-            print('Calling Earth Animate')
-            animate('Earth-like worlds',stell_colors,plot_list,df,df_special_earth)
-        
-        
-            # add the plot to the window
-            
-        
-
-
-        
-            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
-        
-        
-        
-        
-        except:
-            print('Failed Earth button')
-
-    elif event == '-SECTOR-':
-        try:  
-
-            # add the plot to the window
-            
-            if fig_canvas_agg:
-            # ** IMPORTANT ** Clean up previous drawing before drawing again
-                delete_figure_agg(fig_canvas_agg)            
-
-            stell_colors =['dimgray','Blue']
-            plot_list  = [30]
-
-            
-            animate(location_orb_name,stell_colors,plot_list,df,loc_info)    
-
-            fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f) 
-            
-        except:
-            print('Failed Sector button')
-            
+           
     elif event == '-MAP-':
         try:  
             if fig_canvas_agg:
