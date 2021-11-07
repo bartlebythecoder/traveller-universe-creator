@@ -42,13 +42,11 @@ def choose_mainworld(db_name):
     
     c.execute(sql3_select_loc)
     allrows = c.fetchall()
-    print("Collected list into set")
     for row in allrows:
     
         loc_list.append(row[0])
         
     loc_list = set(loc_list)
-    print("Collected list into set")
     loc_len = len(loc_list)
     for j,n in enumerate(loc_list):
 

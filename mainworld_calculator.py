@@ -24,17 +24,20 @@ def generate_mainworld_scores(db_name):
     
     
     
-    sql3_select = """ SELECT    location_orbit,
-                                location, 
-                                gravity, 
-                                hydrographics,
-                                wtype,
-                                atmos_composition,
-                                climate,
-                                distance,
-                                temperature,
-                                zone
-                        FROM    orbital_bodies """
+    sql3_select = """ SELECT    o.location_orbit,
+                                o.location, 
+                                o.gravity, 
+                                o.hydrographics,
+                                o.wtype,
+                                o.atmos_composition,
+                                o.climate,
+                                o.stellar_distance,
+                                o.temperature,
+                                o.zone,
+                                j.planet_stellar_masked
+                        FROM    orbital_bodies o
+                        LEFT JOIN journey_data j
+                        ON o.location_orbit = j.location_orbit"""
                         
  #   print('trying to load into DF')                    
     try:
@@ -60,6 +63,12 @@ def generate_mainworld_scores(db_name):
     conditions  = [ df[col] > 2, (df[col] <= 2) & (df[col]>= 0.5), df[col] <= 0.5 ]
     choices     = [ 100, 1000,-1000 ]
     df["grav_mod"] = np.select(conditions, choices, default=0)
+
+
+    col         = 'planet_stellar_masked'
+    conditions  = [ df[col] == 'total', df[col] == 'none', df[col] == 'partial' ]
+    choices     = [ 0, 1000, 200]
+    df["mask_mod"] = np.select(conditions, choices, default=0)
     
  
     col         = 'atmos_composition'
@@ -77,7 +86,7 @@ def generate_mainworld_scores(db_name):
     
  #   print('after update')
  #   print(df.describe())
-    df['mainworld_calc'] = df["wtype_mod"] +  df["grav_mod"] + df["atmos_mod"] + df["temp_mod"]
+    df['mainworld_calc'] = df["wtype_mod"] +  df["grav_mod"] + df["atmos_mod"] + df["temp_mod"] + df["mask_mod"]
     df['mainworld_status'] = 'N'
     
     df_mainworld_eval = df[['location',

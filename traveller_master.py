@@ -23,6 +23,9 @@ def make_sector_master(makeit_list):
     db_name = 'sector_db/' + makeit_list[1] + '.db'
     print('Generating Stars and Planets')
     generate_stars(db_name,makeit_list)
+    print('Building the Journey stats table')
+    build_journey_table(seed_number,db_name)
+    print('Process Complete')
     print('Evaluating each orbital body for main world suitability')
     generate_mainworld_scores(db_name)
     print('Finalizing main world selections and building mainworld table')
@@ -35,9 +38,7 @@ def make_sector_master(makeit_list):
     generate_non_mainworlds(seed_number,db_name)
     print('Building Far Trader table')
     generate_far_trader_stats(seed_number,db_name)
-    print('Building the Journey stats table')
-    build_journey_table(seed_number,db_name)
-    print('Process Complete')
+
 
     sg.popup('Sector completed successfully')    
 

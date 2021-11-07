@@ -36,11 +36,11 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 0327	Marenka	BFB08AC-8	-	Ph	-	803	Im	K0 V	{+0}	(A77+2)	[6865]	eB	8	
 0335	Chunkaikao	C100348-C	S	Va Lo	-	902	Im	M5 V M5 V	{+0}	(B21+5)	[836B]	B	4	
 0406	Strassmann	DCB2542-7	S	Fl He Ni	-	803	Im	K0 V	{-3}	(A40+0)	[7216]	B	8	
-0411	Ekard	B200643-C	NS	Va Ni Na	-	915	Im	M5 V	{+2}	(F54+1)	[984B]	B	7	
+0411	Ekard	B6B4643-B	NS	Fl Ni	-	915	Im	M5 V	{+2}	(F54+1)	[984A]	B	7	
 0418	Argoli	D6B9366-6	S	Fl Lo	-	603	Im	M0 V	{-3}	(821+0)	[3113]	B	7	
 0421	Lulin	CCB3599-5	-	Fl Ni Px	-	203	Im	K0 V	{-2}	(744+5)	[4384]	B	8	
 0430	Migirenko	C6A6536-5	-	Fl Ni	-	300	Im	G0 V M5 V	{-2}	(C42-5)	[7311]	B	5	
-0431	Limosa	BABA665-A	-	Fl Oc Ni	-	500	Im	M0 V w D	{+1}	(654-2)	[4749]	B	3	
+0431	Limosa	B000665-A	-	As Va Ni Na	-	500	Im	M0 V w D	{+1}	(654-2)	[4749]	B	3	
 0433	Oljato	C100598-7	-	Va Ni	-	905	Im	M0 V	{-2}	(642-1)	[2358]	B	8	
 0437	Maklaj	C200585-A	S	Va Ni	-	006	Im	M0 V	{+0}	(F42-1)	[4588]	B	7	
 0440	Motoyama	B6A6642-7	-	Fl Ni	-	714	Im	M0 V	{-1}	(A51-1)	[9553]	B	7	
@@ -322,11 +322,11 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 2518	Carson	CCB2420-6	-	Fl He Ni	-	803	Im	K5 V	{-2}	(B34+3)	[1286]	B	7	
 2519	Renoir	D100502-B	S	Va Ni	-	604	Im	M5 V	{-1}	(940+0)	[744C]	B	6	
 2523	Festou	C760535-4	-	De Ni Pr	-	003	Im	F5 V	{-2}	(443+0)	[4353]	cB	9	
-2525	Gaily	C5A5311-5	-	Fl Lo	-	003	Im	G5 V	{-2}	(621-5)	[3167]	B	8	
+2525	Gaily	C8A2311-5	-	Fl He Lo	-	003	Im	G5 V	{-2}	(621-5)	[3167]	B	8	
 2528	Erwing	XDB8235-F	-	Fl Lo	R	802	Im	G0 V	{-1}	(811-1)	[11A4]	B	9	
 2530	Berwald	A00079D-F	-	As Va Na Pi	-	625	Im	M0 V	{+2}	(D67+2)	[895F]	DB	8	
 2531	Cleynaerts	C100200-B	-	Va Lo	-	601	Im	M5 V M5 V	{+0}	(911+3)	[2238]	B	3	
-2532	Hokema	C5A8200-9	S	Fl Lo	-	712	Im	F0 V	{-1}	(D11+1)	[4169]	B	9	
+2532	Hokema	CDB4200-9	S	Fl Lo	-	712	Im	F0 V	{-1}	(D11+1)	[4169]	B	9	
 2533	San Jose	CDB3343-6	-	Fl Lo	-	515	Im	M0 V	{-2}	(721+1)	[4167]	B	8	
 2536	Prachatice	A200897-E	-	Va Ph Na Pi	-	607	Im	w D	{+2}	(D7A+1)	[AA6E]	eDB	8	
 2601	Vinissac	C300532-A	-	Va Ni	-	304	Im	M5 V	{+0}	(E45-3)	[A59B]	B	6	
@@ -357,11 +357,11 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 2737	Kobresia	B100883-9	N	Va Ph Na Pi	-	101	Im	M0 V M5 V	{+1}	(978-4)	[793E]	eDB	4	
 2738	Bhat	E200335-6	-	Va Lo	-	004	Im	M0 V	{-3}	(A21+2)	[316A]	B	7	
 2807	Lisa	C300756-7	-	Va Na Pi	-	504	Im	M5 V	{-1}	(964+0)	[6618]	DB	7	
-2809	Nigelreuel	AAB6BED-C	-	Fl Hi In	A	211	Im	F5 V	{+4}	(5A7+3)	[AF18]	fEB	9	
+2809	Nigelreuel	A5A3BED-C	-	Fl Hi In	A	211	Im	F5 V	{+4}	(5A7+3)	[AF18]	fEB	9	
 2810	Kandola	C7B3516-5	-	Fl Ni Px	-	603	Im	M5 V	{-2}	(744+4)	[8372]	B	6	
 2814	Dowling	CCB4423-A	-	Fl Ni	-	504	Im	K0 V	{+0}	(932-5)	[4455]	B	8	
 2817	Sandage	C200465-6	-	Va Ni	-	107	Im	w D	{-2}	(630+1)	[2217]	B	8	
-2823	Kiang	CCB5214-5	S	Fl Lo	-	303	Im	G5 V	{-2}	(611+3)	[2162]	B	8	
+2823	Kiang	C5A0214-5	S	He Lo	-	303	Im	G5 V	{-2}	(611+3)	[2162]	B	8	
 2825	Hideaki	C100000-0	S	Va Ba	-	005	Im	M5 V	{-2}	(500+1)	[0000]	B	6	
 2826	Wiesloch	A6A7FFF-F	-	Fl Hi In	A	504	Im	K5 V	{+4}	(BEA+0)	[FF2F]	fEB	8	
 2827	Des Moines	D410338-7	-	Lo	-	204	Im	M0 V	{-3}	(521+0)	[7117]	B	7	

@@ -54,8 +54,10 @@ def generate_stars(db_name,makeit_list):
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             location_orbit TEXT,
             location TEXT,
-            orbit INTEGER,
-            distance REAL,
+            stellar_orbit_no INTEGER,
+            planetary_orbit_no INTEGER,
+            stellar_distance REAL,
+            orbital_radius REAL,
             zone TEXT,
             body TEXT,
             size integer,
@@ -935,8 +937,10 @@ def generate_stars(db_name,makeit_list):
         
     def populate_orbital_body_table(ob_db_key,
                                         location,
-                                        planet_no,
-                                        current_distance,
+                                        stellar_orbit_no,
+                                        planetary_orbit_no,
+                                        stellar_distance,
+                                        orbital_radius,
                                         zones,
                                         zone_objects,
                                         size,
@@ -957,10 +961,13 @@ def generate_stars(db_name,makeit_list):
                                         atmos_comp,
                                         temperature,
                                         climate):
-        sqlcommand = '''    INSERT INTO orbital_bodies (location_orbit, 
+        sqlcommand = '''    INSERT INTO orbital_bodies 
+                    (location_orbit, 
                     location, 
-                    orbit, 
-                    distance,
+                    stellar_orbit_no, 
+                    planetary_orbit_no,
+                    stellar_distance,
+                    orbital_radius,
                     zone, 
                     body, 
                     size, 
@@ -981,12 +988,14 @@ def generate_stars(db_name,makeit_list):
                     atmos_composition,
                     temperature,
                     climate) 
-                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
                                             
         body_row =          (str(ob_db_key),
                             str(location),
-                            planet_no,
-                            current_distance,
+                            stellar_orbit_no,
+                            planetary_orbit_no,
+                            stellar_distance,
+                            orbital_radius,
                             zones,
                             zone_objects,
                             size,
@@ -1251,9 +1260,12 @@ def generate_stars(db_name,makeit_list):
     
     
                         
-                        populate_orbital_body_table(ob_db_key,
+                        populate_orbital_body_table(
+                                            ob_db_key,
                                             location,
                                             planet_no,
+                                            0,                     # 0 for planets
+                                            current_distance,
                                             current_distance,
                                             zones,
                                             zone_objects,
@@ -1356,7 +1368,9 @@ def generate_stars(db_name,makeit_list):
                                 populate_orbital_body_table(
                                         moon_key,
                                         location,
+                                        planet_no,
                                         m,
+                                        current_distance,
                                         moon_orbital_radius,
                                         zones,
                                         zone_objects,
@@ -1449,7 +1463,9 @@ def generate_stars(db_name,makeit_list):
                             populate_orbital_body_table(
                                     moon_key,
                                     location,
+                                    planet_no,
                                     m,
+                                    current_distance,
                                     moon_orbital_radius,
                                     zones,
                                     zone_objects,

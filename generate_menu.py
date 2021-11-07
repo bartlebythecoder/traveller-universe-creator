@@ -101,6 +101,7 @@ try:
         makeit(makeit_list)
     except:
         print(makeit_list,' failed')
+        sg.popup('Operation Failed')   
 
 except:
     print('Operation did not succeed.')

@@ -19,7 +19,7 @@ from matplotlib.ticker import NullFormatter  # useful for `logit` scale
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import PySimpleGUI as sg
-
+from matplotlib import style
 
 matplotlib.use('TkAgg')
 
@@ -74,7 +74,7 @@ def delete_figure_agg(figure_agg):
 # fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
 ######################################################################################
 f= Figure(figsize=(3,5),dpi=100)
-
+style.use("dark_background")
 a = f.add_subplot(111)
 
 a.clear()
@@ -166,7 +166,10 @@ m_labels_len = len(m_labels)
 
 detail_sql_query = '''SELECT m.location, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons as moons, j.distance as orbital_distance, j.jump_point_Mm as jump_point_distance, j.planet_stellar_masked as stellar_mask,
+o.impact_moons as moons, 
+j.stellar_distance as stellar_distance, 
+j.jump_point_Mm as jump_point_distance, 
+j.planet_stellar_masked as stellar_mask,
 j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
 FROM main_worlds m
 LEFT JOIN orbital_bodies o
@@ -254,7 +257,8 @@ list_images = [['mask','Completely Stellar Masked'],
                ['important','Important World'],
                ['naval','Naval Base Present'],
                ['scout','Scout Base Present'],
-               ['prison','Interplanetary Prison']
+               ['prison','Interplanetary Prison'],
+               ['moon','Main world is a moon']
  
                ]
 
@@ -421,6 +425,9 @@ while True:
                 add_image('hot')
             if list(detail_info['temperature'])[0] < 239:
                 add_image('cold')
+            if list(detail_info['body'])[0] == 'Impact Moon' or \
+            list(detail_info['body'])[0] == 'Natural Moon':
+                add_image('moon')
             
             importance = list(loc_info['ix'])[0]
             for i in ['{','}']: importance = importance.strip(i)
@@ -470,6 +477,9 @@ while True:
 
         except:
             print('Did not catch location')
+        
+    # elif event == '-STELLAR-':
+    #     sg.popup('Coming soon')    
 
 
   
