@@ -25,7 +25,6 @@ def make_sector_master(makeit_list):
     generate_stars(db_name,makeit_list)
     print('Building the Journey stats table')
     build_journey_table(seed_number,db_name)
-    print('Process Complete')
     print('Evaluating each orbital body for main world suitability')
     generate_mainworld_scores(db_name)
     print('Finalizing main world selections and building mainworld table')

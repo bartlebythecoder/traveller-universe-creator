@@ -205,30 +205,73 @@ conn = sqlite3.connect(db_name)
 c = conn.cursor()
 
 
-main_sql_query = '''SELECT * FROM main_worlds'''
-df_main = pd.read_sql_query(main_sql_query,conn)
+new_main_query = '''SELECT t.*, 
+s.remarks,
+s.ix,
+s.ex,
+s.cx,
+s.n,
+s.bases,
+s.zone,
+s.pbg,
+s.w,
+s.allegiance,
+stars
+FROM traveller_stats t   
+LEFT JOIN system_stats s ON s.location=t.location
+WHERE t.main_world = 1'''
+
+df_new_main = pd.read_sql_query(new_main_query,conn)
+
 m_labels = []
-m_labels = list(df_main.columns)
+m_labels = list(df_new_main.columns)
+#m_labels.remove('id')
+#m_labels.remove('location')
 m_labels_len = len(m_labels)
 
-detail_sql_query = '''SELECT m.system_name, m.location, o.body, o.wtype as type, o.day, o.year,
+
+
+new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
 o.impact_moons as moons, 
 j.stellar_distance as stellar_distance, 
 j.jump_point_Mm as jump_point_distance, 
 j.planet_stellar_masked as stellar_mask,
 j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
-FROM main_worlds m
+FROM traveller_stats t
 LEFT JOIN orbital_bodies o
-ON m.location_orb = o.location_orbit
+ON t.location_orb = o.location_orbit
 LEFT JOIN journey_data j
-ON j.location_orbit = m.location_orb
+ON j.location_orbit = t.location_orb
+WHERE t.main_world = 1
 '''
-df_details = pd.read_sql_query(detail_sql_query,conn)
+df_details = pd.read_sql_query(new_detail_sql_query,conn)
 d_labels = []
 d_labels = list(df_details.columns)
 d_labels.remove('location')
 d_labels_len = len(d_labels)
+
+
+
+
+# detail_sql_query = '''SELECT m.system_name, m.location, o.body, o.wtype as type, o.day, o.year,
+# o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+# o.impact_moons as moons, 
+# j.stellar_distance as stellar_distance, 
+# j.jump_point_Mm as jump_point_distance, 
+# j.planet_stellar_masked as stellar_mask,
+# j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
+# FROM main_worlds m
+# LEFT JOIN orbital_bodies o
+# ON m.location_orb = o.location_orbit
+# LEFT JOIN journey_data j
+# ON j.location_orbit = m.location_orb
+# '''
+# df_details = pd.read_sql_query(detail_sql_query,conn)
+# d_labels = []
+# d_labels = list(df_details.columns)
+# d_labels.remove('location')
+# d_labels_len = len(d_labels)
 
 economic_sql_query = '''SELECT * FROM far_trader'''
 df_economic = pd.read_sql_query(economic_sql_query,conn)
@@ -238,28 +281,38 @@ e_labels.remove('location')
 e_labels.remove('id')
 e_labels_len = len(e_labels)
 
-exo_sql_query = '''SELECT * FROM orbital_bodies'''
+exo_sql_query =  '''SELECT t.*, 
+s.remarks,
+s.ix,
+s.ex,
+s.cx,
+s.n,
+s.bases,
+s.zone,
+s.pbg,
+s.w,
+s.allegiance,
+stars
+FROM traveller_stats t   
+LEFT JOIN system_stats s ON s.location=t.location
+WHERE t.main_world = 0'''
 df_exo = pd.read_sql_query(exo_sql_query,conn)
 
-exo_detail_sql_query = '''SELECT m.system_name, e.location, o.body, o.wtype as type, o.day, o.year,
+exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
 o.impact_moons as moons, 
 j.stellar_distance as stellar_distance, 
 j.jump_point_Mm as jump_point_distance, 
 j.planet_stellar_masked as stellar_mask,
 j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
-FROM exo_worlds e
+FROM traveller_stats t
 LEFT JOIN orbital_bodies o
-ON e.location_orb = o.location_orbit
+ON t.location_orb = o.location_orbit
 LEFT JOIN journey_data j
-ON j.location_orbit = e.location_orb
-LEFT JOIN main_worlds
-ON e.location_orb = m.location_orb
-LEFT JOIN main_world_eval v
-ON e.location_orb = v.location_orbit
+ON j.location_orbit = t.location_orb
 '''
 
-df_exo_details = pd.read_sql_query(detail_sql_query,conn)
+df_exo_details = pd.read_sql_query(exo_detail_sql_query,conn)
 
 
 
@@ -280,7 +333,7 @@ column_one = [
 
 column_two = [[sg.Text("UWP Categories")], 
                 [sg.HSeparator()],]
-column_three = [[sg.Text("Main World Details")], 
+column_three = [[sg.Text("World Details")], 
                       [sg.HSeparator()],]
 for m in m_labels:
     column_two += [sg.Text(m+':',enable_events = True,key=(m),pad=(0,0))],
@@ -288,7 +341,7 @@ for m in m_labels:
                      
 column_four = [[sg.Text("Scientific Categories")], 
                 [sg.HSeparator()],]
-column_five = [[sg.Text("Main World Details")], 
+column_five = [[sg.Text("World Details")], 
                       [sg.HSeparator()],]        
 for d in d_labels:
     column_four += [sg.Text(d+':',enable_events = True,key=(d),pad=(0,0))],
@@ -351,7 +404,8 @@ list_images = [['mask','Completely Stellar Masked'],
                ['naval','Naval Base Present'],
                ['scout','Scout Base Present'],
                ['prison','Interplanetary Prison'],
-               ['moon','Main world is a moon']
+               ['moon','Main world is a moon'],
+               ['gas giant','Planet is a gas giant']
  
                ]
 
@@ -436,12 +490,12 @@ while True:
             db_name = values['-DB-']
             conn = sqlite3.connect(db_name)
             c = conn.cursor()
-            df = pd.read_sql_query(main_sql_query,conn)
+            df = pd.read_sql_query(new_main_query,conn)
             df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
             
 
             
-            df_details = pd.read_sql_query(detail_sql_query,conn)
+            df_details = pd.read_sql_query(new_detail_sql_query,conn)
             print('made it out of df')
 
             df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
@@ -463,7 +517,7 @@ while True:
             # ** IMPORTANT ** Clean up previous drawing before drawing again
                 delete_figure_agg(fig_canvas_agg)
         except:
-            print('sql fail')
+            print('failed loading data')
             
     
 
@@ -553,7 +607,78 @@ while True:
                 if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
                 
             else:
-                print('Not ready or exos')
+                
+                print('Exo Flag')
+                
+                loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
+                detail_info = df_exo_details[df_exo_details['location_orb'] == location_orb_name]
+                economic_info = df_economic[df_economic['location'] == location]
+    
+                
+    
+                for m in m_labels:
+                    m_value = list(loc_info[m])
+                    m_value = m_value[0]
+                    window[m+'i'].update(m_value)
+    
+    
+                for d in d_labels:
+                    d_value = list(detail_info[d])
+                    d_value = d_value[0]
+                    window[d+'i'].update(d_value)
+                    
+                for e in e_labels:
+                    e_value = list(economic_info[e])
+                    e_value = e_value[0]
+                    window[e+'i'].update(e_value)
+                    
+    
+    
+                  
+                clear_images()
+                
+    
+                if list(detail_info['gravity'])[0] > 1.50:
+                    add_image('heavy')
+                elif list(detail_info['gravity'])[0] < 0.50:
+                    add_image('light')    
+                    
+                if list(detail_info['type'])[0] == "Ocean*":
+                    add_image('ocean')
+                if list(detail_info['atmos_composition'])[0][0] == "E":
+                    add_image('exotic')
+                elif list(detail_info['atmos_composition'])[0][0] == "C":
+                    add_image('corrosive')
+                if list(detail_info['temperature'])[0] > 324:
+                    add_image('hot')
+                if list(detail_info['temperature'])[0] < 239:
+                    add_image('cold')
+                if list(detail_info['body'])[0] == 'Impact Moon' or \
+                list(detail_info['body'])[0] == 'Natural Moon':
+                    add_image('moon')
+                if list(detail_info['body'])[0] == 'Gas Giant':
+                    add_image('gas giant')
+                
+                importance = list(loc_info['ix'])[0]
+                for i in ['{','}']: importance = importance.strip(i)
+                importance = int(importance)
+                if importance >= 4: add_image('important')
+                    
+                bases = list(loc_info['bases'])[0]
+                if 'N' in bases or 'B' in bases:
+                    add_image('naval')
+                if 'S' in bases or 'B' in bases:
+                    add_image('scout')
+                for rem in remarks_list:
+                    if rem[0] in list(loc_info['remarks'])[0]: add_image(rem[1])
+                    
+                gwp = list(economic_info['gwp'])[0]
+                gwp_string = "{:,}".format(gwp)
+    
+                if int(gwp) >= 1000000: add_image('wealthy')
+                
+                if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+
             
            
             try:  
@@ -617,7 +742,7 @@ while True:
 
 
 
-            exo_list = list(exo_loc_info['location_orbit'])
+            exo_list = list(exo_loc_info['location_orb'])
             window['-LOCATIONS-'].update(exo_list)               
                 
 
