@@ -111,7 +111,7 @@ def generate_non_mainworlds(seed_number,db_name):
         elif pressure == 0.1: c_atmosphere = 1
         elif composition == 'Exotic': c_atmosphere = 10
         elif composition == 'Corrosive': c_atmosphere = 11
-        elif composition == 'GG': c_atmosphere = 1 #need a function to get GG moon data
+        elif composition == 'GG': c_atmosphere = 1 
         elif composition == 'Standard':
             if pressure < 0.5: c_atmosphere = 3 
             elif pressure < 0.8: c_atmosphere = 5
@@ -127,17 +127,7 @@ def generate_non_mainworlds(seed_number,db_name):
         
         return c_atmosphere
         
-    def get_hydrographics(body, hydro):
-        c_hydro = -1
-        if body == 'Gas Giant': c_hydro = 1 # add a function to get a GG moon data
-        else: c_hydro = hydro
-        return c_hydro
-        
-    def get_size(body, size):
-        c_size = -1
-        if body == 'Gas Giant': c_size = '1' # add a function to get a GG moon data
-        else: c_size = size
-        return c_size
+       
     
     def get_government(location, population, mw_government):
         if mw_government == '6':
@@ -235,14 +225,28 @@ def generate_non_mainworlds(seed_number,db_name):
     
     for row in allrows:
 #        print (row[0])
-        population = get_population(row[1],mw_dict)
-        spaceport = get_spaceport(row[0],population)
-        atmosphere = get_atmosphere(row[2],row[3])
-        hydrographics = get_hydrographics(row[4],row[5])
-        size = get_size(row[4],row[6])
-        government = get_government(row[1], population,mw_dict[row[1]]['government'])    
-        law_level = get_law_level(row[1], government)
-        tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
+        
+        if row[4] != "Gas Giant":
+
+            population = get_population(row[1],mw_dict)
+            spaceport = get_spaceport(row[0],population)
+            atmosphere = get_atmosphere(row[2],row[3])
+            hydrographics = row[5]
+            size = row[6]
+            government = get_government(row[1], population,mw_dict[row[1]]['government'])    
+            law_level = get_law_level(row[1], government)
+            tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
+        
+        else:
+            population = 0
+            spaceport = 'Y'
+            atmosphere = 15
+            hydrographics = 0
+            size = row[6]
+            government = 0
+            law_level = 0
+            tech_level = 0
+            
 
         uwp = (spaceport + tohex(int(size))\
                + tohex(int(atmosphere)) \
@@ -251,40 +255,38 @@ def generate_non_mainworlds(seed_number,db_name):
                + tohex(int(government)) \
                + tohex(int(law_level)) \
                + '-'
-               + tohex(int(tech_level)))
-            
-            
+               + tohex(int(tech_level)))            
             
         main_world = 0
         
-        sqlcommand = '''    INSERT INTO exo_worlds ( location_orb, 
-                                                    location, 
-                                                    spaceport, 
-                                                    size,
-                                                    atmosphere, 
-                                                    hydrographics, 
-                                                    population, 
-                                                    government,
-                                                    law,
-                                                    tech_level,
-                                                    uwp)                                            
-                                                    VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+        # sqlcommand = '''    INSERT INTO exo_worlds ( location_orb, 
+        #                                             location, 
+        #                                             spaceport, 
+        #                                             size,
+        #                                             atmosphere, 
+        #                                             hydrographics, 
+        #                                             population, 
+        #                                             government,
+        #                                             law,
+        #                                             tech_level,
+        #                                             uwp)                                            
+        #                                             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
     
                             
-        body_row =          (str(row[0]),
-                            str(row[1]),
-                            spaceport,
-                            size,
-                            atmosphere,
-                            hydrographics,
-                            population,
-                            government,
-                            law_level,
-                            tech_level,
-                            uwp)
+        # body_row =          (str(row[0]),
+        #                     str(row[1]),
+        #                     spaceport,
+        #                     size,
+        #                     atmosphere,
+        #                     hydrographics,
+        #                     population,
+        #                     government,
+        #                     law_level,
+        #                     tech_level,
+        #                     uwp)
                         
       
-        c.execute(sqlcommand, body_row) 
+        # c.execute(sqlcommand, body_row) 
     
     
 ##################################################################################################    

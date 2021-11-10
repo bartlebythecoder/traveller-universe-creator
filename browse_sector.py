@@ -190,17 +190,16 @@ flist0 = os.listdir(folder)
 fnames = [f for f in flist0 if os.path.isfile(
 
 os.path.join(folder, f)) and f.lower().endswith(img_types)]
-filename = os.path.join(folder, '22a.png') 
-
-
 
 
 option_list = []
 
 
 
-# Load up columns from example database
-db_name = 'sector_db/example-66.db'
+db_name = 'C:/Users/sean/Documents/GitHub/traveller-universe-creator/sector_db/example-66.db'
+
+
+
 conn = sqlite3.connect(db_name)
 c = conn.cursor()
 
@@ -225,53 +224,34 @@ df_new_main = pd.read_sql_query(new_main_query,conn)
 
 m_labels = []
 m_labels = list(df_new_main.columns)
-#m_labels.remove('id')
-#m_labels.remove('location')
 m_labels_len = len(m_labels)
 
 
 
 new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
 o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons as moons, 
+o.impact_moons, o.natural_moons,
 j.stellar_distance as stellar_distance, 
 j.jump_point_Mm as jump_point_distance, 
 j.planet_stellar_masked as stellar_mask,
-j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
+j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
+e.mainworld_calc
 FROM traveller_stats t
 LEFT JOIN orbital_bodies o
 ON t.location_orb = o.location_orbit
 LEFT JOIN journey_data j
 ON j.location_orbit = t.location_orb
+LEFT JOIN main_world_eval e
+ON t.location_orb = e.location_orbit
 WHERE t.main_world = 1
 '''
+
 df_details = pd.read_sql_query(new_detail_sql_query,conn)
 d_labels = []
 d_labels = list(df_details.columns)
 d_labels.remove('location')
 d_labels_len = len(d_labels)
 
-
-
-
-# detail_sql_query = '''SELECT m.system_name, m.location, o.body, o.wtype as type, o.day, o.year,
-# o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-# o.impact_moons as moons, 
-# j.stellar_distance as stellar_distance, 
-# j.jump_point_Mm as jump_point_distance, 
-# j.planet_stellar_masked as stellar_mask,
-# j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
-# FROM main_worlds m
-# LEFT JOIN orbital_bodies o
-# ON m.location_orb = o.location_orbit
-# LEFT JOIN journey_data j
-# ON j.location_orbit = m.location_orb
-# '''
-# df_details = pd.read_sql_query(detail_sql_query,conn)
-# d_labels = []
-# d_labels = list(df_details.columns)
-# d_labels.remove('location')
-# d_labels_len = len(d_labels)
 
 economic_sql_query = '''SELECT * FROM far_trader'''
 df_economic = pd.read_sql_query(economic_sql_query,conn)
@@ -280,41 +260,6 @@ e_labels = list(df_economic.columns)
 e_labels.remove('location')
 e_labels.remove('id')
 e_labels_len = len(e_labels)
-
-exo_sql_query =  '''SELECT t.*, 
-s.remarks,
-s.ix,
-s.ex,
-s.cx,
-s.n,
-s.bases,
-s.zone,
-s.pbg,
-s.w,
-s.allegiance,
-stars
-FROM traveller_stats t   
-LEFT JOIN system_stats s ON s.location=t.location
-WHERE t.main_world = 0'''
-df_exo = pd.read_sql_query(exo_sql_query,conn)
-
-exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, o.body, o.wtype as type, o.day, o.year,
-o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons as moons, 
-j.stellar_distance as stellar_distance, 
-j.jump_point_Mm as jump_point_distance, 
-j.planet_stellar_masked as stellar_mask,
-j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g
-FROM traveller_stats t
-LEFT JOIN orbital_bodies o
-ON t.location_orb = o.location_orbit
-LEFT JOIN journey_data j
-ON j.location_orbit = t.location_orb
-'''
-
-df_exo_details = pd.read_sql_query(exo_detail_sql_query,conn)
-
-
 
 
 
@@ -483,41 +428,91 @@ while True:
     if event == sg.WIN_CLOSED or event == 'Exit': # if user closes window or clicks cancel
         break
     
+
+    
     if event == '-DB-':
 
+        
 
-        try:
-            db_name = values['-DB-']
-            conn = sqlite3.connect(db_name)
-            c = conn.cursor()
-            df = pd.read_sql_query(new_main_query,conn)
-            df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
-            
+        db_name = values['-DB-']
 
-            
-            df_details = pd.read_sql_query(new_detail_sql_query,conn)
-            print('made it out of df')
+        conn = sqlite3.connect(db_name)
+        c = conn.cursor()
+        df = pd.read_sql_query(new_main_query,conn)
+        df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
+        
 
-            df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
-            df_details['jump_point_distance'] = round(df_details['jump_point_distance'],1)# otherwise crazy decimals added
-            
+        
+        df_details = pd.read_sql_query(new_detail_sql_query,conn)
+        print('made it out of df')
+
+        df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
+        df_details['jump_point_distance'] = round(df_details['jump_point_distance'],1)# otherwise crazy decimals added
+        df_details['mainworld_calc'] = round(df_details['mainworld_calc'],2)            
 
 
-            
-            df_economic = pd.read_sql_query(economic_sql_query,conn)
-            df_economic['exchange'] = round(df_economic['exchange'],2)  # otherwise crazy decimals added
+        
+        df_economic = pd.read_sql_query(economic_sql_query,conn)
+        df_economic['exchange'] = round(df_economic['exchange'],2)  # otherwise crazy decimals added
 
+        
+
+        exo_sql_query =  '''SELECT t.*,
+        s.remarks,
+        s.ix,
+        s.ex,
+        s.cx,
+        s.n,
+        s.bases,
+        s.zone,
+        s.pbg,
+        s.w,
+        s.allegiance,
+        stars
+        FROM traveller_stats t   
+        LEFT JOIN system_stats s ON s.location=t.location'''
+        
             
-            df['loc_name'] = df['location'] + '-' + df['system_name']
-            df_details['loc_name'] = df_details['location'] + '-' + df_details['system_name']
-            option_list = list(df['loc_name'])
-            window['-LOCATIONS-'].update(option_list)
-            
-            if fig_canvas_agg:
-            # ** IMPORTANT ** Clean up previous drawing before drawing again
-                delete_figure_agg(fig_canvas_agg)
-        except:
-            print('failed loading data')
+        df_exo = pd.read_sql_query(exo_sql_query,conn)
+        
+        exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, 
+        o.body, o.wtype as type, o.day, o.year,
+        o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+        o.impact_moons, o.natural_moons,
+        j.stellar_distance as stellar_distance, 
+        j.jump_point_Mm as jump_point_distance, 
+        j.planet_stellar_masked as stellar_mask,
+        j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
+        e.mainworld_calc
+        FROM traveller_stats t
+        LEFT JOIN orbital_bodies o
+        ON t.location_orb = o.location_orbit
+        LEFT JOIN journey_data j
+        ON j.location_orbit = t.location_orb
+        LEFT JOIN main_world_eval e
+        ON t.location_orb = e.location_orbit
+        '''
+
+        df_exo_details = pd.read_sql_query(exo_detail_sql_query,conn)
+
+        df_exo_details['atmos_pressure'] = round(df_exo_details['atmos_pressure'],2)
+        df_exo_details['jump_point_distance'] = round(df_exo_details['jump_point_distance'],1)
+        df_exo_details['mainworld_calc'] = round(df_exo_details['mainworld_calc'],2)   
+
+
+
+
+
+
+        df['loc_name'] = df['location'] + '-' + df['system_name']
+        df_details['loc_name'] = df_details['location'] + '-' + df_details['system_name']
+        option_list = list(df['loc_name'])
+        window['-LOCATIONS-'].update(option_list)
+        
+        if fig_canvas_agg:
+        # ** IMPORTANT ** Clean up previous drawing before drawing again
+            delete_figure_agg(fig_canvas_agg)
+
             
     
 
@@ -533,11 +528,13 @@ while True:
         
     elif event == '-LOCATIONS-':
         try:
-            location_orb_name = values['-LOCATIONS-'][0]
+            
             location = values['-LOCATIONS-'][0][0:4]
             
             
             if detail_flag == 'main_world':
+                
+                location_orb_name = values['-LOCATIONS-'][0]
             
                 loc_info = df.loc[df['location'] == location]
                 detail_info = df_details[df_details['location'] == location]
@@ -610,27 +607,38 @@ while True:
                 
                 print('Exo Flag')
                 
-                loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
-                detail_info = df_exo_details[df_exo_details['location_orb'] == location_orb_name]
-                economic_info = df_economic[df_economic['location'] == location]
-    
+                location_orb_name = values['-LOCATIONS-'][0]
                 
+
+
+                try:
+                    loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
+                    detail_info = df_exo_details[df_exo_details['location_orb'] == location_orb_name]
+                    economic_info = df_economic[df_economic['location'] == location]
+                except:
+                    sg.Popup('Loc Info fail in Exo assignments')
+                
+               
     
-                for m in m_labels:
-                    m_value = list(loc_info[m])
-                    m_value = m_value[0]
-                    window[m+'i'].update(m_value)
+                try:
     
-    
-                for d in d_labels:
-                    d_value = list(detail_info[d])
-                    d_value = d_value[0]
-                    window[d+'i'].update(d_value)
-                    
-                for e in e_labels:
-                    e_value = list(economic_info[e])
-                    e_value = e_value[0]
-                    window[e+'i'].update(e_value)
+                    for m in m_labels:
+                        m_value = list(loc_info[m])
+                        m_value = m_value[0]
+                        window[m+'i'].update(m_value)
+        
+        
+                    for d in d_labels:
+                        d_value = list(detail_info[d])
+                        d_value = d_value[0]
+                        window[d+'i'].update(d_value)
+                        
+                    for e in e_labels:
+                        e_value = list(economic_info[e])
+                        e_value = e_value[0]
+                        window[e+'i'].update(e_value)
+                except:
+                    sg.Popup('for loops failed in Exo Assignments')
                     
     
     
@@ -704,7 +712,7 @@ while True:
                 
 
         except:
-            print('Did not catch location')
+            sg.popup('Error in LOCATION: '+detail_flag)
         
     elif event == '-STELLAR-':
         try:
@@ -726,6 +734,18 @@ while True:
         try:
             print('pressed SYSTEM')
             detail_flag = 'exo_world'
+            
+            
+            
+
+            
+            
+            
+            loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
+            detail_info = df_exo_details[df_exo_details['location_orb'] == location_orb_name]
+            economic_info = df_economic[df_economic['location'] == location]
+            
+            
 
             exo_location_orb_name = values['-LOCATIONS-'][0]
             exo_location = values['-LOCATIONS-'][0][0:4]
@@ -735,14 +755,19 @@ while True:
             
             exo_loc_info = df_exo.loc[df_exo['location'] == location]
             exo_detail_info = df_details[df_details['location'] == location]
-            economic_info = df_economic[df_economic['location'] == location]
+
     
+     
+
+            economic_info = df_economic[df_economic['location'] == location]            
+            economic_info['exchange'] = round(economic_info['exchange'],2)  # otherwise crazy decimals added    
+
+            exo_loc_info['loc_name'] = exo_loc_info['location_orb'] 
 
 
 
-
-
-            exo_list = list(exo_loc_info['location_orb'])
+            exo_list = list(exo_loc_info['loc_name'])
+            exo_list.sort()
             window['-LOCATIONS-'].update(exo_list)               
                 
 
