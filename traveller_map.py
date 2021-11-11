@@ -4,8 +4,6 @@ def build_travellermap_file(db_name):
 # Traveller Map
 # by Sean Nelson
 
-#   A program to teach Sean the Python programming language
-#   The goal is to export a file that can be ready by travellermap.com
 
 #   Open the SQLite 3 database
 

@@ -25,7 +25,7 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 0219	Dinotina	B100732-B	N	Va Na Pi	-	704	Im	M5 V	{+2}	(766-1)	[795A]	DB	6	
 0221	Amaldi	C200575-9	-	Va Ni	-	006	Im	M0 V	{-1}	(F45+1)	[547C]	B	8	
 0237	Toyako	D100449-A	-	Va Ni	-	004	Im	M5 V	{-1}	(D31-4)	[1347]	B	7	
-0302	Blida	D100346-9	-	Va Lo	-	613	Im	K5 V M5 V	{-2}	(B21-2)	[414A]	B	6	
+0302	Blida	D100346-9	-	Va Lo	-	613	Im	K5 V M5 V w D	{-2}	(B21-2)	[414A]	B	6	
 0307	Ooster	C200595-6	S	Va Ni	-	503	Im	K5 V	{-2}	(640+3)	[431B]	B	7	
 0310	Matsushima	C100422-B	-	Va Ni	-	214	Im	M0 V	{+0}	(F32+1)	[745B]	B	8	
 0313	Urras	C410216-9	-	Lo	-	312	Im	G5 V	{-1}	(811+0)	[11AC]	B	8	
@@ -106,7 +106,7 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 0920	Stifter	E8A5411-5	-	Fl Ni	-	723	Im	F5 V	{-3}	(630+4)	[1196]	B	9	
 0921	Veratar	B41068A-C	-	Ni Na	-	305	Im	M0 V	{+1}	(753-1)	[977E]	B	8	
 0922	Kudogou	B7479C7-8	S	Hi In	-	503	Im	K0 V	{+2}	(585-4)	[9B76]	EB	8	
-0924	Simpkins	C6A6458-7	-	Fl Ni	-	511	Im	M5 V w D	{-2}	(C30-4)	[7252]	B	6	
+0924	Simpkins	C6A6458-7	-	Fl Ni	-	511	Im	M5 V w D w D	{-2}	(C30-4)	[7252]	B	6	
 0928	Manzano	C653587-5	-	Ni Po	-	204	Im	G5 V	{-2}	(740+3)	[7326]	B	8	
 0935	Floris	B2009CB-A	N	Va Hi Na In	-	704	Im	w D w D	{+4}	(F8B+4)	[BD67]	fEB	4	
 0938	Astaf'Ev	B8C2776-8	-	Fl He	-	413	Im	F0 V	{+0}	(963+1)	[776A]	B	9	
@@ -204,7 +204,7 @@ Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W
 1634	Alepieri	DCB0000-0	S	He Ba	-	013	Im	G0 V	{-3}	(600+3)	[0000]	B	8	
 1635	Abdel-Samad	BAB6898-8	-	Fl Ph	-	604	Im	M5 V	{+0}	(A75+1)	[5819]	eB	6	
 1636	Jaotsungi	CEB3200-B	-	Fl Lo	-	403	Im	F0 V	{+0}	(C11+0)	[428B]	B	9	
-1706	Vanderlinden	D410220-4	S	Lo	-	003	Im	M0 V M5 V	{-3}	(611+0)	[6171]	B	6	
+1706	Vanderlinden	D410220-4	S	Lo	-	003	Im	M0 V M5 V M5 V	{-3}	(611+0)	[6171]	B	6	
 1709	Vieira	A30088B-B	-	Va Ph Na Pi	-	206	Im	w D	{+2}	(E77+1)	[9A3E]	eDB	7	
 1711	Lessing	D100578-7	-	Va Ni	-	204	Im	M5 V	{-3}	(540+1)	[422B]	B	6	
 1713	Bristol	D100543-9	S	Va Ni	-	704	Im	w D	{-2}	(941+1)	[4377]	B	7	

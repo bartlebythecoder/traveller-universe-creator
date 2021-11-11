@@ -1,6 +1,6 @@
  traveller-universe-creator
-v.063 - corrected Journey Table times
-2021-11-07
+v0.100 - corrected Journey Table times
+2021-11-11
 
  Sector Generation
  by Sean Nelson
@@ -9,16 +9,16 @@ v.063 - corrected Journey Table times
 
  Possible Improvements Pending (likely in this order):
 
-   - Add stellar and system data to Browser
-   - Add subsector/system maps to Browser
    - Rework/audit/validate the Traveller stat creation for mainworlds, nonmainworlds, moons
    - Rewrite Stellar creation rules using  Architect of Worlds
    - Create worlds using Architect of Worlds
+   - Subsector viewing on Browser
    - Export data to a PDF for publishing
 
 To Do list complete:
 
-   - COMPLETE 2021 11 07 v0.63: Jump point times in Journey table now incorporate companion stars
+   - COMPLETE 2021 11 11 v0.100: Browser includes all bodies and stellar info
+   - COMPLETE 2021 11 07 v0.063: Jump point times in Journey table now incorporate companion stars
    - COMPLETE 2021 11 04 v.061: New Gui Interfaces:  generate_menu and browse_sector
    - COMPLETE 2021 10 31 v.06: Moons details added to orbital_body table
    - COMPLETE 2021 10 28: Moons created using Architect of Worlds

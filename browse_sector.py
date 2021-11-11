@@ -53,6 +53,76 @@ def add_image(image_var):
         window[image_var].unhide_row()
         
         
+def select_images(loc_info,system_info,detail_info,economic_info):
+    if list(detail_info['gravity'])[0] > 1.50:
+        add_image('heavy')
+    elif list(detail_info['gravity'])[0] < 0.50:
+        add_image('light')    
+        
+    if list(detail_info['type'])[0] == "Ocean*":
+        add_image('ocean')
+    if list(detail_info['atmos_composition'])[0][0] == "E":
+        add_image('exotic')
+    elif list(detail_info['atmos_composition'])[0][0] == "C":
+        add_image('corrosive')
+    if list(detail_info['temperature'])[0] > 324:
+        add_image('hot')
+    if list(detail_info['temperature'])[0] < 239:
+        add_image('cold')
+    if list(detail_info['body'])[0] == 'Impact Moon' or \
+    list(detail_info['body'])[0] == 'Natural Moon':
+        add_image('moon')
+    if list(detail_info['body'])[0] == 'Gas Giant':
+        add_image('gas giant')
+    if list(loc_info['atmosphere'])[0] == 0:
+        add_image('vacuum')
+    
+    importance = list(system_info['ix'])[0]
+    for i in ['{','}']: importance = importance.strip(i)
+    importance = int(importance)
+    if importance >= 4: add_image('important')
+        
+    bases = list(system_info['bases'])[0]
+    if 'N' in bases or 'B' in bases:
+        add_image('naval')
+    if 'S' in bases or 'B' in bases:
+        add_image('scout')
+    for rem in remarks_list:
+        if rem[0] in list(system_info['remarks'])[0]: add_image(rem[1])
+        
+    gwp = list(economic_info['gwp'])[0]
+    gwp_string = "{:,}".format(gwp)
+
+    if int(gwp) >= 1000000: add_image('wealthy')
+    
+    if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+    
+    
+    
+def update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels):
+    
+                for m in m_labels:
+                    m_value = list(loc_info[m])
+                    m_value = m_value[0]
+                    window[m+'i'].update(m_value)
+                    
+                for s in s_labels:
+                    s_value = list(system_info[s])
+                    s_value = s_value[0]
+                    window[s+'i'].update(s_value)
+    
+    
+                for d in d_labels:
+                    d_value = list(detail_info[d])
+                    d_value = d_value[0]
+                    window[d+'i'].update(d_value)
+                    
+                for e in e_labels:
+                    e_value = list(economic_info[e])
+                    e_value = e_value[0]
+                    window[e+'i'].update(e_value)
+        
+        
 def draw_figure(canvas, figure):
     figure_canvas_agg = FigureCanvasTkAgg(figure, canvas)
     figure_canvas_agg.draw()
@@ -173,7 +243,7 @@ def draw_map():
 
 
 
-# ------------------------------- END OF MATPLOTLIB CODE -------------------------------
+
 
 
 
@@ -198,33 +268,75 @@ option_list = []
 
 db_name = 'C:/Users/sean/Documents/GitHub/traveller-universe-creator/sector_db/example-66.db'
 
+list_images = [['mask','Completely Stellar Masked'],
+               ['ocean','Earth-like World'],
+               ['exotic','Exotic Atmosphire'],
+               ['corrosive','Corrosive Atmosphire'],
+               ['vacuum','Vacuum World'],
+               ['asteroid','Planetary Belt'],
+               ['light','Low Gravity World'],
+               ['heavy','High Gravity World'],
+               ['hot','Unhinhabitable Heat'],
+               ['cold','Uninhabitable Cold'],
+               ['hipop','High Population World'],
+               ['wealthy','Wealthy System'],
+               ['industrial','Industrial Economy'],
+               ['agricultural','Agricultural Economy'],
+               ['important','Important System'],
+               ['naval','Naval Base Present'],
+               ['scout','Scout Base Present'],
+               ['prison','Interplanetary Prison Present'],
+               ['moon','Object is a moon'],
+               ['gas giant','Object is a gas giant']
+ 
+               ]
 
+
+remarks_list = [['In', 'industrial'],
+                ['Ag', 'agricultural'],
+                ['As', 'asteroid'],
+                ['Hi', 'hipop'],
+                ['Px', 'prison']]
+                
 
 conn = sqlite3.connect(db_name)
 c = conn.cursor()
 
 
-new_main_query = '''SELECT t.*, 
-s.remarks,
-s.ix,
-s.ex,
-s.cx,
-s.n,
-s.bases,
-s.zone,
-s.pbg,
-s.w,
-s.allegiance,
-stars
-FROM traveller_stats t   
-LEFT JOIN system_stats s ON s.location=t.location
-WHERE t.main_world = 1'''
+new_main_query = '''SELECT *
+FROM traveller_stats    
+WHERE main_world = 1'''
+
 
 df_new_main = pd.read_sql_query(new_main_query,conn)
 
 m_labels = []
 m_labels = list(df_new_main.columns)
 m_labels_len = len(m_labels)
+
+
+system_main_query = '''SELECT location,
+remarks,
+ix,
+ex,
+cx,
+n,
+bases,
+zone,
+pbg,
+w,
+allegiance,
+stars
+FROM system_stats
+'''
+
+
+df_system_main = pd.read_sql_query(system_main_query,conn)
+s_labels = []
+s_labels = list(df_system_main.columns)
+s_labels.remove('location')
+s_labels_len = len(s_labels)
+
 
 
 
@@ -250,6 +362,7 @@ df_details = pd.read_sql_query(new_detail_sql_query,conn)
 d_labels = []
 d_labels = list(df_details.columns)
 d_labels.remove('location')
+d_labels.remove('system_name')
 d_labels_len = len(d_labels)
 
 
@@ -267,169 +380,224 @@ conn.commit()
 c.close()
 conn.close()  
 
+###################Layouts
 
+def make_win1():
 
-column_one = [
-    [sg.Text("SYSTEMS")],
-    [sg.Listbox(option_list,enable_events=True,size=(20,30),key=('-LOCATIONS-'))]
-]
-
-
-
-column_two = [[sg.Text("UWP Categories")], 
-                [sg.HSeparator()],]
-column_three = [[sg.Text("World Details")], 
-                      [sg.HSeparator()],]
-for m in m_labels:
-    column_two += [sg.Text(m+':',enable_events = True,key=(m),pad=(0,0))],
-    column_three += [sg.Text('|',enable_events = True,key=(m+'i'),pad=(0,0))],
-                     
-column_four = [[sg.Text("Scientific Categories")], 
-                [sg.HSeparator()],]
-column_five = [[sg.Text("World Details")], 
-                      [sg.HSeparator()],]        
-for d in d_labels:
-    column_four += [sg.Text(d+':',enable_events = True,key=(d),pad=(0,0))],
-    column_five += [sg.Text('|',enable_events = True,key=(d+'i'),pad=(0,0))],
+    column_one = [
+        [sg.Text("SYSTEMS")],
+        [sg.Listbox(option_list,enable_events=True,size=(20,30),key=('-LOCATIONS-'))]
+    ]
     
     
-column_four += [[sg.Text("Economic Categories",pad=(5,(15,2)))], 
-                [sg.HSeparator()],]
-column_five += [[sg.Text("Main World Details",pad=(5,(15,2)))], 
-                      [sg.HSeparator()],]                
-
-for e in e_labels:
-    column_four += [sg.Text(e+':',enable_events = True,key=(e),pad=(0,0))],
-    column_five += [sg.Text('|',enable_events = True,key=(e+'i'),pad=(0,0))],
-
-
-
-map_options = [
-[sg.Radio('Show Selected','-DISPLAY-',key=('-FULL-'),default=True,pad=(0,0))],
-[sg.Radio('Find Earth Like','-DISPLAY-',key=('-EARTH-'),pad=(0,0))],
-]
     
-label_options = [
-[sg.Radio('Num','-OVERLAY-',key=('-NUM-'),default=True,pad=(0,0))],
-[sg.Radio('Name','-OVERLAY-',key=('-NAME-'),pad=(0,0))],
-]
-      
+    column_two = [[sg.Text("UWP Categories")], 
+                    [sg.HSeparator()],]
+    column_three = [[sg.Text("World Details")], 
+                          [sg.HSeparator()],]
+    for m in m_labels:
+        column_two += [sg.Text(m+':',enable_events = True,key=(m),pad=(0,0))],
+        column_three += [sg.Text('|',enable_events = True,key=(m+'i'),pad=(0,0))],
+        
     
-
+    column_two += [[sg.Text("System Categories")], 
+                    [sg.HSeparator()],]
+    column_three += [[sg.Text("System-wide Details")], 
+                          [sg.HSeparator()],]
     
-
-    
-column_six = [[sg.Canvas(key='-CANVAS-')],
-             [sg.Column(map_options),
-              sg.Column(label_options),
-              sg.Button('Map',key=('-MAP-'))], 
-              ]
-
-
-#              [sg.Radio('Sector',key=('-SECTOR-')),sg.Button('Earth-like',key=('-EARTH-')),
-#               sg.Button('Subsector'),sg.Button('System'),
-
-
-list_images = [['mask','Completely Stellar Masked'],
-               ['ocean','Earth-like World'],
-               ['exotic','Exotic Atmosphire'],
-               ['corrosive','Corrosive Atmosphire'],
-               ['vacuum','Vacuum World'],
-               ['asteroid','Planetary Belt'],
-               ['garden','Garden World'],
-               ['light','Low Gravity World'],
-               ['heavy','High Gravity World'],
-               ['hot','Unhinhabitable Heat'],
-               ['cold','Uninhabitable Cold'],
-               ['hipop','High Population World'],
-               ['wealthy','Wealthy (high GWP)'],
-               ['industrial','Industrial Economy'],
-               ['agricultural','Agricultural Economy'],
-               ['important','Important World'],
-               ['naval','Naval Base Present'],
-               ['scout','Scout Base Present'],
-               ['prison','Interplanetary Prison'],
-               ['moon','Main world is a moon'],
-               ['gas giant','Planet is a gas giant']
- 
-               ]
-
-
-remarks_list = [['In', 'industrial'],
-                ['Ag', 'agricultural'],
-                ['Va', 'vacuum'],
-                ['As', 'asteroid'],
-                ['Ga', 'garden'],
-                ['Hi', 'hipop'],
-                ['Px', 'prison']]
-                
-
-
-
+    for s in s_labels:
+        column_two += [sg.Text(s+':',enable_events = True,key=(s),pad=(0,0))],
+        column_three += [sg.Text('|',enable_events = True,key=(s+'i'),pad=(0,0))],
                          
+    column_four = [[sg.Text("Scientific Categories")], 
+                    [sg.HSeparator()],]
+    column_five = [[sg.Text("World Details")], 
+                          [sg.HSeparator()],]        
+    for d in d_labels:
+        column_four += [sg.Text(d+':',enable_events = True,key=(d),pad=(0,0))],
+        column_five += [sg.Text('|',enable_events = True,key=(d+'i'),pad=(0,0))],
+        
+        
+    column_four += [[sg.Text("Economic Categories",pad=(5,(15,2)))], 
+                    [sg.HSeparator()],]
+    column_five += [[sg.Text("System-wide Details",pad=(5,(15,2)))], 
+                          [sg.HSeparator()],]                
+    
+    for e in e_labels:
+        column_four += [sg.Text(e+':',enable_events = True,key=(e),pad=(0,0))],
+        column_five += [sg.Text('|',enable_events = True,key=(e+'i'),pad=(0,0))],
+    
+    
+    
+    map_options = [
+    [sg.Radio('Show Selected','-DISPLAY-',key=('-FULL-'),default=True,pad=(0,0))],
+    [sg.Radio('Find Earth Like','-DISPLAY-',key=('-EARTH-'),pad=(0,0))],
+    ]
+        
+    label_options = [
+    [sg.Radio('Num','-OVERLAY-',key=('-NUM-'),default=True,pad=(0,0))],
+    [sg.Radio('Name','-OVERLAY-',key=('-NAME-'),pad=(0,0))],
+    ]
+          
+        
+    
+        
+    
+        
+    column_six = [[sg.Canvas(key='-CANVAS-')],
+                 [sg.Column(map_options),
+                  sg.Column(label_options),
+                  sg.Button('Map',key=('-MAP-'))], 
+                  ]
+    
+    
+    #              [sg.Radio('Sector',key=('-SECTOR-')),sg.Button('Earth-like',key=('-EARTH-')),
+    #               sg.Button('Subsector'),sg.Button('System'),
+    
+    
+    
+    
+    
+    
+                             
+    
+    image_layout = []
+    for li in list_images:
+        filename = os.path.join(folder,li[0]+'.png') 
+        image_layout += [sg.Image(data=get_img_data(filename, first=True),
+                        tooltip=li[1], enable_events = True,key=(li[0]))],
+        
+    
+    
+    
+    
+    
+    layout = [   
+        [sg.Text("""Browse Window""")],
+        [sg.HSeparator()],
+        [
+              sg.Text('Choose A Sector', size=(15, 1), auto_size_text=False, justification='right'),
+              sg.In(size=(20,1),enable_events=True,key=('-DB-'),justification='right'),
+              sg.FileBrowse(file_types=(("Database Files","*.db"),),
+                                                   enable_events=True,
+                                                   initial_folder=("sector_db")),
+              sg.VSeparator(),
+              sg.Button('Stellar',key=('-STELLAR-')),
+              sg.Button('Main World',key=('-MAIN-')),
+              sg.Button('Full System', key=('-SYSTEM-')),
+              sg.VSeparator(),
+              sg.VSeparator(),
+              sg.Button('Exit'),
+        ],
+        [sg.HSeparator(), 
+         ],
+        
+        [
+         
+         sg.Column(column_one),
+         sg.VSeparator(),
+         sg.Column(column_two),
+         sg.Column(column_three),
+         sg.Column(image_layout),
+         sg.VSeparator(), 
+         sg.Column(column_four),
+         sg.Column(column_five),     
+         sg.VSeparator(), 
+         sg.Column(column_six),   
+         ],
+        
+    ]
+    return sg.Window("""Bartleby's Sector Builder""", layout,size=(1200,700),finalize=True)
 
-image_layout = []
-for li in list_images:
-    filename = os.path.join(folder,li[0]+'.png') 
-    image_layout += [sg.Image(data=get_img_data(filename, first=True),
-                    tooltip=li[1], enable_events = True,key=(li[0]))],
+
+
+def make_win2(star_columns,star_list,location):
+    
+    # if star_list.len ==1:
+        
+    try:
+            
+        # star_column_one = [sg.Text("Stellar Details"),]
+                         
+        # star_column_two = [sg.Text(location),]
+        
+        star_column_one = []
+        star_column_two = []
+        star_column_three = []
+        star_column_four = []
+        star_width = 300
+                
+        print('Entering star loop')
+        
+
+
+        for s_num, s in enumerate(star_list[0]):
+
+            star_column_one += [sg.Text(star_columns[s_num]+':')],
+            star_column_two += [sg.Text(s)],
     
 
+        if len(star_list) > 1:
+            
+            star_width = 350
 
-
-
-
-layout = [   
-    [sg.Text("""Browse Window""")],
-    [sg.HSeparator()],
-    [
-          sg.Text('Choose A Sector', size=(15, 1), auto_size_text=False, justification='right'),
-          sg.In(size=(20,1),enable_events=True,key=('-DB-'),justification='right'),
-          sg.FileBrowse(file_types=(("Database Files","*.db"),),
-                                               enable_events=True,
-                                               initial_folder=("sector_db")),
-          sg.VSeparator(),
-          sg.Button('Stellar',key=('-STELLAR-')),
-          sg.Button('Main World',key=('-MAIN-')),
-          sg.Button('Full System', key=('-SYSTEM-')),
-          sg.VSeparator(),
-          sg.VSeparator(),
-          sg.Button('Exit'),
-    ],
-    [sg.HSeparator(), 
-     ],
+               
+            for s_num, s in enumerate(star_list[1]):
     
-    [
+                star_column_three += [sg.Text(s)],
+
+        if len(star_list) == 3:
+            
+            star_width = 400
+
+               
+            for s_num, s in enumerate(star_list[2]):
+    
+                star_column_four += [sg.Text(s)],
+
+
+
+
+
+    
+        print('Setting new layout')    
+        star_layout = [
+                 [sg.Column(star_column_one),sg.Column(star_column_two),
+                  sg.Column(star_column_three),sg.Column(star_column_four)],
+                 [sg.Button('Exit')]
+                 ]
+    except:
+             sg.Popup('Failed star layout')
+            
+    # else:
+        
+    #     layout = [[sg.Text('More than one star')],
+    #              [sg.Button('Exit')]]        
      
-     sg.Column(column_one),
-     sg.VSeparator(),
-     sg.Column(column_two),
-     sg.Column(column_three),
-     sg.Column(image_layout),
-     sg.VSeparator(), 
-     sg.Column(column_four),
-     sg.Column(column_five),     
-     sg.VSeparator(), 
-     sg.Column(column_six),   
-     ],
-    
-]
+        
+        
+        
+            
+    return sg.Window('Stellar Details',star_layout,size=(star_width,800),finalize=True)
+
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder""", layout,size=(1200,700))
+window1, window2 = make_win1(), None        # start off with 1 window open
 # Event Loop to process "events" and get the "values" of the inputs
 
 
 fig_canvas_agg = None
 
 while True:
-    event, values = window.read()
+    window, event, values = sg.read_all_windows()
     
-    if event == sg.WIN_CLOSED or event == 'Exit': # if user closes window or clicks cancel
-        break
-    
-
-    
+    if event == sg.WIN_CLOSED or event == 'Exit':
+           window.close()
+           if window == window2:       # if closing win 2, mark as closed
+               window2 = None
+           elif window == window1:     # if closing win 1, exit program
+               break
+        
     if event == '-DB-':
 
         
@@ -439,11 +607,14 @@ while True:
         conn = sqlite3.connect(db_name)
         c = conn.cursor()
         df = pd.read_sql_query(new_main_query,conn)
+        df_system = pd.read_sql_query(system_main_query,conn)
         df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
         
 
         
         df_details = pd.read_sql_query(new_detail_sql_query,conn)
+        
+        
         print('made it out of df')
 
         df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
@@ -537,71 +708,23 @@ while True:
                 location_orb_name = values['-LOCATIONS-'][0]
             
                 loc_info = df.loc[df['location'] == location]
+                system_info = df_system.loc[df_system['location'] == location]
                 detail_info = df_details[df_details['location'] == location]
                 economic_info = df_economic[df_economic['location'] == location]
     
-                
+                update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels)
     
-                for m in m_labels:
-                    m_value = list(loc_info[m])
-                    m_value = m_value[0]
-                    window[m+'i'].update(m_value)
+
     
-    
-                for d in d_labels:
-                    d_value = list(detail_info[d])
-                    d_value = d_value[0]
-                    window[d+'i'].update(d_value)
-                    
-                for e in e_labels:
-                    e_value = list(economic_info[e])
-                    e_value = e_value[0]
-                    window[e+'i'].update(e_value)
-                    
-    
-    
+                try:
                   
-                clear_images()
+                    clear_images()
+                    select_images(loc_info,system_info,detail_info,economic_info)
+        
+
                 
-    
-                if list(detail_info['gravity'])[0] > 1.50:
-                    add_image('heavy')
-                elif list(detail_info['gravity'])[0] < 0.50:
-                    add_image('light')    
-                    
-                if list(detail_info['type'])[0] == "Ocean*":
-                    add_image('ocean')
-                if list(detail_info['atmos_composition'])[0][0] == "E":
-                    add_image('exotic')
-                elif list(detail_info['atmos_composition'])[0][0] == "C":
-                    add_image('corrosive')
-                if list(detail_info['temperature'])[0] > 324:
-                    add_image('hot')
-                if list(detail_info['temperature'])[0] < 239:
-                    add_image('cold')
-                if list(detail_info['body'])[0] == 'Impact Moon' or \
-                list(detail_info['body'])[0] == 'Natural Moon':
-                    add_image('moon')
-                
-                importance = list(loc_info['ix'])[0]
-                for i in ['{','}']: importance = importance.strip(i)
-                importance = int(importance)
-                if importance >= 4: add_image('important')
-                    
-                bases = list(loc_info['bases'])[0]
-                if 'N' in bases or 'B' in bases:
-                    add_image('naval')
-                if 'S' in bases or 'B' in bases:
-                    add_image('scout')
-                for rem in remarks_list:
-                    if rem[0] in list(loc_info['remarks'])[0]: add_image(rem[1])
-                    
-                gwp = list(economic_info['gwp'])[0]
-                gwp_string = "{:,}".format(gwp)
-    
-                if int(gwp) >= 1000000: add_image('wealthy')
-                
-                if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+                except:
+                    sg.Popup('Failed during Mainworld image creation')
                 
             else:
                 
@@ -621,71 +744,21 @@ while True:
                
     
                 try:
+                    update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels)
     
-                    for m in m_labels:
-                        m_value = list(loc_info[m])
-                        m_value = m_value[0]
-                        window[m+'i'].update(m_value)
-        
-        
-                    for d in d_labels:
-                        d_value = list(detail_info[d])
-                        d_value = d_value[0]
-                        window[d+'i'].update(d_value)
-                        
-                    for e in e_labels:
-                        e_value = list(economic_info[e])
-                        e_value = e_value[0]
-                        window[e+'i'].update(e_value)
+
                 except:
                     sg.Popup('for loops failed in Exo Assignments')
                     
     
-    
+                try:
                   
-                clear_images()
+                    clear_images()
+                    select_images(loc_info,system_info,detail_info,economic_info)
+        
                 
-    
-                if list(detail_info['gravity'])[0] > 1.50:
-                    add_image('heavy')
-                elif list(detail_info['gravity'])[0] < 0.50:
-                    add_image('light')    
-                    
-                if list(detail_info['type'])[0] == "Ocean*":
-                    add_image('ocean')
-                if list(detail_info['atmos_composition'])[0][0] == "E":
-                    add_image('exotic')
-                elif list(detail_info['atmos_composition'])[0][0] == "C":
-                    add_image('corrosive')
-                if list(detail_info['temperature'])[0] > 324:
-                    add_image('hot')
-                if list(detail_info['temperature'])[0] < 239:
-                    add_image('cold')
-                if list(detail_info['body'])[0] == 'Impact Moon' or \
-                list(detail_info['body'])[0] == 'Natural Moon':
-                    add_image('moon')
-                if list(detail_info['body'])[0] == 'Gas Giant':
-                    add_image('gas giant')
-                
-                importance = list(loc_info['ix'])[0]
-                for i in ['{','}']: importance = importance.strip(i)
-                importance = int(importance)
-                if importance >= 4: add_image('important')
-                    
-                bases = list(loc_info['bases'])[0]
-                if 'N' in bases or 'B' in bases:
-                    add_image('naval')
-                if 'S' in bases or 'B' in bases:
-                    add_image('scout')
-                for rem in remarks_list:
-                    if rem[0] in list(loc_info['remarks'])[0]: add_image(rem[1])
-                    
-                gwp = list(economic_info['gwp'])[0]
-                gwp_string = "{:,}".format(gwp)
-    
-                if int(gwp) >= 1000000: add_image('wealthy')
-                
-                if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
+                except:
+                    sg.Popup('Failed during non-mainworld Image creation')
 
             
            
@@ -714,19 +787,20 @@ while True:
         except:
             sg.popup('Error in LOCATION: '+detail_flag)
         
-    elif event == '-STELLAR-':
+    elif event == '-STELLAR-' and not window2:
         try:
             print('pressed STELLAR')
             
             star_list=[]
-            df_star = df_stellar.loc[df_stellar['location'] == location]     
+            df_star = df_stellar.loc[df_stellar['location'] == location]    
+            star_columns = list(df_star.columns)
             for s in range(0,df_star.shape[0]):
                 row = ''
                 row=df_star.iloc[s]
                 star_list.append(row)
-                
-                
-            sg.popup_scrolled(star_list,size=(30,30))    
+            window2 = make_win2(star_columns,star_list,location)
+  
+
         except:
             print('Failed Stellar button')
             
@@ -736,35 +810,21 @@ while True:
             detail_flag = 'exo_world'
             
             
-            
-
-            
-            
-            
             loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
             detail_info = df_exo_details[df_exo_details['location_orb'] == location_orb_name]
             economic_info = df_economic[df_economic['location'] == location]
             
-            
 
             exo_location_orb_name = values['-LOCATIONS-'][0]
             exo_location = values['-LOCATIONS-'][0][0:4]
-            
-            
-
-            
+           
             exo_loc_info = df_exo.loc[df_exo['location'] == location]
             exo_detail_info = df_details[df_details['location'] == location]
-
-    
-     
 
             economic_info = df_economic[df_economic['location'] == location]            
             economic_info['exchange'] = round(economic_info['exchange'],2)  # otherwise crazy decimals added    
 
             exo_loc_info['loc_name'] = exo_loc_info['location_orb'] 
-
-
 
             exo_list = list(exo_loc_info['loc_name'])
             exo_list.sort()

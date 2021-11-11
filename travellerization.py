@@ -66,7 +66,7 @@ def add_traveller_stats(seed_number,db_name):
         sql3_select_t_stars = """  SELECT   location, 
                                             luminosity_class, 
                                             spectral_type
-                                    FROM    stellar_bodies WHERE companion_class = '2' """
+                                    FROM    stellar_bodies WHERE companion_class = '2' OR companion_class = '1.1' """
                                     
         c.execute(sql3_select_t_stars)
         allrows = c.fetchall()
