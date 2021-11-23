@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<Sector>
+<Name>sector_db/routesparse-77.db</Name>
+<Routes>...
+    <Route Start='0829' End='1031'  />
+    <Route Start='1908' End='2310'  />
+    <Route Start='2310' End='2512'  />
+    <Route Start='2834' End='3134'  />
+    <Route Start='0829' End='1031'  />
+    <Route Start='1908' End='2310'  />
+    <Route Start='2310' End='2512'  />
+    <Route Start='2834' End='3134'  />
+    <Route Start='0829' End='1031'  />
+    <Route Start='1908' End='2310'  />
+    <Route Start='2310' End='2512'  />
+    <Route Start='2512' End='2713'  />
+    <Route Start='2713' End='3112'  />
+    <Route Start='2834' End='3134'  />
+    <Route Start='3112' End='2911'  />
+    <Route Start='2911' End='2608'  />
+    <Route Start='2608' End='2806'  />
+    <Route Start='2806' End='3206'  />
+    <Route Start='3134' End='2834'  />
+    <Route Start='2834' End='2938'  />
+    <Route Start='2938' End='3239'  />
+    <Route Start='1031' End='1133'  />
+    <Route Start='1133' End='1535'  />
+    <Route Start='1535' End='1536'  />
+    <Route Start='2627' End='2731'  />
+    <Route Start='2731' End='2834'  />
+    <Route Start='1821' End='2023'  />
+    <Route Start='2023' End='2226'  />
+    <Route Start='2226' End='2627'  />
+    <Route Start='1536' End='1535'  />
+    <Route Start='1535' End='1933'  />
+    <Route Start='1933' End='2331'  />
+    <Route Start='2331' End='2731'  />
+    <Route Start='2731' End='2834'  />
+</Routes>
+<Labels>
+    <Label Hex='0829' Color="red">Ix+</Label>
+    <Label Hex='1031' Color="red">Ix+</Label>
+    <Label Hex='1536' Color="red">Ix+</Label>
+    <Label Hex='1821' Color="red">Ix+</Label>
+    <Label Hex='1908' Color="red">Ix+</Label>
+    <Label Hex='2310' Color="red">Ix+</Label>
+    <Label Hex='2512' Color="red">Ix+</Label>
+    <Label Hex='2627' Color="red">Ix+</Label>
+    <Label Hex='2834' Color="red">Ix+</Label>
+    <Label Hex='3112' Color="red">Ix+</Label>
+    <Label Hex='3134' Color="red">Ix+</Label>
+    <Label Hex='3206' Color="red">Ix+</Label>
+    <Label Hex='3239' Color="red">Ix+</Label>
+</Labels>
+</Sector>

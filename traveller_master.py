@@ -13,7 +13,7 @@ def make_sector_master(makeit_list):
     from non_mw import generate_non_mainworlds
     from far_trader import generate_far_trader_stats
     from journey_data import build_journey_table
-    from routes import build_route_xml
+    from routes_short_path import create_route_xml
     import PySimpleGUI as sg
 
     
@@ -38,7 +38,7 @@ def make_sector_master(makeit_list):
     print('Building Far Trader table')
     generate_far_trader_stats(seed_number,db_name)
     print('Building Routes file')
-    build_route_xml(seed_number,db_name)
+    create_route_xml(seed_number,db_name)
 
 
     sg.popup('Sector completed successfully')    
