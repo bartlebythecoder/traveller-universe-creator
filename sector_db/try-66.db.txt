@@ -1,0 +1,431 @@
+Hex	Name	UWP	Remarks	{Ix}	(Ex)	[Cx]	Nobility	Bases	Zone	PBG	W	Allegiance	Stars
+0101	Archon	A6A4730-A	Fl	{+2}	(569-4)	[694D]	B	-	-	101	4	Im	M5 V M5 V
+0102	Arnolda	B200865-C	Va Ph Na Pi	{+2}	(87D-2)	[5A58]	eDB	-	-	806	8	Im	K0 V
+0103	Pholus	D200512-7	Va Ni	{-3}	(C43+4)	[4268]	B	-	-	513	7	Im	K5 V
+0104	Zerlina	C6A6400-9	Fl Ni	{-1}	(535-2)	[138C]	B	-	-	203	6	Im	M5 V
+0106	Caliumi	C000334-8	As Va Lo	{-2}	(E21+0)	[117B]	B	-	-	914	7	Im	M0 V
+0108	Koopman	B1006A7-C	Va Ni Na	{+1}	(B55-1)	[671F]	B	-	-	514	7	Im	K5 V
+0109	Iguassu	B10089B-E	Va Ph Na Pi	{+2}	(D77-2)	[AA4E]	eDB	N	-	204	7	Im	M0 V
+0110	Houghten	C100657-D	Va Ni Na	{+0}	(F55+0)	[363D]	B	-	-	615	7	Im	M5 V
+0120	Rishirifuji	B8A3631-B	Fl Ni	{+1}	(952+0)	[2726]	B	-	-	505	8	Im	K5 V
+0121	Betsill	A9A4A9A-D	Fl Hi In	{+5}	(79A-2)	[AF7B]	fEB	NS	-	103	7	Im	M0 V
+0127	Gowland	CAB3321-6	Fl Lo	{-2}	(521-1)	[5197]	B	S	-	501	8	Im	G5 V
+0129	Schupmann	C300124-B	Va Lo	{+0}	(D01+3)	[115A]	B	-	-	707	8	Im	w D
+0134	Vaasa	E000156-8	As Va Lo	{-3}	(C01+5)	[21A4]	B	-	-	825	8	Im	M0 V
+0135	Gerbefremov	B6A39C7-8	Fl Hi In	{+2}	(B89+3)	[BB46]	EB	-	-	904	8	Im	K5 V
+0136	Kiladze	B2008BD-9	Va Ph Na Pi	{+2}	(B7B-2)	[9A7D]	eDB	NS	-	904	6	Im	M5 V
+0139	Nolde	C6A1558-7	Fl He Ni Px	{-2}	(A42-2)	[335C]	B	S	-	613	8	Im	G0 V
+0140	Santo	C6B6373-7	Fl Lo	{-2}	(621+0)	[4185]	B	-	-	503	6	Im	M5 V
+0201	Ekrutt	C975401-9	Ni Pa	{-1}	(B33+2)	[7349]	cB	-	-	313	8	Im	G0 V
+0203	Gann	C8A0302-A	He Lo	{+0}	(C21+0)	[538D]	B	S	-	704	7	Im	M0 V
+0207	Braslos	CCB2843-6	Fl He Ph	{-1}	(C75+4)	[C741]	eB	-	-	204	7	Im	M5 V
+0209	Yagudina	A6A2899-9	Fl He Ph	{+1}	(B7D-1)	[4987]	eB	-	-	713	8	Im	K0 V
+0216	Seki	D410344-6	Lo	{-3}	(721+1)	[1157]	B	S	-	401	9	Im	F0 V
+0218	Bogard	A100777-E	Va Na Pi	{+2}	(D66-3)	[A92F]	DB	-	-	715	7	Im	M5 V
+0219	Dinotina	B100732-B	Va Na Pi	{+2}	(766-1)	[795A]	DB	N	-	804	6	Im	M5 V
+0221	Amaldi	C200575-9	Va Ni	{-1}	(F45+1)	[547C]	B	-	-	106	8	Im	M0 V
+0237	Toyako	D100449-A	Va Ni	{-1}	(D31-4)	[1347]	B	-	-	104	7	Im	M5 V
+0302	Carletonville	D100346-9	Va Lo	{-2}	(B21-2)	[414A]	B	-	-	713	6	Im	K5 V M5 V w D
+0307	Pyatnitskij	C200595-6	Va Ni	{-2}	(640+3)	[431B]	B	S	-	603	7	Im	K5 V
+0310	Matsushima	C100422-B	Va Ni	{+0}	(F32+1)	[745B]	B	-	-	314	8	Im	M0 V
+0313	Urras	C410216-9	Lo	{-1}	(811+0)	[11AC]	B	-	-	412	8	Im	G5 V
+0314	Sundaresh	B4107BF-D	Na Pi	{+2}	(B6A-1)	[697A]	DB	S	A	410	4	Im	K5 V M5 V
+0315	Minerva	A685646-A	Ga Ni Ag Ri	{+3}	(855+4)	[8969]	CB	-	-	400	5	Im	F5 V M5 V
+0324	Heimdal	C6A2556-6	Fl He Ni Px	{-2}	(540+1)	[3369]	B	-	-	105	7	Im	M5 V
+0325	Heyler	EFB3414-7	Fl Ni	{-3}	(A30+1)	[8177]	B	-	-	813	8	Im	K5 V
+0327	Megmoulding	AFB0745-A		{+2}	(868+3)	[A937]	B	N	-	303	8	Im	K0 V
+0335	Bergvall	E100446-9	Va Ni	{-2}	(B30+0)	[6239]	B	-	-	502	4	Im	M5 V M5 V
+0406	Rohit	CCB2430-9	Fl He Ni	{-1}	(E33-2)	[5346]	B	S	-	603	8	Im	K0 V
+0411	Zanotta	D6B4310-3	Fl Lo	{-3}	(321-1)	[3151]	B	S	-	815	7	Im	M5 V
+0418	Kiek	C6B9522-7	Fl Ni	{-2}	(344-1)	[633B]	B	S	-	303	7	Im	M0 V
+0421	Bahir Dar	ACB3998-E	Fl Hi In	{+4}	(58C-1)	[9D4C]	fEB	-	-	303	8	Im	K0 V
+0430	Gonzales	C6A6720-9	Fl	{+0}	(B67+1)	[8776]	B	-	-	300	5	Im	G0 V M5 V
+0431	Sue	C000532-A	As Va Ni	{+0}	(641+4)	[35A7]	B	S	-	600	3	Im	M0 V w D
+0433	Aconcagua	C100546-8	Va Ni	{-2}	(F40+0)	[331A]	B	S	-	705	8	Im	M0 V
+0437	Burdigala	B200657-D	Va Ni Na	{+1}	(B52+1)	[976B]	B	N	-	306	7	Im	M0 V
+0440	Arbesfeld	C6A6440-9	Fl Ni	{-1}	(D35-4)	[538C]	B	-	-	714	7	Im	M0 V
+0501	Saint-Louis	A8B39AA-F	Fl Hi In	{+4}	(A8D-2)	[5D5F]	fEB	N	-	400	4	Im	K5 V K5 V
+0508	Shunde	C5A0000-0	He Ba	{-2}	(700+4)	[0000]	B	S	-	003	5	Im	M0 V M5 V
+0511	Hokule'A	D10047C-7	Va Ni	{-3}	(630-2)	[6173]	B	S	-	800	3	Im	M5 V M5 V
+0521	Saldanha	C200423-A	Va Ni	{+0}	(F35+0)	[7457]	B	S	-	308	8	Im	w D
+0522	Shigei	C7A2311-8	Fl He Lo	{-2}	(C21-3)	[6167]	B	S	-	903	9	Im	F5 V
+0534	Guiraudon	B5B4898-9	Fl Ph	{+1}	(A76-1)	[B94A]	eB	N	-	814	8	Im	K5 V
+0535	Nikol'Skij	D100433-A	Va Ni	{-1}	(C35+4)	[633B]	B	S	-	106	8	Im	M0 V
+0537	Leiden	A410659-B	Ni Na	{+1}	(F54+3)	[475B]	B	-	-	104	7	Im	M0 V
+0538	Djelfa	D200210-6	Va Lo	{-3}	(711-3)	[3156]	B	S	-	305	7	Im	M0 V
+0607	Orlande	D100467-9	Va Ni	{-2}	(B32+1)	[327D]	B	-	-	904	8	Im	M0 V
+0608	Amelia	C953656-7	Ni Po	{-2}	(650-1)	[6473]	B	-	-	213	9	Im	F0 V
+0609	Athshe	D6A1521-3	Fl He Ni	{-3}	(841-3)	[4275]	B	-	-	600	4	Im	K0 V M5 V
+0615	Katyusha	B76A665-8	Wa Ni Ri	{+0}	(C56+1)	[7658]	CB	S	-	204	8	Im	K5 V
+0616	Dali	D000223-A	As Va Lo	{-1}	(A11-4)	[118A]	B	S	-	115	7	Im	w D
+0618	Foucault	C000447-7	As Va Ni	{-2}	(631-5)	[3298]	B	-	-	115	6	Im	M5 V
+0620	Sotogahama	B769698-7	Ni Ri	{+1}	(955-2)	[2725]	CB	NS	-	314	8	Im	K0 V
+0623	Cedar Rapids	C7A6245-6	Fl Lo	{-2}	(511+1)	[1157]	B	S	-	103	7	Im	M0 V
+0626	Kuncham	D100524-8	Va Ni	{-3}	(741+1)	[5249]	B	S	-	901	3	Im	M0 V M5 V
+0634	Mogamigawa	C5A3467-9	Fl Ni Px	{-1}	(B31+2)	[4387]	B	S	-	104	8	Im	G0 V
+0636	Aaronrozon	E200200-A	Va Lo	{-1}	(E11-1)	[217C]	B	-	-	405	7	Im	M0 V
+0639	Tanakadate	B300653-D	Va Ni Na	{+1}	(F54-3)	[973B]	B	-	-	605	8	Im	K5 V
+0701	Thusnelda	CCB1204-6	Fl He Lo	{-2}	(611+3)	[2115]	B	S	-	503	8	Im	G5 V
+0702	Yauza	A000887-F	As Va Ph Na Pi	{+2}	(C77+2)	[7A4E]	eDB	-	-	615	8	Im	M0 V
+0703	Diehl	AAB17A7-E	Fl He	{+2}	(969+1)	[599C]	B	N	-	503	9	Im	F0 V
+0705	Matthew	D410514-6	Ni	{-3}	(642+4)	[7246]	B	S	-	704	7	Im	K5 V
+0709	Bappu	C864402-8	Ni Pa	{-2}	(430+2)	[1258]	cB	S	-	100	3	Im	K0 V K5 V
+0711	Kaluga	BAB2643-9	Fl He Ni	{+0}	(951+1)	[7669]	B	N	-	212	9	Im	F0 V
+0714	Fangxing	ABB1863-B	Fl He Ph	{+2}	(579+3)	[BA38]	eB	-	-	303	8	Im	K5 V
+0721	Kuprin	E5B3223-8	Fl Lo	{-3}	(B11+1)	[2115]	B	-	-	404	7	Im	M0 V
+0725	Viete	A9A5666-D	Fl Ni Px	{+1}	(A57-5)	[575D]	B	N	-	205	7	Im	M5 V
+0728	Alkimos	A5A09C7-C	He Hi In	{+4}	(A8F+2)	[7D89]	fEB	N	-	803	8	Im	G0 V
+0729	Alvare	C6A6578-6	Fl Ni	{-2}	(940-2)	[6333]	B	-	-	810	4	Im	G0 III M5 III
+0733	Teckman	B5A1787-B	Fl He	{+2}	(566-2)	[892D]	B	-	-	500	4	Im	K5 V K5 V
+0737	Federer	C969324-5	Lo	{-2}	(821-2)	[3166]	B	-	-	113	8	Im	G5 V
+0738	Nealwadhwa	C5B2210-8	Fl He Lo	{-2}	(411-2)	[1146]	B	-	-	602	7	Im	K5 V
+0801	Cuney	B000844-A	As Va Ph Na Pi	{+2}	(B79-1)	[5A3B]	eDB	S	-	913	8	Im	K5 V
+0802	Shapiro	A867785-A	Ga Ag Ri	{+5}	(86B-1)	[5C5B]	fCB	NS	-	911	9	Im	F0 V
+0807	Peaker	D100442-8	Va Ni	{-3}	(A30-1)	[8154]	B	S	-	605	8	Im	M0 V
+0808	Sydney	B300766-D	Va Na Pi	{+2}	(B6D-3)	[B91E]	DB	-	-	505	8	Im	M0 V
+0809	Melpomene	A8819D8-A	Hi Pr	{+4}	(88A-2)	[BD3A]	fEcB	NS	-	300	3	Im	G5 V w D
+0812	Aga	C4A1437-8	Fl He Ni Px	{-2}	(B32-2)	[1267]	B	-	-	604	7	Im	M0 V
+0815	Minoruoda	E100110-5	Va Lo	{-3}	(801+2)	[1153]	B	-	-	606	8	Im	K5 V
+0816	Campestris	A1008AA-F	Va Ph Na Pi	{+2}	(E75+0)	[BA9D]	eDB	-	-	306	8	Im	K5 V
+0817	Feijunlong	D200200-6	Va Lo	{-3}	(911+1)	[1155]	B	-	-	204	6	Im	M5 V
+0818	Saint Paul	B30086B-8	Va Ph Na Pi	{+0}	(D74+3)	[3856]	eDB	N	-	803	8	Im	K5 V
+0819	Elpis	B410878-C	Ph Na Pi	{+2}	(B79+3)	[9A28]	eDB	-	-	201	4	Im	M0 V M5 V
+0820	Gunnarsson	C843626-9	Ni Po	{-1}	(D53-1)	[659A]	B	S	-	113	9	Im	F5 V
+0821	Shlon	C100346-7	Va Lo	{-2}	(721-1)	[3148]	B	S	-	103	6	Im	M5 V
+0823	Abderhalden	D9A1541-8	Fl He Ni	{-3}	(B40+5)	[7289]	B	S	-	613	7	Im	K5 V
+0826	Belling	BCB479C-A	Fl	{+2}	(867-1)	[792A]	B	-	-	204	8	Im	G5 V
+0828	Balbastre	D4A3459-6	Fl Ni Px	{-3}	(930+2)	[3144]	B	S	-	106	7	Im	M5 V
+0832	Margalida	C200547-6	Va Ni	{-2}	(742-2)	[7318]	B	S	-	105	7	Im	M0 V
+0834	Etheridge	CFB4324-7	Fl Lo	{-2}	(621+0)	[1137]	B	-	-	502	8	Im	G5 V
+0840	Compassion	C6A4456-7	Fl Ni Px	{-2}	(334+4)	[6287]	B	S	-	313	8	Im	G0 V
+0901	Marcelle	A1006AC-C	Va Ni Na	{+1}	(957+2)	[671C]	B	N	-	513	7	Im	M0 V
+0905	Watsonia	D8A7573-5	Fl Ni	{-3}	(943+1)	[924A]	B	S	-	604	7	Im	M0 V
+0907	Bologna	A866894-8	Ga Ph Pa Ri	{+1}	(877+1)	[8964]	eCcB	S	-	301	5	Im	K5 V M5 V
+0909	Rollandia	C00068A-A	As Va Ni Na	{+0}	(E53-1)	[A63D]	B	-	-	812	5	Im	M0 V M5 V
+0919	Veralynn	E5A6411-5	Fl Ni	{-3}	(630+4)	[1196]	B	-	-	804	6	Im	M5 V
+0920	Tinya	B8A568A-B	Fl Ni	{+1}	(753-1)	[977D]	B	-	-	423	9	Im	F5 V
+0921	Vaughan	B4109C7-A	Hi Na In	{+4}	(787-4)	[9D78]	fEB	S	-	605	8	Im	M0 V
+0922	Zalgiris	C747458-6	Ni Pa	{-2}	(C30-4)	[7251]	cB	-	-	603	8	Im	K0 V
+0924	Illyria	C6A6587-6	Fl Ni	{-2}	(740+3)	[7327]	B	-	-	311	6	Im	M5 V w D w D
+0928	Mikkola	B6539CB-8	Hi Po	{+1}	(F88+4)	[BA65]	EB	N	-	804	8	Im	G5 V
+0935	Elysia	B200776-9	Va Na Pi	{+1}	(964+1)	[786B]	DB	-	-	504	4	Im	w D w D
+0938	Longmire	A8C2974-B	Fl He Hi In	{+4}	(98A-1)	[BD1F]	fEB	-	-	113	9	Im	F0 V
+1003	Hartmut	D100245-A	Va Lo	{-1}	(A11-2)	[116A]	B	S	-	705	7	Im	M0 V
+1006	Santagata	C100200-9	Va Lo	{-1}	(D11+2)	[117B]	B	S	-	104	6	Im	M5 V
+1010	Molidarus	C5A4512-7	Fl Ni	{-2}	(440+0)	[43A5]	B	-	-	303	9	Im	F5 V
+1013	Tuthmosis	A6A98B9-D	Fl Ph	{+3}	(E7E+5)	[5B7E]	eB	NS	-	414	7	Im	M0 V
+1014	Yoshitomi	C5A8523-7	Fl Ni	{-2}	(540-2)	[5354]	B	S	-	903	9	Im	F0 V
+1019	Ichiro	C300666-9	Va Ni Na	{-1}	(D50-4)	[3556]	B	S	-	903	7	Im	M0 V
+1023	Gogol	B3008CE-A	Va Ph Na Pi	{+2}	(97A+1)	[BA17]	eDB	-	A	802	4	Im	M0 V M5 V
+1025	Theodora	E000000-0	As Va Ba	{-3}	(400-1)	[0000]	B	-	-	013	8	Im	K5 V
+1027	Arkesilaos	D000537-8	As Va Ni	{-3}	(A40-1)	[2253]	B	S	-	322	9	Im	F0 V
+1028	Plovdiv	E000200-6	As Va Lo	{-3}	(811-1)	[3149]	B	-	-	324	8	Im	G5 V
+1029	Boznemcova	D200585-8	Va Ni	{-3}	(A43-1)	[3257]	B	S	-	804	7	Im	K5 V
+1033	Gustavbrom	C200778-7	Va Na Pi	{-1}	(368+1)	[2612]	DB	-	-	308	8	Im	w D
+1034	Berenyi	C6A6533-6	Fl Ni	{-2}	(740-1)	[A355]	B	-	-	123	9	Im	F5 V
+1039	Giovanni	E100476-6	Va Ni	{-3}	(C33+4)	[3144]	B	-	-	600	4	Im	G0 V G5 V
+1040	Fukusaki	C5B0699-A	He Ni	{+0}	(D53-1)	[8627]	B	S	-	510	4	Im	K5 V w D
+1105	Alvsjo	X300113-2	Va Lo	{-3}	(601-4)	[2143]	B	-	R	203	4	Im	w D w D
+1108	Ogawa	B410888-B	Ph Na Pi	{+2}	(A7E+3)	[BA66]	eDB	-	-	104	7	Im	M0 V
+1111	Wenyi	B867756-7	Ga Ag Ri	{+2}	(369-1)	[4987]	CB	-	-	803	8	Im	K0 V
+1113	Carmagnola	C100000-0	Va Ba	{-2}	(700-2)	[0000]	B	S	-	014	7	Im	M5 V
+1114	Fresno	ACB5865-D	Fl Ph	{+2}	(37A+2)	[8A3B]	eB	N	-	110	8	Im	M0 III
+1118	Geneparker	C100346-A	Va Lo	{+0}	(E21-2)	[536C]	B	S	-	304	6	Im	M5 V
+1119	Meistas	B7A0694-8	He Ni	{-1}	(A54+2)	[4555]	B	S	-	503	8	Im	G5 V
+1120	Eri	C20058B-8	Va Ni	{-2}	(F40-2)	[239B]	B	S	-	407	7	Im	w D
+1126	Dalera	C100415-C	Va Ni	{+0}	(F31+1)	[346D]	B	-	-	406	8	Im	M0 V
+1132	Endicott	B8A4855-D	Fl Ph	{+2}	(D7A+1)	[BA3F]	eB	S	-	413	8	Im	G5 V
+1135	Nanten	C5A8765-6	Fl	{-1}	(765+1)	[A6A5]	B	-	-	413	8	Im	G0 V
+1136	Lincoln	CBB2512-8	Fl He Ni	{-2}	(A44+1)	[2336]	B	-	-	824	8	Im	K5 V
+1137	Londontario	BCB477A-C	Fl	{+2}	(866-4)	[595B]	B	-	-	513	8	Im	G5 V
+1201	Porta	D9A2488-7	Fl He Ni Px	{-3}	(830-2)	[117A]	B	-	-	914	9	Im	F0 V
+1209	Manu	C5B85AA-9	Fl Ni	{-1}	(E40+0)	[7469]	B	S	-	404	8	Im	K0 V
+1211	Ritina	A4107A7-E	Na Pi	{+2}	(D69+0)	[795F]	DB	-	-	503	7	Im	M0 V
+1212	Neumann	C10059B-8	Va Ni	{-2}	(B43+1)	[238A]	B	S	-	405	7	Im	M0 V
+1213	Jenik	A5A5987-B	Fl Hi In	{+5}	(D8C+2)	[9EA9]	fEB	NS	-	315	8	Im	M0 V
+1218	Levi	C9B6440-7	Fl Ni	{-2}	(430-1)	[1226]	B	-	-	504	6	Im	M5 V
+1221	Knutsson	C410110-8	Lo	{-2}	(901+5)	[1154]	B	-	-	700	3	Im	F0 V F5 V
+1223	Carlwirtz	C300227-6	Va Lo	{-2}	(C11-4)	[3175]	B	-	-	205	8	Im	K0 V
+1225	Donn	B6A09CD-C	He Hi In	{+4}	(B8B+0)	[7D88]	fEB	-	-	412	9	Im	A5 V
+1232	Tsereteli	C9A5685-6	Fl Ni	{-2}	(350+3)	[44A6]	B	-	-	804	7	Im	M0 V
+1234	Boroski	A78287A-C	Ph Ri	{+3}	(B79+2)	[5B4C]	eCB	-	-	404	8	Im	G0 V
+1301	Kordula	C200486-B	Va Ni	{+0}	(F34-1)	[543C]	B	-	-	807	7	Im	w D
+1302	Teller	D7A4467-5	Fl Ni Px	{-3}	(530+0)	[1166]	B	-	-	204	8	Im	K5 V
+1309	Szeged	B1009EE-F	Va Hi Na In	{+4}	(F8E-3)	[AD4F]	fEB	-	A	705	6	Im	M5 V
+1312	Komaki	E6B5100-7	Fl Lo	{-3}	(801+2)	[4188]	B	-	-	502	8	Im	G0 V
+1316	Hermine	C300102-8	Va Lo	{-2}	(B01-1)	[116A]	B	-	-	213	7	Im	K5 V
+1325	Centenaria	C300620-7	Va Ni Na	{-2}	(451-2)	[7412]	B	S	-	904	8	Im	K5 V
+1326	Hinn	E200365-9	Va Lo	{-2}	(E21+3)	[8127]	B	-	-	307	8	Im	M0 V
+1328	Turgon	E8A3000-0	Fl Ba	{-3}	(800+1)	[0000]	B	-	-	022	9	Im	F0 V
+1329	Octavia	C6A3565-9	Fl Ni	{-1}	(A45-2)	[4495]	B	S	-	502	8	Im	K0 V
+1331	Kaminokawa	C200445-A	Va Ni	{+0}	(B32+0)	[146B]	B	S	-	707	7	Im	w D
+1335	Bleustein	C100565-C	Va Ni	{+0}	(C45-1)	[955D]	B	-	-	104	6	Im	M5 V
+1405	Bryan	D410463-4	Ni	{-3}	(630-3)	[2187]	B	S	-	504	8	Im	K5 V
+1408	Hakuhou	E993225-2	Lo	{-3}	(511+3)	[6142]	B	-	-	702	9	Im	F0 V
+1411	Hangzhou	ACB4641-9	Fl Ni	{+1}	(E56-4)	[A737]	B	NS	-	114	8	Im	K5 V
+1414	Sviridov	A4B3687-D	Fl Ni Px	{+1}	(F57-3)	[37AF]	B	N	-	906	7	Im	w D
+1418	Buguma	B300612-B	Va Ni Na	{+1}	(B54-3)	[674C]	B	-	-	404	6	Im	M5 V
+1419	Puntel	C9D1114-8	Lo	{-2}	(701-2)	[2177]	B	-	-	200	3	Im	A0 V A5 V
+1423	Rocca	B100686-9	Va Ni Na	{+0}	(D55-1)	[7659]	B	-	-	704	6	Im	M5 V
+1425	Leibacher	A200755-E	Va Na Pi	{+2}	(C6A-1)	[694C]	DB	-	-	204	7	Im	M0 V
+1431	Nachikatsuura	D200200-5	Va Lo	{-3}	(A11+4)	[4119]	B	S	-	114	8	Im	K5 V
+1432	Perepadin	B6A088B-C	He Ph	{+2}	(A78-3)	[9A2B]	eB	-	-	300	4	Im	G5 V M5 V
+1433	Surtris	C100427-8	Va Ni	{-2}	(D34+0)	[1288]	B	-	-	206	7	Im	M5 V
+1434	Mamontov	ACB77CC-C	Fl	{+2}	(B67-1)	[793B]	B	-	-	204	8	Im	K0 V
+1437	Trigo	E5B0430-8	He Ni	{-3}	(831+4)	[6178]	B	-	-	800	2	Im	w D w D
+1438	Sunkel	A9A079B-B	He	{+2}	(A6A+4)	[591B]	B	-	-	712	8	Im	K0 V
+1506	Gabes	B8A4754-C	Fl	{+2}	(96C+0)	[697F]	B	S	-	712	8	Im	G5 V
+1509	Ausonia	B200868-C	Va Ph Na Pi	{+2}	(C7A-1)	[7A8D]	eDB	S	-	505	8	Im	K5 V
+1510	Lieske	B20089B-C	Va Ph Na Pi	{+3}	(77D+0)	[9B2F]	eDB	NS	-	405	7	Im	M0 V
+1515	Kazakov	B1006A9-E	Va Ni Na	{+1}	(E57-3)	[87AF]	B	N	-	304	6	Im	M5 V
+1516	Von Liebig	BCB3876-A	Fl Ph	{+2}	(C74-3)	[7AAC]	eB	N	-	704	8	Im	G5 V
+1517	Simonek	C410332-7	Lo	{-2}	(921+1)	[4129]	B	-	-	825	8	Im	K5 V
+1518	Clivia	C6A2777-5	Fl He	{-1}	(667+0)	[A644]	B	S	-	604	8	Im	K0 V
+1525	Erigone	B20088B-C	Va Ph Na Pi	{+2}	(C74+0)	[7A6D]	eDB	-	-	606	7	Im	w D
+1533	Linfred	C8A6444-9	Fl Ni	{-1}	(E35-5)	[335A]	B	-	-	713	5	Im	M0 V M5 V
+1534	Pathall	A7A6978-B	Fl Hi In	{+4}	(88D-3)	[9D19]	fEB	N	-	600	4	Im	M0 V M5 V
+1537	Sasaguri	C100449-7	Va Ni	{-2}	(C30+0)	[927A]	B	-	-	404	8	Im	K5 V
+1538	Brunk	C200777-8	Va Na Pi	{-1}	(A66-1)	[864A]	DB	-	-	505	7	Im	M0 V
+1540	Leonidas	A0006BE-C	As Va Ni Na	{+1}	(E56+0)	[376C]	B	N	-	125	8	Im	M0 V
+1601	Fedotov	E100000-0	Va Ba	{-3}	(500-1)	[0000]	B	-	-	005	6	Im	M5 V
+1602	Dallolmo	C5A0531-5	He Ni	{-2}	(941+3)	[5397]	B	-	-	104	7	Im	M0 V
+1606	Moisseiev	B300743-C	Va Na Pi	{+2}	(C65+4)	[493A]	DB	-	-	803	7	Im	M0 V
+1610	Thyra	C5A0678-5	He Ni	{-2}	(751+2)	[7467]	B	S	-	800	3	Im	K5 V M5 V
+1614	Gmunden	C666146-9	Ga Lo	{-1}	(D01-1)	[116B]	B	-	-	415	7	Im	M5 V
+1615	Condorcet	C7A8558-8	Fl Ni	{-2}	(741+0)	[335B]	B	S	-	903	7	Im	M0 V
+1618	Grimmett	C200541-7	Va Ni	{-2}	(741+5)	[7367]	B	-	-	204	7	Im	M5 V
+1620	Keisaku	A5B0851-A	He Ph	{+2}	(979+0)	[DA1A]	eB	N	-	303	8	Im	K5 V
+1621	Bloxwich	B100999-F	Va Hi Na In	{+4}	(C88-1)	[5D9C]	fEB	S	-	303	7	Im	K5 V
+1622	Caravelli	A7B8987-E	Fl Hi In	{+4}	(78B-4)	[9D4F]	fEB	S	-	102	6	Im	M5 V
+1625	Magnolia	BAB3673-B	Fl Ni	{+1}	(753+4)	[578E]	B	N	-	702	8	Im	K0 V
+1626	Loharu	B1008A9-9	Va Ph Na Pi	{+1}	(779+1)	[6976]	eDB	N	-	204	6	Im	M5 V
+1627	Stovall	B7A4ABC-F	Fl Hi In	{+4}	(A9D-1)	[8E1C]	fEB	-	-	314	8	Im	G0 V
+1632	Svoboda	C7A1547-7	Fl He Ni Px	{-2}	(241+2)	[7367]	B	-	-	702	8	Im	G0 V
+1634	Sartarix	CCB0423-5	He Ni	{-2}	(430+1)	[4228]	B	S	-	713	8	Im	G0 V
+1635	Nanbu	CAB6416-7	Fl Ni	{-2}	(A32-1)	[1233]	B	-	-	604	6	Im	M5 V
+1636	Lixiaohua	AEB3886-9	Fl Ph	{+1}	(978+4)	[A91C]	eB	N	-	503	9	Im	F0 V
+1706	Turnera	D410567-4	Ni	{-3}	(A41+0)	[5235]	B	S	-	403	6	Im	M0 V M5 V M5 V
+1709	Briegel	C300834-8	Va Ph Na Pi	{-1}	(B77+4)	[8756]	eDB	-	-	906	7	Im	w D
+1711	Kotel	B100654-E	Va Ni Na	{+1}	(954+1)	[577C]	B	S	-	604	6	Im	M5 V
+1713	Karajan	C100734-7	Va Na Pi	{-1}	(862+0)	[667B]	DB	-	-	904	7	Im	w D
+1718	Tlanus	CAB4787-8	Fl	{-1}	(86B-2)	[3674]	B	-	-	204	7	Im	M0 V
+1720	Valpertile	C6A0536-9	He Ni	{-1}	(F44-2)	[844C]	B	-	-	804	8	Im	K0 V
+1722	Partridge	C4B5564-A	Fl Ni	{+0}	(946-2)	[5568]	B	S	-	304	7	Im	M0 V
+1726	Shinkamigoto	DCB3200-7	Fl Lo	{-3}	(311-2)	[2155]	B	-	-	102	9	Im	G0 V
+1730	Azare	C300477-A	Va Ni	{+0}	(A33-1)	[643C]	B	S	-	703	8	Im	G5 V
+1732	Inoueta	ADB2743-9	Fl	{+1}	(B64+1)	[7869]	B	-	-	102	9	Im	A5 V
+1801	Addis Ababa	B773664-B	Ni	{+1}	(A53+2)	[672D]	B	-	-	104	8	Im	K0 V
+1803	Kaasa	A9A1897-9	Fl He Ph	{+1}	(F77+4)	[7919]	eB	N	-	904	8	Im	K0 V
+1804	Papaloizou	C200556-9	Va Ni	{-1}	(A40+2)	[245C]	B	-	-	704	7	Im	M0 V
+1807	Kubisova	CFB5121-6	Fl Lo	{-2}	(701-2)	[5174]	B	S	-	503	8	Im	K0 V
+1809	Darcy	ACB6756-A	Fl	{+2}	(C66+1)	[7959]	B	N	-	214	8	Im	G5 V
+1812	Tsubata	B0006BD-9	As Va Ni Na	{+1}	(A55+4)	[575B]	B	NS	-	414	8	Im	K0 V
+1813	Brecht	C973477-9	Ni	{-1}	(931+3)	[4319]	B	-	-	700	3	Im	G0 V K5 V
+1817	Crivello	B000675-C	As Va Ni Na	{+2}	(E55+0)	[785E]	B	NS	-	825	7	Im	M5 V
+1823	Chkalov	A0007BC-C	As Va Na Pi	{+2}	(C67-3)	[996A]	DB	-	-	623	8	Im	G5 V
+1825	Melete	C100663-C	Va Ni Na	{+0}	(E53+0)	[465E]	B	S	-	205	7	Im	M0 V
+1828	Ortiz	A200976-D	Va Hi Na In	{+4}	(D8F-2)	[8D2B]	fEB	-	-	406	8	Im	K5 V
+1830	Toyohiro	C7A7241-8	Fl Lo	{-2}	(D11-2)	[2169]	B	S	-	605	7	Im	M5 V
+1833	Gaudium	A300766-F	Va Na Pi	{+2}	(66A+1)	[895F]	DB	-	-	810	5	Im	G5 V w D
+1835	Wilkens	D200467-4	Va Ni	{-3}	(730+1)	[5122]	B	-	-	808	8	Im	w D
+1840	Nemunas	B7A09BA-A	He Hi In	{+5}	(78F+3)	[9E1A]	fEB	NS	-	405	8	Im	K0 V
+1901	Corot	A410775-F	Na Pi	{+2}	(D68+0)	[593F]	DB	-	-	404	7	Im	M0 V
+1906	Takabatake	C8B0477-9	He Ni	{-1}	(631-5)	[136E]	B	S	-	104	4	Im	w D w D
+1907	Shoin	C200223-6	Va Lo	{-2}	(711+1)	[1126]	B	S	-	108	8	Im	w D
+1910	Buttani	C6A5454-8	Fl Ni	{-2}	(D31+0)	[9295]	B	-	-	505	8	Im	M0 V
+1913	Atami	CAB2300-A	Fl He Lo	{+0}	(F21-3)	[634E]	B	-	-	723	8	Im	K0 V
+1914	Misato	CAB5489-A	Fl Ni Px	{+0}	(936+1)	[1429]	B	-	-	411	8	Im	G5 V
+1916	Douglas	B2009AB-B	Va Hi Na In	{+4}	(F8C-2)	[7D6B]	fEB	-	-	307	8	Im	M0 V
+1918	Tsiganis	B886757-8	Ga Ag Ri	{+3}	(96D-1)	[7A65]	CB	NS	-	603	9	Im	F5 V
+1921	Grotius	A1009DA-B	Va Hi Na In	{+4}	(C8B-1)	[7D2A]	fEB	-	-	801	4	Im	M5 V M5 V
+1923	Gloor	E9B8200-9	Fl Lo	{-2}	(D11-3)	[412A]	B	-	-	503	8	Im	G5 V
+1924	Sasaki	CCB2141-6	Fl He Lo	{-2}	(701+3)	[3183]	B	S	-	424	8	Im	G0 V
+1930	Mrinalini	A2006A9-C	Va Ni Na	{+1}	(F56-3)	[9769]	B	-	-	708	8	Im	w D
+1931	Rohret	C300201-7	Va Lo	{-2}	(411-5)	[1156]	B	-	-	304	7	Im	M0 V
+1934	Pestalozzi	CCB6410-8	Fl Ni	{-2}	(E33-3)	[3267]	B	-	-	115	8	Im	M0 V
+1935	Palva	B100894-B	Va Ph Na Pi	{+2}	(B78+0)	[9A3A]	eDB	-	-	204	6	Im	M5 V
+1936	Yonaguni	C100323-C	Va Lo	{+0}	(C21+4)	[634C]	B	S	-	602	5	Im	K5 V M5 V
+1937	Cossard	D410575-9	Ni	{-2}	(E42+5)	[2367]	B	S	-	204	7	Im	M0 V
+1938	Maputo	C9A499B-B	Fl Hi In	{+3}	(C85-1)	[5C68]	EB	-	-	104	8	Im	M0 V
+2006	Durrell	A7B9610-D	Fl Ni	{+1}	(B55+2)	[678F]	B	-	-	902	6	Im	M5 V
+2012	Mbandaka	E6A3113-3	Fl Lo	{-3}	(701-1)	[6146]	B	-	-	904	8	Im	K0 V
+2015	Bolzano	C100231-9	Va Lo	{-1}	(C11-4)	[1127]	B	S	-	806	8	Im	w D
+2016	Brasilia	C7A8322-6	Fl Lo	{-2}	(521+2)	[1195]	B	-	-	705	7	Im	M0 V
+2019	Terkan	C100324-C	Va Lo	{+0}	(621+3)	[431C]	B	S	-	500	4	Im	M0 V M5 V
+2024	Mahal	B7A2965-A	Fl He Hi In	{+4}	(D86-3)	[8D1E]	fEB	-	-	506	8	Im	M0 V
+2029	Jinyong	C200325-7	Va Lo	{-2}	(B21+0)	[1145]	B	S	-	101	3	Im	M5 V M5 V
+2035	Tolstikov	C100554-8	Va Ni	{-2}	(841+1)	[1356]	B	-	-	204	7	Im	M0 V
+2036	Spinrad	EAB4444-7	Fl Ni	{-3}	(A30+2)	[7136]	B	-	-	505	8	Im	K5 V
+2037	Kirian	CDB4466-7	Fl Ni Px	{-2}	(434+0)	[1255]	B	-	-	604	8	Im	K0 V
+2107	Kogayuki	C100000-0	Va Ba	{-2}	(B00+1)	[0000]	B	S	-	002	7	Im	M0 V
+2109	Apaosha	B20089C-A	Va Ph Na Pi	{+2}	(778-1)	[BA55]	eDB	-	-	305	8	Im	K0 V
+2110	Mirnaya	CBB3444-8	Fl Ni	{-2}	(730-3)	[8218]	B	-	-	402	9	Im	F5 V
+2112	Burov	B100634-C	Va Ni Na	{+1}	(756+2)	[176C]	B	N	-	604	7	Im	M0 V
+2113	Kirschvink	C200568-A	Va Ni	{+0}	(B44+0)	[8515]	B	S	-	115	7	Im	w D
+2116	Tadjikistan	B000640-D	As Va Ni Na	{+1}	(D52-3)	[475F]	B	-	-	414	6	Im	M5 V
+2123	Ethan	A100886-B	Va Ph Na Pi	{+3}	(77A+2)	[BB7F]	eDB	NS	-	800	3	Im	M0 V M5 V
+2126	Libitina	C200111-A	Va Lo	{+0}	(E01-4)	[116A]	B	-	-	907	7	Im	w D
+2131	Cassiano	D8A3231-4	Fl Lo	{-3}	(611+0)	[1133]	B	-	-	403	8	Im	K0 V
+2132	Shekhtelia	D10068D-8	Va Ni Na	{-3}	(D50-1)	[2369]	B	S	-	306	7	Im	w D
+2133	Pal'Chikov	A000625-B	As Va Ni Na	{+1}	(954-1)	[5729]	B	S	-	614	6	Im	M5 V
+2135	Zachia	E100202-7	Va Lo	{-3}	(711+1)	[1148]	B	-	-	204	7	Im	K5 V
+2136	Stockholm	C4B5643-B	Fl Ni	{+0}	(A53+1)	[7668]	B	-	-	902	4	Im	M5 V M5 V
+2138	Occhialini	A7A4656-C	Fl Ni Px	{+1}	(754+4)	[678C]	B	S	-	700	4	Im	M0 V M5 V
+2201	Bondia	C200100-9	Va Lo	{-1}	(E01+2)	[1157]	B	-	-	206	7	Im	w D
+2204	Megkurohara	E9B0387-3	He Lo	{-3}	(721+2)	[3173]	B	-	-	623	9	Im	F5 V
+2207	Naozane	CCB1448-9	Fl He Ni Px	{-1}	(832+3)	[136B]	B	-	-	712	8	Im	G0 V
+2209	Strassmann	A100630-C	Va Ni Na	{+1}	(452+0)	[475A]	B	-	-	602	4	Im	M5 V w D
+2212	Busch	B20097B-C	Va Hi Na In	{+5}	(C8A-1)	[7E6C]	fEB	NS	-	305	8	Im	K0 V
+2214	Pulaski	C962520-7	Ni Pr	{-2}	(641-1)	[631A]	cB	S	-	602	9	Im	F0 V
+2217	Oribe	C200220-B	Va Lo	{+0}	(A11-1)	[1219]	B	S	-	615	8	Im	M0 V
+2218	Faure	X9A6359-3	Fl Lo	{-3}	(A21+1)	[8193]	B	-	R	604	7	Im	M0 V
+2220	Shaubakshi	E100203-B	Va Lo	{-1}	(311-1)	[316C]	B	-	-	800	2	Im	M5 V M5 V
+2223	Gotlib	C8A5300-9	Fl Lo	{-1}	(921-1)	[5268]	B	S	-	313	9	Im	G0 V
+2224	Hadfield	C9A7326-6	Fl Lo	{-2}	(621+0)	[4144]	B	-	-	414	6	Im	M5 V
+2226	Lapko	B100745-B	Va Na Pi	{+2}	(966+0)	[7938]	DB	N	-	703	4	Im	M5 V M5 V
+2229	Charconley	C7A0364-6	He Lo	{-2}	(721-4)	[1126]	B	S	-	822	9	Im	F0 V
+2230	Ronsawyer	D100486-6	Va Ni	{-3}	(831+2)	[3156]	B	S	-	604	7	Im	M0 V
+2234	Emp	C9A45AD-6	Fl Ni	{-2}	(240-3)	[7334]	B	-	-	703	8	Im	K0 V
+2236	Maire	C200545-6	Va Ni	{-2}	(643+0)	[5383]	B	-	-	504	7	Im	M0 V
+2237	Puckett	C6B4300-7	Fl Lo	{-2}	(921-3)	[1145]	B	-	-	804	8	Im	K0 V
+2307	Schlesinger	C5A0374-5	He Lo	{-2}	(721+0)	[1169]	B	-	-	913	9	Im	G0 V
+2309	Dodelson	C100301-9	Va Lo	{-1}	(C21+5)	[4286]	B	-	-	705	6	Im	M5 V
+2311	Ptah	CBB0231-8	He Lo	{-2}	(611-4)	[113B]	B	-	-	900	5	Im	F5 V K5 V
+2312	Genniferubin	C300440-6	Va Ni	{-2}	(730+4)	[4222]	B	S	-	114	9	Im	G0 V
+2319	Shimanto	C100533-B	Va Ni	{+0}	(B41+4)	[657A]	B	S	-	604	6	Im	M5 V
+2325	Zhenko	EFB4558-7	Fl Ni Px	{-3}	(742+2)	[9244]	B	-	-	513	9	Im	F0 V
+2326	Herrick	C200554-C	Va Ni	{+0}	(843-1)	[558B]	B	S	-	500	4	Im	G0 V M5 V
+2327	Ahrens	D5A45A6-7	Fl Ni Px	{-3}	(540-3)	[6294]	B	S	-	604	7	Im	M0 V
+2331	Okutama	CCB7343-9	Fl Lo	{-1}	(D21-5)	[121A]	B	S	-	804	8	Im	G5 V
+2332	Segre	C9A0231-8	He Lo	{-2}	(C11-2)	[314A]	B	S	-	104	8	Im	K0 V
+2335	Luna	A78566A-B	Ga Ni Ag Ri	{+3}	(D55-1)	[395B]	CB	N	-	914	8	Im	K5 V
+2337	Ruslanova	B100746-C	Va Na Pi	{+2}	(C65-1)	[3957]	DB	-	-	904	6	Im	M5 V
+2339	Arpola	C100531-A	Va Ni	{+0}	(D46+3)	[751E]	B	S	-	414	7	Im	M0 V
+2401	Herge	C200577-A	Va Ni	{+0}	(B42-1)	[258F]	B	-	-	704	7	Im	M0 V
+2404	Nagler	B7A0647-9	He Ni	{+0}	(D51+1)	[B6AB]	B	S	-	313	8	Im	K0 V
+2406	Lincoln	D100386-5	Va Lo	{-3}	(321+0)	[1155]	B	-	-	405	6	Im	M5 V
+2409	Julabeth	E200110-5	Va Lo	{-3}	(801+0)	[1168]	B	-	-	505	7	Im	M5 V
+2411	Raytesar	B2007CA-9	Va Na Pi	{+1}	(C6B-3)	[887A]	DB	-	-	904	8	Im	K0 V
+2412	Nadherna	C200542-8	Va Ni	{-2}	(944-1)	[1356]	B	S	-	804	7	Im	M0 V
+2415	Kiso	B300657-E	Va Ni Na	{+1}	(E52-4)	[676E]	B	-	-	814	6	Im	M5 V
+2420	Rasa	C300331-A	Va Lo	{+0}	(F21+3)	[536B]	B	-	-	905	8	Im	w D
+2422	Dolmatovskij	C510669-7	Ni Na	{-2}	(A53-2)	[6445]	B	-	-	800	2	Im	K5 V M5 V K5 V
+2424	Mombasa	C9A0315-7	He Lo	{-2}	(821-1)	[6183]	B	-	-	502	8	Im	G0 V
+2428	Thoreau	C797426-5	Ni Pa	{-2}	(733+3)	[3251]	cB	S	-	210	4	Im	F0 V F5 V
+2429	Monterosa	A200987-F	Va Hi Na In	{+4}	(D8C+0)	[8D5F]	fEB	N	-	606	7	Im	M5 V
+2436	Gerda	A200644-A	Va Ni Na	{+1}	(F57+1)	[578C]	B	-	-	607	7	Im	w D
+2504	Dytallix	C78A38A-9	Wa Lo	{-1}	(921-2)	[5249]	B	S	-	504	8	Im	G5 V
+2505	Abundantia	C7A2300-8	Fl He Lo	{-2}	(921+3)	[4118]	B	-	-	705	8	Im	M0 V
+2510	Patwalker	AAB5972-D	Fl Hi In	{+4}	(B8A+1)	[AD2A]	fEB	-	-	904	7	Im	M5 V
+2511	Cesky	A10079D-D	Va Na Pi	{+2}	(366-2)	[992C]	DB	N	-	201	6	Im	M5 V
+2513	Miyoshi	BEB59A8-8	Fl Hi In	{+2}	(A85-1)	[8B37]	EB	-	-	613	8	Im	G5 V
+2518	Otokar	CCB2555-A	Fl He Ni	{+0}	(D43+1)	[451C]	B	S	-	403	7	Im	K5 V
+2519	Amphitrite	E100124-8	Va Lo	{-3}	(F01-2)	[3119]	B	-	-	104	6	Im	M5 V
+2523	Kaminokuni	B7606AE-6	De Ni Ri	{+0}	(755+0)	[3655]	CB	S	-	803	9	Im	F5 V
+2525	Sam	C8A2200-6	Fl He Lo	{-2}	(911+0)	[1179]	B	-	-	803	8	Im	G5 V
+2528	Condillac	ADB887C-E	Fl Ph	{+2}	(E7A+2)	[6A5F]	eB	N	-	402	9	Im	G0 V
+2530	Tunis	C000352-B	As Va Lo	{+0}	(F21+1)	[531B]	B	-	-	825	8	Im	M0 V
+2531	Manticore	C100110-7	Va Lo	{-2}	(701+1)	[1144]	B	S	-	101	3	Im	M5 V M5 V
+2532	Egorov	EDB4310-8	Fl Lo	{-3}	(921-3)	[2169]	B	-	-	412	9	Im	F0 V
+2533	Hengzhou	CDB3599-6	Fl Ni Px	{-2}	(740+3)	[6336]	B	-	-	415	8	Im	M0 V
+2536	Griboedov	B200663-A	Va Ni Na	{+1}	(F57-1)	[6768]	B	-	-	307	8	Im	w D
+2601	Wilhelms	A30089A-C	Va Ph Na Pi	{+2}	(C7B+4)	[BA58]	eDB	-	-	904	6	Im	M5 V
+2604	Shuryanka	C30076A-7	Va Na Pi	{-1}	(A68-1)	[5669]	DB	S	-	205	8	Im	M0 V
+2612	Amara	C20035A-7	Va Lo	{-2}	(321+1)	[3164]	B	-	-	604	8	Im	M0 V
+2617	Allentown	E76A226-4	Wa Lo	{-3}	(711-2)	[1148]	B	-	-	310	4	Im	G0 V M5 V
+2624	Dobrovolsky	C631550-B	Ni Po	{+0}	(B41+0)	[4579]	B	-	-	404	8	Im	K5 V
+2625	Louhi	D000421-8	As Va Ni	{-3}	(D30+1)	[517D]	B	S	-	124	8	Im	K0 V
+2626	Astropis	A200985-D	Va Hi Na In	{+4}	(A8E-2)	[9D58]	fEB	N	-	703	7	Im	M0 V
+2630	Mertona	E5A0133-5	He Lo	{-3}	(401+3)	[1176]	B	-	-	214	6	Im	M5 V
+2633	Miklenov	A100973-F	Va Hi Na In	{+4}	(68B+2)	[5D3F]	fEB	N	-	303	7	Im	K5 V
+2634	Jaotsungi	B5A3687-A	Fl Ni Px	{+1}	(D57+2)	[A79B]	B	-	-	404	7	Im	M0 V
+2635	Villon	C8B5337-9	Fl Lo Px	{-1}	(A21-2)	[7277]	B	S	-	303	6	Im	M5 V
+2638	Rosner	E859377-7	Lo	{-3}	(621-4)	[4116]	B	-	-	501	5	Im	K0 V M5 V
+2702	Charcot	C300346-B	Va Lo	{+0}	(F21+0)	[338F]	B	S	-	706	8	Im	M0 V
+2706	Holmia	B100877-E	Va Ph Na Pi	{+2}	(D76+4)	[9A9D]	eDB	-	-	615	7	Im	M5 V
+2708	Aristoteles	C5A4330-9	Fl Lo	{-1}	(E21-5)	[2279]	B	S	-	504	6	Im	M5 V
+2710	Cambier	BFB0796-C		{+2}	(96C-3)	[A918]	B	-	-	602	10	Im	A0 V
+2711	Vadodara	C410523-6	Ni	{-2}	(541-1)	[2378]	B	-	-	915	8	Im	M0 V
+2716	Trinh	EAB0211-4	He Lo	{-3}	(511+1)	[2131]	B	-	-	407	8	Im	w D
+2717	Daly	C300444-A	Va Ni	{+0}	(835+2)	[5448]	B	-	-	200	1	Im	M0 V M5 V
+2720	Aranyjanos	C5A0113-9	He Lo	{-1}	(901+0)	[1129]	B	S	-	600	1	Im	K5 V K5 V
+2721	Tobetsu	C100310-7	Va Lo	{-2}	(921+4)	[2136]	B	S	-	215	8	Im	K5 V
+2727	Susa	E89A486-8	Wa Ni	{-3}	(D30-2)	[6133]	B	-	-	310	9	Im	M0 III
+2730	Phystech	B1007BC-C	Va Na Pi	{+2}	(A6E-1)	[693C]	DB	N	-	105	7	Im	M5 V
+2732	Chenchikwan	C8B3303-7	Fl Lo	{-2}	(321-3)	[4197]	B	S	-	213	7	Im	K5 V
+2736	Uluru	B863896-A	Ph Ri	{+3}	(675+1)	[8B19]	eCB	-	-	612	9	Im	A5 V
+2737	Yoneta	C100598-B	Va Ni	{+0}	(844+0)	[757B]	B	-	-	801	4	Im	M0 V M5 V
+2738	Hennessy	B200633-9	Va Ni Na	{+0}	(A55-2)	[5648]	B	N	-	204	7	Im	M0 V
+2807	Kabandha	X300100-5	Va Lo	{-3}	(601-1)	[1125]	B	-	R	604	7	Im	M5 V
+2809	Chernova	B5A3777-C	Fl	{+2}	(D6C+2)	[493D]	B	-	-	411	9	Im	F5 V
+2810	Glassman	C7B3574-5	Fl Ni	{-2}	(442+0)	[1331]	B	-	-	803	6	Im	M5 V
+2814	O'Meara	ACB4786-9	Fl	{+1}	(A69-2)	[2866]	B	N	-	304	8	Im	K0 V
+2817	Vireday	C200252-9	Va Lo	{-1}	(F11+0)	[3125]	B	S	-	807	8	Im	w D
+2823	Roseville	C5A0231-6	He Lo	{-2}	(C11+1)	[113B]	B	-	-	803	8	Im	G5 V
+2825	Ueferji	B1007A7-D	Va Na Pi	{+2}	(C66+0)	[294F]	DB	-	-	205	6	Im	M5 V
+2826	Sualan	E6A7226-3	Fl Lo	{-3}	(511+2)	[6152]	B	-	-	504	8	Im	K5 V
+2827	Cambridge	E410100-6	Lo	{-3}	(901+2)	[1144]	B	-	-	504	7	Im	M0 V
+2830	Laghouat	A0006AA-C	As Va Ni Na	{+1}	(C52-1)	[6719]	B	-	-	713	7	Im	K5 V
+2833	Yoshinogari	C6B0476-5	He Ni	{-2}	(830+2)	[5263]	B	S	-	914	7	Im	w D
+2834	Bayle	C10076A-9	Va Na Pi	{+0}	(B6A+2)	[A725]	DB	-	-	614	6	Im	M5 V
+2836	Choikaiyau	C7C4344-7	Fl Lo	{-2}	(321+1)	[2157]	B	S	-	700	5	Im	G5 V K5 V
+2837	Hayashima	C963255-8	Lo	{-2}	(C11-3)	[2176]	B	-	-	414	8	Im	K0 V
+2839	Conakry	C8B8414-9	Fl Ni	{-1}	(C31-2)	[8378]	B	S	-	104	7	Im	M5 V
+2901	Mikko	C300458-C	Va Ni	{+0}	(D35-1)	[744D]	B	-	-	913	9	Im	F5 V
+2903	Layla	X410143-3	Lo	{-3}	(801-1)	[1165]	B	-	R	806	8	Im	M0 V
+2904	Sawaishujiro	E000100-6	As Va Lo	{-3}	(701-1)	[116A]	B	-	-	815	8	Im	K5 V
+2905	Greensleeves	D100200-7	Va Lo	{-3}	(611-2)	[418B]	B	-	-	202	7	Im	M0 V
+2919	Nieuwenhuis	C000352-9	As Va Lo	{-1}	(C21+0)	[6257]	B	-	-	915	7	Im	M0 V
+2920	Simohiro	BAB0677-7	He Ni	{-1}	(653+1)	[3549]	B	-	-	615	8	Im	K5 V
+2921	Nickaiser	A1009E9-F	Va Hi Na In	{+4}	(A87-2)	[BD4F]	fEB	-	-	804	6	Im	M5 V
+2922	Aeschylus	C100669-8	Va Ni Na	{-2}	(953+2)	[345D]	B	-	-	901	2	Im	M5 V M5 V
+2929	Manaslu	C41046B-A	Ni	{+0}	(F33-1)	[342C]	B	-	-	606	8	Im	M0 V
+2934	Thoptris	B8A489B-8	Fl Ph	{+0}	(E79-1)	[9866]	eB	-	-	704	7	Im	M0 V
+2936	Patientia	CDB3625-A	Fl Ni	{+0}	(852-1)	[161B]	B	-	-	803	8	Im	K0 V
+2938	Teresa	A6BA963-F	Fl Hi In	{+5}	(98F+5)	[BE4E]	fEB	NS	-	604	8	Im	G0 V
+2940	Precombia	A685746-A	Ga Ag Ri	{+4}	(76E-1)	[5B67]	fCB	-	-	614	8	Im	K0 V
+3001	Nametoko	C865548-7	Ga Ni Ag Pr	{-1}	(943+0)	[3418]	CcB	-	-	404	8	Im	K5 V
+3002	Esashi	A5A1BC7-F	Fl He Hi In	{+4}	(8AF-2)	[EF5D]	fEB	N	-	204	6	Im	M5 V
+3003	Hasler	E200330-4	Va Lo	{-3}	(A21+3)	[7158]	B	-	-	607	8	Im	w D
+3004	Puijo	B777999-B	Hi In	{+4}	(A8F+2)	[7D59]	fEB	-	-	814	8	Im	K0 V
+3005	Lawrence	C7A0545-5	He Ni	{-2}	(A44+0)	[8396]	B	S	-	404	8	Im	K0 V
+3011	Tenagra	B2008AD-D	Va Ph Na Pi	{+2}	(979-3)	[6A7F]	eDB	-	-	305	6	Im	M5 V
+3014	Maresjev	C100524-9	Va Ni	{-1}	(841-1)	[8479]	B	-	-	404	6	Im	M5 V
+3015	Lykaon	C7A5143-5	Fl Lo	{-2}	(701-3)	[1123]	B	-	-	212	6	Im	M5 V
+3020	Fes	C745000-0	Ba	{-2}	(500-1)	[0000]	B	S	-	013	8	Im	G0 V
+3025	Minamitane	B945626-7	Ni Ag	{+1}	(353-2)	[5757]	CB	NS	-	822	8	Im	G5 V
+3031	Masakichi	C000446-B	As Va Ni	{+0}	(F32+1)	[541C]	B	-	-	422	8	Im	G0 V
+3037	Meslier	A5A0989-C	He Hi In	{+4}	(A89+2)	[BD2F]	fEB	-	-	314	7	Im	M0 V
+3105	Runrun	A2009AE-F	Va Hi Na In	{+4}	(A88-2)	[5D2F]	fEB	N	-	214	9	Im	F5 V
+3111	Bunke	A410868-B	Ph Na Pi	{+2}	(B7A+0)	[4A5A]	eDB	N	-	705	7	Im	M5 V
+3113	Daisakyu	C6B0112-5	He Lo	{-2}	(601+3)	[5165]	B	-	-	800	4	Im	K0 V M5 V
+3116	Almamater	B656774-6	Ga Ag	{+2}	(66B-3)	[5945]	CB	NS	-	803	9	Im	G0 V
+3117	Runcorn	CAB5484-8	Fl Ni	{-2}	(831-3)	[4284]	B	-	-	203	8	Im	K5 V
+3119	Sanner	D7B1120-4	Fl He Lo	{-3}	(301-4)	[1136]	B	-	-	610	5	Im	K0 V K5 V
+3121	Cherny	CCB0154-7	He Lo	{-2}	(801-1)	[2137]	B	-	-	903	8	Im	K0 V
+3123	Dewsbury	B6A09CD-B	He Hi In	{+4}	(A8B+2)	[CD6F]	fEB	-	-	514	8	Im	K5 V
+3125	Zarrin	D100542-A	Va Ni	{-1}	(944+4)	[443B]	B	-	-	502	4	Im	M5 V M5 V
+3127	Huia	B300668-C	Va Ni Na	{+1}	(857+0)	[771A]	B	N	-	500	4	Im	M0 V M5 V
+3130	Maritima	BDB8674-B	Fl Ni	{+1}	(B53+3)	[A73B]	B	-	-	104	8	Im	G5 V
+3133	Miselli	C20066A-B	Va Ni Na	{+0}	(C56-3)	[8677]	B	-	-	607	7	Im	w D
+3135	Rainbach	C100457-8	Va Ni	{-2}	(932+4)	[8279]	B	S	-	105	8	Im	M0 V
+3137	Nyria	C000461-7	As Va Ni	{-2}	(B31-2)	[8227]	B	S	-	515	6	Im	M5 V
+3138	Pannekoek	A4107A8-F	Na Pi	{+2}	(E67-2)	[691B]	DB	S	-	806	8	Im	K5 V
+3139	Caccin	C9A2300-B	Fl He Lo	{+0}	(C21-1)	[233C]	B	-	-	404	7	Im	M0 V
+3201	Porzana	A6B069D-A	He Ni	{+1}	(C57+2)	[579B]	B	N	-	807	8	Im	w D
+3202	Monella	C100545-8	Va Ni	{-2}	(E44+1)	[832D]	B	-	-	903	6	Im	M5 V
+3203	Hiranai	C100540-7	Va Ni	{-2}	(A44+0)	[7344]	B	-	-	114	7	Im	M0 V
+3204	Gertfinger	B000756-F	As Va Na Pi	{+2}	(869+3)	[A92F]	DB	-	-	923	7	Im	K5 V
+3205	Haynald	B100887-A	Va Ph Na Pi	{+3}	(F79+3)	[7B46]	eDB	NS	-	104	8	Im	K5 V
+3208	Thurmann	CBB3300-B	Fl Lo	{+0}	(A21+0)	[837B]	B	S	-	204	6	Im	M5 V
+3215	Kaler	C000543-8	As Va Ni	{-2}	(C44+3)	[138A]	B	-	-	224	7	Im	M0 V
+3217	Jaucourt	D7A4534-3	Fl Ni	{-3}	(540+2)	[8242]	B	-	-	405	7	Im	M5 V
+3218	Rodionta	A790976-9	De He Hi In	{+3}	(987-1)	[9C65]	EB	N	-	103	8	Im	G5 V
+3219	Junsaito	C200446-8	Va Ni	{-2}	(E30-1)	[324A]	B	S	-	107	7	Im	w D
+3220	Galenmaly	B100633-9	Va Ni Na	{+0}	(753+1)	[564D]	B	-	-	703	6	Im	M5 V
+3223	Franklin	C100144-8	Va Lo	{-2}	(A01-2)	[1178]	B	S	-	204	6	Im	M5 V
+3225	Marion	A100748-F	Va Na Pi	{+2}	(F6E-2)	[892F]	DB	-	-	205	6	Im	M5 V
+3228	Schroeder	C200536-B	Va Ni	{+0}	(943-3)	[654C]	B	-	-	103	8	Im	K5 V
+3231	Velehrad	CAB3442-9	Fl Ni	{-1}	(932-1)	[5388]	B	S	-	704	9	Im	G0 V
+3233	Winters	X5A0112-2	He Lo	{-3}	(901+1)	[2133]	B	-	R	505	7	Im	M0 V
+3239	Akan	C200102-C	Va Lo	{+0}	(F01+1)	[314B]	B	-	-	715	7	Im	M0 V

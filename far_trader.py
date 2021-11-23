@@ -52,12 +52,15 @@ def generate_far_trader_stats(seed_number,db_name):
     c = conn.cursor()
     create_tb_far_trader_table()    
     
-    sql3_select_tb_t5 = """     SELECT  location,
-                                        starport,
-                                        population,
-                                        tech_level,
-                                        remarks
-                                FROM    main_worlds """
+    sql3_select_tb_t5 = """     SELECT  t.location,
+                                        t.starport,
+                                        t.population,
+                                        t.tech_level,
+                                        s.remarks
+                                FROM    traveller_stats t
+                                LEFT JOIN system_stats s
+                                ON t.location = s.location
+                                WHERE main_world = 1 """
                                     
     c.execute(sql3_select_tb_t5)
     allrows = c.fetchall()
@@ -138,7 +141,7 @@ def generate_far_trader_stats(seed_number,db_name):
             gwp = 0
             exchange = 0
             
-        sqlcommand = '''    INSERT INTO far_trader ( location,
+        sqlcommand = '''    INSERT INTO far_trader (        location,
                                                             wtn,
                                                             gwp,
                                                             exchange)                                        

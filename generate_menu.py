@@ -37,7 +37,7 @@ middle_layout =  [
 
 right_layout = [
     [sg.Text("NOTES")],
-    [sg.Text("1d6 >= # results in a system present")],
+    [sg.Text("(4, 5, or 6) 1d6 >= # results in a system present")],
     [sg.Text("Db and txt files will be created in /sector_db")],
     [sg.Text("Using the same seed with the same density will produce the same sector")]
     
@@ -61,7 +61,7 @@ layout = [
 ]
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder""", layout)
+window = sg.Window("""Bartleby's Sector Builder v0.7.0""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 event, values = window.read()
@@ -101,7 +101,7 @@ try:
         makeit(makeit_list)
     except:
         print(makeit_list,' failed')
-        sg.popup('Operation Failed')   
+        sg.popup('Operation Failed - error in make_it function')   
 
 except:
     print('Operation did not succeed.')

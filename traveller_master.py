@@ -3,8 +3,6 @@ def make_sector_master(makeit_list):
     # Master program for Traveller universe build
     
 
-
-    
     import random
     import sqlite3
     from first_in_generation import generate_stars
@@ -15,11 +13,13 @@ def make_sector_master(makeit_list):
     from non_mw import generate_non_mainworlds
     from far_trader import generate_far_trader_stats
     from journey_data import build_journey_table
+    from routes import build_route_xml
     import PySimpleGUI as sg
+
     
     seed_number = makeit_list[0]
     
-    print('v0.61 Stellar Companion Update')
+    print('v0.7.0 Stellar Companion Update')
     db_name = 'sector_db/' + makeit_list[1] + '.db'
     print('Generating Stars and Planets')
     generate_stars(db_name,makeit_list)
@@ -37,6 +37,8 @@ def make_sector_master(makeit_list):
     generate_non_mainworlds(seed_number,db_name)
     print('Building Far Trader table')
     generate_far_trader_stats(seed_number,db_name)
+    print('Building Routes file')
+    build_route_xml(seed_number,db_name)
 
 
     sg.popup('Sector completed successfully')    

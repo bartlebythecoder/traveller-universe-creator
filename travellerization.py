@@ -103,37 +103,7 @@ def add_traveller_stats(seed_number,db_name):
         return digits[int(x)]
         # return tohex(rest) + digits[int(x)]
     
-    def create_t5_table():
-        sql_create_tb_t5_table = """CREATE TABLE    main_worlds( 
-                                                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                    location_orb TEXT,
-                                                    location TEXT,
-                                                    system_name TEXT,
-                                                    starport TEXT,
-                                                    size INTEGER,
-                                                    atmosphere INTEGER,
-                                                    hydrographics INTEGER,
-                                                    population INTEGER,
-                                                    government INTEGER,
-                                                    law INTEGER,
-                                                    tech_level INTEGER,
-                                                    uwp TEXT,
-                                                    remarks TEXT,
-                                                    ix TEXT,
-                                                    ex TEXT,
-                                                    cx TEXT,
-                                                    n TEXT,
-                                                    bases TEXT,
-                                                    zone TEXT,
-                                                    pbg TEXT,
-                                                    w TEXT,
-                                                    allegiance TEXT,
-                                                    stars TEXT
-                                                    
-                                                    
-                                                    );"""
-        c.execute('DROP TABLE IF EXISTS main_worlds')
-        c.execute(sql_create_tb_t5_table)  
+    def create_traveller_tables():
         
         
         sql_create_system_stats_table = """CREATE TABLE system_stats( 
@@ -239,7 +209,7 @@ def add_traveller_stats(seed_number,db_name):
             
     def get_pop_mod(location,population):
         if population != 0:    
-            c_pop_mod = str(random.randrange(0,10))
+            c_pop_mod = str(random.randrange(1,10))
         else:
             c_pop_mod = 0
         return c_pop_mod
@@ -620,7 +590,7 @@ def add_traveller_stats(seed_number,db_name):
         
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
-    create_t5_table()
+
     
     # system names are pulled randomly from the names.txt file
     name_list = open("names.csv", "r").readlines()
@@ -630,6 +600,7 @@ def add_traveller_stats(seed_number,db_name):
     t_stars_dict = capture_tertiary_stats()
     
     sector_population = 0
+    create_traveller_tables()
     
     try:
     
@@ -654,13 +625,13 @@ def add_traveller_stats(seed_number,db_name):
         print('SQLite traceback: ')
         exc_type, exc_value, exc_tb = sys.exc_info()
         print(traceback.format_exception(exc_type, exc_value, exc_tb))
+        
 
     
     for row in allrows:
-#        print (row[0])
 
         system_name = get_system_name(name_list)
-#        print(system_name)
+#        print(row[0],system_name,'Getting Population and System Details')
         population = get_population(row[0])
         sector_population += 10**population
         pop_mod = get_pop_mod(row[0],population)
@@ -670,172 +641,139 @@ def add_traveller_stats(seed_number,db_name):
         pbg = str(str(pop_mod) + str(belts) + str(gg))
         starport = get_starport(row[0], population)
         bases = get_bases(row[0],starport)
-    
-        atmosphere = get_atmosphere(row[2],row[3])
-        hydrographics = get_hydrographics(row[4],row[5])
-        size = get_size(row[4],row[6])
-        government = get_government(row[0], population)    
-        law_level = get_law_level(row[0], government)
-        tech_level = get_tech_level(row[0], starport, size, atmosphere, hydrographics, population, government)
-        remarks = get_remarks(starport, size, atmosphere, hydrographics, population, government)
-        str_remarks = ' '.join(remarks)
         
-        int_size = size
-        uwp = (starport + tohex(int(size))\
-               + tohex(int(atmosphere)) \
-               + tohex(int(hydrographics)) \
-               + tohex(int(population)) \
-               + tohex(int(government)) \
-               + tohex(int(law_level)) \
-               + '-'
-               + tohex(int(tech_level)))
-               
-        ix = get_ix(uwp, remarks, bases)
-        if ix >= 0:
-            str_ix = ('{+' + str(ix) + '}')
-        else:
-            str_ix = ('{' + str(ix) + '}')
+        
+#        print(row[0],system_name,'Getting World Details')
+        try:
+            atmosphere = get_atmosphere(row[2],row[3])
+            hydrographics = get_hydrographics(row[4],row[5])
+            size = get_size(row[4],row[6])
+            government = get_government(row[0], population)    
+            law_level = get_law_level(row[0], government)
+            tech_level = get_tech_level(row[0], starport, size, atmosphere, hydrographics, population, government)
+            remarks = get_remarks(starport, size, atmosphere, hydrographics, population, government)
+            str_remarks = ' '.join(remarks)
             
-        ex = get_ex(ix, tech_level, population, remarks, belts, gg, row[1])
+        except:
+            print('Failed with standard stats')
+            break
         
-        cx = get_cx(population, ix, tech_level, row[1])
         
-        zone = get_zone(starport, population, government, law_level)
-        allegiance = 'Im'
-        n_list = get_noble(remarks, ix)
-        n = ''.join(n_list)
-        stars = get_stars(row[1],p_stars_dict,c_stars_dict, t_stars_dict)
-        main_world = 1
-    
-    
+        try:
+            int_size = size
+            uwp = (starport + tohex(int(size))\
+                   + tohex(int(atmosphere)) \
+                   + tohex(int(hydrographics)) \
+                   + tohex(int(population)) \
+                   + tohex(int(government)) \
+                   + tohex(int(law_level)) \
+                   + '-'
+                   + tohex(int(tech_level)))
+                   
+            ix = get_ix(uwp, remarks, bases)
+            if ix >= 0:
+                str_ix = ('{+' + str(ix) + '}')
+            else:
+                str_ix = ('{' + str(ix) + '}')
+                
+            ex = get_ex(ix, tech_level, population, remarks, belts, gg, row[1])
+            
+            cx = get_cx(population, ix, tech_level, row[1])
+            
+            zone = get_zone(starport, population, government, law_level)
+            allegiance = 'Im'
+            n_list = get_noble(remarks, ix)
+            n = ''.join(n_list)
+            stars = get_stars(row[1],p_stars_dict,c_stars_dict, t_stars_dict)
+            main_world = 1
+        
+        except:
+            print('Failed with detailed stats and UWP creation')
+            break
         
     
-        sqlcommand = '''    INSERT INTO main_worlds ( location_orb, 
-                                                location, 
-                                                system_name,
-                                                starport, 
-                                                size,
-                                                atmosphere, 
-                                                hydrographics, 
-                                                population, 
-                                                government,
-                                                law,
-                                                tech_level,
-                                                bases,
-                                                pbg,
-                                                remarks,
-                                                uwp,
-                                                ix,
-                                                ex,
-                                                cx,
-                                                zone,
-                                                n,
-                                                allegiance,
-                                                w,
-                                                stars)                                            
-                                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,
-                                                ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
-                            
-        body_row =          (str(row[0]),
-                            str(row[1]),
-                            system_name,
-                            starport,
-                            size,
-                            atmosphere,
-                            hydrographics,
-                            population,
-                            government,
-                            law_level,
-                            tech_level,
-                            bases,
-                            pbg,
-                            str_remarks,
-                            uwp,
-                            str_ix,
-                            ex,
-                            cx,
-                            zone,
-                            n,
-                            allegiance,
-                            w,
-                            stars)
-                        
-    
-                            
-        
-        c.execute(sqlcommand, body_row) 
+
         
 ##############################################################################################
-# These tables will replace the above
 # Traveler stats will have mainworlds and non-mainworlds 
-# System stats are for stats common for the entire system        
+# System stats are for stats common for the entire system   
+
+        try:     
         
-        sqlcommand = '''    INSERT INTO traveller_stats(location_orb, 
-                                        location, 
-                                        system_name,
-                                        starport, 
-                                        size,
-                                        atmosphere, 
-                                        hydrographics, 
-                                        population, 
-                                        government,
-                                        law,
-                                        tech_level,
-                                        main_world)                                            
-                                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
-                            
-        body_row =          (str(row[0]),
-                            str(row[1]),
-                            system_name,
-                            starport,
-                            size,
-                            atmosphere,
-                            hydrographics,
-                            population,
-                            government,
-                            law_level,
-                            tech_level,
-                            main_world)
-                        
-    
+            sqlcommand = '''INSERT INTO traveller_stats(location_orb, 
+                                location, 
+                                system_name,
+                                starport, 
+                                size,
+                                atmosphere, 
+                                hydrographics, 
+                                population, 
+                                government,
+                                law,
+                                tech_level,
+                                main_world)                                            
+                                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                                
+            body_row =          (str(row[0]),
+                                str(row[1]),
+                                system_name,
+                                starport,
+                                size,
+                                atmosphere,
+                                hydrographics,
+                                population,
+                                government,
+                                law_level,
+                                tech_level,
+                                main_world)
+#            print(body_row)
+            c.execute(sqlcommand, body_row)                             
+        
+        except:
+            print('Failed to write into Traveller Stats')
+            break
+            
+        try:
+            
+
+        
+            sqlcommand = '''    INSERT INTO system_stats(
+                                            location, 
+                                            bases,
+                                            pbg,
+                                            remarks,
+                                            ix,
+                                            ex,
+                                            cx,
+                                            zone,
+                                            n,
+                                            allegiance,
+                                            w,
+                                            stars)                                            
+                                            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
+                                            
+                                            
+                                
+            body_row =          (str(row[1]),
+                                bases,
+                                pbg,
+                                str_remarks,
+                                str_ix,
+                                ex,
+                                cx,
+                                zone,
+                                n,
+                                allegiance,
+                                w,
+                                stars)
                             
         
-        c.execute(sqlcommand, body_row) 
-    
-        sqlcommand = '''    INSERT INTO system_stats(
-                                        location, 
-                                        bases,
-                                        pbg,
-                                        remarks,
-                                        ix,
-                                        ex,
-                                        cx,
-                                        zone,
-                                        n,
-                                        allegiance,
-                                        w,
-                                        stars)                                            
-                                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) '''
-                                        
-                                        
-                            
-        body_row =          (str(row[1]),
-                            bases,
-                            pbg,
-                            str_remarks,
-                            str_ix,
-                            ex,
-                            cx,
-                            zone,
-                            n,
-                            allegiance,
-                            w,
-                            stars)
-                        
-    
-                            
-        
-        c.execute(sqlcommand, body_row) 
+                                
+  #          print(body_row)
+            c.execute(sqlcommand, body_row) 
+        except:
+            print('Failed to write into System Stats')
+            break
     
     
     

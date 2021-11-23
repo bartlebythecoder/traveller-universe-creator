@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<Sector>
+<Name>sector_db\example-66.db</Name>
+<Routes>...
+    <Route Start='0121' End='0421'  />
+    <Route Start='0501' End='0802'  />
+    <Route Start='1225' End='1627'  />
+    <Route Start='1621' End='1622'  />
+    <Route Start='1621' End='1921'  />
+    <Route Start='1622' End='1921'  />
+    <Route Start='1622' End='2024'  />
+    <Route Start='1627' End='1828'  />
+    <Route Start='1921' End='2024'  />
+    <Route Start='2212' End='2510'  />
+    <Route Start='2429' End='2626'  />
+    <Route Start='2921' End='3123'  />
+    <Route Start='2938' End='2940'  />
+    <Route Start='2938' End='3037'  />
+    <Route Start='2940' End='3037'  />
+    <Route Start='3002' End='3004'  />
+    <Route Start='3002' End='3105'  />
+    <Route Start='3004' End='3105'  />
+    <Route Start='0121' End='0421'  />
+    <Route Start='0421' End='0521'  />
+    <Route Start='0521' End='0921'  />
+    <Route Start='0501' End='0802'  />
+    <Route Start='0728' End='0826'  />
+    <Route Start='0826' End='1225'  />
+    <Route Start='0809' End='0907'  />
+    <Route Start='0907' End='1309'  />
+    <Route Start='1213' End='1010'  />
+    <Route Start='1010' End='1309'  />
+    <Route Start='1225' End='1221'  />
+    <Route Start='1221' End='1622'  />
+    <Route Start='1225' End='1627'  />
+    <Route Start='1621' End='1622'  />
+    <Route Start='1621' End='1921'  />
+    <Route Start='1621' End='1622'  />
+    <Route Start='1622' End='2024'  />
+    <Route Start='1622' End='1325'  />
+    <Route Start='1325' End='1627'  />
+    <Route Start='1622' End='1921'  />
+    <Route Start='1622' End='2024'  />
+    <Route Start='1627' End='1828'  />
+    <Route Start='1627' End='1625'  />
+    <Route Start='1625' End='2024'  />
+    <Route Start='1828' End='1625'  />
+    <Route Start='1625' End='2024'  />
+    <Route Start='1916' End='1618'  />
+    <Route Start='1618' End='1921'  />
+    <Route Start='1916' End='1812'  />
+    <Route Start='1812' End='2212'  />
+    <Route Start='1921' End='2024'  />
+    <Route Start='2212' End='2510'  />
+    <Route Start='2429' End='2626'  />
+    <Route Start='2429' End='2331'  />
+    <Route Start='2331' End='2633'  />
+    <Route Start='2921' End='3123'  />
+    <Route Start='2938' End='2940'  />
+    <Route Start='2938' End='3037'  />
+    <Route Start='2940' End='3037'  />
+    <Route Start='3002' End='3004'  />
+    <Route Start='3002' End='3105'  />
+    <Route Start='3004' End='3105'  />
+    <Route Start='0121' End='0421'  />
+    <Route Start='0421' End='0521'  />
+    <Route Start='0521' End='0921'  />
+    <Route Start='0501' End='0802'  />
+    <Route Start='0728' End='0826'  />
+    <Route Start='0826' End='1225'  />
+    <Route Start='0809' End='0812'  />
+    <Route Start='0812' End='1213'  />
+    <Route Start='0809' End='0907'  />
+    <Route Start='0907' End='1309'  />
+    <Route Start='0921' End='0823'  />
+    <Route Start='0823' End='1225'  />
+    <Route Start='1213' End='1010'  />
+    <Route Start='1010' End='1309'  />
+    <Route Start='1225' End='1221'  />
+    <Route Start='1221' End='1621'  />
+    <Route Start='1225' End='1221'  />
+    <Route Start='1221' End='1622'  />
+    <Route Start='1225' End='1627'  />
+    <Route Start='1225' End='1625'  />
+    <Route Start='1625' End='1828'  />
+    <Route Start='1621' End='1622'  />
+    <Route Start='1621' End='1525'  />
+    <Route Start='1525' End='1627'  />
+    <Route Start='1621' End='1921'  />
+    <Route Start='1621' End='1622'  />
+    <Route Start='1622' End='2024'  />
+    <Route Start='1622' End='1325'  />
+    <Route Start='1325' End='1627'  />
+    <Route Start='1622' End='1921'  />
+    <Route Start='1622' End='2024'  />
+    <Route Start='1627' End='1828'  />
+    <Route Start='1627' End='1625'  />
+    <Route Start='1625' End='2024'  />
+    <Route Start='1828' End='1625'  />
+    <Route Start='1625' End='2024'  />
+    <Route Start='1828' End='2029'  />
+    <Route Start='2029' End='2429'  />
+    <Route Start='1916' End='1618'  />
+    <Route Start='1618' End='1921'  />
+    <Route Start='1916' End='1812'  />
+    <Route Start='1812' End='2212'  />
+    <Route Start='1921' End='2024'  />
+    <Route Start='2024' End='2224'  />
+    <Route Start='2224' End='2626'  />
+    <Route Start='2212' End='2510'  />
+    <Route Start='2429' End='2626'  />
+    <Route Start='2429' End='2331'  />
+    <Route Start='2331' End='2633'  />
+    <Route Start='2626' End='2823'  />
+    <Route Start='2823' End='3123'  />
+    <Route Start='2633' End='2536'  />
+    <Route Start='2536' End='2938'  />
+    <Route Start='2633' End='2635'  />
+    <Route Start='2635' End='3037'  />
+    <Route Start='2921' End='3123'  />
+    <Route Start='2938' End='2940'  />
+    <Route Start='2938' End='3037'  />
+    <Route Start='2940' End='3037'  />
+    <Route Start='3002' End='3004'  />
+    <Route Start='3002' End='3105'  />
+    <Route Start='3004' End='3105'  />
+    <Route Start='0802' End='0705'  />
+    <Route Start='0705' End='0508'  />
+    <Route Start='0508' End='0809'  />
+    <Route Start='0938' End='1135'  />
+    <Route Start='1135' End='1534'  />
+    <Route Start='1534' End='1331'  />
+    <Route Start='1331' End='1328'  />
+    <Route Start='1328' End='1627'  />
+    <Route Start='2510' End='2807'  />
+    <Route Start='2807' End='3004'  />
+    <Route Start='1309' End='1411'  />
+    <Route Start='1411' End='1812'  />
+    <Route Start='1812' End='2212'  />
+    <Route Start='1840' End='1937'  />
+    <Route Start='1937' End='2234'  />
+    <Route Start='2234' End='2633'  />
+    <Route Start='3037' End='2635'  />
+    <Route Start='2635' End='2532'  />
+    <Route Start='2532' End='2528'  />
+    <Route Start='2528' End='2825'  />
+    <Route Start='2825' End='3123'  />
+    <Route Start='3105' End='3208'  />
+    <Route Start='3208' End='3011'  />
+    <Route Start='3011' End='3015'  />
+    <Route Start='3015' End='3119'  />
+    <Route Start='3119' End='3123'  />
+</Routes>
+<Labels>
+    <Label Hex='0121' Color="red">Ix+</Label>
+    <Label Hex='0421' Color="red">Ix+</Label>
+    <Label Hex='0501' Color="red">Ix+</Label>
+    <Label Hex='0728' Color="red">Ix+</Label>
+    <Label Hex='0802' Color="red">Ix+</Label>
+    <Label Hex='0809' Color="red">Ix+</Label>
+    <Label Hex='0921' Color="red">Ix+</Label>
+    <Label Hex='0938' Color="red">Ix+</Label>
+    <Label Hex='1213' Color="red">Ix+</Label>
+    <Label Hex='1225' Color="red">Ix+</Label>
+    <Label Hex='1309' Color="red">Ix+</Label>
+    <Label Hex='1534' Color="red">Ix+</Label>
+    <Label Hex='1621' Color="red">Ix+</Label>
+    <Label Hex='1622' Color="red">Ix+</Label>
+    <Label Hex='1627' Color="red">Ix+</Label>
+    <Label Hex='1828' Color="red">Ix+</Label>
+    <Label Hex='1840' Color="red">Ix+</Label>
+    <Label Hex='1916' Color="red">Ix+</Label>
+    <Label Hex='1921' Color="red">Ix+</Label>
+    <Label Hex='2024' Color="red">Ix+</Label>
+    <Label Hex='2212' Color="red">Ix+</Label>
+    <Label Hex='2429' Color="red">Ix+</Label>
+    <Label Hex='2510' Color="red">Ix+</Label>
+    <Label Hex='2626' Color="red">Ix+</Label>
+    <Label Hex='2633' Color="red">Ix+</Label>
+    <Label Hex='2921' Color="red">Ix+</Label>
+    <Label Hex='2938' Color="red">Ix+</Label>
+    <Label Hex='2940' Color="red">Ix+</Label>
+    <Label Hex='3002' Color="red">Ix+</Label>
+    <Label Hex='3004' Color="red">Ix+</Label>
+    <Label Hex='3037' Color="red">Ix+</Label>
+    <Label Hex='3105' Color="red">Ix+</Label>
+    <Label Hex='3123' Color="red">Ix+</Label>
+</Labels>
+</Sector>
