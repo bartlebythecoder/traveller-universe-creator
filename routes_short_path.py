@@ -6,9 +6,6 @@ def create_route_xml(seed_number,db_name):
     import sqlite3
     import pandas as pd
     import numpy as np
-    import PySimpleGUI as sg
-    import os
-    import io
     import networkx as nx
     
     

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Sector>
-<Name>sector_db\example-66.db</Name>
+<Name>sector_db/example-66.db</Name>
 <Routes>...
     <Route Start='0121' End='0421'  />
     <Route Start='0501' End='0802'  />

@@ -17,8 +17,7 @@ def makeit(makeit_list):
     
 
 
-sg.theme('DarkBlue')   # Add a touch of color
-# All the stuff inside your window.
+sg.theme('DarkBlue')  
 
 left_layout = [
     [sg.Text("PARAMETERS")],
@@ -61,7 +60,7 @@ layout = [
 ]
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder v0.7.0""", layout)
+window = sg.Window("""Bartleby's Sector Builder v0.7.3""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 event, values = window.read()

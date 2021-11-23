@@ -19,7 +19,7 @@ def make_sector_master(makeit_list):
     
     seed_number = makeit_list[0]
     
-    print('v0.7.0 Stellar Companion Update')
+
     db_name = 'sector_db/' + makeit_list[1] + '.db'
     print('Generating Stars and Planets')
     generate_stars(db_name,makeit_list)

@@ -1,5 +1,5 @@
  traveller-universe-creator
-v0.100 - corrected Journey Table times
+v0.7.3 - added Route creation file
 2021-11-11
 
  Sector Generation
@@ -9,7 +9,6 @@ v0.100 - corrected Journey Table times
 
  Possible Improvements Pending (likely in this order):
 
-   - Rework/audit/validate the Traveller stat creation for mainworlds, nonmainworlds, moons
    - Rewrite Stellar creation rules using  Architect of Worlds
    - Create worlds using Architect of Worlds
    - Subsector viewing on Browser
@@ -17,6 +16,7 @@ v0.100 - corrected Journey Table times
 
 To Do list complete:
 
+   - COMPLETE 2021 11 23 v0.730: Route file created with each sector creation
    - COMPLETE 2021 11 11 v0.100: Browser includes all bodies and stellar info
    - COMPLETE 2021 11 07 v0.063: Jump point times in Journey table now incorporate companion stars
    - COMPLETE 2021 11 04 v.061: New Gui Interfaces:  generate_menu and browse_sector
@@ -32,9 +32,10 @@ To Do list complete:
 
 Description:
 
-This program builds a traveller sector and stores the data in two forms:
+This program builds a traveller sector and stores the data in three files:
 -SQLite database
--Text file for import into the TravellerMap website
+-Text file for system data import into the TravellerMap website
+-Text file for route data import into the TravellerMap website
 
 
 FAQ:
@@ -52,11 +53,11 @@ A:  It uses GURPS First In for the science stuff (like stellar details, and plan
 
 Q:  How do you run it?
 
-A:  Run the TUC_menu.py from your python environment
+A:  Run the generate_men.py from your python environment to create a sector.  Run the browse_sector to explore the sectors you create.
 
 Q:  What imports do I need?
 
-A:  tkinter, pandas, numpy, sqlite3, random, 
+A:  tkinter, pandas, numpy, sqlite3, random, io, networkx
 
 
 
