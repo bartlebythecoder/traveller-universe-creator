@@ -57,7 +57,7 @@ def build_journey_table(seed_number,db_name):
         stellar_mask_Mm = df_journey['stellar_mask_Mm']    
         
     
-        df_journey['planetary_mask_Mm'] = round(df_journey['size'] * 1690/1000000,3)
+        df_journey['planetary_mask_Mm'] = round(df_journey['size'] * 1.690 * 100,3)
         df_journey['planetary_distance_Mm'] = df_journey['stellar_distance'] * 149598.073
         
     

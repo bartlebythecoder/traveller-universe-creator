@@ -7,7 +7,7 @@ Created on Sat Nov 13 18:30:10 2021
 
 def build_route_xml(seed_number,db_name):
 
-# UNDER CONSTRUCTION
+# UNDER CONSTRUCTION  # NOT CURRENTLY USED
 
 # Create a trader and xboat route table and extract for traveller map
 

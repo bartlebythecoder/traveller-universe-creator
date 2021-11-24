@@ -199,3 +199,6 @@ def create_route_xml(seed_number,db_name):
                 +  '</Labels>' + '\n' \
                 +  '</Sector>')
             
+    f.close()
+
+

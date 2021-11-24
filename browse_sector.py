@@ -76,6 +76,8 @@ def select_images(loc_info,system_info,detail_info,economic_info):
         add_image('gas giant')
     if list(loc_info['atmosphere'])[0] == 0:
         add_image('vacuum')
+    if list(loc_info['size'])[0] == 0:
+        add_image('asteroid')        
     
     importance = list(system_info['ix'])[0]
     for i in ['{','}']: importance = importance.strip(i)
@@ -273,7 +275,7 @@ list_images = [['mask','Completely Stellar Masked'],
                ['exotic','Exotic Atmosphire'],
                ['corrosive','Corrosive Atmosphire'],
                ['vacuum','Vacuum World'],
-               ['asteroid','Planetary Belt'],
+               ['asteroid','Object is Planetary Belt'],
                ['light','Low Gravity World'],
                ['heavy','High Gravity World'],
                ['hot','Unhinhabitable Heat'],
@@ -294,7 +296,6 @@ list_images = [['mask','Completely Stellar Masked'],
 
 remarks_list = [['In', 'industrial'],
                 ['Ag', 'agricultural'],
-                ['As', 'asteroid'],
                 ['Hi', 'hipop'],
                 ['Px', 'prison']]
                 
