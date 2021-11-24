@@ -1,6 +1,6 @@
  traveller-universe-creator
-v0.7.3 - added Route creation file
-2021-11-11
+v0.8.0 - fixed Journey times
+2021-11-24
 
  Sector Generation
  by Sean Nelson
@@ -16,6 +16,7 @@ v0.7.3 - added Route creation file
 
 To Do list complete:
 
+   - COMPLETE 2021 11 24 v0.800: Fixed journey time calc.  Asteroid image in browser now planet specific.  Route API kloodged.
    - COMPLETE 2021 11 23 v0.730: Route file created with each sector creation
    - COMPLETE 2021 11 11 v0.100: Browser includes all bodies and stellar info
    - COMPLETE 2021 11 07 v0.063: Jump point times in Journey table now incorporate companion stars
