@@ -271,7 +271,7 @@ option_list = []
 db_name = 'C:/Users/sean/Documents/GitHub/traveller-universe-creator/sector_db/example-66.db'
 
 list_images = [['mask','Completely Stellar Masked'],
-               ['ocean','Earth-like World'],
+               ['ocean','Ocean or Earth-like World'],
                ['exotic','Exotic Atmosphire'],
                ['corrosive','Corrosive Atmosphire'],
                ['vacuum','Vacuum World'],
@@ -387,7 +387,7 @@ def make_win1():
 
     column_one = [
         [sg.Text("SYSTEMS")],
-        [sg.Listbox(option_list,enable_events=True,size=(20,30),key=('-LOCATIONS-'))]
+        [sg.Listbox(option_list,enable_events=True,size=(20,32),key=('-LOCATIONS-'))]
     ]
     
     
@@ -401,9 +401,9 @@ def make_win1():
         column_three += [sg.Text('|',enable_events = True,key=(m+'i'),pad=(0,0))],
         
     
-    column_two += [[sg.Text("System Categories")], 
+    column_two += [[sg.Text("System Categories",pad=(5,(15,2)))], 
                     [sg.HSeparator()],]
-    column_three += [[sg.Text("System-wide Details")], 
+    column_three += [[sg.Text("System-wide Details",pad=(5,(15,2)))], 
                           [sg.HSeparator()],]
     
     for s in s_labels:

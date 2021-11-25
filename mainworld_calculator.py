@@ -54,35 +54,35 @@ def generate_mainworld_scores(db_name):
 
     col         = 'wtype'
     conditions  = [ df[col][0] == 'O', df[col][0] == 'H', df[col] == 'Gas Giant', df[col] == 'Belt']
-    choices     = [ 1000, -1000, -1000000, -500]
+    choices     = [ 50000, -1000, -1000000, -500]
     df["wtype_mod"] = np.select(conditions, choices, default=0)
     
 
 
     col         = 'gravity'
     conditions  = [ df[col] > 2, (df[col] <= 2) & (df[col]>= 0.5), df[col] <= 0.5 ]
-    choices     = [ 100, 1000,-1000 ]
+    choices     = [ -5000, 1000,0 ]
     df["grav_mod"] = np.select(conditions, choices, default=0)
 
 
     col         = 'planet_stellar_masked'
     conditions  = [ df[col] == 'total', df[col] == 'none', df[col] == 'partial' ]
-    choices     = [ 0, 1000, 200]
+    choices     = [ -5000, 1000, 200]
     df["mask_mod"] = np.select(conditions, choices, default=0)
     
  
     col         = 'atmos_composition'
     conditions  = [ df[col] == 'Standard', df[col]=='Tainted',df[col]=='Corrosive']
-    choices     = [ 1000, 500,-1000 ]
+    choices     = [ 50000, 10000,-1000 ]
     df["atmos_mod"] = np.select(conditions, choices, default=0)    
 
     col         = 'temperature'
     conditions  = [ (df[col] <= 283) & (df[col]>238),
                     (df[col] > 283) & (df[col] < 309),
                     (df[col] >= 309) & (df[col] >= 324)]
-    choices     = [ 3000, 5000,3000 ]
+    choices     = [ 1000, 2000,1000 ]
     df["temp_mod"] = np.select(conditions, choices, default=-1000)    
-    df["temp_mod"] = df["temp_mod"] - ((df["temperature"] - 273) ** 2)
+    df["temp_mod"] = df["temp_mod"] - (((df["temperature"] - 283) ** 2)/10)
     
  #   print('after update')
  #   print(df.describe())

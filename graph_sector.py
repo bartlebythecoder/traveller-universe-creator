@@ -7,7 +7,7 @@ Created on Mon Jul  8 17:33:12 2019
 """
 
 # graph_sector.py
-# STILL UNDER CONSTRUCTION
+# STILL UNDER CONSTRUCTION - LIKELY TO BE RETIRED FOR THE WORK IN THE BROWSER
 # This will produce visualizations of the created sectors
 
 import pandas as pd
