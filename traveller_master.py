@@ -20,6 +20,7 @@ def make_sector_master(makeit_list):
     seed_number = makeit_list[0]
     
 
+    sector_name = makeit_list[1]
     db_name = 'sector_db/' + makeit_list[1] + '.db'
     print('Generating Stars and Planets')
     generate_stars(db_name,makeit_list)
@@ -32,7 +33,7 @@ def make_sector_master(makeit_list):
     print('Travellerizing the main worlds')
     add_traveller_stats(seed_number,db_name)
     print('Building Traveller Map extract')
-    build_travellermap_file(db_name)
+    build_travellermap_file(db_name,sector_name)
     print('Building exo-world table for non-main worlds') 
     generate_non_mainworlds(seed_number,db_name)
     print('Building Far Trader table')

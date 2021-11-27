@@ -1,5 +1,5 @@
  traveller-universe-creator
-v0.8.0 - fixed Journey times
+v0.8.2 - Fixed Error With Density 4 sectors
 2021-11-24
 
  Sector Generation
@@ -11,23 +11,13 @@ v0.8.0 - fixed Journey times
 
    - Rewrite Stellar creation rules using  Architect of Worlds
    - Create worlds using Architect of Worlds
-   - Subsector viewing on Browser
    - Export data to a PDF for publishing
 
-To Do list complete:
+New With This Version (8.2):
 
-   - COMPLETE 2021 11 24 v0.800: Fixed journey time calc.  Asteroid image in browser now planet specific.  Route API kloodged.
-   - COMPLETE 2021 11 23 v0.730: Route file created with each sector creation
-   - COMPLETE 2021 11 11 v0.100: Browser includes all bodies and stellar info
-   - COMPLETE 2021 11 07 v0.063: Jump point times in Journey table now incorporate companion stars
-   - COMPLETE 2021 11 04 v.061: New Gui Interfaces:  generate_menu and browse_sector
-   - COMPLETE 2021 10 31 v.06: Moons details added to orbital_body table
-   - COMPLETE 2021 10 28: Moons created using Architect of Worlds
-   - COMPLETE 2021 10 27: Density added for GG
-   - COMPLETE 2021 10 26: Orbital Bodies around all stellar objects
-   - COMPLETE 2021 10 26: Incorporate Forbidden Zones for planet orbits
-   - COMPLETE 2021 10 25: Very Close Binaries combine stellar info for orbit creation
-   - COMPLETE 2021 10 25: Distant stellar bodies added
+   - Added 40,000+ new names to names.csv with credit and thanks to https://simplemaps.com/data/world-cities
+   - Resolved the issue of Density 4 sectors running out of names
+   - Updated PyMapGen .dat extract to fix Sector name reading
 
 
 

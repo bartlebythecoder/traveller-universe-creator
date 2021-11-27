@@ -1,4 +1,4 @@
-def build_travellermap_file(db_name):
+def build_travellermap_file(db_name,sector_name):
 
 
 # Traveller Map
@@ -120,12 +120,13 @@ def build_travellermap_file(db_name):
                 
     ### Produce a column-specific file for use with PyMapGen
 
-    trav_filename = db_name + '_col' + '.txt'    
-    sector_name = db_name[0:len(db_name)-3]
+    trav_filename = 'sector_db\sec_m01_m01.dat'    
     with open(trav_filename, 'w') as f:
-        f.write("""
+        f.write(
+"""
 
-# """ + sector_name + """\n
+
+# """ + sector_name + """
 # 0,0
 
 # Name:""" + sector_name + """\n
@@ -153,11 +154,11 @@ def build_travellermap_file(db_name):
 # Subsector O: O
 # Subsector P: P
 
-# Alleg: CsIm: "Client state, Third Imperium"
-# Alleg: ImDv: "Third Imperium, Domain of Vland"
-# Alleg: NaHu: "Non-Aligned, Human-dominated"
-# Alleg: NaVa: "Non-Aligned, Vargr-dominated"
-# Alleg: Im: "Third Imperium"
+
+
+
+
+
 
 Hex  Name                 UWP       Remarks                   {Ix}   (Ex)    [Cx]   N    B  Z PBG W  A    Stellar        
 ---- -------------------- --------- ------------------------- ------ ------- ------ ---- -- - --- -- ---- ---------------

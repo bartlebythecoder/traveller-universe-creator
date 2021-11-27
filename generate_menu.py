@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun Oct 31 12:41:35 2021
 
 @author: sean
 """
@@ -60,7 +59,7 @@ layout = [
 ]
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder v0.8.1""", layout)
+window = sg.Window("""Bartleby's Sector Builder v0.8.2""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 event, values = window.read()

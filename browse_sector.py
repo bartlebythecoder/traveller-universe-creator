@@ -206,7 +206,7 @@ def animate(chart_title,color_choice,plot_size,label_choice,*args):
         else:
             name_list = arg['system_name'].tolist()
         label_color = 'White'
-        if len(name_list) <= 50:
+        if len(name_list) <= 100:
             name_coords = list(zip(xcoordinates,ycoordinates))
             row_num = 0
             for each_item in name_coords:
