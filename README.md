@@ -13,7 +13,7 @@ v0.8.2 - Fixed Error With Density 4 sectors
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
 
-New With This Version (8.2):
+New With This Version (v0.8.2):
 
    - Added 40,000+ new names to names.csv with credit and thanks to https://simplemaps.com/data/world-cities
    - Resolved the issue of Density 4 sectors running out of names
