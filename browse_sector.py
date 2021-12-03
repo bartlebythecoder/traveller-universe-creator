@@ -387,7 +387,7 @@ def make_win1():
 
     column_one = [
         [sg.Text("SYSTEMS")],
-        [sg.Listbox(option_list,enable_events=True,size=(20,32),key=('-LOCATIONS-'))]
+        [sg.Listbox(option_list,enable_events=True,size=(25,32),key=('-LOCATIONS-'))]
     ]
     
     
@@ -483,10 +483,11 @@ def make_win1():
                                                    enable_events=True,
                                                    initial_folder=("sector_db")),
               sg.VSeparator(),
-              sg.Button('Stellar',key=('-STELLAR-')),
               sg.Button('Main World',key=('-MAIN-')),
               sg.Button('Full System', key=('-SYSTEM-')),
               sg.VSeparator(),
+              sg.Button('Stellar',key=('-STELLAR-')),
+              sg.Button('Culture', key=('-CULTURE-')),
               sg.VSeparator(),
               sg.Button('Exit'),
         ],
@@ -514,13 +515,9 @@ def make_win1():
 
 def make_win2(star_columns,star_list,location):
     
-    # if star_list.len ==1:
         
     try:
             
-        # star_column_one = [sg.Text("Stellar Details"),]
-                         
-        # star_column_two = [sg.Text(location),]
         
         star_column_one = []
         star_column_two = []
@@ -570,10 +567,7 @@ def make_win2(star_columns,star_list,location):
     except:
              sg.Popup('Failed star layout')
             
-    # else:
-        
-    #     layout = [[sg.Text('More than one star')],
-    #              [sg.Button('Exit')]]        
+  
      
         
         
@@ -582,8 +576,51 @@ def make_win2(star_columns,star_list,location):
     return sg.Window('Stellar Details',star_layout,size=(star_width,800),finalize=True)
 
 
+
+
+
+def make_win3(culture_columns,culture_list,location):
+    
+       
+    try:
+            
+        
+        culture_column_one = []
+        culture_column_two = []
+
+                
+        print('Entering Culture loop')
+     
+
+
+        for s_num, s in enumerate(culture_list[0]):
+
+            culture_column_one += [sg.Text(culture_columns[s_num]+':')],
+            culture_column_two += [sg.Text(s)],
+    
+
+    
+        print('Setting new layout')    
+        culture_layout = [
+                 [sg.Column(culture_column_one),sg.Column(culture_column_two)],
+                 [sg.HSeparator()],
+                 [sg.Button('Exit')]
+                 ]
+    except:
+             sg.Popup('Failed culture layout')
+       
+        
+        
+            
+    return sg.Window('Perceived Cultural Details',culture_layout,size=(450,500),finalize=True)
+
+
+
+
+
+
 # Create the Window
-window1, window2 = make_win1(), None        # start off with 1 window open
+window1, window2, window3 = make_win1(), None, None        # start off with 1 window open
 # Event Loop to process "events" and get the "values" of the inputs
 
 
@@ -596,6 +633,8 @@ while True:
            window.close()
            if window == window2:       # if closing win 2, mark as closed
                window2 = None
+           if window == window3:       # if closing win 3, mark as closed
+               window3 = None
            elif window == window1:     # if closing win 1, exit program
                break
         
@@ -610,6 +649,7 @@ while True:
         df = pd.read_sql_query(new_main_query,conn)
         df_system = pd.read_sql_query(system_main_query,conn)
         df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies',conn)
+        df_culture = pd.read_sql_query('SELECT * FROM perceived_culture',conn)
         
 
         
@@ -804,6 +844,23 @@ while True:
 
         except:
             print('Failed Stellar button')
+            
+    elif event == '-CULTURE-' and not window3:
+        try:
+            print('pressed Culture')
+            
+            culture_list=[]
+            df_this_culture = df_culture.loc[df_culture['location'] == location]    
+            culture_columns = list(df_this_culture.columns)
+            for s in range(0,df_this_culture.shape[0]):
+                row = ''
+                row=df_this_culture.iloc[s]
+                culture_list.append(row)
+            window3 = make_win3(culture_columns,culture_list,location)
+  
+
+        except:
+            print('Failed Culture button')
             
     elif event == '-SYSTEM-':
         try:

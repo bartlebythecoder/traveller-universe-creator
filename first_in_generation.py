@@ -12,7 +12,7 @@ def generate_stars(db_name,makeit_list):
     import math 
     import random
     import os
-    
+    from traveller_functions import integer_root
 
     
     def create_tables(c,conn):
@@ -108,10 +108,7 @@ def generate_stars(db_name,makeit_list):
         return sum_dice   
     
        
-    def integer_root(expo,num):
-        num = float(num)
-        root_expo = 1/expo
-        return float(num ** root_expo)
+
  
     
            

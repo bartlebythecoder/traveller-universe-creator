@@ -13,6 +13,8 @@ def generate_non_mainworlds(seed_number,db_name):
     
     import sqlite3
     import random
+    from traveller_functions import tohex
+    
     random.seed(seed_number)
     
     
@@ -40,15 +42,6 @@ def generate_non_mainworlds(seed_number,db_name):
         return sum_dice   
     
        
-    def tohex(dec):
-        if dec > 15: dec = 15
-        x = (dec % 16)
-        digits = "0123456789ABCDEF"
-        rest = dec / 16
-        # if (rest == 0):
-        return digits[int(x)]
-        # return tohex(rest) + digits[int(x)]
-        
         
     def capture_mainworld_stats():
         sql3_select_tb_t5 = """     SELECT  location,

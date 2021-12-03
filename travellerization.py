@@ -24,7 +24,11 @@ def add_traveller_stats(seed_number,db_name):
     import random
     import traceback
     import sys
+    
+    from traveller_functions import tohex
+    
     random.seed(seed_number)
+    
     
     def capture_primary_stats():
         sql3_select_p_stars = """  SELECT   location, 
@@ -94,14 +98,7 @@ def add_traveller_stats(seed_number,db_name):
         return sum_dice   
     
        
-    def tohex(dec):
-        if dec > 15: dec = 15
-        x = (dec % 16)
-        digits = "0123456789ABCDEF"
-        rest = dec / 16
-        # if (rest == 0):
-        return digits[int(x)]
-        # return tohex(rest) + digits[int(x)]
+
     
     def create_traveller_tables():
         

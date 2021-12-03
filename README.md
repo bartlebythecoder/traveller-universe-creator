@@ -1,6 +1,6 @@
  traveller-universe-creator
-v0.8.2 - Fixed Error With Density 4 sectors
-2021-11-24
+v0.9.0.0 - Culture details added
+2021-12-02
 
  Sector Generation
  by Sean Nelson
@@ -13,11 +13,10 @@ v0.8.2 - Fixed Error With Density 4 sectors
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
 
-New With This Version (v0.8.2):
+New With This Version (v0.9.0.0):
 
-   - Added 40,000+ new names to names.csv with credit and thanks to https://simplemaps.com/data/world-cities
-   - Resolved the issue of Density 4 sectors running out of names
-   - Updated PyMapGen .dat extract to fix Sector name reading
+   - Added culture details for each system
+
 
 
 
@@ -49,6 +48,10 @@ A:  Run the generate_men.py from your python environment to create a sector.  Ru
 Q:  What imports do I need?
 
 A:  tkinter, pandas, numpy, sqlite3, random, io, networkx
+
+Q:  Where do the planet names come from
+
+A:  They come from all over the internet, but most come from: https://simplemaps.com/data/world-cities
 
 
 

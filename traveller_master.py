@@ -14,6 +14,7 @@ def make_sector_master(makeit_list):
     from far_trader import generate_far_trader_stats
     from journey_data import build_journey_table
     from routes_short_path import create_route_xml
+    from culture import create_culture_table
     import PySimpleGUI as sg
 
     
@@ -34,10 +35,12 @@ def make_sector_master(makeit_list):
     add_traveller_stats(seed_number,db_name)
     print('Building Traveller Map extract')
     build_travellermap_file(db_name,sector_name)
-    print('Building exo-world table for non-main worlds') 
+    print('Adding data for non-main worlds') 
     generate_non_mainworlds(seed_number,db_name)
     print('Building Far Trader table')
     generate_far_trader_stats(seed_number,db_name)
+    print('Building Culture table')
+    create_culture_table(seed_number,db_name)
     print('Building Routes file')
     create_route_xml(seed_number,db_name)
 
