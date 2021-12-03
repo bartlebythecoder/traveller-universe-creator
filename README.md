@@ -1,6 +1,6 @@
  traveller-universe-creator
-v0.9.0.0 - Culture details added
-2021-12-02
+v0.9.0.1 - Roll Dice Added to Traveller Functions
+2021-12-03
 
  Sector Generation
  by Sean Nelson
@@ -13,9 +13,10 @@ v0.9.0.0 - Culture details added
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
 
-New With This Version (v0.9.0.0):
+New With This Version (v0.9.0):
 
    - Added culture details for each system
+   - New Traveller Function file with re-usable functions
 
 
 

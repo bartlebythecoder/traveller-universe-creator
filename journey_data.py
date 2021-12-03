@@ -11,12 +11,9 @@ Created on Wed Oct 20 16:35:07 2021
 def build_journey_table(seed_number,db_name):
     
     import sqlite3
-    import random
     import pandas as pd
     import numpy as np
 
-    
-    random.seed(seed_number)
     
     conn = sqlite3.connect(db_name)
     c = conn.cursor()

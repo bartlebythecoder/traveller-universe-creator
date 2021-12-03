@@ -4,6 +4,9 @@ Created on Thu Dec  2 16:35:43 2021
 
 @author: sean
 """
+
+import random
+
 def integer_root(expo,num):
     num = float(num)
     root_expo = 1/expo
@@ -40,3 +43,20 @@ def cx_values(cx):
         sta_no = hex_to_int(cx[2])
         sym_no = hex_to_int(cx[3])
         return (het_no,acc_no,sta_no,sym_no)
+    
+    
+def roll_dice(no_dice, why, location, conn, c):
+    
+    
+    no_dice_loop = no_dice + 1  #increment by one for the FOR loop
+    sum_dice = 0
+    for dice_loop in range (1,no_dice_loop):
+        sum_dice = sum_dice + random.randrange(1,7)
+        
+    c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+           (str(location), 
+            no_dice,
+            why,
+            sum_dice))
+            
+    return sum_dice   

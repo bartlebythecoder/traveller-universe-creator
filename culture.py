@@ -4,7 +4,7 @@ Created on Wed Dec  1 15:44:10 2021
 
 @author: sean
 """
-def create_culture_table(seed_number,db_name):
+def create_culture_stats(seed_number,db_name):
     
     import sqlite3
     import random
@@ -157,7 +157,7 @@ def create_culture_table(seed_number,db_name):
                 'Ni': 'Driver-0 ',
                 'Hi': 'Streetwise-0 ',
                 'Pa': 'Trader-0 ',
-                'Na': 'Survery-0 ',
+                'Na': 'Survey-0 ',
                 'Pi': 'JOT-0 ',
                 'In': 'Elec or Mech-0 ',
                 'Po': 'Steward-0 ',

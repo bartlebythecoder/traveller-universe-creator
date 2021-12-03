@@ -9,22 +9,7 @@ def generate_far_trader_stats(seed_number,db_name):
 
     import sqlite3
     import random
-    #random.seed(100)
-    
-    def roll_dice(no_dice, why, location):
-        no_dice_loop = no_dice + 1  #increment by one for the FOR loop
-        sum_dice = 0
-        for dice_loop in range (1,no_dice_loop):
-            sum_dice = sum_dice + random.randrange(1,7)
-            
-        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
-               (str(location), 
-                no_dice,
-                why,
-                sum_dice))
-                
-        return sum_dice   
-        
+
     
        
     def create_tb_far_trader_table():

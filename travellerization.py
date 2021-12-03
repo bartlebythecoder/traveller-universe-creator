@@ -25,7 +25,7 @@ def add_traveller_stats(seed_number,db_name):
     import traceback
     import sys
     
-    from traveller_functions import tohex
+    from traveller_functions import tohex, roll_dice
     
     random.seed(seed_number)
     
@@ -82,21 +82,6 @@ def add_traveller_stats(seed_number,db_name):
         return t_stars_dict    
     
         
-    
-    def roll_dice(no_dice, why, location):
-        no_dice_loop = no_dice + 1  #increment by one for the FOR loop
-        sum_dice = 0
-        for dice_loop in range (1,no_dice_loop):
-            sum_dice = sum_dice + random.randrange(1,7)
-            
-        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
-               (str(location), 
-                no_dice,
-                why,
-                sum_dice))
-                
-        return sum_dice   
-    
        
 
     
@@ -156,41 +141,41 @@ def add_traveller_stats(seed_number,db_name):
     # Using First In rules for Starport
         c_starport = 'Z'
         
-        dice = roll_dice(3,'Starport A',location)
+        dice = roll_dice(3,'Starport A',location, conn, c)
         if population >= 6:
             if dice < population + 3: 
                 c_starport = 'A'
                 return c_starport
                 
-        dice = roll_dice(3,'Starport B',location)
+        dice = roll_dice(3,'Starport B',location, conn, c)
         if population >= 6:
             if dice < population + 6: 
                 c_starport = 'B'
                 return c_starport   
     
-        dice = roll_dice(3,'Starport C',location)
+        dice = roll_dice(3,'Starport C',location, conn, c)
         if dice < population + 9: 
                 c_starport = 'C'
                 return c_starport
     
-        dice = roll_dice(3,'Starport D',location)            
+        dice = roll_dice(3,'Starport D',location, conn, c)            
         if dice < population + 8:
                 c_starport = 'D'
                 return c_starport
                 
-        dice = roll_dice(3,'Starport E',location)            
+        dice = roll_dice(3,'Starport E',location, conn, c)            
         if dice < 15:
                 c_starport = 'E'
                 return c_starport
         
-        dice = roll_dice(3,'Starport X',location)
+        dice = roll_dice(3,'Starport X',location, conn, c)
         c_starport = 'X'
         return c_starport
             
     def get_population(location):
-            dice = roll_dice(2,'Population',location) - 2
+            dice = roll_dice(2,'Population',location, conn, c) - 2
             if dice == 10:
-              dice = roll_dice(2,'Population',location) + 3
+              dice = roll_dice(2,'Population',location, conn, c) + 3
             return dice
             
     def get_belts(location,gg_belt_stats):
@@ -215,19 +200,19 @@ def add_traveller_stats(seed_number,db_name):
         str_base = 'X'
         base_list = list()
         if starport == 'D': 
-            dice = roll_dice(2,'Scout Base',location)
+            dice = roll_dice(2,'Scout Base',location, conn, c)
             if dice <= 7: base_list.append('S')
         elif starport == 'C': 
-            dice = roll_dice(2,'Scout Base',location)
+            dice = roll_dice(2,'Scout Base',location, conn, c)
             if dice <= 6: base_list.append('S')    
         elif starport == 'B': 
-            dice1 = roll_dice(2,'Scout Base',location)
-            dice2 = roll_dice(2,'Naval Base',location)
+            dice1 = roll_dice(2,'Scout Base',location, conn, c)
+            dice2 = roll_dice(2,'Naval Base',location, conn, c)
             if dice1 <= 5: base_list.append('S') 
             if dice2 <= 5: base_list.append('N')
         elif starport == 'A':
-            dice1 = roll_dice(2,'Scout Base',location)
-            dice2 = roll_dice(2,'Naval Base',location)
+            dice1 = roll_dice(2,'Scout Base',location, conn, c)
+            dice2 = roll_dice(2,'Naval Base',location, conn, c)
             if dice1 <= 4: base_list.append('S') 
             if dice2 <= 6: base_list.append('N')
         
@@ -275,14 +260,14 @@ def add_traveller_stats(seed_number,db_name):
         return c_size
     
     def get_government(location, population):
-        dice = roll_dice(2,'Government',row[0]) + population - 7  
+        dice = roll_dice(2,'Government',row[0], conn, c) + population - 7  
         if dice < 0: dice = 0
         elif dice > 15: dice = 15
         if population == 0: dice = 0    
         return dice
         
     def get_law_level(location, government):
-        dice = roll_dice(2,'Law Level',row[0]) + government - 7 
+        dice = roll_dice(2,'Law Level',row[0], conn, c) + government - 7 
         if dice < 0: dice = 0
         elif dice > 15: dice = 15
         if population == 0: dice = 0
@@ -325,7 +310,7 @@ def add_traveller_stats(seed_number,db_name):
         elif government == 13: gov_mod = -2
         else: gov_mod = 0
         
-        dice =  roll_dice(1, 'Tech roll', location) \
+        dice =  roll_dice(1, 'Tech roll', location, conn, c) \
                 + starport_mod \
                 + size_mod  \
                 + atmosphere_mod \
@@ -489,7 +474,7 @@ def add_traveller_stats(seed_number,db_name):
         
     def get_ex(ix, tech_level, population, remarks, belts, gg, location):
         
-        resources = roll_dice(2, 'Ex res', location)
+        resources = roll_dice(2, 'Ex res', location, conn, c)
         if tech_level >= 8: 
             resources += gg
             resources += belts
@@ -502,13 +487,13 @@ def add_traveller_stats(seed_number,db_name):
         
         if 'Ba' in remarks: infrastructure = 0
         elif 'Lo' in remarks: infrastructure = 1
-        elif 'Ni' in remarks: infrastructure = roll_dice(1, 'Ex infra Ni',location) + ix
-        else: infrastructure = roll_dice(2, 'Ex infra', location) + ix
+        elif 'Ni' in remarks: infrastructure = roll_dice(1, 'Ex infra Ni',location, conn, c) + ix
+        else: infrastructure = roll_dice(2, 'Ex infra', location, conn, c) + ix
         if infrastructure < 0: infrastructure = 0
         infrastructure = tohex(infrastructure)
      
         
-        efficiency = roll_dice(2, "Ex eff", location) - 7
+        efficiency = roll_dice(2, "Ex eff", location, conn, c) - 7
         if efficiency < 0:
             return('(' + str(resources) + str(labor) + str(infrastructure) + str(efficiency) + ')')
         else:    
@@ -516,7 +501,7 @@ def add_traveller_stats(seed_number,db_name):
             
     
     def get_cx(population, ix, tech_level, location):
-        homogeneity = population + roll_dice(2, 'Cx homo', location) - 7
+        homogeneity = population + roll_dice(2, 'Cx homo', location, conn, c) - 7
         if homogeneity < 1:  homogeneity = 1
         homogeneity = tohex(homogeneity)
         
@@ -525,11 +510,11 @@ def add_traveller_stats(seed_number,db_name):
         acceptance = tohex(acceptance)
     
         
-        strangeness = roll_dice(2, 'Cx strange', location) - 7 + 5
+        strangeness = roll_dice(2, 'Cx strange', location, conn, c) - 7 + 5
         if strangeness < 1: strangeness = 1
         strangeness = tohex(strangeness)
         
-        symbols = (roll_dice(2, 'Cx symbols', location) - 7 + tech_level)
+        symbols = (roll_dice(2, 'Cx symbols', location, conn, c) - 7 + tech_level)
         if symbols < 1: symbols = 1
         symbols = tohex(symbols)
         

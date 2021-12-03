@@ -612,7 +612,7 @@ def make_win3(culture_columns,culture_list,location):
         
         
             
-    return sg.Window('Perceived Cultural Details',culture_layout,size=(450,500),finalize=True)
+    return sg.Window('Perceived Cultural Details',culture_layout,size=(550,500),finalize=True)
 
 
 

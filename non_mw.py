@@ -13,7 +13,7 @@ def generate_non_mainworlds(seed_number,db_name):
     
     import sqlite3
     import random
-    from traveller_functions import tohex
+    from traveller_functions import tohex, roll_dice
     
     random.seed(seed_number)
     
@@ -25,23 +25,6 @@ def generate_non_mainworlds(seed_number,db_name):
         name_list.remove(name_picked)
         return name_fixed
     
-    
-    
-    def roll_dice(no_dice, why, location):
-        no_dice_loop = no_dice + 1  #increment by one for the FOR loop
-        sum_dice = 0
-        for dice_loop in range (1,no_dice_loop):
-            sum_dice = sum_dice + random.randrange(1,7)
-            
-        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
-               (str(location), 
-                no_dice,
-                why,
-                sum_dice))
-                
-        return sum_dice   
-    
-       
         
     def capture_mainworld_stats():
         sql3_select_tb_t5 = """     SELECT  location,
@@ -61,7 +44,7 @@ def generate_non_mainworlds(seed_number,db_name):
     def get_population(location,mw):
         
 
-        dice = roll_dice(2,'Population',location) - 4
+        dice = roll_dice(2,'Population',location, conn, c) - 4
     
         if dice >= mw['population']:
             dice = mw['population'] - 1
@@ -75,7 +58,7 @@ def generate_non_mainworlds(seed_number,db_name):
         if population == 0:
             spaceport = 'Y'
         else:
-            dice = roll_dice(1,'Spaceport',location) - population
+            dice = roll_dice(1,'Spaceport',location, conn, c) - population
             if dice >= 4: spaceport = 'F'
             elif dice == 3: spaceport = 'G'
             elif 1 <= dice <=2 : spaceport = 'H'
@@ -112,14 +95,14 @@ def generate_non_mainworlds(seed_number,db_name):
         if mw_government == '6':
             dice = 6
         else:
-            dice = roll_dice(2,'Government',row[0]) + population - 7  
+            dice = roll_dice(2,'Government',row[0], conn, c) + population - 7  
             if dice < 0: dice = 0
             elif dice > 15: dice = 15
             if population == 0: dice = 0    
         return dice
         
     def get_law_level(location, government):
-        dice = roll_dice(2,'Law Level',row[0]) + government - 7 
+        dice = roll_dice(2,'Law Level',row[0], conn, c) + government - 7 
         if dice < 0: dice = 0
         elif dice > 15: dice = 15
         if population == 0: dice = 0
@@ -162,7 +145,7 @@ def generate_non_mainworlds(seed_number,db_name):
         elif government == 13: gov_mod = -2
         else: gov_mod = 0
         
-        dice =  roll_dice(1, 'Tech roll', location) \
+        dice =  roll_dice(1, 'Tech roll', location, conn, c) \
                 + starport_mod \
                 + size_mod  \
                 + atmosphere_mod \

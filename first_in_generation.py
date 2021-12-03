@@ -12,7 +12,7 @@ def generate_stars(db_name,makeit_list):
     import math 
     import random
     import os
-    from traveller_functions import integer_root
+    from traveller_functions import integer_root, roll_dice
 
     
     def create_tables(c,conn):
@@ -93,29 +93,11 @@ def generate_stars(db_name,makeit_list):
         c.execute(sql_create_dice_table)  
         
     
-    def roll_dice(no_dice, why, location):
-        no_dice_loop = no_dice + 1  #increment by one for the FOR loop
-        sum_dice = 0
-        for dice_loop in range (1,no_dice_loop):
-            sum_dice = sum_dice + random.randrange(1,7)
-            
-        c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
-               (str(location), 
-                no_dice,
-                why,
-                sum_dice))
-                
-        return sum_dice   
-    
-       
-
- 
-    
-           
+          
         
     def get_multiple_stars(location):
     #   A function that returns the # of companions of the primary (not including sub-companions)
-        mult_roll = roll_dice(3,'# of stars',location)
+        mult_roll = roll_dice(3,'# of stars',location, conn, c)
         if mult_roll <= MULTIPLE_STAR_CHANCE_S:
             rolled_multiple = 0
         elif mult_roll <= MULTIPLE_STAR_CHANCE_B:
@@ -126,7 +108,7 @@ def generate_stars(db_name,makeit_list):
         
     def get_luminosity_class(location):
     #   A function that returns the stellar luminosity
-        lum_roll = roll_dice(3,'stellar luminosity',location)
+        lum_roll = roll_dice(3,'stellar luminosity',location, conn, c)
         if lum_roll <= LUM_CLASS_CHANCE_III:
             rolled_lum = "III"
         elif lum_roll <= LUM_CLASS_CHANCE_V:   
@@ -138,7 +120,7 @@ def generate_stars(db_name,makeit_list):
         
     def get_spectral(location):
     #   A function that returns the spectral class
-        spec_roll = roll_dice(3,'spectral class',location)
+        spec_roll = roll_dice(3,'spectral class',location, conn, c)
         if spec_roll <= SPEC_CLASS_CHANCE_A:
             rolled_spec = "A"
         elif spec_roll <= SPEC_CLASS_CHANCE_F:
@@ -150,7 +132,7 @@ def generate_stars(db_name,makeit_list):
         else:
             rolled_spec = "M"
         
-        subspec_roll = roll_dice(1,'sub spectral class',location)
+        subspec_roll = roll_dice(1,'sub spectral class',location, conn, c)
         if subspec_roll <4:
             subspec = "0"
         else:
@@ -261,7 +243,7 @@ def generate_stars(db_name,makeit_list):
     def get_orbit_ecc(o_separation, location):
         ecc_list = list()
         ecc_list = [0.05,0.1,0.2,0.3,0.4,0.4,0.5,0.5,0.5,0.6,0.6,0.7,0.7,0.8,0.9,0.95]
-        ecc_roll = roll_dice(3, 'orbital eccentricity',location)
+        ecc_roll = roll_dice(3, 'orbital eccentricity',location, conn, c)
         if o_separation == "Very Close":
             ecc_roll = ecc_roll - 6
         elif o_separation == "Close":
@@ -297,7 +279,7 @@ def generate_stars(db_name,makeit_list):
         else:
             die_mod = 0
         sep_roll_lu = "X"
-        sep_roll = roll_dice(3,'separation distance',location) + die_mod
+        sep_roll = roll_dice(3,'separation distance',location, conn, c) + die_mod
         if sep_roll <= 6:
             sep_roll_lu = "6"
         elif sep_roll <= 9:
@@ -317,14 +299,14 @@ def generate_stars(db_name,makeit_list):
         # Below is the radius multiplier from the Orbital Separation Table
         sep_rad_mod = round(float(sep_dict[sep_roll_lu]['orbital_mod']),4)  
         
-        sep_rad_roll = roll_dice(2, 'companion orbital_average',location)
+        sep_rad_roll = roll_dice(2, 'companion orbital_average',location, conn, c)
         orbital_average = float(sep_rad_mod + sep_rad_roll)
         
           
         #check to see if the companion is Distant and has its own companion.  For now mark with an asterisk in Separation description
         own_companion = 0  # assume no companion of its own
         if sep_desc == "Distant":
-            check_distant = roll_dice(3, 'distant companion check',location)
+            check_distant = roll_dice(3, 'distant companion check',location, conn, c)
             if check_distant >= DISTANT_COMPANION_CHANCE:
                 sep_desc = "Distant*"
                 own_companion = 1 #flag the presence of a companion, which will result in a new stellar body
@@ -369,10 +351,10 @@ def generate_stars(db_name,makeit_list):
                 luminosity_class = 'D'
                 spec = 'w'
             else:
-                sec_lum_roll_a = roll_dice(1, 'comp lum class #1',location)
+                sec_lum_roll_a = roll_dice(1, 'comp lum class #1',location, conn, c)
                 if sec_lum_roll_a <= 4:
                     luminosity_class = stellar_dict["luminosity_class"]
-                    csd_spec_roll = roll_dice(1, 'comp spec roll',location)
+                    csd_spec_roll = roll_dice(1, 'comp spec roll',location, conn, c)
                     spec = find_csd_spectral_type(csd_spec_roll,stellar_dict["spectral_type"])
                 else:
                     lum_class_index = lum_class_list.index(stellar_dict["luminosity_class"])
@@ -384,7 +366,7 @@ def generate_stars(db_name,makeit_list):
                     if lum_class_index < 3:
                         luminosity_class = lum_class_list[lum_class_index]
                     else:
-                        sec_lum_roll_b = roll_dice(1, 'comp lum class #2',location)
+                        sec_lum_roll_b = roll_dice(1, 'comp lum class #2',location, conn, c)
                         if sec_lum_roll_b <= 4:
                             luminosity_class = 'V'
                             
@@ -394,7 +376,7 @@ def generate_stars(db_name,makeit_list):
                     if luminosity_class == 'D':
                         spec = 'w'
                     elif luminosity_class in lum_class_list:
-                        csd_spec_roll = roll_dice(1, 'comp spec roll',location)
+                        csd_spec_roll = roll_dice(1, 'comp spec roll',location, conn, c)
                         spec = find_csd_spectral_type(csd_spec_roll,stellar_dict["spectral_type"])
                     else:
                         luminosity_class = 'X'
@@ -421,7 +403,7 @@ def generate_stars(db_name,makeit_list):
             temp_stellar_lifespan = CHARSV[spec]["lifespan"]
             # for main sequence(V) planets this number is maximum age.  
             # We need to assign an age for this particular star
-            adjust_age = roll_dice(2, 'stellar age',location)
+            adjust_age = roll_dice(2, 'stellar age',location, conn, c)
             if adjust_age > float(temp_stellar_lifespan):
                 adjust_age = temp_stellar_lifespan
             stellar_lifespan = str(adjust_age)
@@ -438,7 +420,7 @@ def generate_stars(db_name,makeit_list):
         else:
             stellar_temp = 0
             stellar_luminosity = 0.001
-            stellar_mass = 0.14 + (roll_dice(3, 'wD Mass', location) * 0.04)
+            stellar_mass = 0.14 + (roll_dice(3, 'wD Mass', location, conn, c) * 0.04)
             stellar_radius = 0.00003
             stellar_lifespan = 0
 
@@ -543,10 +525,10 @@ def generate_stars(db_name,makeit_list):
             orbital_outer_limit = 40 * stellar_mass    
             if orbital_outer_limit < 10: orbital_outer_limit = 10
                     
-            base_orbital_radius_int = (roll_dice(1,'base orbital radius',location) + 1)
+            base_orbital_radius_int = (roll_dice(1,'base orbital radius',location, conn, c) + 1)
             base_orbital_radius = float(base_orbital_radius_int/2)
             base_orbital_radius = float(base_orbital_radius) * float(orbital_inner_limit)
-            bode_roll = roll_dice(1,'bode constant roll',location)
+            bode_roll = roll_dice(1,'bode constant roll',location, conn, c)
             if bode_roll < 3:
                 bode_constant = 0.3
             elif bode_roll < 5:
@@ -590,7 +572,7 @@ def generate_stars(db_name,makeit_list):
     # z = zone type 
     # s = spectral type
     
-        size_roll = roll_dice(2, 'size roll',location)
+        size_roll = roll_dice(2, 'size roll',location, conn, c)
     
         if r == 1:
             size_roll = size_roll - 4
@@ -629,7 +611,7 @@ def generate_stars(db_name,makeit_list):
         density_float = 0
         age_float = float(p_star_dict["age"])
         age_mod = age_float / 2
-        density_roll = roll_dice(3, 'density roll',location)
+        density_roll = roll_dice(3, 'density roll',location, conn, c)
         density_float = (density_roll - age_mod)/10
         size_adjust = planet_size
         if size_adjust <= 3:
@@ -684,7 +666,7 @@ def generate_stars(db_name,makeit_list):
         chance = round(hill_radius/radius,0)
         moon = 0
         if chance > 300:
-            moon_check = roll_dice(1,'impact satellite chance',location)
+            moon_check = roll_dice(1,'impact satellite chance',location, conn, c)
             if moon_check >= 5:
                 moon = 1
             else: 
@@ -707,7 +689,7 @@ def generate_stars(db_name,makeit_list):
         # size is planetary size_adjust
         # First In also used Tidal Lock, not used here
         
-        day_roll = roll_dice(3, 'day roll', location)
+        day_roll = roll_dice(3, 'day roll', location, conn, c)
         day_mod = 0
         
         if size != 0:
@@ -769,7 +751,7 @@ def generate_stars(db_name,makeit_list):
         elif world_type == 'Greenhouse':
             atmos_var = 2.0
         else:
-            atmos_var = roll_dice(3,'atmos roll',location) * 0.1
+            atmos_var = roll_dice(3,'atmos roll',location, conn, c) * 0.1
             
         return atmos_var
             
@@ -809,7 +791,7 @@ def generate_stars(db_name,makeit_list):
     
      
         if clear_for_hydro == True:
-            hydro_var = roll_dice(2, 'hydro roll',location) - 2
+            hydro_var = roll_dice(2, 'hydro roll',location, conn, c) - 2
            
         hydro_var = hydro_var + hydro_mod
         
@@ -820,14 +802,14 @@ def generate_stars(db_name,makeit_list):
         return hydro_var
      
     def check_sulfur(location):
-            if roll_dice(3, 'sulfur roll',location) > 12:
+            if roll_dice(3, 'sulfur roll',location, conn, c) > 12:
                 atm = 'Corrosive'
             else:
                 atm = 'Exotic'
             return atm
             
     def check_pollutant(location):
-            if roll_dice(3, 'tainted roll',location) > 11:
+            if roll_dice(3, 'tainted roll',location, conn, c) > 11:
                 atm = 'Tainted'
             else:
                 atm = 'Standard'
@@ -1074,14 +1056,14 @@ def generate_stars(db_name,makeit_list):
                             
                         elif current_distance < float(star["lz_min"]):
                             zones = "Inner Zone"
-                            gg_check = roll_dice(3,'GG check',ob_db_key)
+                            gg_check = roll_dice(3,'GG check',ob_db_key, conn, c)
                             if gg_check <= 3:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key, conn, c)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1094,14 +1076,14 @@ def generate_stars(db_name,makeit_list):
                                     
                         elif current_distance < float(star["lz_max"]):
                             zones = "Life Zone"
-                            gg_check = roll_dice(3,'GG check',ob_db_key)
+                            gg_check = roll_dice(3,'GG check',ob_db_key, conn, c)
                             if gg_check <= 4:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key, conn, c)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1115,14 +1097,14 @@ def generate_stars(db_name,makeit_list):
                                     
                         elif current_distance < float(star["snow_line"]):
                             zones = "Middle Zone"
-                            gg_check = roll_dice(3,'GG check',ob_db_key)
+                            gg_check = roll_dice(3,'GG check',ob_db_key, conn, c)
                             if gg_check <= 7:
                                 zone_objects="Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key, conn, c)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1138,14 +1120,14 @@ def generate_stars(db_name,makeit_list):
                         elif current_distance >= float(star["snow_line"]):
                         
                             zones = "Outer Zone"
-                            gg_check = roll_dice(3,'GG check',ob_db_key)
+                            gg_check = roll_dice(3,'GG check',ob_db_key, conn, c)
                             if gg_check <= 14:
                                 zone_objects = "Gas Giant"
                                 size = get_gg_size(planet_no,zones,star["spectral_type"],location)
                                 density= get_gg_density(size)
                                 no_gg += 1
                             else:
-                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key)
+                                planetoid_roll = roll_dice(3, 'planetoid check',ob_db_key, conn, c)
                                 if planetoid_roll <= 6:
                                     zone_objects = "Planetoid Belt"
                                     size = 0
@@ -1208,7 +1190,7 @@ def generate_stars(db_name,makeit_list):
                         
                         
                         if natural_moons > 0:
-                            ring_roll = roll_dice(3,"ring check",ob_db_key)
+                            ring_roll = roll_dice(3,"ring check",ob_db_key, conn, c)
                             if ring_roll < 6:
                                 ring = 'None'
                             elif ring_roll <= 9:
@@ -1293,13 +1275,13 @@ def generate_stars(db_name,makeit_list):
                                 
                                 moon_key = str(ob_db_key) + '-n' + str(m) # Note 'n' for natural accretion moon
 
-                                moon_orbital_radius_roll = roll_dice(1,'moon_radius', moon_key)
+                                moon_orbital_radius_roll = roll_dice(1,'moon_radius', moon_key, conn, c)
                                 
                                 moon_orbital_radius_km = ((moon_orbital_radius_roll + 2) * (1.8 * m)) * radius
                                 moon_orbital_radius = round(moon_orbital_radius_km / 149597870.700,3)  # convert to AU
                                 zone_objects =  "Natural Moon"
 
-                                mass_roll = roll_dice(3,'moon mass roll',moon_key)
+                                mass_roll = roll_dice(3,'moon mass roll',moon_key, conn, c)
 
                                 part_one = mass_roll * mass
                             
@@ -1314,7 +1296,7 @@ def generate_stars(db_name,makeit_list):
                                 moon_mass = round(part_three,4)
 
                                 
-                                density_roll = roll_dice(3, 'moon density roll', moon_key)
+                                density_roll = roll_dice(3, 'moon density roll', moon_key, conn, c)
                                 moon_density = round((integer_root(5,moon_mass)) + ((density_roll - 10)/100),2)
                                 
                                 if moon_density == 0:
@@ -1397,19 +1379,19 @@ def generate_stars(db_name,makeit_list):
                             
                             moon_key = str(ob_db_key) + '-i1' # Note 'i' for impact moon
 
-                            moon_orbital_radius_roll = roll_dice(3,'impact moon_radius', moon_key)
+                            moon_orbital_radius_roll = roll_dice(3,'impact moon_radius', moon_key, conn, c)
                             
                             moon_orbital_radius_km = ((moon_orbital_radius_roll + 7) * (4 * radius))
                             moon_orbital_radius = round(moon_orbital_radius_km / 149597870.700,3)  # convert to AU
                             zone_objects =  "Impact Moon"
 
-                            mass_roll = roll_dice(3,'moon mass roll',moon_key)
+                            mass_roll = roll_dice(3,'moon mass roll',moon_key, conn, c)
 
 
                             moon_mass = round(mass_roll * mass * .01,4)
 
                             
-                            density_roll = roll_dice(3, 'moon density roll', moon_key)
+                            density_roll = roll_dice(3, 'moon density roll', moon_key, conn, c)
                             moon_density = round((integer_root(5,moon_mass)) + ((density_roll - 10)/100),2)
                             
                             if moon_density == 0:
@@ -1628,7 +1610,7 @@ def generate_stars(db_name,makeit_list):
                     ystring = (str(y))
                 parsec = str(xstring + ystring)                
     #           Generate a random d6 to check for system presence against LIKELIHOOD
-                rollgen = roll_dice(1, 'system presence',parsec)
+                rollgen = roll_dice(1, 'system presence',parsec, conn, c)
               
     ###################################################################################
     # This section builds the system                                                  #

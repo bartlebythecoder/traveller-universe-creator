@@ -14,7 +14,7 @@ def make_sector_master(makeit_list):
     from far_trader import generate_far_trader_stats
     from journey_data import build_journey_table
     from routes_short_path import create_route_xml
-    from culture import create_culture_table
+    from culture import create_culture_stats
     import PySimpleGUI as sg
 
     
@@ -40,7 +40,7 @@ def make_sector_master(makeit_list):
     print('Building Far Trader table')
     generate_far_trader_stats(seed_number,db_name)
     print('Building Culture table')
-    create_culture_table(seed_number,db_name)
+    create_culture_stats(seed_number,db_name)
     print('Building Routes file')
     create_route_xml(seed_number,db_name)
 
