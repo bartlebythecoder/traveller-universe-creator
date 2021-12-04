@@ -25,9 +25,9 @@ New With This Version (v0.9.0):
 Description:
 
 This program builds a traveller sector and stores the data in three files:
--SQLite database
--Text file for system data import into the TravellerMap website
--Text file for route data import into the TravellerMap website
+  - SQLite database
+  - Text file for system data import into the TravellerMap website
+  - Text file for route data import into the TravellerMap website
 
 
 FAQ:
