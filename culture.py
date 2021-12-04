@@ -8,7 +8,7 @@ def create_culture_stats(seed_number,db_name):
     
     import sqlite3
     import random
-    from traveller_functions import hex_to_int, cx_values
+
     random.seed(seed_number)
     
     def create_culture_table():
@@ -42,7 +42,7 @@ def create_culture_stats(seed_number,db_name):
     create_culture_table()    
     
     
-    age_list = ['infant-centric','infants neither seen nor heard','youth-centric','no youth culture'
+    age_list = ['infant-centric','infants neither seen nor heard','youth-centric','no youth culture',
                 'young adult-centric','adult-centric','adult-centric','adult-centric','revere seniors','revere seniors','seniors reviled']
     appearance_list = ['dirty','clean','unkempt','immaculate','casual','formal','average','average','average']
     tendency_list = ['perceptive','violent','vain','selfish','kind','careless','capricious','serious','trusting','suspicious',
@@ -60,13 +60,13 @@ def create_culture_stats(seed_number,db_name):
                         'conservative','reactionary']
     custom_role_list = ['everyone','everyone','everyone','everyone','everyone','everyone','everyone','everyone','everyone','everyone',
                         'natives','citizens','visitors','certain political groups','certain sex','law enforcement','entertainers',
-                        'heroes','athletes','certain races','relgious figures','military figures','certain occupations','political figures',
+                        'heroes','athletes','certain races','religious figures','military figures','certain occupations','political figures',
                         'medical professionals','certain age groups','scientists','academics','low social class','high social class',
                         'criminals','socialites','celebrities','workers','off-worlders/travellers']
     custom_list = ['same clothes for all sexes','unusual clothes','unusual headgear','shaved heads','hair never cut','unusual hair color',
                    'unusual hair styles','unusual eyebrows','unusual facial alterations','unusual body alterations','unusual fingernails',
-                   'unusual toe nails','unusual cosmetics','unusual jewelry','unusual accessories','unusual handgear','tatooing on face',
-                   'tatooing on body','hidden tatooing','unusual foods','unusual beverages','unusual food preparation','segregated at meals',
+                   'unusual toe nails','unusual cosmetics','unusual jewelry','unusual accessories','unusual handgear','tattooing on face',
+                   'tattooing on body','hidden tattooing','unusual foods','unusual beverages','unusual food preparation','segregated at meals',
                    'vegetarian','vegan','certain colored food','certain shaped food','certain food sources','eat in special location',
                    'eat only in private','eat in special orientation','eat with unusual utensils','eat only at home','eat at unusual times',
                    'eat only at certain times','rituals before eating','rituals after eating','one group eats leftovers',
@@ -75,8 +75,12 @@ def create_culture_stats(seed_number,db_name):
                    'have minimal quarters','have unusual quarters','quarters must be visited','live with extended families',
                    'live in communal housing','live only in certain terrain','must move around','unsual media','unusual starport',
                    'unusual lifecycle','unusual social standings','unusual trade','unusual nobility','unusual reproduction','conspiracy-driven']
-    interests_list = ['religion','philosophy','economics','sports','politics','legends','history','nature','horticulture','handicrafts',
-                      'foods','wines and spirits','gambling','drugs']
+    interests_list = ['religion','philosophy','economics','sports','politics','legends and myth','history','nature','horticulture','handicrafts',
+                      'foods','wines and spirits','gambling','drugs','art','sculpture','music','theatre',
+                       'antiques','buttons','coins','guns','swords','hats','insects','sea shells','stones','tools','toys','minerals',
+                       'airbrushing','blacksmithing','calligraphy','candle-making','ceramics','crocheting','digital arts','photography',
+                       'drawing','embroidery','fashion','glassblowing','graffiti','illusion','jewelry making','knitting','nail art','needlepoint',
+                       'origami','painting','pottery','sewing','singing','storytelling','taxidermy','dancing']
 
     
     
@@ -87,10 +91,11 @@ def create_culture_stats(seed_number,db_name):
     
     sql3_select_tb_t5 = """     SELECT  s.location,
                                         s.remarks,
-                                        s.ix,
-                                        s.ex,
-                                        s.cx
-                                FROM    system_stats s"""
+                                        t.population
+                                FROM    system_stats s
+                                LEFT JOIN traveller_stats t
+                                ON s.location = t.location
+                                WHERE t.main_world = 1"""
                                     
     c.execute(sql3_select_tb_t5)
     allrows = c.fetchall()
@@ -102,13 +107,15 @@ def create_culture_stats(seed_number,db_name):
 
         location            = str(row[0])    
         remarks             = str(row[1])
-        ix                  = str(row[2])
-        ex                  = str(row[3])
-        cx                  = str(row[4])
+        population          = int(row[2])
+
         
-        (cx_het_no,cx_acc_no,cx_str_no,cx_sym_no) = cx_values(cx)
         
-        if cx_het_no == 0 and cx_acc_no == 0 and cx_str_no == 0 and cx_sym_no == 0:
+        
+        
+        
+        
+        if population == 0:
             age = 'n/a'
             appearance = 'n/a'
             tendency = 'n/a'
@@ -124,6 +131,7 @@ def create_culture_stats(seed_number,db_name):
             interests = 'n/a'
             common_skills = 'n/a'
 
+
             
         else:
         
@@ -138,9 +146,12 @@ def create_culture_stats(seed_number,db_name):
             consumerism         = random.choice(consumerism_list)
             spiritual_outlook   = random.choice(spiritual_outlook_list)
             status_quo_outlook  = random.choice(status_quo_outlook_list)
-            custom              = random.choice(custom_role_list) + ' ' + random.choice(custom_list)
+            custom              = random.choice(custom_role_list) + ':  ' + random.choice(custom_list)
             interests           = random.choice(interests_list)
             common_skills       = ''
+            
+         
+            
             
             
             dc_common_skills = {

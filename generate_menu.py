@@ -59,7 +59,7 @@ layout = [
 ]
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder v0.9.0.1""", layout)
+window = sg.Window("""Bartleby's Sector Builder v0.9.0.2""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 event, values = window.read()
@@ -82,18 +82,18 @@ distant_input = 11
 
 
 
-makeit_list = [random_seed_input, 
-            sector_name_input,
-            density_input,
-            lumiii_input,
-            lumv_input,
-            spectrala_input,
-            spectralf_input,
-            spectralg_input,
-            spectralk_input,
-            solo_input,
-            binary_input,
-            distant_input]
+makeit_list = [ random_seed_input, 
+                sector_name_input,
+                density_input,
+                lumiii_input,
+                lumv_input,
+                spectrala_input,
+                spectralf_input,
+                spectralg_input,
+                spectralk_input,
+                solo_input,
+                binary_input,
+                distant_input]
 
 makeit(makeit_list)
 

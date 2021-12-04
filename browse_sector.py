@@ -597,12 +597,16 @@ def make_win3(culture_columns,culture_list,location):
 
             culture_column_one += [sg.Text(culture_columns[s_num]+':')],
             culture_column_two += [sg.Text(s)],
-    
+            
+
 
     
         print('Setting new layout')    
         culture_layout = [
                  [sg.Column(culture_column_one),sg.Column(culture_column_two)],
+
+
+                 
                  [sg.HSeparator()],
                  [sg.Button('Exit')]
                  ]
