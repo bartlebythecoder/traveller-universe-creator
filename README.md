@@ -1,6 +1,6 @@
  traveller-universe-creator
-v0.9.0.1 - Roll Dice Added to Traveller Functions
-2021-12-03
+v0.9.0.2 - Added more culture details
+2021-12-04
 
  Sector Generation
  by Sean Nelson
@@ -9,6 +9,7 @@ v0.9.0.1 - Roll Dice Added to Traveller Functions
 
  Possible Improvements Pending (likely in this order):
 
+   - Add Trade details for each system
    - Rewrite Stellar creation rules using  Architect of Worlds
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
@@ -44,7 +45,7 @@ A:  It uses GURPS First In for the science stuff (like stellar details, and plan
 
 Q:  How do you run it?
 
-A:  Run the generate_men.py from your python environment to create a sector.  Run the browse_sector to explore the sectors you create.
+A:  Run the generate_menu.py from your python environment to create a sector.  Run the browse_sector to explore the sectors you create.
 
 Q:  What imports do I need?
 
