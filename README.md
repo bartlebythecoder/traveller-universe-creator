@@ -1,6 +1,6 @@
  traveller-universe-creator
 v0.9.0.2 - Added more culture details
-2021-12-04
+2021-02-06
 
  Sector Generation
  by Sean Nelson
@@ -14,7 +14,7 @@ v0.9.0.2 - Added more culture details
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
 
-New With This Version (v0.9.0):
+New With This Version (v0.9.0.2):
 
    - Added culture details for each system
    - New Traveller Function file with re-usable functions
@@ -41,7 +41,8 @@ You can browse and search this database using the excellent SQLite browser from:
 
 Q:  What Traveller rules does it use?
 
-A:  It uses GURPS First In for the science stuff (like stellar details, and planet temperature) and T5 rules for the Traveller stuff (like law level and influence scores)
+A:  It uses GURPS First In for the science stuff (like stellar details, and planet temperature) and T5 rules for the Traveller stuff (like law level and influence scores).
+    I have started migrating the GURPS First In calculations to use the more update Architect of Worlds by the same creator
 
 Q:  How do you run it?
 
