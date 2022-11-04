@@ -1,6 +1,11 @@
- traveller-universe-creator
-v0.9.0.2 - Added more culture details
-2021-02-06
+traveller-universe-creator
+v0.9.0.2.1.01 - Updated browse_sector.py
+2022-11-04
+
+Changes this update:
+- Corrected Find Earth on browse sector map
+- Added Find Belt on browse sector map
+- These changes not on the latest EXE file
 
  Sector Generation
  by Sean Nelson
@@ -14,8 +19,9 @@ v0.9.0.2 - Added more culture details
    - Create worlds using Architect of Worlds
    - Export data to a PDF for publishing
 
-New With This Version (v0.9.0.2):
+New With This Version (v0.9.0.2.1):
 
+   - Added exe files for people without Python platforms
    - Added culture details for each system
    - New Traveller Function file with re-usable functions
 
@@ -28,7 +34,22 @@ This program builds a traveller sector and stores the data in three files:
   - SQLite database
   - Text file for system data import into the TravellerMap website
   - Text file for route data import into the TravellerMap website
+  
 
+How to Run?
+
+Option 1:  From the EXEs (note - exe compiles start with a loooong wait with a blanks screen - be patient)
+ - run generate_menu.exe to generate a DB
+ - find generated DBs in /sector_db
+ - run browse_sector.exe to view a sector
+ - optionally use a DB browser (like DB browser for SQLite) to look at every piece of data for each planet/system
+ 
+ 
+Option 2: From the code (better experience - but requires a Python env)
+ - run generate_menu.py to generate a DB
+ - find generated DBs in /sector_db
+ - run browse_sector.py to view a sector
+ - optionally use a DB browser (like DB browser for SQLite) to look at every piece of data for each planet/system
 
 FAQ:
 Q:  What does the program do?
