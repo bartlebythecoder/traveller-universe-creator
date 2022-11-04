@@ -236,15 +236,18 @@ def draw_map():
         plot_list  = [30]
         animate(location_orb_name,stell_colors,plot_list,label_choice,df,loc_info)   
         
-    else:
-        print('Earth Like Planets was chosen')
+    elif values['-EARTH-'] is True:
+        print('Earth Like Planets option was chosen')
         df_special_earth = (df_details.query('type == "Ocean*"'))
         stell_colors =['dimgray','Green']
-        plot_list  = [30,65]
+        plot_list  = [30]
         animate('Earth-like worlds',stell_colors,plot_list,label_choice,df,df_special_earth)
-
-
-
+    else:
+        print('Belts option was chosen')
+        df_special_belt = (df_details.query('type == "Belt"'))
+        stell_colors =['dimgray','Yellow']
+        plot_list  = [30]
+        animate('Belts',stell_colors,plot_list,label_choice,df,df_special_belt)
 
 
 
@@ -268,7 +271,7 @@ option_list = []
 
 
 
-db_name = 'C:/Users/sean/Documents/GitHub/traveller-universe-creator/sector_db/example-66.db'
+db_name = 'sector_db/example-66.db'
 
 list_images = [['mask','Completely Stellar Masked'],
                ['ocean','Ocean or Earth-like World'],
@@ -374,6 +377,9 @@ e_labels = list(df_economic.columns)
 e_labels.remove('location')
 e_labels.remove('id')
 e_labels_len = len(e_labels)
+e_tooltips = ['World Trade Number (GURPS Far Trader)',    
+              'Gross World Product (GURPS Far Trader)',   
+              'Exchange Rate (JTAS 4)']
 
 
 
@@ -424,8 +430,8 @@ def make_win1():
     column_five += [[sg.Text("System-wide Details",pad=(5,(15,2)))], 
                           [sg.HSeparator()],]                
     
-    for e in e_labels:
-        column_four += [sg.Text(e+':',enable_events = True,key=(e),pad=(0,0))],
+    for x, e in enumerate(e_labels):
+        column_four += [sg.Text(e+':',enable_events = True,tooltip = e_tooltips[x] ,key=(e),pad=(0,0))],
         column_five += [sg.Text('|',enable_events = True,key=(e+'i'),pad=(0,0))],
     
     
@@ -433,6 +439,7 @@ def make_win1():
     map_options = [
     [sg.Radio('Show Selected','-DISPLAY-',key=('-FULL-'),default=True,pad=(0,0))],
     [sg.Radio('Find Earth Like','-DISPLAY-',key=('-EARTH-'),pad=(0,0))],
+    [sg.Radio('Find Belts','-DISPLAY-',key=('-IX-'),pad=(0,0))],
     ]
         
     label_options = [
@@ -486,8 +493,9 @@ def make_win1():
               sg.Button('Main World',key=('-MAIN-')),
               sg.Button('Full System', key=('-SYSTEM-')),
               sg.VSeparator(),
-              sg.Button('Stellar',key=('-STELLAR-')),
+              sg.Button('Stellar', key=('-STELLAR-')),
               sg.Button('Culture', key=('-CULTURE-')),
+              sg.Button('Trade', key=('-TRADE-')),
               sg.VSeparator(),
               sg.Button('Exit'),
         ],
@@ -509,7 +517,7 @@ def make_win1():
          ],
         
     ]
-    return sg.Window("""Bartleby's Sector Builder""", layout,size=(1200,700),finalize=True)
+    return sg.Window("""Bartleby's Sector Builder""", layout,size=(1300,700),finalize=True)
 
 
 
@@ -625,6 +633,7 @@ def make_win3(culture_columns,culture_list,location):
 
 # Create the Window
 window1, window2, window3 = make_win1(), None, None        # start off with 1 window open
+
 # Event Loop to process "events" and get the "values" of the inputs
 
 
@@ -865,6 +874,16 @@ while True:
 
         except:
             print('Failed Culture button')
+            
+    elif event == '-TRADE-' and not window3:
+        try:
+            print('pressed Trade')
+            
+            sg.Popup('Coming soon', keep_on_top=True)
+  
+
+        except:
+            print('Failed Culture button')        
             
     elif event == '-SYSTEM-':
         try:
