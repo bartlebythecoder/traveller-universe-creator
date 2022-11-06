@@ -5,21 +5,39 @@ Created on Sun Oct 31 23:19:42 2021
 @author: sean
 """
 
+import logging
+
+#Used to reset logging
+# for handler in logging.root.handlers[:]:
+#     logging.root.removeHandler(handler)
+
+# used to disable tkinter stream messages
+pil_logger = logging.getLogger('PIL')
+pil_logger.setLevel(logging.INFO)
+
+
 import PySimpleGUI as sg
 import sqlite3
 import pandas as pd
-import numpy as np
+
 from PIL import Image, ImageTk
 import os
 import io
 
 import matplotlib
 import matplotlib.pyplot as plt
-from matplotlib.ticker import NullFormatter  # useful for `logit` scale
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
-import PySimpleGUI as sg
 from matplotlib import style
+
+from traveller_functions import tohex, get_description
+
+#import numpy as np
+#from matplotlib.ticker import NullFormatter  # useful for `logit` scale
+
+logging.getLogger('PIL').setLevel(logging.WARNING)
+logging.basicConfig(level=logging.DEBUG, format= ' %(asctime)s - %(levelname)s - %(message)s ')
+logging.debug('Program Starts')
 
 matplotlib.use('TkAgg')
 
@@ -93,25 +111,58 @@ def select_images(loc_info,system_info,detail_info,economic_info):
         if rem[0] in list(system_info['remarks'])[0]: add_image(rem[1])
         
     gwp = list(economic_info['gwp'])[0]
-    gwp_string = "{:,}".format(gwp)
+    #gwp_string = "{:,}".format(gwp)
 
     if int(gwp) >= 1000000: add_image('wealthy')
     
     if list(detail_info['stellar_mask'])[0] == 'total': add_image('mask')
     
-    
+
+
     
 def update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels):
     
                 for m in m_labels:
                     m_value = list(loc_info[m])
                     m_value = m_value[0]
+                    logging.debug('Updating value ' + str(m_value))
+                    if m == 'starport':
+                        window[m+'i'].TooltipObject.text = get_description('starport', m_value)
+                    elif m == 'size':
+                        m_value = tohex(m_value)
+                        window[m+'i'].TooltipObject.text = get_description('size', m_value)
+                    elif m == 'atmosphere':
+                        m_value = tohex(m_value)
+                        window[m+'i'].TooltipObject.text = get_description('atmosphere', m_value)
+                    elif m == 'government':
+                        m_value = tohex(m_value)
+                        window[m+'i'].TooltipObject.text = get_description('government', m_value)
+                    elif m == 'law':
+                        m_value = tohex(m_value)
+                        window[m+'i'].TooltipObject.text = get_description('law', m_value)
+                    elif m=='tech_level':
+                        m_value = tohex(m_value)
+                        window[m+'i'].TooltipObject.text = m_value
+                    else:
+                        window[m+'i'].TooltipObject.text = m_value
+
                     window[m+'i'].update(m_value)
+
                     
                 for s in s_labels:
                     s_value = list(system_info[s])
                     s_value = s_value[0]
+                    
+
+                    if s == 'remarks':
+                        window[s+'i'].TooltipObject.text = get_description('remarks',s_value)
+                    else:
+                        window[s+'i'].TooltipObject.text = s_value    
+                        
+                    
+                    logging.debug('s_value during update: ' + s_value)
                     window[s+'i'].update(s_value)
+
     
     
                 for d in d_labels:
@@ -139,26 +190,10 @@ def delete_figure_agg(figure_agg):
 
 
 
-# ------------------------------- MATPLOTLIB CODE HERE -------------------------------
-
-# fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
-# t = np.arange(0, 3, .01)
-# fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
-######################################################################################
-f= Figure(figsize=(4,5),dpi=100)
-
-style.use("dark_background")
-a = f.add_subplot(111)
-
-a.clear()
-a.set_xticks([])
-a.set_yticks([])
-xcoordinates = []
-ycoordinates = []
-location = '-99'
-detail_flag = 'main_world'  # flag used to mark whether the details should be main world or exo worlds.
 
 
+
+############################  Matplotlib functions for sector map
 
 def get_coordinates(thedataframe):
     xcoordinates = []
@@ -242,152 +277,17 @@ def draw_map():
         stell_colors =['dimgray','Green']
         plot_list  = [30]
         animate('Earth-like worlds',stell_colors,plot_list,label_choice,df,df_special_earth)
+
     else:
         print('Belts option was chosen')
         df_special_belt = (df_details.query('type == "Belt"'))
         stell_colors =['dimgray','Yellow']
         plot_list  = [30]
         animate('Belts',stell_colors,plot_list,label_choice,df,df_special_belt)
-
-
-
-
-
-folder = 'images/'
-
-# PIL supported image types
-img_types = (".png", ".jpg", "jpeg", ".tiff", ".bmp")
-
-# get list of files in folder
-flist0 = os.listdir(folder)
-
-# create sub list of image files (no sub folders, no wrong file types)
-fnames = [f for f in flist0 if os.path.isfile(
-
-os.path.join(folder, f)) and f.lower().endswith(img_types)]
-
-
-option_list = []
-
-
-
-db_name = 'sector_db/example-66.db'
-
-list_images = [['mask','Completely Stellar Masked'],
-               ['ocean','Ocean or Earth-like World'],
-               ['exotic','Exotic Atmosphire'],
-               ['corrosive','Corrosive Atmosphire'],
-               ['vacuum','Vacuum World'],
-               ['asteroid','Object is Planetary Belt'],
-               ['light','Low Gravity World'],
-               ['heavy','High Gravity World'],
-               ['hot','Unhinhabitable Heat'],
-               ['cold','Uninhabitable Cold'],
-               ['hipop','High Population World'],
-               ['wealthy','Wealthy System'],
-               ['industrial','Industrial Economy'],
-               ['agricultural','Agricultural Economy'],
-               ['important','Important System'],
-               ['naval','Naval Base Present'],
-               ['scout','Scout Base Present'],
-               ['prison','Interplanetary Prison Present'],
-               ['moon','Object is a moon'],
-               ['gas giant','Object is a gas giant']
- 
-               ]
-
-
-remarks_list = [['In', 'industrial'],
-                ['Ag', 'agricultural'],
-                ['Hi', 'hipop'],
-                ['Px', 'prison']]
-                
-
-conn = sqlite3.connect(db_name)
-c = conn.cursor()
-
-
-new_main_query = '''SELECT *
-FROM traveller_stats    
-WHERE main_world = 1'''
-
-
-df_new_main = pd.read_sql_query(new_main_query,conn)
-
-m_labels = []
-m_labels = list(df_new_main.columns)
-m_labels_len = len(m_labels)
-
-
-system_main_query = '''SELECT location,
-remarks,
-ix,
-ex,
-cx,
-n,
-bases,
-zone,
-pbg,
-w,
-allegiance,
-stars
-FROM system_stats
-'''
-
-
-df_system_main = pd.read_sql_query(system_main_query,conn)
-s_labels = []
-s_labels = list(df_system_main.columns)
-s_labels.remove('location')
-s_labels_len = len(s_labels)
-
-
-
-
-new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
-o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons, o.natural_moons,
-j.stellar_distance as stellar_distance, 
-j.jump_point_Mm as jump_point_distance, 
-j.planet_stellar_masked as stellar_mask,
-j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
-e.mainworld_calc
-FROM traveller_stats t
-LEFT JOIN orbital_bodies o
-ON t.location_orb = o.location_orbit
-LEFT JOIN journey_data j
-ON j.location_orbit = t.location_orb
-LEFT JOIN main_world_eval e
-ON t.location_orb = e.location_orbit
-WHERE t.main_world = 1
-'''
-
-df_details = pd.read_sql_query(new_detail_sql_query,conn)
-d_labels = []
-d_labels = list(df_details.columns)
-d_labels.remove('location')
-d_labels.remove('system_name')
-d_labels_len = len(d_labels)
-
-
-economic_sql_query = '''SELECT * FROM far_trader'''
-df_economic = pd.read_sql_query(economic_sql_query,conn)
-e_labels = []
-e_labels = list(df_economic.columns)
-e_labels.remove('location')
-e_labels.remove('id')
-e_labels_len = len(e_labels)
-e_tooltips = ['World Trade Number (GURPS Far Trader)',    
-              'Gross World Product (GURPS Far Trader)',   
-              'Exchange Rate (JTAS 4)']
-
-
-
-conn.commit()  
-c.close()
-conn.close()  
-
-###################Layouts
+        
+        
+        
+################### PySimpleGUI Window Layout Functions
 
 def make_win1():
 
@@ -403,8 +303,9 @@ def make_win1():
     column_three = [[sg.Text("World Details")], 
                           [sg.HSeparator()],]
     for m in m_labels:
+        tooltip_info = 'Not set'
         column_two += [sg.Text(m+':',enable_events = True,key=(m),pad=(0,0))],
-        column_three += [sg.Text('|',enable_events = True,key=(m+'i'),pad=(0,0))],
+        column_three += [sg.Text('|',enable_events = True,tooltip = tooltip_info, key=(m+'i'),pad=(0,0))],
         
     
     column_two += [[sg.Text("System Categories",pad=(5,(15,2)))], 
@@ -412,16 +313,18 @@ def make_win1():
     column_three += [[sg.Text("System-wide Details",pad=(5,(15,2)))], 
                           [sg.HSeparator()],]
     
-    for s in s_labels:
-        column_two += [sg.Text(s+':',enable_events = True,key=(s),pad=(0,0))],
-        column_three += [sg.Text('|',enable_events = True,key=(s+'i'),pad=(0,0))],
+    for x, s in enumerate(s_labels):
+
+        remark_tt = 'Not set'
+        column_two += [sg.Text(s+':',enable_events = True,tooltip = s_tooltips[x], key=(s),pad=(0,0))],
+        column_three += [sg.Text('|',enable_events = True,tooltip = remark_tt, key=(s+'i'),pad=(0,0))],
                          
     column_four = [[sg.Text("Scientific Categories")], 
                     [sg.HSeparator()],]
     column_five = [[sg.Text("World Details")], 
                           [sg.HSeparator()],]        
-    for d in d_labels:
-        column_four += [sg.Text(d+':',enable_events = True,key=(d),pad=(0,0))],
+    for x, d in enumerate(d_labels):
+        column_four += [sg.Text(d+':',enable_events = True, tooltip = d_tooltips[x],key=(d),pad=(0,0))],
         column_five += [sg.Text('|',enable_events = True,key=(d+'i'),pad=(0,0))],
         
         
@@ -517,7 +420,7 @@ def make_win1():
          ],
         
     ]
-    return sg.Window("""Bartleby's Sector Builder""", layout,size=(1300,700),finalize=True)
+    return sg.Window("""Bartleby's Sector Builder v0.9.1""", layout,size=(1300,700),finalize=True)
 
 
 
@@ -624,9 +527,202 @@ def make_win3(culture_columns,culture_list,location):
         
         
             
-    return sg.Window('Perceived Cultural Details',culture_layout,size=(550,500),finalize=True)
+    return sg.Window('Perceived Cultural Details',culture_layout,size=(550,500),finalize=True)        
 
 
+# ------------------------------- MATPLOTLIB CODE HERE -------------------------------
+
+# fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
+# t = np.arange(0, 3, .01)
+# fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
+######################################################################################
+f= Figure(figsize=(4,5),dpi=100)
+
+style.use("dark_background")
+a = f.add_subplot(111)
+
+a.clear()
+a.set_xticks([])
+a.set_yticks([])
+xcoordinates = []
+ycoordinates = []
+location = '-99'
+detail_flag = 'main_world'  # flag used to mark whether the details should be main world or exo worlds.
+
+
+
+
+
+
+
+
+folder = 'images/'
+
+# PIL supported image types
+img_types = (".png", ".jpg", "jpeg", ".tiff", ".bmp")
+
+# get list of files in folder
+flist0 = os.listdir(folder)
+
+# create sub list of image files (no sub folders, no wrong file types)
+fnames = [f for f in flist0 if os.path.isfile(
+
+os.path.join(folder, f)) and f.lower().endswith(img_types)]
+
+
+option_list = []
+
+
+
+db_name = 'sector_db/example-66.db'
+
+list_images = [['mask','Completely Stellar Masked'],
+               ['ocean','Ocean or Earth-like World'],
+               ['exotic','Exotic Atmosphire'],
+               ['corrosive','Corrosive Atmosphire'],
+               ['vacuum','Vacuum World'],
+               ['asteroid','Object is Planetary Belt'],
+               ['light','Low Gravity World'],
+               ['heavy','High Gravity World'],
+               ['hot','Unhinhabitable Heat'],
+               ['cold','Uninhabitable Cold'],
+               ['hipop','High Population World'],
+               ['wealthy','Wealthy System'],
+               ['industrial','Industrial Economy'],
+               ['agricultural','Agricultural Economy'],
+               ['important','Important System'],
+               ['naval','Naval Base Present'],
+               ['scout','Scout Base Present'],
+               ['prison','Interplanetary Prison Present'],
+               ['moon','Object is a moon'],
+               ['gas giant','Object is a gas giant']
+ 
+               ]
+
+
+remarks_list = [['In', 'industrial'],
+                ['Ag', 'agricultural'],
+                ['Hi', 'hipop'],
+                ['Px', 'prison']]
+                
+
+conn = sqlite3.connect(db_name)
+c = conn.cursor()
+
+
+new_main_query = '''SELECT *
+FROM traveller_stats    
+WHERE main_world = 1'''
+
+
+df_new_main = pd.read_sql_query(new_main_query,conn)
+
+m_labels = []
+m_labels = list(df_new_main.columns)
+m_labels_len = len(m_labels)
+
+
+system_main_query = '''SELECT location,
+remarks,
+ix,
+ex,
+cx,
+n,
+bases,
+zone,
+pbg,
+w,
+allegiance,
+stars
+FROM system_stats
+'''
+
+
+df_system_main = pd.read_sql_query(system_main_query,conn)
+s_labels = []
+s_labels = list(df_system_main.columns)
+s_labels.remove('location')
+s_labels_len = len(s_labels)
+s_tooltips = ['T5 Trade Classifications',
+              'T5 Importance',
+              'T5 Economic (Res, Lab, Infr, Eff)',
+              'T5 Culture (Het, Acc, Str, Sym)',
+              'T5 Nobility Present',
+              'T5 Bases',
+              'T5 Travel Zone',
+              'Pop sig digit, Belts, Gas Giants (primary star only)',
+              'Worlds',
+              'Allegiance',
+              'Stellar summary']
+
+
+
+new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
+o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+o.impact_moons, o.natural_moons,
+j.stellar_distance as stellar_distance, 
+j.jump_point_Mm as jump_point_distance, 
+j.planet_stellar_masked as stellar_mask,
+j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
+e.mainworld_calc
+FROM traveller_stats t
+LEFT JOIN orbital_bodies o
+ON t.location_orb = o.location_orbit
+LEFT JOIN journey_data j
+ON j.location_orbit = t.location_orb
+LEFT JOIN main_world_eval e
+ON t.location_orb = e.location_orbit
+WHERE t.main_world = 1
+'''
+
+df_details = pd.read_sql_query(new_detail_sql_query,conn)
+d_labels = []
+d_labels = list(df_details.columns)
+d_labels.remove('location')
+d_labels.remove('system_name')
+d_labels_len = len(d_labels)
+d_tooltips = ['Planet, Impact Moon, Natural Moon',
+              'World Type (GURPS First In)',
+              'Rotation Period (in hours)',
+              'Stellar Orbital Period (in Earth years)',
+              'in standard Gs',
+              'in relation to Earth',
+              'from GURPS First In',
+              'in Kelvin',
+              'from GURPS First In',
+              'from Architect of Worlds',
+              'from Architect of Worlds',
+              'in AUs',
+              'in MegaMeters (millions of meters)',
+              'Stellar gravity impact to jump distance',
+              'Time to jump point with 1G ship',
+              'Time to jump point with 2G ship',
+              'Time to jump point with 3G ship',
+              'Time to jump point with 4G ship',
+              'Time to jump point with 5G ship',
+              'Time to jump point with 6G ship',
+              'Internal use only',
+              'test',
+              'test'
+              ]
+
+
+economic_sql_query = '''SELECT * FROM far_trader'''
+df_economic = pd.read_sql_query(economic_sql_query,conn)
+e_labels = []
+e_labels = list(df_economic.columns)
+e_labels.remove('location')
+e_labels.remove('id')
+e_labels_len = len(e_labels)
+e_tooltips = ['World Trade Number (GURPS Far Trader)',    
+              'Gross World Product (GURPS Far Trader)',   
+              'Exchange Rate (JTAS 4)']
+
+
+
+conn.commit()  
+c.close()
+conn.close()  
 
 
 
@@ -935,5 +1031,5 @@ while True:
             print('Failed draw_map()')
 
 
-
+logging.debug('Program closed')
 window.close()
