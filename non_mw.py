@@ -1,10 +1,6 @@
 def generate_non_mainworlds(seed_number,db_name):
 
 
-# Non Main World
-# by Sean Nelson
-
-#   A program to teach Sean the Python programming language
 #   The goal is to read the Orbital Bodies table generated from the
 #   First In program and and build a new table using Traveller 5 stats
 #   Non Mainworld bodies.  Mainworld bodies are produced in Travellerization
@@ -13,7 +9,8 @@ def generate_non_mainworlds(seed_number,db_name):
     
     import sqlite3
     import random
-    from traveller_functions import tohex, roll_dice
+    import logging
+    from traveller_functions import roll_dice
     
     random.seed(seed_number)
     
@@ -27,29 +24,55 @@ def generate_non_mainworlds(seed_number,db_name):
     
         
     def capture_mainworld_stats():
-        sql3_select_tb_t5 = """     SELECT  location,
-                                            population,
-                                            government
-                                    FROM    traveller_stats WHERE main_world = 1 """
+        sql3_select_tb_t5 = """     SELECT  t.location,
+                                            t.population,
+                                            t.government,
+                                            g.wtype,
+                                            g.zone
+                                            FROM traveller_stats t 
+                                            LEFT JOIN orbital_bodies g
+                                            WHERE main_world = 1 """
                                     
         c.execute(sql3_select_tb_t5)
         allrows = c.fetchall()
         mw_dict = {}
         for row in allrows:
             mw_dict[row[0]] = {     'population'        :row[1],
-                                    'government'        :row[2]}
+                                    'government'        :row[2],
+                                    'wtype'             :row[3],
+                                    'zone'              :row[4]}
         return mw_dict        
     
         
     def get_population(location,mw):
         
-
-        dice = roll_dice(2,'Population',location, conn, c) - 4
-    
-        if dice >= mw['population']:
-            dice = mw['population'] - 1
+        pop_present = True
+        pop_mod = -2
         
-        if dice < 0: dice = 0
+        if mw['zone'] == 'Inner Zone':
+            if 'Hostile' in mw['wtype'] or 'Greenhouse' in mw['wtype']:
+                pop_present = False
+            else:
+                pop_mod = -4
+                
+        elif mw['zone'] == 'Outer Zone':
+            if 'Hostile' in mw['wtype']:
+                pop_present = False
+            elif 'Icy' in mw['wtype']:
+                pop_mod = -6
+            
+        
+        
+        if pop_present:
+            dice = roll_dice(2,'Population with mod: '+str(pop_mod),location, conn, c) + pop_mod
+        
+            if dice >= mw['population']:
+                dice = mw['population'] - 1
+            
+            if dice < 0: dice = 0
+            
+        else:
+            dice = 0
 
         return dice    
             
@@ -160,7 +183,8 @@ def generate_non_mainworlds(seed_number,db_name):
     
     # MAIN PROGRAM
     
-    print('Entered program')
+    print('Generating non-main worlds')
+    print('processing....')
     
     name_list = open("names.csv", "r").readlines()
         
@@ -170,7 +194,7 @@ def generate_non_mainworlds(seed_number,db_name):
     try:
         mw_dict = capture_mainworld_stats()
     except:
-        print('Failed getting mainworld stats into dictionary')
+        logging.debug('Failed getting mainworld stats into dictionary')
     
     try:
 
@@ -189,34 +213,31 @@ def generate_non_mainworlds(seed_number,db_name):
         c.execute(sql3_select_locorb)
         allrows = c.fetchall()
     except: 
-        print('problem with selecting from main_world_eval and orbital bodies')
+        logging.debug('Problem with selecting from main_world_eval and orbital bodies')
     
     for row in allrows:
 
-        
-        
-
-
-        
         if row[4] != "Gas Giant":
 
             try:
                 
                 population = get_population(row[0],mw_dict[row[1]])
 
-            except:
-                print('failed at pop')
+
             
-            try:
                 spaceport = get_spaceport(row[0],population)
                 atmosphere = get_atmosphere(row[2],row[3])
                 hydrographics = row[5]
                 size = row[6]
-            except:
-                print('failed before govt')
-            government = get_government(row[1], population,mw_dict[row[1]]['government'])    
-            law_level = get_law_level(row[1], government)
-            tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
+
+                government = get_government(row[1], population,mw_dict[row[1]]['government'])    
+                law_level = get_law_level(row[1], government)
+                tech_level = get_tech_level(row[1], spaceport, size, atmosphere, hydrographics, population, government)
+            
+    
+            except Exception as e:
+                print(e)
+                logging.debug('Failed in Non-mainworld generation')   
             
         
         else:
@@ -230,26 +251,13 @@ def generate_non_mainworlds(seed_number,db_name):
             tech_level = 0
             
 
-        uwp = (spaceport + tohex(int(size))\
-               + tohex(int(atmosphere)) \
-               + tohex(int(hydrographics)) \
-               + tohex(int(population)) \
-               + tohex(int(government)) \
-               + tohex(int(law_level)) \
-               + '-'
-               + tohex(int(tech_level)))            
-            
         main_world = 0
-        
+    
+    
 
-    
-    
-##################################################################################################    
-#  This code will replace above.
-#  Instead of a new table, add to traveller_stats
 
         system_name = get_system_name(name_list)
-#        print(system_name)
+
     
         sqlcommand = '''    INSERT INTO traveller_stats(location_orb, 
                                                     location, 

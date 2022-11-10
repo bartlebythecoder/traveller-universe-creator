@@ -6,15 +6,7 @@ Created on Sun Oct 31 23:19:42 2021
 """
 
 import logging
-
-#Used to reset logging
-# for handler in logging.root.handlers[:]:
-#     logging.root.removeHandler(handler)
-
-# used to disable tkinter stream messages
-pil_logger = logging.getLogger('PIL')
-pil_logger.setLevel(logging.INFO)
-
+import warnings
 
 import PySimpleGUI as sg
 import sqlite3
@@ -32,16 +24,36 @@ from matplotlib import style
 
 from traveller_functions import tohex, get_description
 
+
+
+# ------------------------------------------------------------------------------
+# Phased out
+# ------------------------------------------------------------------------------
 #import numpy as np
 #from matplotlib.ticker import NullFormatter  # useful for `logit` scale
+
+
+# ------------------------------------------------------------------------------
+# Prepare Logging
+# ------------------------------------------------------------------------------
+
+#Used to reset logging
+for handler in logging.root.handlers[:]:
+    logging.root.removeHandler(handler)
+
+#used to disable tkinter stream messages
+pil_logger = logging.getLogger('PIL')
+pil_logger.setLevel(logging.INFO)
 
 logging.getLogger('PIL').setLevel(logging.WARNING)
 logging.basicConfig(level=logging.DEBUG, format= ' %(asctime)s - %(levelname)s - %(message)s ')
 logging.debug('Program Starts')
 
+warnings.simplefilter(action='ignore') #
+
+###############################
+
 matplotlib.use('TkAgg')
-
-
 sg.theme('DarkBlue')  
 
 # ------------------------------------------------------------------------------
@@ -187,13 +199,9 @@ def delete_figure_agg(figure_agg):
     plt.close('all')
 
 
-
-
-
-
-
-
-############################  Matplotlib functions for sector map
+# ------------------------------------------------------------------------------
+#  Matplotlib functions for sector map
+# ------------------------------------------------------------------------------
 
 def get_coordinates(thedataframe):
     xcoordinates = []
@@ -216,8 +224,6 @@ def get_coordinates(thedataframe):
         ycoordinates.append(y_axis)
 
     return(xcoordinates,ycoordinates)
-        
-
 
 
 def animate(chart_title,color_choice,plot_size,label_choice,*args):
@@ -286,8 +292,9 @@ def draw_map():
         animate('Belts',stell_colors,plot_list,label_choice,df,df_special_belt)
         
         
-        
-################### PySimpleGUI Window Layout Functions
+# ------------------------------------------------------------------------------        
+# PySimpleGUI Window Layout Functions
+# ------------------------------------------------------------------------------
 
 def make_win1():
 
@@ -500,7 +507,8 @@ def make_win3(culture_columns,culture_list,location):
         culture_column_two = []
 
                 
-        print('Entering Culture loop')
+        logging.debug('Entering Culture loop')
+        logging.debug(culture_list)
      
 
 
@@ -512,23 +520,62 @@ def make_win3(culture_columns,culture_list,location):
 
 
     
-        print('Setting new layout')    
+        logging.debug('Setting new culture layout')  
+        logging.debug(type(culture_column_two))
         culture_layout = [
-                 [sg.Column(culture_column_one),sg.Column(culture_column_two)],
+                 [sg.Column(culture_column_one),
+                  sg.Column(culture_column_two)],
 
-
-                 
-                 [sg.HSeparator()],
                  [sg.Button('Exit')]
                  ]
     except:
-             sg.Popup('Failed culture layout')
+        sg.Popup('Failed culture layout')
        
         
         
             
     return sg.Window('Perceived Cultural Details',culture_layout,size=(550,500),finalize=True)        
 
+
+def make_win4(needs_list,wants_list,location):
+    
+    try:
+            
+        
+        trade_column_one = [sg.Text('#')],
+        trade_column_two = [sg.Text('GOODS NEEDED')],
+        trade_column_three = [sg.Text('GOODS SURPLUS')],
+
+                
+        logging.debug('Entering Trade Goods loop')
+        logging.debug(needs_list)
+     
+
+
+        for s_num, s in enumerate(needs_list):
+            if s != ' ':
+                trade_column_one += [sg.Text(str(s_num+1) + ':')],
+                trade_column_two += [sg.Text(s.lstrip())],
+            
+        for s_num, s in enumerate(wants_list):
+            if s != ' ':
+                trade_column_three += [sg.Text(s.lstrip())],
+
+    
+        logging.debug('Setting new trade layout')  
+        logging.debug(type(trade_column_two))
+        goods_layout = [
+                 [sg.Column(trade_column_one),
+                  sg.Column(trade_column_two),
+                  sg.Column(trade_column_three)],
+                 [sg.Button('Exit')]
+                 ]
+    except:
+        sg.Popup('Failed Trade Goods layout')
+        
+        
+            
+    return sg.Window('Trade Goods, Frequently Needed and Surplus System Wide',goods_layout,size=(350,250),finalize=True) 
 
 # ------------------------------- MATPLOTLIB CODE HERE -------------------------------
 
@@ -548,12 +595,6 @@ xcoordinates = []
 ycoordinates = []
 location = '-99'
 detail_flag = 'main_world'  # flag used to mark whether the details should be main world or exo worlds.
-
-
-
-
-
-
 
 
 folder = 'images/'
@@ -682,7 +723,7 @@ d_labels.remove('location')
 d_labels.remove('system_name')
 d_labels_len = len(d_labels)
 d_tooltips = ['Planet, Impact Moon, Natural Moon',
-              'World Type (GURPS First In)',
+              'World Type (GURPS First In, * indicates liquid Ocean)',
               'Rotation Period (in hours)',
               'Stellar Orbital Period (in Earth years)',
               'in standard Gs',
@@ -713,6 +754,8 @@ e_labels = []
 e_labels = list(df_economic.columns)
 e_labels.remove('location')
 e_labels.remove('id')
+e_labels.remove('needs')
+e_labels.remove('wants')
 e_labels_len = len(e_labels)
 e_tooltips = ['World Trade Number (GURPS Far Trader)',    
               'Gross World Product (GURPS Far Trader)',   
@@ -720,15 +763,15 @@ e_tooltips = ['World Trade Number (GURPS Far Trader)',
 
 
 
-conn.commit()  
-c.close()
-conn.close()  
 
 
 
 
+# ------------------------------------------------------------------------------
 # Create the Window
-window1, window2, window3 = make_win1(), None, None        # start off with 1 window open
+# ------------------------------------------------------------------------------
+
+window1, window2, window3, window4 = make_win1(), None, None, None  # start off with 1 window open
 
 # Event Loop to process "events" and get the "values" of the inputs
 
@@ -744,6 +787,8 @@ while True:
                window2 = None
            if window == window3:       # if closing win 3, mark as closed
                window3 = None
+           if window == window4:       # if closing win 3, mark as closed
+               window4 = None    
            elif window == window1:     # if closing win 1, exit program
                break
         
@@ -765,7 +810,6 @@ while True:
         df_details = pd.read_sql_query(new_detail_sql_query,conn)
         
         
-        print('made it out of df')
 
         df_details['atmos_pressure'] = round(df_details['atmos_pressure'],2)
         df_details['jump_point_distance'] = round(df_details['jump_point_distance'],1)# otherwise crazy decimals added
@@ -837,9 +881,7 @@ while True:
             
     
 
-        conn.commit()  
-        c.close()
-        conn.close()  
+
 
 
     if event == '-MAIN-':
@@ -878,7 +920,6 @@ while True:
                 
             else:
                 
-                print('Exo Flag')
                 
                 location_orb_name = values['-LOCATIONS-'][0]
                 
@@ -921,7 +962,6 @@ while True:
                     delete_figure_agg(fig_canvas_agg)            
     
                 
-                print('Map is selected')
                 draw_map()
                     
                     
@@ -929,7 +969,7 @@ while True:
     
                 
             except:
-                print('Failed Map button')
+                logging.debug('Failed Map button')
                     
 
                 
@@ -939,7 +979,7 @@ while True:
         
     elif event == '-STELLAR-' and not window2:
         try:
-            print('pressed STELLAR')
+            logging.debug('pressed STELLAR')
             
             star_list=[]
             df_star = df_stellar.loc[df_stellar['location'] == location]    
@@ -952,11 +992,11 @@ while True:
   
 
         except:
-            print('Failed Stellar button')
+            logging.debug('Failed Stellar button')
             
     elif event == '-CULTURE-' and not window3:
         try:
-            print('pressed Culture')
+            logging.debug('pressed Culture')
             
             culture_list=[]
             df_this_culture = df_culture.loc[df_culture['location'] == location]    
@@ -969,21 +1009,44 @@ while True:
   
 
         except:
-            print('Failed Culture button')
+            logging.debug('Failed Culture button')
             
     elif event == '-TRADE-' and not window3:
         try:
-            print('pressed Trade')
+            logging.debug('pressed Trade ' + location)
+            conn = sqlite3.connect(db_name)
+            c = conn.cursor()
+            sql_command = "SELECT needs, wants FROM far_trader WHERE location = " + "'" + location + "'"           
+            c.execute(sql_command)
+            logging.debug('running: ' + sql_command)
+            row = c.fetchall()
+            logging.debug('Far Trader select complete ')
+            logging.debug(row)
+                        
+            needs_list = []
+            wants_list = []
+    
+            needs_text = row[0][0]
+            wants_text = row[0][1]
             
-            sg.Popup('Coming soon', keep_on_top=True)
+            logging.debug('Needs list:' + needs_text)
+            logging.debug('Wants list:' + wants_text)
+            
+            needs_list = needs_text.split(';')
+            wants_list = wants_text.split(';')
+
+            
+    
+            window4 = make_win4(needs_list,wants_list,location)
   
 
-        except:
-            print('Failed Culture button')        
+        except Exception as e:
+            print(e)
+            logging.debug('Failed Trade button')        
             
     elif event == '-SYSTEM-':
         try:
-            print('pressed SYSTEM')
+            logging.debug('pressed SYSTEM')
             detail_flag = 'exo_world'
             
             
@@ -1010,7 +1073,7 @@ while True:
 
 
         except:
-            print('Failed System button.  Location was:',location)
+            logging.debug('Failed System button.  Location was:',location)
 
 
            
@@ -1028,8 +1091,10 @@ while True:
             
            
         except:
-            print('Failed draw_map()')
+            logging.debug('Failed draw_map()')
 
-
+conn.commit()  
+c.close()
+conn.close()  
 logging.debug('Program closed')
 window.close()

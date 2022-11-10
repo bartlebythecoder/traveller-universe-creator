@@ -1,10 +1,8 @@
-def make_sector_master(makeit_list):
+def make_sector_master(decisions_provided):
 
     # Master program for Traveller universe build
     
 
-    import random
-    import sqlite3
     from first_in_generation import generate_stars
     from mainworld_calculator import generate_mainworld_scores
     from mainworld_selector import choose_mainworld
@@ -18,13 +16,15 @@ def make_sector_master(makeit_list):
     import PySimpleGUI as sg
 
     
-    seed_number = makeit_list[0]
+    seed_number = decisions_provided.random_seed
+    sector_name = decisions_provided.sector_name
+    settlement_mod = decisions_provided.settlement_mod
     
 
-    sector_name = makeit_list[1]
-    db_name = 'sector_db/' + makeit_list[1] + '.db'
+
+    db_name = 'sector_db/' + sector_name + '.db'
     print('Generating Stars and Planets')
-    generate_stars(db_name,makeit_list)
+    generate_stars(db_name,decisions_provided)
     print('Building the Journey stats table')
     build_journey_table(seed_number,db_name)
     print('Evaluating each orbital body for main world suitability')
@@ -32,7 +32,7 @@ def make_sector_master(makeit_list):
     print('Finalizing main world selections and building mainworld table')
     choose_mainworld(db_name)
     print('Travellerizing the main worlds')
-    add_traveller_stats(seed_number,db_name)
+    add_traveller_stats(seed_number,db_name,settlement_mod)
     print('Building Traveller Map extract')
     build_travellermap_file(db_name,sector_name)
     print('Adding data for non-main worlds') 

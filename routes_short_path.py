@@ -7,6 +7,7 @@ def create_route_xml(seed_number,db_name):
     import pandas as pd
     import numpy as np
     import networkx as nx
+    import warnings
     
     
     def offset_to_cube(location):
@@ -79,6 +80,8 @@ def create_route_xml(seed_number,db_name):
     
     ######################################################################
     
+    warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) # no longer needed
+    
     cube_direction_vectors = [
         (+1, 0, -1), 
         (+1, -1, 0), 
@@ -93,8 +96,6 @@ def create_route_xml(seed_number,db_name):
     
     
     conn = sqlite3.connect(db_name)
-    c = conn.cursor()
-    
     sql3_select = """   SELECT s.location, s.ix
                         FROM system_stats s 
                         LEFT JOIN traveller_stats t 

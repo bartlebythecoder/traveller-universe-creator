@@ -1,10 +1,6 @@
-def add_traveller_stats(seed_number,db_name):
+def add_traveller_stats(seed_number,db_name,settlement_mod):
 
 
-# Travellerization
-# by Sean Nelson
-
-#   A program to teach Sean the Python programming language
 #   The goal is to read the Orbital Bodies table generated from the
 #   First In program and adjust by the Mainworld_Calc module
 #   and build a new table using Traveller 5 stats
@@ -12,7 +8,6 @@ def add_traveller_stats(seed_number,db_name):
 #   The output is a new Traveller5 table.  It needs to run after First In, Mainworld_Calc,
 #   and Mainworld Selector
 
-#   Currently only populating the mainworlds
 
 
 #   COMPLETE:  Need to add a routine to get belts and GG totals
@@ -172,10 +167,21 @@ def add_traveller_stats(seed_number,db_name):
         c_starport = 'X'
         return c_starport
             
-    def get_population(location):
-            dice = roll_dice(2,'Population',location, conn, c) - 2
-            if dice == 10:
-              dice = roll_dice(2,'Population',location, conn, c) + 3
+    def get_population(location,settlement_mod):
+            pop_adjustment = 0
+            if settlement_mod == 1:    # The Settlement Style of Diminished was chosen
+                xcoord = int(location[0:2])  # location hex first two characters
+                ycoord = int(location[2:4])  # location hex second two characters
+                if xcoord >= 12 and xcoord <=22 and ycoord >= 14 and ycoord <=26:
+                    pop_adjustment = 3
+                elif xcoord <= 4 or xcoord >= 29 or ycoord <=4 or ycoord >=37:
+                    pop_adjustment= -2
+            
+            dice = roll_dice(2,'Population, settlement adj ' + str(pop_adjustment),location, conn, c) - 2 + pop_adjustment
+            
+            if dice < 0: dice = 0
+            if dice >= 10:
+              dice = roll_dice(2,'Population after 10+ roll',location, conn, c) + 3
             return dice
             
     def get_belts(location,gg_belt_stats):
@@ -614,7 +620,7 @@ def add_traveller_stats(seed_number,db_name):
 
         system_name = get_system_name(name_list)
 #        print(row[0],system_name,'Getting Population and System Details')
-        population = get_population(row[0])
+        population = get_population(row[0],settlement_mod)
         sector_population += 10**population
         pop_mod = get_pop_mod(row[0],population)
         belts = get_belts(row[1],p_stars_dict)

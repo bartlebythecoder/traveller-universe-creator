@@ -1,4 +1,4 @@
-def generate_stars(db_name,makeit_list):
+def generate_stars(db_name,decisions_provided):
 
 
 # Sector Generation
@@ -6,12 +6,9 @@ def generate_stars(db_name,makeit_list):
 
 
 
-    import csv
-    import time
     import sqlite3
     import math 
     import random
-    import os
     from traveller_functions import integer_root, roll_dice
 
     
@@ -158,14 +155,6 @@ def generate_stars(db_name,makeit_list):
           
         return temp_stellarcharsiii    
         
-    def get_orbitalzone():
-    # Loading the Orbital Zones Table          
-        temp_orbitalzone = {}
-        for line in open("Orbital Zones Table.txt"):
-            data = line.strip().split(',')
-            temp_orbitalzone[data[0]] = dict(zip(('inner_limit', 'life_zone_min', 'life_zone_max', 'snow_line', 'outer_limit'), data[1:])) 
-        
-        return temp_orbitalzone
         
     def get_companion_separation():
     # Loading the Orbital Separation Table 
@@ -1034,7 +1023,6 @@ def generate_stars(db_name,makeit_list):
                             density = 0                    
                             mass = 0
                             gravity = 0
-                            moons = 0
                             orbit_adjust -= 1        
                             forbidden_planet = True
   #                          print(location, star_no, planet_no, 'companion forbidden', current_distance)
@@ -1050,7 +1038,6 @@ def generate_stars(db_name,makeit_list):
                             density = 0     
                             mass = 0
                             gravity = 0
-                            moons = 0
                             orbit_adjust -= 1
                             print(location, star_no, planet_no, 'Beyond Inner', current_distance)
                             
@@ -1148,12 +1135,8 @@ def generate_stars(db_name,makeit_list):
                             density = -99
                             mass = -99
                             gravity = -99
-                            moons = -99
-    
-    
                             year =360
                             day = 24
-                           
                             size_class = 0
                             wtype = 'Test'
                             atmos_press = 0
@@ -1522,56 +1505,45 @@ def generate_stars(db_name,makeit_list):
                   star["companions"]))
                   
 
-
-                
-    
-  
-    
         
-        
-#Main Program
-###########################################################
-#   Break down input variable 'makeit_list'
-#                 0   random_seed_input, 
-#                 1   sector_name_input,
-#                 2   density_input,
-#                 3   lumiii_input,
-#                 4   lumv_input,
-#                 5   spectrala_input,
-#                 6   spectralf_input,
-#                 7   spectralg_input,
-#                 8   spectralk_input,
-#                 9   solo_input,
-#                 10   binary_input,
-#                 11  distant_input
+#------------------------------------------------------------------------------
+# Main Program
+#------------------------------------------------------------------------------
 
 
 
-    seed_number = makeit_list[0]
+    seed_number = decisions_provided.random_seed
     random.seed(seed_number)
-    
+      
     SECTORS = 1   #Program set for building one sector at this time.  More than one sector will just erase the previous.
-    LIKELIHOOD = int(makeit_list[2])
-    LUM_CLASS_CHANCE_III = int(makeit_list[3])
-    LUM_CLASS_CHANCE_V = int(makeit_list[4])
-    SPEC_CLASS_CHANCE_A = int(makeit_list[5])
-    SPEC_CLASS_CHANCE_F = int(makeit_list[6])
-    SPEC_CLASS_CHANCE_G = int(makeit_list[7])
-    SPEC_CLASS_CHANCE_K = int(makeit_list[8])
-    MULTIPLE_STAR_CHANCE_S = int(makeit_list[9])
-    MULTIPLE_STAR_CHANCE_B = int(makeit_list[10])
-    DISTANT_COMPANION_CHANCE = int(makeit_list[11])
-    ############################################################
+    LIKELIHOOD = decisions_provided.sector_density
+
+
+
+
+    # Perhaps include these in the input menu one day - but for now set them as constants
+
+    LUM_CLASS_CHANCE_III = 3
+    LUM_CLASS_CHANCE_V = 14
+    SPEC_CLASS_CHANCE_A = 4
+    SPEC_CLASS_CHANCE_F = 6
+    SPEC_CLASS_CHANCE_G = 8
+    SPEC_CLASS_CHANCE_K = 10
+    MULTIPLE_STAR_CHANCE_S = 13
+    MULTIPLE_STAR_CHANCE_B = 17
+    DISTANT_COMPANION_CHANCE = 11
     
-    # Load the external tables into memory
+
+    
+    #------------------------------------------------------------------------------
+    # Load the tables into global constants
+    #------------------------------------------------------------------------------
+    
     CHARSV = {}
     CHARSV = get_stellarcharsv()
     
     CHARSIII = {}
     CHARSIII = get_stellarcharsiii()
-    
-    OZONE = {}
-    OZONE = get_orbitalzone()
     
     COMP_SEP = {}
     COMP_SEP = get_companion_separation()
@@ -1580,22 +1552,16 @@ def generate_stars(db_name,makeit_list):
     WORLD_TYPE = get_world_type_table()
     
     
-    # Open the SQLite 3 database
-    
+    #------------------------------------------------------------------------------
+    # Prepare the SQLite DB
+    #------------------------------------------------------------------------------
     
     conn = sqlite3.connect(db_name)
     c = conn.cursor()
-    
-     
-    
     create_tables(c,conn)
-    
-
-    
     
     #   Loop for each sector
     for a in range(0,SECTORS):
-        astring = str(a)
     
     #   Loop for each parsec in a subsector
         for x in range (1,33):
@@ -1612,18 +1578,16 @@ def generate_stars(db_name,makeit_list):
     #           Generate a random d6 to check for system presence against LIKELIHOOD
                 rollgen = roll_dice(1, 'system presence',parsec, conn, c)
               
-    ###################################################################################
-    # This section builds the system                                                  #
-    ###################################################################################
+                #------------------------------------------------------------------------------
+                # This section builds the system
+                #------------------------------------------------------------------------------
+    
                 if rollgen >= LIKELIHOOD:  
-                    systempresent = True
                     stellar_dict_list = []
                     stellar_dict = {}
                     
                     primary_companions = get_multiple_stars(parsec)# companions of the primary
- #                   print('Location:',parsec)
-                    for pc in range (0,primary_companions+1):  # one loop for each non subcompanion star
- #                       print('Star',pc)
+                    for pc in range(0,primary_companions+1):  # one loop for each non subcompanion star
                         if pc == 0: 
                             stellar_dict = populate_stellar_dict(parsec,pc,0,primary_companions,False)
                             stellar_dict_list.append(stellar_dict)
@@ -1636,14 +1600,13 @@ def generate_stars(db_name,makeit_list):
                                 stellar_dict_list.append(stellar_dict)
                     
                     stellar_dict_list = populate_stellar_orbit_info(parsec,stellar_dict_list)
-                    
                     stellar_dict_list = populate_planets(parsec, stellar_dict_list)
-                    
-
-                        
-                    
                     populate_stellar_tables(stellar_dict_list)
 
+
+    #------------------------------------------------------------------------------
+    # Count final stats
+    #------------------------------------------------------------------------------
 
     sql_primary_count = '''SELECT COUNT(*) from stellar_bodies WHERE companion_class = 0'''
     sql_stellar_count = '''SELECT COUNT(*) from stellar_bodies '''
@@ -1669,12 +1632,7 @@ def generate_stars(db_name,makeit_list):
             print('Total orbital bodies created: ',row[1])
 
     
-                    
-
-                    
-                    
-    ####################################################################################
-                    
+                 
     
 
    
@@ -1688,6 +1646,6 @@ def generate_stars(db_name,makeit_list):
     
     
     
-    
+  
     
         

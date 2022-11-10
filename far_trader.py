@@ -18,7 +18,9 @@ def generate_far_trader_stats(seed_number,db_name):
                                                             location TEXT,
                                                             wtn INTEGER,
                                                             gwp INTEGER,
-                                                            exchange)
+                                                            exchange REAL,
+                                                            needs TEXT,
+                                                            wants TEXT)
                                                             ;"""
                                                         
         c.execute('DROP TABLE IF EXISTS far_trader')
@@ -27,9 +29,27 @@ def generate_far_trader_stats(seed_number,db_name):
     def get_exchange(starport, tech_level):
         starport_ex_dict = {'A':1,'B':0.95,'C':0.90,'D':0.85,'E':0.80,'X':0.20}
         tech_mod = (15 - tech_level) * 0.05
-        exchange = 1 - tech_mod
+        exchange = starport_ex_dict[starport] - tech_mod
         if exchange < 0: exchange = 0
         return exchange
+    
+    def get_wants_needs():
+        goods_list = open("trade_goods.csv", "r").readlines()      
+        wants = ''
+        needs = ''
+        
+        for x in range(0,12):
+            goods_left = len(goods_list)
+            good_picked = goods_list[random.randrange(0,goods_left)]
+            good_fixed = good_picked.rstrip('\n')
+            goods_list.remove(good_picked)
+            if x < 6: 
+                wants += good_fixed + '; '
+            else:
+                needs += good_fixed + '; '
+                
+                
+        return wants, needs
     
     # MAIN PROGRAM
         
@@ -120,23 +140,36 @@ def generate_far_trader_stats(seed_number,db_name):
 #            print(gwp)
             
             exchange = get_exchange(starport, tech_level)
+
+         
+            wants, needs = get_wants_needs()
+            
+            
     		
         else: 
             wtn = 0
             gwp = 0
             exchange = 0
+            wants = ''
+            needs = ''
+            
+            
             
         sqlcommand = '''    INSERT INTO far_trader (        location,
                                                             wtn,
                                                             gwp,
-                                                            exchange)                                        
-                                                    VALUES(?, ?, ?, ?) '''
+                                                            exchange,
+                                                            wants,
+                                                            needs)                                        
+                                                    VALUES(?, ?, ?, ?, ?, ?) '''
     
                     
         body_row =          (location,
                             wtn,
                             gwp,
-                            exchange)
+                            exchange,
+                            wants,
+                            needs)
                         
       
         c.execute(sqlcommand, body_row) 
