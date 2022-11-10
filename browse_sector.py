@@ -179,12 +179,23 @@ def update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_label
     
                 for d in d_labels:
                     d_value = list(detail_info[d])
-                    d_value = d_value[0]
+
+                    if d == 'mainworld_calc':
+                        d_value = f'{d_value[0]:,}'
+                    elif d == 'jump_point_distance':
+                        d_value = round(int(d_value[0]))
+                        d_value = f'{d_value:,}'
+                    else: 
+                        d_value = d_value[0]
+                        
                     window[d+'i'].update(d_value)
                     
                 for e in e_labels:
                     e_value = list(economic_info[e])
-                    e_value = e_value[0]
+                    if e != "gwp":
+                        e_value = e_value[0]
+                    else:
+                        e_value = f'{e_value[0]:,}'
                     window[e+'i'].update(e_value)
         
         
@@ -736,13 +747,13 @@ d_tooltips = ['Planet, Impact Moon, Natural Moon',
               'in AUs',
               'in MegaMeters (millions of meters)',
               'Stellar gravity impact to jump distance',
-              'Time to jump point with 1G ship',
-              'Time to jump point with 2G ship',
-              'Time to jump point with 3G ship',
-              'Time to jump point with 4G ship',
-              'Time to jump point with 5G ship',
-              'Time to jump point with 6G ship',
-              'Internal use only',
+              'Time to jump point (in hours) with 1G ship',
+              'Time to jump point (in hours) with 2G ship',
+              'Time to jump point (in hours) with 3G ship',
+              'Time to jump point (in hours) with 4G ship',
+              'Time to jump point (in hours) with 5G ship',
+              'Time to jump point (in hours) with 6G ship',
+              'Mainworld suitability result',
               'test',
               'test'
               ]
@@ -758,7 +769,7 @@ e_labels.remove('needs')
 e_labels.remove('wants')
 e_labels_len = len(e_labels)
 e_tooltips = ['World Trade Number (GURPS Far Trader)',    
-              'Gross World Product (GURPS Far Trader)',   
+              'Gross World Product in MCr (GURPS Far Trader)',   
               'Exchange Rate (JTAS 4)']
 
 
@@ -974,7 +985,8 @@ while True:
 
                 
 
-        except:
+        except Exception as e:
+            print(e)
             sg.popup('Error in LOCATION: '+detail_flag)
         
     elif event == '-STELLAR-' and not window2:
