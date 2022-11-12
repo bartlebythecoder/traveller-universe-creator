@@ -56,7 +56,7 @@ layout = [
 ]
 
 # Create the Window
-window = sg.Window("""Bartleby's Sector Builder v0.9.1""", layout)
+window = sg.Window("""Bartleby's Sector Builder v1.0""", layout)
 # Event Loop to process "events" and get the "values" of the inputs
 
 

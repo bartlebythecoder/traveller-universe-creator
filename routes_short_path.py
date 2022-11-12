@@ -1,7 +1,6 @@
-def create_route_xml(seed_number,db_name):
-    # UNDER CONSTRUCTION
+def create_route_xml(seed_number,db_name, settlement_mod):
     
-    # Create a trader and xboat route table and extract for traveller map
+    # Create an xboat route table and extract for traveller map
     
     import sqlite3
     import pandas as pd
@@ -81,6 +80,8 @@ def create_route_xml(seed_number,db_name):
     ######################################################################
     
     warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) # no longer needed
+    print('processing...')
+    
     
     cube_direction_vectors = [
         (+1, 0, -1), 
@@ -155,7 +156,12 @@ def create_route_xml(seed_number,db_name):
     used_list = []
     #max_list = 8
     
-    for max_list in range(4,20):
+    min_list_max = 4
+    max_list_max = 20
+    if settlement_mod == 1: 
+        max_list_max = 5  # reduces route connections in diminishing sectors
+    
+    for max_list in range(min_list_max,max_list_max):
         for loc in l_important:
             for loc2 in l_important:
                 one_chain = []
@@ -201,5 +207,5 @@ def create_route_xml(seed_number,db_name):
                 +  '</Sector>')
             
     f.close()
-
+    print('Routes complete')
 

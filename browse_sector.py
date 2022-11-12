@@ -27,13 +27,6 @@ from traveller_functions import tohex, get_description
 
 
 # ------------------------------------------------------------------------------
-# Phased out
-# ------------------------------------------------------------------------------
-#import numpy as np
-#from matplotlib.ticker import NullFormatter  # useful for `logit` scale
-
-
-# ------------------------------------------------------------------------------
 # Prepare Logging
 # ------------------------------------------------------------------------------
 
@@ -368,10 +361,7 @@ def make_win1():
     [sg.Radio('Name','-OVERLAY-',key=('-NAME-'),pad=(0,0))],
     ]
           
-        
-    
-        
-    
+
         
     column_six = [[sg.Canvas(key='-CANVAS-')],
                  [sg.Column(map_options),
@@ -384,12 +374,7 @@ def make_win1():
     #               sg.Button('Subsector'),sg.Button('System'),
     
     
-    
-    
-    
-    
-                             
-    
+
     image_layout = []
     for li in list_images:
         filename = os.path.join(folder,li[0]+'.png') 
@@ -438,7 +423,7 @@ def make_win1():
          ],
         
     ]
-    return sg.Window("""Bartleby's Sector Builder v0.9.1""", layout,size=(1300,700),finalize=True)
+    return sg.Window("""Bartleby's Sector Builder v 1.0""", layout,size=(1300,700),finalize=True)
 
 
 
@@ -496,15 +481,9 @@ def make_win2(star_columns,star_list,location):
     except:
              sg.Popup('Failed star layout')
             
-  
-     
-        
-        
-        
+       
             
     return sg.Window('Stellar Details',star_layout,size=(star_width,800),finalize=True)
-
-
 
 
 
@@ -590,10 +569,6 @@ def make_win4(needs_list,wants_list,location):
 
 # ------------------------------- MATPLOTLIB CODE HERE -------------------------------
 
-# fig = matplotlib.figure.Figure(figsize=(5, 4), dpi=100)
-# t = np.arange(0, 3, .01)
-# fig.add_subplot(111).plot(t, 2 * np.sin(2 * np.pi * t))
-######################################################################################
 f= Figure(figsize=(4,5),dpi=100)
 
 style.use("dark_background")

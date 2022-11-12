@@ -2,7 +2,6 @@ def build_travellermap_file(db_name,sector_name):
 
 
 # Traveller Map
-# by Sean Nelson
 # Generate a TravellerMap-like extract for import into Traveller Map or other programs
 
 

@@ -42,7 +42,7 @@ def make_sector_master(decisions_provided):
     print('Building Culture table')
     create_culture_stats(seed_number,db_name)
     print('Building Routes file')
-    create_route_xml(seed_number,db_name)
+    create_route_xml(seed_number,db_name,settlement_mod)
 
 
     sg.popup('Sector completed successfully')    

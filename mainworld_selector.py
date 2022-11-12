@@ -2,7 +2,6 @@ def choose_mainworld(db_name):
 #!/usr/bin/python
 
 # Mainworld Selector
-# by Sean Nelson
 
 #   The goal is to read the Orbital Bodies table generated from the
 #   First In program and adjust by the Mainworld_Calc module

@@ -4,7 +4,6 @@ def generate_mainworld_scores(db_name):
 # Mainworld Calculator
 # by Sean Nelson
 
-#   A program to teach Sean the Python programming language
 #   The goal is to read the Orbital Bodies table generated from the
 #   First In program and score the potential for each body being a mainworld
 
