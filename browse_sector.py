@@ -277,31 +277,31 @@ def animate(chart_title,color_choice,plot_size,label_choice,*args):
 
    
 def draw_map():
-    print('Map is selected')
+
     if values['-NUM-'] is True:
-        print('Numbers were chosen')
+
         label_choice = 'num'
     else:
-        print('Names were chosen')
+
         label_choice = 'name'
         
         
         
     if values['-FULL-'] is True:
-        print('Full Sector was chosen')
+
         stell_colors =['dimgray','Blue']
         plot_list  = [30]
         animate(location_orb_name,stell_colors,plot_list,label_choice,df,loc_info)   
         
     elif values['-EARTH-'] is True:
-        print('Earth Like Planets option was chosen')
+
         df_special_earth = (df_details.query('type == "Ocean*"'))
         stell_colors =['dimgray','Green']
         plot_list  = [30]
         animate('Earth-like worlds',stell_colors,plot_list,label_choice,df,df_special_earth)
 
     else:
-        print('Belts option was chosen')
+
         df_special_belt = (df_details.query('type == "Belt"'))
         stell_colors =['dimgray','Yellow']
         plot_list  = [30]
@@ -451,7 +451,7 @@ def make_win2(star_columns,star_list,location):
         star_column_four = []
         star_width = 300
                 
-        print('Entering star loop')
+
         
 
 
@@ -481,10 +481,7 @@ def make_win2(star_columns,star_list,location):
 
 
 
-
-
-    
-        print('Setting new layout')    
+  
         star_layout = [
                  [sg.Column(star_column_one),sg.Column(star_column_two),
                   sg.Column(star_column_three),sg.Column(star_column_four)],
@@ -762,9 +759,6 @@ e_tooltips = ['World Trade Number (GURPS Far Trader)',
 
 
 
-
-
-
 # ------------------------------------------------------------------------------
 # Create the Window
 # ------------------------------------------------------------------------------
@@ -876,11 +870,6 @@ while True:
         # ** IMPORTANT ** Clean up previous drawing before drawing again
             delete_figure_agg(fig_canvas_agg)
 
-            
-    
-
-
-
 
     if event == '-MAIN-':
         detail_flag = 'main_world'
@@ -903,25 +892,19 @@ while True:
                 economic_info = df_economic[df_economic['location'] == location]
     
                 update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels)
-    
 
-    
                 try:
                   
                     clear_images()
                     select_images(loc_info,system_info,detail_info,economic_info)
         
 
-                
                 except:
                     sg.Popup('Failed during Mainworld image creation')
                 
             else:
-                
-                
+                                
                 location_orb_name = values['-LOCATIONS-'][0]
-                
-
 
                 try:
                     loc_info = df_exo.loc[df_exo['location_orb'] == location_orb_name]
@@ -929,48 +912,36 @@ while True:
                     economic_info = df_economic[df_economic['location'] == location]
                 except:
                     sg.Popup('Loc Info fail in Exo assignments')
-                
-               
-    
+
                 try:
                     update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_labels,d_labels,e_labels)
     
-
                 except:
                     sg.Popup('for loops failed in Exo Assignments')
                     
-    
+
                 try:
                   
                     clear_images()
                     select_images(loc_info,system_info,detail_info,economic_info)
-        
-                
+
                 except:
                     sg.Popup('Failed during non-mainworld Image creation')
 
-            
-           
+
             try:  
-                
-                
-                
+
                 if fig_canvas_agg:
                 # ** IMPORTANT ** Clean up previous drawing before drawing again
                     delete_figure_agg(fig_canvas_agg)            
-    
-                
+
                 draw_map()
-                    
-                    
+
                 fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
-    
-                
+
             except:
                 logging.debug('Failed Map button')
                     
-
-                
 
         except Exception as e:
             print(e)
@@ -1034,10 +1005,7 @@ while True:
             needs_list = needs_text.split(';')
             wants_list = wants_text.split(';')
 
-            
-    
             window4 = make_win4(needs_list,wants_list,location)
-  
 
         except Exception as e:
             print(e)
@@ -1068,27 +1036,20 @@ while True:
             exo_list = list(exo_loc_info['loc_name'])
             exo_list.sort()
             window['-LOCATIONS-'].update(exo_list)               
-                
-
 
         except:
             logging.debug('Failed System button.  Location was:',location)
 
-
-           
     elif event == '-MAP-':
         try:  
             if fig_canvas_agg:
                 # ** IMPORTANT ** Clean up previous drawing before drawing again
                     delete_figure_agg(fig_canvas_agg)            
-            
-                
+
             draw_map()
-            
-            
+
             fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
-            
-           
+ 
         except:
             logging.debug('Failed draw_map()')
 
