@@ -24,7 +24,18 @@ from matplotlib import style
 
 from traveller_functions import tohex, get_description
 
-
+try:    
+    import pyi_splash
+    # Update the text on the splash screen
+    pyi_splash.update_text("Processing...")
+    
+    # Close the splash screen. It does not matter when the call
+    # to this function is made, the splash screen remains open until
+    # this function is called or the Python program is terminated.
+    pyi_splash.close()
+    
+except:
+    logging.debug('Skipped Splash - Running locally')  
 
 # ------------------------------------------------------------------------------
 # Prepare Logging
@@ -40,6 +51,7 @@ pil_logger.setLevel(logging.INFO)
 
 logging.getLogger('PIL').setLevel(logging.WARNING)
 logging.basicConfig(level=logging.DEBUG, format= ' %(asctime)s - %(levelname)s - %(message)s ')
+logging.getLogger('matplotlib').setLevel(logging.ERROR)
 logging.debug('Program Starts')
 
 warnings.simplefilter(action='ignore') #
@@ -130,7 +142,7 @@ def update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_label
                 for m in m_labels:
                     m_value = list(loc_info[m])
                     m_value = m_value[0]
-                    logging.debug('Updating value ' + str(m_value))
+#                    logging.debug('Updating value ' + str(m_value))
                     if m == 'starport':
                         window[m+'i'].TooltipObject.text = get_description('starport', m_value)
                     elif m == 'size':
@@ -165,7 +177,7 @@ def update_stats(loc_info,system_info,detail_info,economic_info,m_labels,s_label
                         window[s+'i'].TooltipObject.text = s_value    
                         
                     
-                    logging.debug('s_value during update: ' + s_value)
+#                    logging.debug('s_value during update: ' + s_value)
                     window[s+'i'].update(s_value)
 
     

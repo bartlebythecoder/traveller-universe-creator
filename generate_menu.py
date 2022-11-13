@@ -4,7 +4,25 @@
 @author: sean
 """
 import PySimpleGUI as sg
+
+import logging
+import warnings
 from traveller_master import make_sector_master
+
+
+  
+try:    
+    import pyi_splash
+    # Update the text on the splash screen
+    pyi_splash.update_text("Processing...")
+    
+    # Close the splash screen. It does not matter when the call
+    # to this function is made, the splash screen remains open until
+    # this function is called or the Python program is terminated.
+    pyi_splash.close()
+    
+except:
+    logging.debug('Skipped Splash - Running locally')  
 
 
 class Creation_Choices:
@@ -14,9 +32,7 @@ class Creation_Choices:
         self.sector_density = sector_density
         self.settlement_mod = settlement_mod
 
-  
-    
-
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 sg.theme('DarkBlue')  
 
@@ -57,9 +73,9 @@ layout = [
 
 # Create the Window
 window = sg.Window("""Bartleby's Sector Builder v1.0""", layout)
+
+
 # Event Loop to process "events" and get the "values" of the inputs
-
-
 while True:
     
     event, values = window.read()

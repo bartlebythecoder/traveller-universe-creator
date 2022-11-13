@@ -79,7 +79,8 @@ def create_route_xml(seed_number,db_name, settlement_mod):
     
     ######################################################################
     
-    warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) # no longer needed
+    warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning) 
+    warnings.simplefilter(action='ignore', category=FutureWarning)
     print('processing...')
     
     
