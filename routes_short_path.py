@@ -194,7 +194,7 @@ def create_route_xml(seed_number,db_name, settlement_mod):
     
     
         
-    file_name = db_name + '-routes.txt'
+    file_name = db_name + '_routes.txt'
     with open(file_name, 'w') as f:
         f.write('<?xml version="1.0"?>' + '\n' \
                 +  '<Sector>' + '\n' \
