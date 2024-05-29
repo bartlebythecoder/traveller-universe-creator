@@ -2,6 +2,10 @@
 
 ## aka Bartleby's Sector Builder
 
+**v 1.2.0 - 2024-05-29**
+new branch created to begin work cleaning code and removing duplications
+
+
 **v 1.1.0 - 2024-05-28**
 
 Full release complete, including install exe.
