@@ -3,7 +3,7 @@
 Created on Thu Dec  2 16:35:43 2021
 
 v 1.1.0e  2024-05-24  Added error variables to debug log in try/excepts     
-
+v 1.2.0a  2024-05-29  Added get_importance()
 
 @author: sean
 """
@@ -12,8 +12,167 @@ import random
 import logging
 import requests
 
+# An object used to hold and pass decisions for API image downloads
+# Currently only for traveller_map API
+# Used in export_sector and browse_sector
+class Api_image_parameters:
+    def __init__(self,
+                 url,
+                 files,
+                 image_name):
+        self.url = url                        # Url of API
+        self.files = files                    # File parms to send to API
+        self.image_name = image_name          # File name of the downloaded image
+
+
+#### culture details object used for browser and export
+class Culture_details:
+    def __init__(self,
+                 age,
+                 appearance,
+                 tendency,
+                 materialism,
+                 honesty,
+                 bravery,
+                 social_conflict,
+                 work_ethic,
+                 consumerism,
+                 spiritual_outlook,
+                 status_quo_outlook,
+                 custom,
+                 interest,
+                 common_skills,
+                 materialism_symbol=None,
+                 honesty_symbol=None,
+                 bravery_symbol=None,
+                 social_conflict_symbol=None,
+                 work_ethic_symbol=None,
+                 consumerism_symbol=None):
+        self.age = age
+        self.appearance = appearance
+        self.tendency = tendency
+        self.materialism = materialism
+        self.honesty = honesty
+        self.bravery = bravery
+        self.social_conflict = social_conflict
+        self.work_ethic = work_ethic
+        self.consumerism = consumerism
+        self.spiritual_outlook = spiritual_outlook
+        self.status_quo_outlook = status_quo_outlook
+        self.custom = custom
+        self.interest = interest
+        self.common_skills = common_skills
+        self.materialism_symbol = materialism_symbol
+        self.honesty_symbol = honesty_symbol
+        self.bravery_symbol = bravery_symbol
+        self.social_conflict_symbol = social_conflict_symbol
+        self.work_ethic_symbol = work_ethic_symbol
+        self.consumerism_symbol = consumerism_symbol
+
+    @staticmethod
+    def convert_culture_to_symbol(culture_object):
+        materialism_dict = {
+            'minimal possessions': '--',
+            'average': '0',
+            'modest possessions': '+',
+            'covet possessions': '++',
+            'n/a': 'n/a'
+        }
+
+        honesty_dict = {
+            'scrupulous': '++',
+            'honour-bound': '++',
+            'truthful': '+',
+            'average': '0',
+            'untrustworthy': '-',
+            'deceitful': '--',
+            'n/a': 'n/a'
+
+        }
+
+        bravery_dict = {
+            'foolhardy': '++',
+            'brave': '+',
+            'average': '0',
+            'cautious': '-',
+            'reject bravery as an ideal': '--',
+            'n/a': 'n/a'
+
+        }
+
+        work_ethic_dict = {
+            'beyond driven': '++',
+            'driven': '+',
+            'average': '0',
+            'relaxed': '-',
+            'very relaxed': '--',
+            'n/a': 'n/a'
+
+        }
+
+        social_conflict_dict = {
+            'thrive on conflict': '++',
+            'enjoy conflict': '+',
+            'average': '0',
+            'conflict adverse': '-',
+            'conflict phobic': '--',
+            'n/a': 'n/a'
+
+        }
+
+        consumerism_dict = {
+            'wasteful': '++',
+            'spendthrift': '+',
+            'average': '0',
+            'miserly': '-',
+            'conservative spender': '--',
+            'n/a': 'n/a'
+
+        }
+
+        # Update symbol attributes
+        updated_culture_object = Culture_details(
+            culture_object.age,
+            culture_object.appearance,
+            culture_object.tendency,
+            culture_object.materialism,
+            culture_object.honesty,
+            culture_object.bravery,
+            culture_object.social_conflict,
+            culture_object.work_ethic,
+            culture_object.consumerism,
+            culture_object.spiritual_outlook,
+            culture_object.status_quo_outlook,
+            culture_object.custom,
+            culture_object.interest,
+            culture_object.common_skills,
+            materialism_symbol=materialism_dict.get(culture_object.materialism),
+            honesty_symbol=honesty_dict.get(culture_object.honesty),
+            bravery_symbol=bravery_dict.get(culture_object.bravery),
+            social_conflict_symbol=social_conflict_dict.get(culture_object.social_conflict),
+            work_ethic_symbol=work_ethic_dict.get(culture_object.work_ethic),
+            consumerism_symbol=consumerism_dict.get(culture_object.consumerism)
+        )
+
+        return updated_culture_object
+
+# Used for all dice rolling throughout the program
+def roll_dice(no_dice, why, location, conn, c):
+    no_dice_loop = no_dice + 1  # increment by one for the FOR loop
+    sum_dice = 0
+    for dice_loop in range(1, no_dice_loop):
+        sum_dice = sum_dice + random.randrange(1, 7)
+
+    c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
+              (str(location),
+               no_dice,
+               why,
+               sum_dice))
+
+    return sum_dice
 
 # used for images on browser and export
+# these represent the only remarks picked up by the program
 def get_remarks_list():
     remarks_list = [['In', 'industrial'],
                     ['Ag', 'agricultural'],
@@ -61,24 +220,11 @@ def cx_values(cx):
         sta_no = hex_to_int(cx[2])
         sym_no = hex_to_int(cx[3])
         return (het_no,acc_no,sta_no,sym_no)
-    
-    
-def roll_dice(no_dice, why, location, conn, c):
-    
-    
-    no_dice_loop = no_dice + 1  #increment by one for the FOR loop
-    sum_dice = 0
-    for dice_loop in range (1,no_dice_loop):
-        sum_dice = sum_dice + random.randrange(1,7)
-        
-    c.execute("INSERT INTO die_rolls (location, number, reason, total) VALUES(?, ?, ?, ?)",
-           (str(location), 
-            no_dice,
-            why,
-            sum_dice))
-            
-    return sum_dice   
 
+def get_importance(ix: str)-> int:
+    for i in ['{','}']: ix = ix.strip(i)
+    return int(ix)
+    
 def get_description(upp_type,upp_value):
     description = ''
     if upp_type == 'starport':
@@ -297,149 +443,9 @@ def download_image_via_api(api_image_parameters):
     
         
 
-#### culture details object used for browser and export
-class Culture_details:
-    def __init__(self,
-                 age, 
-                 appearance,
-                 tendency, 
-                 materialism, 
-                 honesty, 
-                 bravery, 
-                 social_conflict, 
-                 work_ethic, 
-                 consumerism,
-                 spiritual_outlook, 
-                 status_quo_outlook, 
-                 custom, 
-                 interest,
-                 common_skills,
-                 materialism_symbol=None,
-                 honesty_symbol=None,
-                 bravery_symbol=None,
-                 social_conflict_symbol=None,
-                 work_ethic_symbol=None,
-                 consumerism_symbol=None):
-        self.age = age
-        self.appearance = appearance
-        self.tendency = tendency
-        self.materialism = materialism
-        self.honesty = honesty
-        self.bravery = bravery
-        self.social_conflict = social_conflict
-        self.work_ethic = work_ethic
-        self.consumerism = consumerism
-        self.spiritual_outlook = spiritual_outlook
-        self.status_quo_outlook = status_quo_outlook
-        self.custom = custom
-        self.interest = interest
-        self.common_skills = common_skills
-        self.materialism_symbol = materialism_symbol
-        self.honesty_symbol = honesty_symbol
-        self.bravery_symbol = bravery_symbol
-        self.social_conflict_symbol = social_conflict_symbol
-        self.work_ethic_symbol = work_ethic_symbol
-        self.consumerism_symbol = consumerism_symbol
-            
-    @staticmethod
-    def convert_culture_to_symbol(culture_object):
-     
-        materialism_dict = {
-            'minimal possessions': '--',
-            'average'            : '0',
-            'modest possessions' : '+',
-            'covet possessions'  : '++',
-            'n/a'                : 'n/a'
-        }
-        
-        honesty_dict = {
-            'scrupulous'         : '++',
-            'honour-bound'       : '++',
-            'truthful'           : '+',
-            'average'            : '0',
-            'untrustworthy'      : '-',
-            'deceitful'          : '--',
-            'n/a'                : 'n/a'
-            
-        }
-        
-        bravery_dict = {
-            'foolhardy'                  : '++',
-            'brave'                      : '+',
-            'average'                    : '0',
-            'cautious'                   : '-',
-            'reject bravery as an ideal' : '--',
-            'n/a'                : 'n/a'
-    
-            }
-        
-        work_ethic_dict = {
-            'beyond driven'      : '++',
-            'driven'             : '+',
-            'average'            : '0',
-            'relaxed'            : '-',
-            'very relaxed'       : '--',
-            'n/a'                : 'n/a'
-    
-            }
-        
-        social_conflict_dict = {
-            'thrive on conflict'  : '++',
-            'enjoy conflict'      : '+',
-            'average'             : '0',
-            'conflict adverse'    : '-',
-            'conflict phobic'     : '--',
-            'n/a'                : 'n/a'
-            
-            }
-        
-        consumerism_dict = {
-            'wasteful'             : '++',
-            'spendthrift'          : '+',
-            'average'              : '0',
-            'miserly'              : '-',
-            'conservative spender' : '--',
-            'n/a'                : 'n/a'
-            
-            }
-        
-        # Update symbol attributes
-        updated_culture_object = Culture_details(
-            culture_object.age,
-            culture_object.appearance,
-            culture_object.tendency,
-            culture_object.materialism,
-            culture_object.honesty,
-            culture_object.bravery,
-            culture_object.social_conflict,
-            culture_object.work_ethic,
-            culture_object.consumerism,
-            culture_object.spiritual_outlook,
-            culture_object.status_quo_outlook,
-            culture_object.custom,
-            culture_object.interest,
-            culture_object.common_skills,
-            materialism_symbol=materialism_dict.get(culture_object.materialism),
-            honesty_symbol=honesty_dict.get(culture_object.honesty),
-            bravery_symbol=bravery_dict.get(culture_object.bravery),
-            social_conflict_symbol=social_conflict_dict.get(culture_object.social_conflict),
-            work_ethic_symbol=work_ethic_dict.get(culture_object.work_ethic),
-            consumerism_symbol=consumerism_dict.get(culture_object.consumerism)
-        )
-                
-        return updated_culture_object
 
 
-# An object used to hold and pass decisions for API image downloads
-# Currently only traveller_map API is used
-# Used in export_sector and browse_sector
-class Api_image_parameters:
-    def __init__(self,
-                 url,
-                 files,
-                 image_name):
-        self.url = url                        # Url of API
-        self.files = files                    # File parms to send to API
-        self.image_name = image_name          # File name of the downloaded image
+
+
 
     
