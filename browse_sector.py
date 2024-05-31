@@ -2,19 +2,12 @@
 """
 Created on Sun Oct 31 23:19:42 2021
 
-v 1.0.1a  2024-04-27  Fixed Full System bug when button pressed twice in a row
-v 1.1.0   2024-04-27  API connections to traveller maps
-v 1.1.0a  2024-04-28  Fixed error when clicking Full System without mainworld selected
-v 1.1.0b  2024-05-04  1. Fixed another error when clicking Full System without mainworld selected
-                      2. Added confirmation windows for traveller map buttons  
-v 1.1.0c  2024-05-05  Added ring information for each orbital body          
-v 1.1.0d  2024-05-11  Moved remarks list to traveller_functions    
-v 1.1.0e  2024-05-24  Added error variables to debug log in try/excepts
-v 1.1.0f  2024-05-28  Fixed ring popup, and changed jump distance from Mm to MKm.
 v 1.2.0a  2024-05-29  Used new get_importance()
                       Changed High and Low Gravity to match Mongoose definition (.7 and 1.4)
                       Cleaned add_images and update_stats functions
                       Added classes for PlanetInfo, ColumnLabels, Tooltips
+v 1.2.0b 2024-05-31   Cleaned make_win1 function
+
 """
 
 import io
@@ -107,6 +100,16 @@ class ToolTips:
     economic_tooltips: list
 
 
+@dataclass
+class WindowWithSixColumns:
+    column_one: list
+    column_two: list
+    column_three: list
+    column_four: list
+    column_five: list
+    column_six: list
+
+
 def get_img_data(f, maxsize=(1200, 850), first=False):
     """Generate image data using PIL
     """
@@ -195,7 +198,7 @@ def update_main_stats(planet_info, column_labels):
     for m in column_labels.main_labels:
         m_value = list(planet_info.loc_info[m])
         m_value = m_value[0]
-        #                    logging.debug('Updating value ' + str(m_value))
+        logging.debug(f'updating {m}')
         if m == 'starport':
             window[m + 'i'].TooltipObject.text = get_description('starport', m_value)
         elif m == 'size':
@@ -258,10 +261,15 @@ def update_economic_stats(planet_info, column_labels):
 
 
 def update_all_stats(planet_info, column_labels):
+    logging.debug(f'In all stats: {column_labels}')
     update_main_stats(planet_info, column_labels)
+    logging.debug(f'Completed Main:  {column_labels}')
     update_system_stats(planet_info, column_labels)
+    logging.debug(f'Completed System:{column_labels}')
     update_detail_stats(planet_info, column_labels)
+    logging.debug(f'Completed detail: {column_labels}')
     update_economic_stats(planet_info, column_labels)
+    logging.debug(f'Completed economic: {column_labels}')
 
 
 def draw_figure(canvas, figure):
@@ -367,125 +375,167 @@ def draw_map():
 # PySimpleGUI Window Layout Functions
 # ------------------------------------------------------------------------------
 
-def win1_build_column_one(listbox_options):
+def win1_build_column_one(listbox_options: list):
     return [
         [sg.Text("SYSTEMS")],
         [sg.Listbox(listbox_options, enable_events=True, size=(25, 32), key=('-LOCATIONS-'))]
     ]
 
 
-def win1_build_column_two():
+def win1_build_column_two() -> list:
     return [
         [sg.Text("UWP Categories")],
         [sg.HSeparator()],
     ]
 
 
-def win1_build_column_three():
+def win1_build_column_three() -> list:
     return [
         [sg.Text("World Details")],
         [sg.HSeparator()],
     ]
 
-def win1_build_column_four():
+
+def win1_build_column_four() -> list:
     return [
         [sg.Text("Scientific Categories")],
         [sg.HSeparator()],
     ]
 
-def win1_build_column_five():
+
+def win1_build_column_five() -> list:
     return [
         [sg.Text("World Details")],
         [sg.HSeparator()],
     ]
 
-def win1_build_all_columns(world_listbox):
+
+def get_win1_column_six_map_options() -> list:
+    return [
+        [sg.Radio('Show Selected', '-DISPLAY-', key=('-FULL-'), default=True, pad=(0, 0))],
+        [sg.Radio('Find Earth Like', '-DISPLAY-', key=('-EARTH-'), pad=(0, 0))],
+        [sg.Radio('Find Belts', '-DISPLAY-', key=('-IX-'), pad=(0, 0))],
+           ]
+
+
+def get_win1_column_six_label_options() -> list:
+    return [
+        [sg.Radio('Num', '-OVERLAY-', key=('-NUM-'), default=True, pad=(0, 0))],
+        [sg.Radio('Name', '-OVERLAY-', key=('-NAME-'), pad=(0, 0))],
+    ]
+
+
+def win1_build_column_six() -> list:
+    map_options = get_win1_column_six_map_options()
+    label_options = get_win1_column_six_label_options()
+    return [
+        [sg.Canvas(key='-CANVAS-')],
+        [sg.Column(map_options),
+         sg.Column(label_options),
+         sg.Button('Map', key=('-MAP-'))],
+    ]
+
+
+def win1_build_all_columns(world_listbox: list) -> WindowWithSixColumns:
     column_one = win1_build_column_one(world_listbox)
     column_two = win1_build_column_two()
     column_three = win1_build_column_three()
     column_four = win1_build_column_four()
     column_five = win1_build_column_five()
-    return column_one, column_two, column_three, column_four, column_five
+    column_six = win1_build_column_six()
+    window_one = WindowWithSixColumns(column_one, column_two, column_three, column_four, column_five, column_six)
+    return window_one
 
 
-def win1_add_column_two_labels(column, labels_data):
-    for m in labels_data.main_labels:
+def win1_add_column_two_main_labels(column: list, labels: ColumnLabels) -> list:
+    for m in labels.main_labels:
         logging.debug(f'label: {m}')
-        column += [sg.Text(m + ':', enable_events=True, key=(m), pad=(0, 0))],
+        column += [sg.Text(m + ':', enable_events=True, key=m, pad=(0, 0))],
     return column
 
 
-def win1_add_column_three_labels(column, labels_data):
+def win1_add_column_two_header(column: list) -> list:
+    column += [
+        [sg.Text("System Categories", pad=(5, (15, 2)))],
+        [sg.HSeparator()],
+    ]
+    return column
+
+
+def win1_add_column_two_system_labels(column: list, labels:ColumnLabels, tooltip:list) -> list:
+    for x, s in enumerate(labels.system_labels):
+        column += [sg.Text(s + ':', enable_events=True, tooltip=tooltip[x], key=s, pad=(0, 0))],
+    return column
+
+
+def win1_add_column_three_main_labels(column: list, labels: ColumnLabels) -> list:
     tooltip_info = 'Not set'
-    for m in labels_data.main_labels:
+    for m in labels.main_labels:
         column += [sg.Text('|', enable_events=True, tooltip=tooltip_info, key=(m + 'i'), pad=(0, 0))],
     return column
 
 
-def make_win1(labels_data, tooltips_data, listbox_options):
-
-    column_one, column_two, column_three, column_four, column_five = win1_build_all_columns(listbox_options)
-
-    column_two = win1_add_column_two_labels(column_two, labels_data)
-    column_two += [[sg.Text("System Categories", pad=(5, (15, 2)))],
-                   [sg.HSeparator()], ]
-
-
-
-    column_three = win1_add_column_three_labels(column_three, labels_data)
-    column_three += [[sg.Text("System-wide Details", pad=(5, (15, 2)))],
-                     [sg.HSeparator()], ]
-
-    for x, s in enumerate(labels_data.system_labels):
-
-        remark_tt = 'Not set'
-        column_two += [
-            sg.Text(s + ':', enable_events=True, tooltip=tooltips_data.system_tooltips[x], key=(s), pad=(0, 0))],
-        column_three += [sg.Text('|', enable_events=True, tooltip=remark_tt, key=(s + 'i'), pad=(0, 0))],
-
-
-
-
-
-
-
-
-    for x, d in enumerate(column_labels.detail_labels):
-        column_four += [
-            sg.Text(d + ':', enable_events=True, tooltip=tooltips_data.detail_tooltips[x], key=(d), pad=(0, 0))],
-        column_five += [sg.Text('|', enable_events=True, key=(d + 'i'), pad=(0, 0))],
-
-
-
-    for x, e in enumerate(labels_data.economic_labels):
-        column_four += [
-            sg.Text(e + ':', enable_events=True, tooltip=tooltips_data.economic_tooltips[x], key=(e), pad=(0, 0))],
-        column_five += [sg.Text('|', enable_events=True, key=(e + 'i'), pad=(0, 0))],
-
-    map_options = [
-        [sg.Radio('Show Selected', '-DISPLAY-', key=('-FULL-'), default=True, pad=(0, 0))],
-        [sg.Radio('Find Earth Like', '-DISPLAY-', key=('-EARTH-'), pad=(0, 0))],
-        [sg.Radio('Find Belts', '-DISPLAY-', key=('-IX-'), pad=(0, 0))],
+def win1_add_column_three_header(column: list) -> list:
+    remark_tt = 'Not set'
+    column += [
+        [sg.Text("System-wide Details", pad=(5, (15, 2)))],
+        [sg.HSeparator()],
     ]
+    return column
 
-    label_options = [
-        [sg.Radio('Num', '-OVERLAY-', key=('-NUM-'), default=True, pad=(0, 0))],
-        [sg.Radio('Name', '-OVERLAY-', key=('-NAME-'), pad=(0, 0))],
-    ]
 
-    column_six = [[sg.Canvas(key='-CANVAS-')],
-                  [sg.Column(map_options),
-                   sg.Column(label_options),
-                   sg.Button('Map', key=('-MAP-'))],
-                  ]
+def win1_add_column_three_system_labels(column: list, labels: ColumnLabels) -> list:
+    remark_tt = 'Not set'
+    for s_label in labels.system_labels:
+        column += [sg.Text('|', enable_events=True, tooltip=remark_tt, key=(s_label + 'i'), pad=(0, 0))],
+    return column
 
+
+def win1_add_column_four_detail_labels(column: list, labels: list, tooltip: list) -> list:
+    for x, d in enumerate(labels):
+        column += [sg.Text(d + ':', enable_events=True, tooltip=tooltip[x], key=d, pad=(0, 0))],
+    return column
+
+
+def win1_add_column_four_economic_header(column: list) -> list:
+    column += [[sg.Text("Economic Categories", pad=(5, (15, 2)))], [sg.HSeparator()], ]
+    return column
+
+
+def win1_add_column_four_economic_labels(column: list, labels: list, tooltip: list) -> list:
+    for x, eco in enumerate(labels):
+        column += [sg.Text(eco + ':', enable_events=True, tooltip=tooltip[x], key=eco, pad=(0, 0))],
+    return column
+
+
+def win1_add_column_five_detail_labels(column: list, labels: list) -> list:
+    for x, d in enumerate(labels):
+        column += [sg.Text('|', enable_events=True, key=(d + 'i'), pad=(0, 0))],
+    return column
+
+
+def win1_add_column_five_system_header(column: list) -> list:
+    column += [[sg.Text("System-wide Details", pad=(5, (15, 2)))],
+               [sg.HSeparator()], ]
+    return column
+
+
+def win1_add_column_five_economic_labels(column: list, labels: list) -> list:
+    for x, eco in enumerate(labels):
+        column += [sg.Text('|', enable_events=True, key=(eco + 'i'), pad=(0, 0))],
+    return column
+
+def get_win1_get_image_layout(folder: str) -> list:
     image_layout = []
     for li in list_images:
         filename = os.path.join(folder, li[0] + '.png')
         image_layout += [sg.Image(data=get_img_data(filename, first=True),
                                   tooltip=li[1], enable_events=True, key=(li[0]))],
+    return image_layout
 
-    layout = [
+
+def get_win1_layout(window: WindowWithSixColumns, image_layout: list) -> list:
+    return [
         [sg.Text("""Browse Window""")],
         [sg.HSeparator()],
         [
@@ -515,20 +565,56 @@ def make_win1(labels_data, tooltips_data, listbox_options):
 
         [
 
-            sg.Column(column_one),
+            sg.Column(window.column_one),
             sg.VSeparator(),
-            sg.Column(column_two),
-            sg.Column(column_three),
+            sg.Column(window.column_two),
+            sg.Column(window.column_three),
             sg.Column(image_layout),
             sg.VSeparator(),
-            sg.Column(column_four),
-            sg.Column(column_five),
+            sg.Column(window.column_four),
+            sg.Column(window.column_five),
             sg.VSeparator(),
-            sg.Column(column_six),
+            sg.Column(window.column_six),
         ],
 
     ]
-    return sg.Window("""Bartleby's Sector Builder v 1.1.0d""", layout, size=(1300, 700), finalize=True)
+
+
+def make_win1(labels_data: ColumnLabels,
+              tooltips_data: ToolTips,
+              listbox_options: list,
+              image_folder: str) -> sg.Window:
+    window_one = win1_build_all_columns(listbox_options)
+
+    window_one.column_two = win1_add_column_two_main_labels(window_one.column_two, labels_data)
+    window_one.column_two = win1_add_column_two_header(window_one.column_two)
+    window_one.column_two = win1_add_column_two_system_labels(window_one.column_two,
+                                                              labels_data, tooltips_data.system_tooltips)
+
+    window_one.column_three = win1_add_column_three_main_labels(window_one.column_three, labels_data)
+    window_one.column_three = win1_add_column_three_header(window_one.column_three)
+    window_one.column_three = win1_add_column_three_system_labels(window_one.column_three, labels_data)
+
+    window_one.column_four = win1_add_column_four_detail_labels(window_one.column_four,
+                                                                column_labels.detail_labels,
+                                                                tooltips_data.detail_tooltips)
+
+    window_one.column_four = win1_add_column_four_economic_header(window_one.column_four)
+
+    window_one.column_four = win1_add_column_four_economic_labels(window_one.column_four,
+                                                                  column_labels.economic_labels,
+                                                                  tooltips_data.economic_tooltips)
+
+    window_one.column_five = win1_add_column_five_detail_labels(window_one.column_five, column_labels.detail_labels)
+
+    window_one.column_five = win1_add_column_five_system_header(window_one.column_five)
+
+    window_one.column_five = win1_add_column_five_economic_labels(window_one.column_five, column_labels.economic_labels)
+
+    image_layout = get_win1_get_image_layout(image_folder)
+    layout = get_win1_layout(window_one, image_layout)
+
+    return sg.Window("""Bartleby's Sector Builder v 1.2.0a""", layout, size=(1300, 700), finalize=True)
 
 
 def make_win2(star_columns, star_list, location):
@@ -762,18 +848,18 @@ ycoordinates = []
 location = '-99'
 detail_flag = 'main_world'  # flag used to mark whether the details should be main world or exo worlds.
 
-folder = 'images/'
+image_folder = 'images/'
 
 # PIL supported image types
 img_types = (".png", ".jpg", "jpeg", ".tiff", ".bmp")
 
 # get list of files in folder
-flist0 = os.listdir(folder)
+flist0 = os.listdir(image_folder)
 
 # create sub list of image files (no sub folders, no wrong file types)
 fnames = [f for f in flist0 if os.path.isfile(
 
-    os.path.join(folder, f)) and f.lower().endswith(img_types)]
+    os.path.join(image_folder, f)) and f.lower().endswith(img_types)]
 
 option_list = []
 
@@ -815,7 +901,6 @@ WHERE main_world = 1'''
 
 df_new_main = pd.read_sql_query(new_main_query, conn)
 
-main_labels = []
 main_labels = list(df_new_main.columns)
 
 system_main_query = '''SELECT location,
@@ -835,9 +920,8 @@ FROM system_stats
 try:
     df_system_main = pd.read_sql_query(system_main_query, conn)
 except Exception as e:
-    logging.debug(f'Exception occured: {e}')
+    logging.debug(f'Exception occurred: {e}')
 
-system_labels = []
 system_labels = list(df_system_main.columns)
 system_labels.remove('location')
 system_tooltips = ['T5 Trade Classifications',
@@ -873,9 +957,8 @@ try:
     df_details = pd.read_sql_query(new_detail_sql_query, conn)
 
 except Exception as e:
-    logging.debug(f'DB Exception occured: {e}')
+    logging.debug(f'DB Exception occurred: {e}')
 
-detail_labels = []
 detail_labels = list(df_details.columns)
 detail_labels.remove('location')
 detail_labels.remove('system_name')
@@ -909,9 +992,8 @@ economic_sql_query = '''SELECT * FROM far_trader'''
 try:
     df_economic = pd.read_sql_query(economic_sql_query, conn)
 except Exception as e:
-    logging.debug(f'DB Exception occured: {e}')
+    logging.debug(f'DB Exception occurred: {e}')
 
-economic_labels = []
 economic_labels = list(df_economic.columns)
 economic_labels.remove('location')
 economic_labels.remove('id')
@@ -929,8 +1011,10 @@ tooltips = ToolTips(detail_tooltips, system_tooltips, economic_tooltips)
 # ------------------------------------------------------------------------------
 
 
-window1, window2, window3, window4 = make_win1(column_labels, tooltips,
-                                               option_list), None, None, None  # start off with 1 window open
+window1, window2, window3, window4 = make_win1(column_labels,
+                                               tooltips,
+                                               option_list,
+                                               image_folder), None, None, None  # start off with 1 window open
 
 # Event Loop to process "events" and get the "values" of the inputs
 
@@ -969,7 +1053,7 @@ while True:
 
 
         except Exception as e:
-            logging.debug(f'DB Exception occured: {e}')
+            logging.debug(f'DB Exception occurred: {e}')
 
         df_details['atmos_pressure'] = round(df_details['atmos_pressure'], 2)
         df_details['jump_point_distance'] = round(df_details['jump_point_distance'] / 1000, 2)  #convert to MKm
@@ -979,7 +1063,7 @@ while True:
             df_economic = pd.read_sql_query(economic_sql_query, conn)
             df_economic['exchange'] = round(df_economic['exchange'], 2)  # otherwise crazy decimals added
         except Exception as e:
-            logging.debug(f'DB Exception occured: {e}')
+            logging.debug(f'DB Exception occurred: {e}')
 
         exo_sql_query = '''SELECT t.*,
         s.remarks,
@@ -999,7 +1083,7 @@ while True:
         try:
             df_exo = pd.read_sql_query(exo_sql_query, conn)
         except Exception as e:
-            logging.debug(f'DB Exception occured: {e}')
+            logging.debug(f'DB Exception occurred: {e}')
 
         exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, 
         o.body, o.wtype as type, o.day, o.year,
@@ -1022,7 +1106,7 @@ while True:
         try:
             df_exo_details = pd.read_sql_query(exo_detail_sql_query, conn)
         except Exception as e:
-            logging.debug(f'DB Exception occured: {e}')
+            logging.debug(f'DB Exception occurred: {e}')
 
         df_exo_details['atmos_pressure'] = round(df_exo_details['atmos_pressure'], 2)
         df_exo_details['jump_point_distance'] = round(df_exo_details['jump_point_distance'] / 1000, 2)
@@ -1039,9 +1123,8 @@ while True:
 
     if event == '-MAIN-':
         detail_flag = 'main_world'
-
+        logging.debug('Event = Main')
         window['-LOCATIONS-'].update(option_list)
-
 
     elif event == '-LOCATIONS-':
         try:
@@ -1051,6 +1134,7 @@ while True:
             if detail_flag == 'main_world':
 
                 location_orb_name = values['-LOCATIONS-'][0]
+                logging.debug(f'entered -LOCATIONS- {location_orb_name}')
 
                 detail_info = df_details[df_details['location'] == location]
                 loc_info = df.loc[df['location'] == location]
@@ -1058,7 +1142,9 @@ while True:
                 economic_info = df_economic[df_economic['location'] == location]
                 planet_info = PlanetInfo(detail_info, loc_info, system_info, economic_info)
 
+                logging.debug('updating_stats')
                 update_all_stats(planet_info, column_labels)
+                logging.debug('stats now updated')
 
                 try:
                     clear_images(list_images)
@@ -1091,7 +1177,6 @@ while True:
                     clear_images(list_images)
                     select_all_images(planet_info)
 
-
                 except Exception as e:
                     sg.Popup(f'Failed during non-mainworld Image creation {e}')
 
@@ -1106,7 +1191,6 @@ while True:
                 fig_canvas_agg = draw_figure(window['-CANVAS-'].TKCanvas, f)
 
             except Exception as e:
-                logging.debug(e)
                 logging.debug(f'Failed Map button {e}')
 
 
