@@ -109,6 +109,11 @@ class WindowWithSixColumns:
     column_five: list
     column_six: list
 
+@dataclass
+class ImageDetails:
+    image_folder: str
+    images_list: list
+    image_types: tuple
 
 def get_img_data(f, maxsize=(1200, 850), first=False):
     """Generate image data using PIL
@@ -716,33 +721,52 @@ def make_win4(needs_list, wants_list, location):
                      finalize=True)
 
 
+def get_win5_export_ss_layout() -> list:
+    return  [
+        [sg.Text("Subsector Letter")],
+        [sg.Radio('A', "RADIO1", key='-A-', default=True),
+         sg.Radio('B', "RADIO1", key='-B-'),
+         sg.Radio('C', "RADIO1", key='-C-'),
+         sg.Radio('D', "RADIO1", key='-D-')],
+        [sg.Radio('E', "RADIO1", key='-E-', default=True),
+         sg.Radio('F', "RADIO1", key='-F-'),
+         sg.Radio('G', "RADIO1", key='-G-'),
+         sg.Radio('H', "RADIO1", key='-H-')],
+        [sg.Radio('I  ', "RADIO1", key='-I-', default=True),
+         sg.Radio('J', "RADIO1", key='-J-'),
+         sg.Radio('K', "RADIO1", key='-K-'),
+         sg.Radio('L', "RADIO1", key='-L-')],
+        [sg.Radio('M', "RADIO1", key='-M-', default=True),
+         sg.Radio('N', "RADIO1", key='-N-'),
+         sg.Radio('O', "RADIO1", key='-O-'),
+         sg.Radio('P', "RADIO1", key='-P-')],
+        [sg.Button('Generate'), sg.Button('Cancel')]
+
+        ]
+
+def get_win5_ss_selection(export_values: dict) -> str:
+    logging.debug(f'Export values: {export_values}')
+    true_dict = {key: value for key, value in export_values.items() if value}
+    true_vals = list(true_dict.keys())
+    if len(true_vals) <= 0 :
+        ss = 'A'
+        logging.debug('Could not find subsector chosen, so A is default')
+    elif len(true_vals) > 1:
+        ss = true_vals[0][1]  # First item, second character (eg. convert -C- to C)
+        logging.debug(f'Found multiple subsectors selected, so {ss} was chosen')
+    else:
+        ss = true_vals[0][1]
+        logging.debug(f'{ss} was chosen and confirmed')
+
+    return ss
+
+
 def make_win5(db):
     logging.debug('Entered make_win5()')
 
     try:
 
-        export_ss_layout = [
-
-            [sg.Text("Subsector Letter")],
-            [sg.Radio('A', "RADIO1", key='-A-', default=True),
-             sg.Radio('B', "RADIO1", key='-B-'),
-             sg.Radio('C', "RADIO1", key='-C-'),
-             sg.Radio('D', "RADIO1", key='-D-')],
-            [sg.Radio('E', "RADIO1", key='-E-', default=True),
-             sg.Radio('F', "RADIO1", key='-F-'),
-             sg.Radio('G', "RADIO1", key='-G-'),
-             sg.Radio('H', "RADIO1", key='-H-')],
-            [sg.Radio('I  ', "RADIO1", key='-I-', default=True),
-             sg.Radio('J', "RADIO1", key='-J-'),
-             sg.Radio('K', "RADIO1", key='-K-'),
-             sg.Radio('L', "RADIO1", key='-L-')],
-            [sg.Radio('M', "RADIO1", key='-M-', default=True),
-             sg.Radio('N', "RADIO1", key='-N-'),
-             sg.Radio('O', "RADIO1", key='-O-'),
-             sg.Radio('P', "RADIO1", key='-P-')],
-            [sg.Button('Generate'), sg.Button('Cancel')]
-
-        ]
+        export_ss_layout = get_win5_export_ss_layout()
 
         logging.debug('Win 5 layout complete')
 
@@ -758,45 +782,11 @@ def make_win5(db):
 
             else:
                 logging.debug(f'Printing:  {export_values}')
-                if export_values['-A-'] == True:
-                    ss = 'A'
-                elif export_values['-B-'] == True:
-                    ss = 'B'
-                elif export_values['-C-'] == True:
-                    ss = 'C'
-                elif export_values['-D-'] == True:
-                    ss = 'D'
-                elif export_values['-E-'] == True:
-                    ss = 'E'
-                elif export_values['-F-'] == True:
-                    ss = 'F'
-                elif export_values['-G-'] == True:
-                    ss = 'G'
-                elif export_values['-H-'] == True:
-                    ss = 'H'
-                elif export_values['-I-'] == True:
-                    ss = 'I'
-                elif export_values['-J-'] == True:
-                    ss = 'J'
-                elif export_values['-K-'] == True:
-                    ss = 'K'
-                elif export_values['-L-'] == True:
-                    ss = 'L'
-                elif export_values['-M-'] == True:
-                    ss = 'M'
-                elif export_values['-N-'] == True:
-                    ss = 'N'
-                elif export_values['-O-'] == True:
-                    ss = 'O'
-                elif export_values['-P-'] == True:
-                    ss = 'P'
+                subsector = get_win5_ss_selection(export_values)
 
-                else:
-                    ss = 'A'
+                logging.debug(f'SS value =  {subsector}')
 
-                logging.debug(f'SS value =  {ss}')
-
-                export_sector(db, ss)
+                export_sector(db, subsector)
                 break
 
         window_5.close()
@@ -833,6 +823,176 @@ def open_image(pgn_name):
         logging.debug("Platform is not windows - file is saved")
 
 
+def get_fnames(image_info: ImageDetails) -> list:
+# create sub list of image files (no sub folders, no wrong file types)
+    return [f for f in flist0 if os.path.isfile(
+            os.path.join(image_folder, f)) and f.lower().endswith(img_types)]
+
+
+def get_list_images() -> list:
+    return [
+         ['mask', 'Completely Stellar Masked'],
+         ['ocean', 'Ocean or Earth-like World'],
+         ['exotic', 'Exotic Atmosphire'],
+         ['corrosive', 'Corrosive Atmosphire'],
+         ['vacuum', 'Vacuum World'],
+         ['asteroid', 'Object is Planetary Belt'],
+         ['light', 'Low Gravity World'],
+         ['heavy', 'High Gravity World'],
+         ['hot', 'Unhinhabitable Heat'],
+         ['cold', 'Uninhabitable Cold'],
+         ['hipop', 'High Population System'],
+         ['lopop', 'Lo Population System'],
+         ['barren', 'No Population in System'],
+         ['wealthy', 'Wealthy System'],
+         ['industrial', 'Industrial Economy'],
+         ['non_industrial', 'Non-industrial Economy'],
+         ['agricultural', 'Agricultural Economy'],
+         ['non_agricultural', 'Non-agricultural Economy'],
+         ['important', 'Important System'],
+         ['naval', 'Naval Base Present'],
+         ['scout', 'Scout Base Present'],
+         ['prison', 'Interplanetary Prison Present'],
+         ['moon', 'Object is a moon'],
+         ['gas giant', 'Object is a gas giant']
+
+          ]
+
+def get_df_new_main(conn: sqlite3) -> pd.DataFrame:
+    new_main_query = '''SELECT *
+    FROM traveller_stats    
+    WHERE main_world = 1'''
+
+    return pd.read_sql_query(new_main_query, conn)
+
+def get_df_system_main(conn: sqlite3) -> pd.DataFrame:
+    system_main_query = '''SELECT location,
+    remarks,
+    ix,
+    ex,
+    cx,
+    n,
+    bases,
+    zone,
+    pbg,
+    w,
+    allegiance,
+    stars
+    FROM system_stats
+    '''
+    return pd.read_sql_query(system_main_query, conn)
+
+def get_system_tooltips() -> list:
+    return     ['T5 Trade Classifications',
+               'T5 Importance',
+               'T5 Economic (Res, Lab, Infr, Eff)',
+               'T5 Culture (Het, Acc, Str, Sym)',
+               'T5 Nobility Present',
+               'T5 Bases',
+               'T5 Travel Zone',
+               'Pop sig digit, Belts, Gas Giants (primary star only)',
+               'Worlds',
+               'Allegiance',
+               'Stellar summary']
+
+def get_df_details(conn: sqlite3) -> pd.DataFrame:
+    new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
+    o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+    o.impact_moons, o.natural_moons, ring,
+    j.stellar_distance as stellar_distance, 
+    j.jump_point_Mm as jump_point_distance, 
+    j.planet_stellar_masked as stellar_mask,
+    j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
+    e.mainworld_calc
+    FROM traveller_stats t
+    LEFT JOIN orbital_bodies o
+    ON t.location_orb = o.location_orbit
+    LEFT JOIN journey_data j
+    ON j.location_orbit = t.location_orb
+    LEFT JOIN main_world_eval e
+    ON t.location_orb = e.location_orbit
+    WHERE t.main_world = 1
+    '''
+
+    return pd.read_sql_query(new_detail_sql_query, conn)
+
+def get_detail_tooltips() -> list:
+    return ['Planet, Impact Moon, Natural Moon',
+               'World Type (GURPS First In, * indicates liquid Ocean)',
+               'Rotation Period (in hours)',
+               'Stellar Orbital Period (in Earth years)',
+               'in standard Gs',
+               'in relation to Earth',
+               'from GURPS First In',
+               'in Kelvin',
+               'from GURPS First In',
+               'from Architect of Worlds',
+               'from Architect of Worlds',
+               'ring around planet',
+               'in AUs',
+               'in Mega Kilometers (millions of km)',
+               'Stellar gravity impact to jump distance',
+               'Time to jump point (in hours) with 1G ship',
+               'Time to jump point (in hours) with 2G ship',
+               'Time to jump point (in hours) with 3G ship',
+               'Time to jump point (in hours) with 4G ship',
+               'Time to jump point (in hours) with 5G ship',
+               'Time to jump point (in hours) with 6G ship',
+               'Mainworld suitability result',
+               'test',
+               'test'
+               ]
+
+def get_df_economic(conn: sqlite3) -> pd.DataFrame:
+    economic_sql_query = '''SELECT * FROM far_trader'''
+    return pd.read_sql_query(economic_sql_query, conn)
+
+
+def get_economic_tooltips() -> list:
+    return['World Trade Number (GURPS Far Trader)',
+             'Gross World Product in MCr (GURPS Far Trader)',
+             'Exchange Rate (JTAS 4)']
+
+def get_df_exo(conn: sqlite3) -> pd.DataFrame:
+    exo_sql_query = '''SELECT t.*,
+    s.remarks,
+    s.ix,
+    s.ex,
+    s.cx,
+    s.n,
+    s.bases,
+    s.zone,
+    s.pbg,
+    s.w,
+    s.allegiance,
+    stars
+    FROM traveller_stats t   
+    LEFT JOIN system_stats s ON s.location=t.location'''
+
+    return pd.read_sql_query(exo_sql_query, conn)
+
+def get_df_exo_details(conn: sqlite3) -> pd.DataFrame:
+    exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, 
+    o.body, o.wtype as type, o.day, o.year,
+    o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
+    o.impact_moons, o.natural_moons, ring,
+    j.stellar_distance as stellar_distance, 
+    j.jump_point_Mm as jump_point_distance, 
+    j.planet_stellar_masked as stellar_mask,
+    j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
+    e.mainworld_calc
+    FROM traveller_stats t
+    LEFT JOIN orbital_bodies o
+    ON t.location_orb = o.location_orbit
+    LEFT JOIN journey_data j
+    ON j.location_orbit = t.location_orb
+    LEFT JOIN main_world_eval e
+    ON t.location_orb = e.location_orbit
+    '''
+    return pd.read_sql_query(exo_detail_sql_query, conn)
+
+
+
 # ------------------------------- MATPLOTLIB CODE HERE -------------------------------
 
 f = Figure(figsize=(4, 5), dpi=100)
@@ -856,152 +1016,41 @@ img_types = (".png", ".jpg", "jpeg", ".tiff", ".bmp")
 # get list of files in folder
 flist0 = os.listdir(image_folder)
 
-# create sub list of image files (no sub folders, no wrong file types)
-fnames = [f for f in flist0 if os.path.isfile(
+image_details = ImageDetails(image_folder, flist0, img_types)
 
-    os.path.join(image_folder, f)) and f.lower().endswith(img_types)]
+# create sub list of image files (no sub folders, no wrong file types)
+fnames = get_fnames(image_details)
 
 option_list = []
 
 db_name = 'sector_db/example-66.db'
 
-list_images = [['mask', 'Completely Stellar Masked'],
-               ['ocean', 'Ocean or Earth-like World'],
-               ['exotic', 'Exotic Atmosphire'],
-               ['corrosive', 'Corrosive Atmosphire'],
-               ['vacuum', 'Vacuum World'],
-               ['asteroid', 'Object is Planetary Belt'],
-               ['light', 'Low Gravity World'],
-               ['heavy', 'High Gravity World'],
-               ['hot', 'Unhinhabitable Heat'],
-               ['cold', 'Uninhabitable Cold'],
-               ['hipop', 'High Population System'],
-               ['lopop', 'Lo Population System'],
-               ['barren', 'No Population in System'],
-               ['wealthy', 'Wealthy System'],
-               ['industrial', 'Industrial Economy'],
-               ['non_industrial', 'Non-industrial Economy'],
-               ['agricultural', 'Agricultural Economy'],
-               ['non_agricultural', 'Non-agricultural Economy'],
-               ['important', 'Important System'],
-               ['naval', 'Naval Base Present'],
-               ['scout', 'Scout Base Present'],
-               ['prison', 'Interplanetary Prison Present'],
-               ['moon', 'Object is a moon'],
-               ['gas giant', 'Object is a gas giant']
-
-               ]
+list_images = get_list_images()
 
 conn = sqlite3.connect(db_name)
 c = conn.cursor()
 
-new_main_query = '''SELECT *
-FROM traveller_stats    
-WHERE main_world = 1'''
-
-df_new_main = pd.read_sql_query(new_main_query, conn)
-
+df_new_main = get_df_new_main(conn)
 main_labels = list(df_new_main.columns)
 
-system_main_query = '''SELECT location,
-remarks,
-ix,
-ex,
-cx,
-n,
-bases,
-zone,
-pbg,
-w,
-allegiance,
-stars
-FROM system_stats
-'''
-try:
-    df_system_main = pd.read_sql_query(system_main_query, conn)
-except Exception as e:
-    logging.debug(f'Exception occurred: {e}')
-
+df_system_main = get_df_system_main(conn)
 system_labels = list(df_system_main.columns)
 system_labels.remove('location')
-system_tooltips = ['T5 Trade Classifications',
-                   'T5 Importance',
-                   'T5 Economic (Res, Lab, Infr, Eff)',
-                   'T5 Culture (Het, Acc, Str, Sym)',
-                   'T5 Nobility Present',
-                   'T5 Bases',
-                   'T5 Travel Zone',
-                   'Pop sig digit, Belts, Gas Giants (primary star only)',
-                   'Worlds',
-                   'Allegiance',
-                   'Stellar summary']
+system_tooltips = get_system_tooltips()
 
-new_detail_sql_query = '''SELECT t.system_name, t.location, o.body, o.wtype as type, o.day, o.year,
-o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-o.impact_moons, o.natural_moons, ring,
-j.stellar_distance as stellar_distance, 
-j.jump_point_Mm as jump_point_distance, 
-j.planet_stellar_masked as stellar_mask,
-j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
-e.mainworld_calc
-FROM traveller_stats t
-LEFT JOIN orbital_bodies o
-ON t.location_orb = o.location_orbit
-LEFT JOIN journey_data j
-ON j.location_orbit = t.location_orb
-LEFT JOIN main_world_eval e
-ON t.location_orb = e.location_orbit
-WHERE t.main_world = 1
-'''
-try:
-    df_details = pd.read_sql_query(new_detail_sql_query, conn)
-
-except Exception as e:
-    logging.debug(f'DB Exception occurred: {e}')
-
+df_details = get_df_details(conn)
 detail_labels = list(df_details.columns)
 detail_labels.remove('location')
 detail_labels.remove('system_name')
-detail_tooltips = ['Planet, Impact Moon, Natural Moon',
-                   'World Type (GURPS First In, * indicates liquid Ocean)',
-                   'Rotation Period (in hours)',
-                   'Stellar Orbital Period (in Earth years)',
-                   'in standard Gs',
-                   'in relation to Earth',
-                   'from GURPS First In',
-                   'in Kelvin',
-                   'from GURPS First In',
-                   'from Architect of Worlds',
-                   'from Architect of Worlds',
-                   'ring around planet',
-                   'in AUs',
-                   'in Mega Kilometers (millions of km)',
-                   'Stellar gravity impact to jump distance',
-                   'Time to jump point (in hours) with 1G ship',
-                   'Time to jump point (in hours) with 2G ship',
-                   'Time to jump point (in hours) with 3G ship',
-                   'Time to jump point (in hours) with 4G ship',
-                   'Time to jump point (in hours) with 5G ship',
-                   'Time to jump point (in hours) with 6G ship',
-                   'Mainworld suitability result',
-                   'test',
-                   'test'
-                   ]
+detail_tooltips = get_detail_tooltips()
 
-economic_sql_query = '''SELECT * FROM far_trader'''
-try:
-    df_economic = pd.read_sql_query(economic_sql_query, conn)
-except Exception as e:
-    logging.debug(f'DB Exception occurred: {e}')
-
+df_economic = get_df_economic(conn)
 economic_labels = list(df_economic.columns)
 economic_labels.remove('location')
 economic_labels.remove('id')
 economic_labels.remove('needs')
 economic_labels.remove('wants')
-economic_tooltips = ['World Trade Number (GURPS Far Trader)',
-                     'Gross World Product in MCr (GURPS Far Trader)',
-                     'Exchange Rate (JTAS 4)']
+economic_tooltips = get_economic_tooltips()
 
 column_labels = ColumnLabels(main_labels, detail_labels, system_labels, economic_labels)
 tooltips = ToolTips(detail_tooltips, system_tooltips, economic_tooltips)
@@ -1025,89 +1074,40 @@ while True:
     window, event, values = sg.read_all_windows()
 
     if event == sg.WIN_CLOSED or event == 'Exit':
+
         window.close()
         if window == window2:  # if closing win 2, mark as closed
             window2 = None
-        if window == window3:  # if closing win 3, mark as closed
+        if window == window3:
             window3 = None
-        if window == window4:  # if closing win 3, mark as closed
+        if window == window4:
             window4 = None
-        elif window == window1:  # if closing win 1, exit program
+        if window == window5:
+            window5 = None
+        if window == window1:  # if closing win 1, exit program
             break
 
     if event == '-DB-':
 
         db_name = values['-DB-']
-
         conn = sqlite3.connect(db_name)
         c = conn.cursor()
-        df = pd.read_sql_query(new_main_query, conn)
+        df = get_df_new_main(conn)
 
-        try:
-
-            df_system = pd.read_sql_query(system_main_query, conn)
-            df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies', conn)
-            df_culture = pd.read_sql_query('SELECT * FROM perceived_culture', conn)
-            df_details = pd.read_sql_query(new_detail_sql_query, conn)
-
-
-
-        except Exception as e:
-            logging.debug(f'DB Exception occurred: {e}')
+        df_system = get_df_system_main(conn)
+        df_stellar = pd.read_sql_query('SELECT * FROM stellar_bodies', conn)
+        df_culture = pd.read_sql_query('SELECT * FROM perceived_culture', conn)
+        df_details = get_df_details(conn)
 
         df_details['atmos_pressure'] = round(df_details['atmos_pressure'], 2)
         df_details['jump_point_distance'] = round(df_details['jump_point_distance'] / 1000, 2)  #convert to MKm
         df_details['mainworld_calc'] = round(df_details['mainworld_calc'], 2)
 
-        try:
-            df_economic = pd.read_sql_query(economic_sql_query, conn)
-            df_economic['exchange'] = round(df_economic['exchange'], 2)  # otherwise crazy decimals added
-        except Exception as e:
-            logging.debug(f'DB Exception occurred: {e}')
+        df_economic = get_df_economic(conn)
+        df_economic['exchange'] = round(df_economic['exchange'], 2)  # otherwise crazy decimals added
 
-        exo_sql_query = '''SELECT t.*,
-        s.remarks,
-        s.ix,
-        s.ex,
-        s.cx,
-        s.n,
-        s.bases,
-        s.zone,
-        s.pbg,
-        s.w,
-        s.allegiance,
-        stars
-        FROM traveller_stats t   
-        LEFT JOIN system_stats s ON s.location=t.location'''
-
-        try:
-            df_exo = pd.read_sql_query(exo_sql_query, conn)
-        except Exception as e:
-            logging.debug(f'DB Exception occurred: {e}')
-
-        exo_detail_sql_query = '''SELECT t.system_name, t.location, t.location_orb, 
-        o.body, o.wtype as type, o.day, o.year,
-        o.gravity, o.atmos_pressure, o.atmos_composition, o.temperature, o.climate, 
-        o.impact_moons, o.natural_moons, ring,
-        j.stellar_distance as stellar_distance, 
-        j.jump_point_Mm as jump_point_distance, 
-        j.planet_stellar_masked as stellar_mask,
-        j.hrs_1g,j.hrs_2g,j.hrs_3g,j.hrs_4g,j.hrs_5g,j.hrs_6g,
-        e.mainworld_calc
-        FROM traveller_stats t
-        LEFT JOIN orbital_bodies o
-        ON t.location_orb = o.location_orbit
-        LEFT JOIN journey_data j
-        ON j.location_orbit = t.location_orb
-        LEFT JOIN main_world_eval e
-        ON t.location_orb = e.location_orbit
-        '''
-
-        try:
-            df_exo_details = pd.read_sql_query(exo_detail_sql_query, conn)
-        except Exception as e:
-            logging.debug(f'DB Exception occurred: {e}')
-
+        df_exo = get_df_exo(conn)
+        df_exo_details = get_df_exo_details(conn)
         df_exo_details['atmos_pressure'] = round(df_exo_details['atmos_pressure'], 2)
         df_exo_details['jump_point_distance'] = round(df_exo_details['jump_point_distance'] / 1000, 2)
         df_exo_details['mainworld_calc'] = round(df_exo_details['mainworld_calc'], 2)
@@ -1192,7 +1192,6 @@ while True:
 
             except Exception as e:
                 logging.debug(f'Failed Map button {e}')
-
 
         except Exception as e:
             print(e)
