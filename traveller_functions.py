@@ -11,6 +11,7 @@ v 1.2.0a  2024-05-29  Added get_importance()
 import random
 import logging
 import requests
+from dataclasses import dataclass
 
 # An object used to hold and pass decisions for API image downloads
 # Currently only for traveller_map API
@@ -156,6 +157,23 @@ class Culture_details:
 
         return updated_culture_object
 
+@dataclass
+class DiceRoll:
+    location: int
+    no_dice: int
+    why: str
+    result: int
+
+    def record(self, conn):
+        """Records the dice roll details into the database."""
+        with conn:
+            c = conn.cursor()
+            c.execute(
+                "INSERT INTO die_rolls (location, number, reason, total) VALUES (?, ?, ?, ?)",
+                (self.location, self.no_dice, self.why, self.result),
+            )
+
+
 # Used for all dice rolling throughout the program
 def roll_dice(no_dice, why, location, conn, c):
     no_dice_loop = no_dice + 1  # increment by one for the FOR loop
@@ -170,6 +188,15 @@ def roll_dice(no_dice, why, location, conn, c):
                sum_dice))
 
     return sum_dice
+
+
+def roll_dice_clean(no_dice):
+    """Simulates rolling the given number of dice, returning their sum."""
+    sum_dice = 0
+    for _ in range(no_dice):  # Cleaner to use _ since we don't use the loop variable
+        sum_dice += random.randrange(1, 7)
+    return sum_dice
+
 
 # used for images on browser and export
 # these represent the only remarks picked up by the program

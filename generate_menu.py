@@ -5,11 +5,13 @@ v 1.0.1 2024-05-25 - updated version number to reflect changes in first_in_gener
 """
 import FreeSimpleGUI as sg
 
-import logging
 import warnings
 from traveller_master import make_sector_master
 
-  
+import logging
+logging.basicConfig(level=logging.DEBUG)  # Set the root logger level to DEBUG
+
+
 try:    
     import pyi_splash
     # Update the text on the splash screen

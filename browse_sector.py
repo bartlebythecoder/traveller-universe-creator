@@ -1082,8 +1082,6 @@ while True:
             window3 = None
         if window == window4:
             window4 = None
-        if window == window5:
-            window5 = None
         if window == window1:  # if closing win 1, exit program
             break
 
