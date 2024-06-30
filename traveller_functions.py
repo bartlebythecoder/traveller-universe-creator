@@ -4,9 +4,11 @@ Created on Thu Dec  2 16:35:43 2021
 
 v 1.1.0e  2024-05-24  Added error variables to debug log in try/excepts     
 v 1.2.0a  2024-05-29  Added get_importance()
-
+# Under construction for 1.2
 @author: sean
 """
+
+
 
 import random
 import logging
@@ -159,6 +161,8 @@ class Culture_details:
 
 @dataclass
 class DiceRoll:
+    # For v1.2
+    # A class for recording each die roll
     location: int
     no_dice: int
     why: str
@@ -174,7 +178,7 @@ class DiceRoll:
             )
 
 
-# Used for all dice rolling throughout the program
+# Used for all dice rolling throughout the program for v 1.1
 def roll_dice(no_dice, why, location, conn, c):
     no_dice_loop = no_dice + 1  # increment by one for the FOR loop
     sum_dice = 0
@@ -191,7 +195,8 @@ def roll_dice(no_dice, why, location, conn, c):
 
 
 def roll_dice_clean(no_dice):
-    """Simulates rolling the given number of dice, returning their sum."""
+    """Simulates rolling the given number of dice, returning their sum.  Does not record the roll within the function.
+    These have been split into two functions for v1.2"""
     sum_dice = 0
     for _ in range(no_dice):  # Cleaner to use _ since we don't use the loop variable
         sum_dice += random.randrange(1, 7)

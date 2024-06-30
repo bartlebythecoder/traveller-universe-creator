@@ -10,7 +10,8 @@ def generate_stars(db_name, decisions_provided):
     from dataclasses import dataclass
     from traveller_functions import integer_root, roll_dice
     from traveller_functions import roll_dice_clean, DiceRoll
-    from stellar_functions import StarDetails, LuminosityClass, GurpsLuminosityClassStrategy
+    from stellar_functions import GurpsStarDetailsStrategy, StarDetails
+    from stellar_functions import LuminosityClass, SpectralClass
 
     import logging
     logging.basicConfig(level=logging.DEBUG)  # Set the root logger level to DEBUG
@@ -206,7 +207,11 @@ def generate_stars(db_name, decisions_provided):
         else:
             spec_diff = 3
 
-        spec_list = ["A", "F", "G", "K", "M"]
+        spec_list = [SpectralClass.A5,
+                     SpectralClass.F5,
+                     SpectralClass.G5,
+                     SpectralClass.K5,
+                     SpectralClass.M5]
         spec_number = spec_list.index(prime_spec_type[0])
         spec_number = spec_number + spec_diff
         if spec_number > 4:
@@ -301,14 +306,6 @@ def generate_stars(db_name, decisions_provided):
 
         return comp_orbit_dict
 
-    def generate_primary_luminosity_class(strategy) -> tuple[StarDetails, int]:
-        star = StarDetails(luminosity_class_strategy=GurpsLuminosityClassStrategy())
-        lum_class, luminosity_roll = star.calculate_luminosity_class()
-        logging.debug(f"Gurps Luminosity class: {lum_class}")
-        return star, luminosity_roll
-
-
-
 
     def populate_stellar_dict(location, companion_no, stellar_dict, primary_companions, sub_companion, conn):
         # Generate data for new stellar body - place into dictionary
@@ -318,20 +315,25 @@ def generate_stars(db_name, decisions_provided):
         # sub_companion is a boolean indicating if the body is a subcompanion
 
         if companion_no > 0:
-            star = StarDetails(luminosity_class_strategy=GurpsLuminosityClassStrategy())
+            star = StarDetails(star_details_strategy=GurpsStarDetailsStrategy(),
+                               location=location,
+                               companion_no=companion_no)
+
+            star.primary_luminosity_class = stellar_dict["luminosity_class"]
+            star.primary_spectral_class = stellar_dict["spectral_type"]
             lum_class_list = [LuminosityClass.I, LuminosityClass.III, LuminosityClass.V,  LuminosityClass.X]
 
-            if stellar_dict["luminosity_class"] == LuminosityClass.D:
+            if star.primary_luminosity_class == LuminosityClass.D:
                 star.luminosity_class = LuminosityClass.D
                 spec = 'w'
             else:
                 sec_lum_roll_a = roll_dice(1, 'comp lum class #1', location, conn, c)
                 if sec_lum_roll_a <= 4:
-                    star.luminosity_class = stellar_dict["luminosity_class"]
+                    star.luminosity_class = star.primary_luminosity_class
                     csd_spec_roll = roll_dice(1, 'comp spec roll', location, conn, c)
-                    spec = find_csd_spectral_type(csd_spec_roll, stellar_dict["spectral_type"])
+                    spec = find_csd_spectral_type(csd_spec_roll, star.primary_spectral_class)
                 else:
-                    lum_class_index = lum_class_list.index(stellar_dict["luminosity_class"])
+                    lum_class_index = lum_class_list.index(star.primary_luminosity_class)
                     if sec_lum_roll_a == 5:
                         lum_class_index += 1
                     else:
@@ -348,25 +350,28 @@ def generate_stars(db_name, decisions_provided):
                             star.luminosity_class = LuminosityClass.D
 
                     if star.luminosity_class == LuminosityClass.D:
-                        spec = 'w'
+                        spec = SpectralClass.w
                     elif star.luminosity_class in lum_class_list:
                         csd_spec_roll = roll_dice(1, 'comp spec roll', location, conn, c)
                         spec = find_csd_spectral_type(csd_spec_roll, stellar_dict["spectral_type"])
                     else:
                         star.luminosity_class = LuminosityClass.X
-                        spec = 'X'
+                        spec = SpectralClass.XX
         else:
-            star, luminosity_roll = generate_primary_luminosity_class(GurpsLuminosityClassStrategy)
-            roll = DiceRoll(location=location, no_dice=3, why="luminosity class", result=luminosity_roll)
+            star = StarDetails(star_details_strategy=GurpsStarDetailsStrategy(),
+                               location = location,
+                               companion_no=0)
+            lum_class, lum_roll, spec_class, spec_roll, subspec_roll = star.calculate_details()
+            roll = DiceRoll(location=location, no_dice=3, why="luminosity class", result=lum_roll)
             roll.record(conn)  # Record the roll to the database conn.close()
 
             if star.luminosity_class == LuminosityClass.D:
-                spec = "w"
+                spec = SpectralClass.w
             else:
-                spec = get_spectral(location)
+                spec = star.spectral_class
 
         if star.luminosity_class == LuminosityClass.V:
-            stellar_temp = CHARSV[spec]["temperature"]
+            stellar_temp = CHARSV[spec.name]["temperature"]
             stellar_luminosity = CHARSV[spec]["luminosity"]
             stellar_mass = CHARSV[spec]["mass"]
             stellar_radius = CHARSV[spec]["radius"]
@@ -378,14 +383,12 @@ def generate_stars(db_name, decisions_provided):
                 adjust_age = temp_stellar_lifespan
             stellar_lifespan = str(adjust_age)
 
-
         elif star.luminosity_class == LuminosityClass.III:
             stellar_temp = CHARSIII[spec]["temperature"]
             stellar_luminosity = CHARSIII[spec]["luminosity"]
             stellar_mass = CHARSIII[spec]["mass"]
             stellar_radius = CHARSIII[spec]["radius"]
             stellar_lifespan = CHARSIII[spec]["lifespan"]
-
 
         else:
             stellar_temp = 0
