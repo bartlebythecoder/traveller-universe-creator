@@ -217,18 +217,20 @@ def get_remarks_list():
     return remarks_list
 
 def integer_root(expo,num):
+    # Captures the root of a number
     num = float(num)
     root_expo = 1/expo
     return float(num ** root_expo)
 
 def tohex(dec):
+    # Converts integers to their hex replacements
     hex_digits = "0123456789ABCDEFGHJ"
     if dec > 18:
         dec = 18
     return hex_digits[dec % 17]
 
-    
 def hex_to_int(hex_val):
+    # Converts hex values to integers
     response = hex_val
     try:
         hex_list = ['A','B','C','D','E','F','G','H']
@@ -245,17 +247,36 @@ def hex_to_int(hex_val):
         return response
     except Exception as e:  
         logging.debug(f'failed hex_to_int with {hex_val} {e}')
-        
-def cx_values(cx):
+
+
+def get_raw_population(pop_code, pop_modifier):
+    try:
+        return 10 ** int(pop_code) * int(pop_modifier)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def get_cx_values(cx):
+    # Given the cx string returns the individual values
         het_no = hex_to_int(cx[0])
         acc_no = hex_to_int(cx[1])
         sta_no = hex_to_int(cx[2])
         sym_no = hex_to_int(cx[3])
         return (het_no,acc_no,sta_no,sym_no)
 
+def get_ex_values(ex):
+    # Given the ex string returns the individual values
+        resource = hex_to_int(ex[1])
+        labour = hex_to_int(ex[2])
+        infrastructure = hex_to_int(ex[3])
+        efficiency = hex_to_int(ex[4:6])
+        return (resource,labour,infrastructure,efficiency)
+
 def get_importance(ix: str)-> int:
+    # Returns the importance as an integer
     for i in ['{','}']: ix = ix.strip(i)
     return int(ix)
+
+
     
 def get_description(upp_type,upp_value):
     description = ''
